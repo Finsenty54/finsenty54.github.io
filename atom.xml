@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://finsenty54.github.io/"/>
-  <updated>2019-02-26T09:01:08.213Z</updated>
+  <updated>2019-02-26T11:36:51.948Z</updated>
   <id>http://finsenty54.github.io/</id>
   
   <author>
@@ -21,12 +21,14 @@
     <link href="http://finsenty54.github.io/2019/02/27/my-first-article/"/>
     <id>http://finsenty54.github.io/2019/02/27/my-first-article/</id>
     <published>2019-02-26T17:01:08.000Z</published>
-    <updated>2019-02-26T09:01:08.213Z</updated>
+    <updated>2019-02-26T11:36:51.948Z</updated>
     
     <summary type="html">
     
     </summary>
     
+    
+      <category term="sql" scheme="http://finsenty54.github.io/tags/sql/"/>
     
   </entry>
   
