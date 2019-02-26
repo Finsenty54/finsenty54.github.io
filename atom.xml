@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://finsenty54.github.io/"/>
-  <updated>2019-02-26T05:52:50.120Z</updated>
+  <updated>2019-02-26T09:01:08.213Z</updated>
   <id>http://finsenty54.github.io/</id>
   
   <author>
@@ -15,6 +15,20 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>my first article</title>
+    <link href="http://finsenty54.github.io/2019/02/27/my-first-article/"/>
+    <id>http://finsenty54.github.io/2019/02/27/my-first-article/</id>
+    <published>2019-02-26T17:01:08.000Z</published>
+    <updated>2019-02-26T09:01:08.213Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>Hello World</title>
