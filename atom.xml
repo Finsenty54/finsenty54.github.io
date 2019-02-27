@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://finsenty54.github.io/"/>
-  <updated>2019-02-26T11:36:51.948Z</updated>
+  <updated>2019-02-27T09:39:42.922Z</updated>
   <id>http://finsenty54.github.io/</id>
   
   <author>
@@ -17,13 +17,23 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>my first article</title>
+    <title>sqli-labs学习</title>
     <link href="http://finsenty54.github.io/2019/02/27/my-first-article/"/>
     <id>http://finsenty54.github.io/2019/02/27/my-first-article/</id>
     <published>2019-02-26T17:01:08.000Z</published>
-    <updated>2019-02-26T11:36:51.948Z</updated>
+    <updated>2019-02-27T09:39:42.922Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="less-1"><a href="#less-1" class="headerlink" title="less 1"></a>less 1</h3><blockquote><p>single 单个的<br>quote 引号</p></blockquote><p>输入</p><pre><code>/?id=10&apos;</code></pre><p>后，便会报错</p><pre><code>You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near &apos;&apos;10&apos;&apos; LIMIT 0,1&apos; at line 1</code></pre><p>说明该页面存在注入点，反之，则不存在</p><hr>]]></content>
     
     <summary type="html">
+    
+      
+      
+        &lt;h3 id=&quot;less-1&quot;&gt;&lt;a href=&quot;#less-1&quot; class=&quot;headerlink&quot; title=&quot;less 1&quot;&gt;&lt;/a&gt;less 1&lt;/h3&gt;&lt;blockquote&gt;
+&lt;p&gt;single 单个的&lt;br&gt;quote 引号&lt;/p&gt;
+&lt;/blockquote&gt;
+
+      
     
     </summary>
     

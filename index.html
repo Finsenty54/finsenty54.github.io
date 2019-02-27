@@ -85,7 +85,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/02/27/my-first-article/">my first article</a>
+      <a class="article-title" href="/2019/02/27/my-first-article/">sqli-labs学习</a>
     </h1>
   
 
@@ -93,14 +93,23 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <h3 id="less-1"><a href="#less-1" class="headerlink" title="less 1"></a>less 1</h3><blockquote>
+<p>single 单个的<br>quote 引号</p>
+</blockquote>
+<p>输入</p>
+<pre><code>/?id=10&apos;
+</code></pre><p>后，便会报错</p>
+<pre><code>You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near &apos;&apos;10&apos;&apos; LIMIT 0,1&apos; at line 1
+</code></pre><p>说明该页面存在注入点，反之，则不存在</p>
+<hr>
+
       
     </div>
     <footer class="article-footer">
     <span id="busuanzi_container_page_pv">
   本文总阅读量<span id="busuanzi_value_page_pv"></span>次
 	</span>
-      <a data-url="http://finsenty54.github.io/2019/02/27/my-first-article/" data-id="cjsmuh7pm00019sw8l7qpt4gl" class="article-share-link">Share</a>
+      <a data-url="http://finsenty54.github.io/2019/02/27/my-first-article/" data-id="cjsn0ef660001wow84sfn00lk" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/sql/">sql</a></li></ul>
@@ -148,7 +157,7 @@
       <ul>
         
           <li>
-            <a href="/2019/02/27/my-first-article/">my first article</a>
+            <a href="/2019/02/27/my-first-article/">sqli-labs学习</a>
           </li>
         
       </ul>
