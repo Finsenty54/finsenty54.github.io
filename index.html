@@ -84,9 +84,9 @@ ga('send', 'pageview');
       <div class="outer">
         <section id="main">
   
-    <article id="post-my-first-article" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-sqli-labs" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2019/02/27/my-first-article/" class="article-date">
+    <a href="/2019/02/27/sqli-labs/" class="article-date">
   <time datetime="2019-02-26T17:01:08.000Z" itemprop="datePublished">2019-02-26</time>
 </a>
     
@@ -98,7 +98,7 @@ ga('send', 'pageview');
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/02/27/my-first-article/">sqli-labs学习</a>
+      <a class="article-title" href="/2019/02/27/sqli-labs/">sqli-labs</a>
     </h1>
   
 
@@ -114,7 +114,7 @@ ga('send', 'pageview');
 <ol>
 <li>输入 <code>?id=1&#39;  and 1=1 --+</code> 没有报错，返回正确结果<br>输入 <code>?id=10&#39;</code> 报错 <code>You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near &#39;&#39;10&#39;&#39; LIMIT 0,1&#39; at line 1</code><br>输入<code>?id=1&#39; and a=2 --+</code> 没有正确结果<br>经过这三个步骤说明是字符型注入</li>
 <li>使用order by来判断有几个字段<br>输入<code>?id=1&#39; order by 4--+</code> 报错 <code>Unknown column &#39;4&#39; in &#39;order clause&#39;</code><br>说明有3个字段</li>
-<li><code>LIMIT 0,1</code> 表示结果只显示一行<br>输入<code>?id=-1&#39; union select 1,2,3 --+</code> 看哪个字段可以回显</li>
+<li><code>LIMIT 0,1</code> 表示结果只显示一行<br>输入<code>?id=-1&#39; union select 1,2,3 --+</code> 看哪个字段可以回显<br><img src="/sqli-labs/first.PNG" alt="first"></li>
 <li></li>
 </ol>
 <hr>
@@ -125,7 +125,7 @@ ga('send', 'pageview');
     <span id="busuanzi_container_page_pv">
   本文总阅读量<span id="busuanzi_value_page_pv"></span>次
 	</span>
-      <a data-url="http://finsenty54.github.io/2019/02/27/my-first-article/" data-id="cjsofqlcu0001g8w8km9r4395" class="article-share-link">Share</a>
+      <a data-url="http://finsenty54.github.io/2019/02/27/sqli-labs/" data-id="cjsog7x4r0001hsw8safps5yz" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/sql/">sql</a></li></ul>
@@ -173,7 +173,7 @@ ga('send', 'pageview');
       <ul>
         
           <li>
-            <a href="/2019/02/27/my-first-article/">sqli-labs学习</a>
+            <a href="/2019/02/27/sqli-labs/">sqli-labs</a>
           </li>
         
       </ul>
