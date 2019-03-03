@@ -18,20 +18,22 @@ ga('send', 'pageview');
 
 
   
-  <title>FINSENTY54</title>
+  <title>XSS 20关挑战 | FINSENTY54</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="google-site-verification: googleda09d6ee39745173.html">
-<meta name="keywords" content="study">
-<meta property="og:type" content="website">
-<meta property="og:title" content="FINSENTY54">
-<meta property="og:url" content="http://finsenty54.github.io/googleda09d6ee39745173.html">
+  <meta name="description" content="level1反射型XSS也被称为非持久性CSS当用户访问一个带有XSS代码的URL请求时，服务器端接收数据后处理，然后把带有XSS代码的数据发送到浏览器，浏览器解析这段带有XSS代码的数据后，最终造成XSS漏洞。 alert() 方法用于显示带有一条指定消息和一个 OK 按钮的警告框。 查看源码window.alert = function()echo &amp;quot;&amp;lt;h2 align=cen">
+<meta name="keywords" content="xss">
+<meta property="og:type" content="article">
+<meta property="og:title" content="XSS 20关挑战">
+<meta property="og:url" content="http://finsenty54.github.io/2019/03/02/xss/index.html">
 <meta property="og:site_name" content="FINSENTY54">
-<meta property="og:description" content="google-site-verification: googleda09d6ee39745173.html">
+<meta property="og:description" content="level1反射型XSS也被称为非持久性CSS当用户访问一个带有XSS代码的URL请求时，服务器端接收数据后处理，然后把带有XSS代码的数据发送到浏览器，浏览器解析这段带有XSS代码的数据后，最终造成XSS漏洞。 alert() 方法用于显示带有一条指定消息和一个 OK 按钮的警告框。 查看源码window.alert = function()echo &amp;quot;&amp;lt;h2 align=cen">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-02-27T03:23:58.180Z">
+<meta property="og:image" content="https://s2.ax1x.com/2019/03/03/kqT7Ed.png">
+<meta property="og:updated_time" content="2019-03-03T03:49:34.825Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="FINSENTY54">
-<meta name="twitter:description" content="google-site-verification: googleda09d6ee39745173.html">
+<meta name="twitter:title" content="XSS 20关挑战">
+<meta name="twitter:description" content="level1反射型XSS也被称为非持久性CSS当用户访问一个带有XSS代码的URL请求时，服务器端接收数据后处理，然后把带有XSS代码的数据发送到浏览器，浏览器解析这段带有XSS代码的数据后，最终造成XSS漏洞。 alert() 方法用于显示带有一条指定消息和一个 OK 按钮的警告框。 查看源码window.alert = function()echo &amp;quot;&amp;lt;h2 align=cen">
+<meta name="twitter:image" content="https://s2.ax1x.com/2019/03/03/kqT7Ed.png">
 <meta name="twitter:creator" content="@fin12138">
   
     <link rel="alternate" href="/atom.xml" title="FINSENTY54" type="application/atom+xml">
@@ -83,28 +85,54 @@ ga('send', 'pageview');
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="page-" class="article article-type-page" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-xss" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/googleda09d6ee39745173.html" class="article-date">
-  <time datetime="2019-02-27T03:27:47.653Z" itemprop="datePublished">2019-02-27</time>
+    <a href="/2019/03/02/xss/" class="article-date">
+  <time datetime="2019-03-01T22:22:42.000Z" itemprop="datePublished">2019-03-01</time>
 </a>
     
   </div>
   <div class="article-inner">
     
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      XSS 20关挑战
+    </h1>
+  
+
+      </header>
+    
     <div class="article-entry" itemprop="articleBody">
       
-        google-site-verification: googleda09d6ee39745173.html
+        <h2 id="level1"><a href="#level1" class="headerlink" title="level1"></a>level1</h2><p>反射型XSS也被称为非持久性CSS<br>当用户访问一个带有XSS代码的URL请求时，服务器端接收数据后处理，然后把带有XSS代码的数据发送到浏览器，浏览器解析这段带有XSS代码的数据后，最终造成XSS漏洞。</p>
+<p>alert() 方法用于显示带有一条指定消息和一个 OK 按钮的警告框。</p>
+<p>查看源码<code>window.alert = function()</code><br><code>echo &quot;&lt;h2 align=center&gt;欢迎用户&quot;.$str.&quot;&lt;/h2&gt;&quot;;</code>没有过滤<br>直接调用函数就可以通关<code>&lt;script&gt;window.alert()&lt;/script&gt;</code></p>
+<p><em><code>&lt;script&gt;</code> 标签用于定义客户端脚本，比如 JavaScript。</em></p>
+<hr>
+<h2 id="less2"><a href="#less2" class="headerlink" title="less2"></a>less2</h2><p>利用页面元素看到输入在<code>&lt;input name=keyword  value=&quot;&#39;.$str.&#39;&quot;&gt;</code><br>闭合input语句即可<br><code>1&quot;&gt;&lt;script&gt;alert()&lt;/script&gt;</code><br><code>1&quot;&gt;&lt;script&gt;alert()&lt;/script&gt;&lt;&quot;</code></p>
+<p><a href="https://imgchr.com/i/kqT7Ed" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/03/03/kqT7Ed.png" alt="kqT7Ed.png"></a></p>
+<hr>
+<h2 id="less3"><a href="#less3" class="headerlink" title="less3"></a>less3</h2><p>查看页面元素<code>&lt;input name=keyword  value=&#39;1&#39;&gt;</code>在input语句里<br>尝试闭合无用<br>查看源码<code>str</code>都加上了<code>htmlspecialchars</code>函数，但默认配置是不过滤单引号的<br><code>&#39;onmouseover=&#39;window.alert()</code>即可</p>
+<p>输入<code>&#39;</code> <code>&lt;input name=&quot;keyword&quot; value=&quot;&quot; &#39;=&quot;&quot;&gt;</code><br>输入<code>&#39;&#39;</code> <code>&lt;input name=&quot;keyword&quot; value=&quot;&quot; &#39;&#39;=&quot;&quot;&gt;</code><br>输入<code>&#39;onclick&#39;</code> <code>&lt;input name=&quot;keyword&quot; value=&quot;&quot; onclick&#39;&#39;=&quot;&quot;&gt;</code><br>输入<code>onclick=</code> <code>&lt;input name=&quot;keyword&quot; value=&quot;&quot; onclick=&quot;&quot;&gt;</code></p>
+<hr>
+<h2 id="less4"><a href="#less4" class="headerlink" title="less4"></a>less4</h2><p>输入<code>&quot;&gt;&lt;script&gt;alert()&lt;/script&gt;&lt;&quot;</code><br>查看可知<code>&lt;input name=&quot;keyword&quot; value=&quot;&quot; scriptalert()=&quot;&quot; script&quot;&quot;=&quot;&quot;&gt;</code>过滤了<code>&lt;</code> <code>&gt;</code><br>利用上节方法<br><code>&quot;onclick=&quot;alert()</code></p>
+<hr>
+<p>更新于2019-03-03 11:19:50 星期日</p>
+
       
     </div>
     <footer class="article-footer">
     <span id="busuanzi_container_page_pv">
   本文总阅读量<span id="busuanzi_value_page_pv"></span>次
 	</span>
-      <a data-url="http://finsenty54.github.io/googleda09d6ee39745173.html" data-id="cjssdnaea0000lsw8he4xn0r6" class="article-share-link">Share</a>
+      <a data-url="http://finsenty54.github.io/2019/03/02/xss/" data-id="cjssdnagk0002lsw86ekxeyau" class="article-share-link">Share</a>
       
       
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/xss/">xss</a></li></ul>
+
     </footer>
   </div>
   
@@ -115,7 +143,7 @@ ga('send', 'pageview');
 <script src="https://jjeejj.github.io/js/gitment.js"></script>
 <script>
 var gitment =new Gitment({
-	id: 'Wed Feb 27 2019 03:27:47 GMT+0000',
+	id: 'Fri Mar 01 2019 22:22:42 GMT+0000',
 	owner: "Finsenty54",
 	repo: "finsenty54.github.io",
 	oauth: {
@@ -128,6 +156,16 @@ gitment.render('git')
     
       
     
+<nav id="article-nav">
+  
+  
+    <a href="/2019/02/27/sqli-labs/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">sqli-labs</div>
+    </a>
+  
+</nav>
+
   
 </article>
 

