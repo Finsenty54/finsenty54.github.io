@@ -18,19 +18,20 @@ ga('send', 'pageview');
 
 
   
-  <title>归档: 2019/3 | FINSENTY54</title>
+  <title>Docker学习笔记 | FINSENTY54</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="blog">
+  <meta name="description" content="sudo add-apt-repository \   “deb [arch=amd64] https://download.docker.com/linux/ubuntu \   $(lsb_release -cs) \   stable” https://download.docker.com/linux/ubuntu/dists/bionic/pool/stable/amd64/ 配置完镜像">
 <meta name="keywords" content="study">
-<meta property="og:type" content="website">
-<meta property="og:title" content="FINSENTY54">
-<meta property="og:url" content="http://finsenty54.github.io/archives/2019/03/index.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Docker学习笔记">
+<meta property="og:url" content="http://finsenty54.github.io/2019/03/16/Docker学习笔记/index.html">
 <meta property="og:site_name" content="FINSENTY54">
-<meta property="og:description" content="blog">
+<meta property="og:description" content="sudo add-apt-repository \   “deb [arch=amd64] https://download.docker.com/linux/ubuntu \   $(lsb_release -cs) \   stable” https://download.docker.com/linux/ubuntu/dists/bionic/pool/stable/amd64/ 配置完镜像">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-03-27T10:16:04.075Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="FINSENTY54">
-<meta name="twitter:description" content="blog">
+<meta name="twitter:title" content="Docker学习笔记">
+<meta name="twitter:description" content="sudo add-apt-repository \   “deb [arch=amd64] https://download.docker.com/linux/ubuntu \   $(lsb_release -cs) \   stable” https://download.docker.com/linux/ubuntu/dists/bionic/pool/stable/amd64/ 配置完镜像">
 <meta name="twitter:creator" content="@fin12138">
   
     <link rel="alternate" href="/atom.xml" title="FINSENTY54" type="application/atom+xml">
@@ -82,59 +83,87 @@ ga('send', 'pageview');
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2019/03/16/Docker学习笔记/" class="archive-article-date">
-  <time datetime="2019-03-15T19:36:58.000Z" itemprop="datePublished">3月 15</time>
+        <section id="main"><article id="post-Docker学习笔记" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/03/16/Docker学习笔记/" class="article-date">
+  <time datetime="2019-03-15T19:36:58.000Z" itemprop="datePublished">2019-03-15</time>
 </a>
-      
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/03/16/Docker学习笔记/">Docker学习笔记</a>
+    <h1 class="article-title" itemprop="name">
+      Docker学习笔记
     </h1>
   
 
-    </header>
-  </div>
-</article>
-  
+      </header>
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2019/03/02/xss/" class="archive-article-date">
-  <time datetime="2019-03-01T22:22:42.000Z" itemprop="datePublished">3月 1</time>
-</a>
+    <div class="article-entry" itemprop="articleBody">
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/03/02/xss/">XSS 20关挑战</a>
-    </h1>
-  
+        <p>sudo add-apt-repository \<br>   “deb [arch=amd64] <a href="https://download.docker.com/linux/ubuntu" target="_blank" rel="noopener">https://download.docker.com/linux/ubuntu</a> \<br>   $(lsb_release -cs) \<br>   stable”</p>
+<p><a href="https://download.docker.com/linux/ubuntu/dists/bionic/pool/stable/amd64/" target="_blank" rel="noopener">https://download.docker.com/linux/ubuntu/dists/bionic/pool/stable/amd64/</a></p>
+<p>配置完镜像源后，记得重启</p>
+<p>/bin/sh<br>/bin/bash<br>运行shell</p>
+<p>docker run –name mysql-data -p 3306:3306 -v /home/finsenty/Documents/mysqldata:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=”123456” -d mysql:5.7</p>
+<p>docker run -p 8888:5000 –name myfirstapp YOUR_USERNAME/myfirstapp</p>
+<ul>
+<li>Running on <a href="http://0.0.0.0:5000/" target="_blank" rel="noopener">http://0.0.0.0:5000/</a> (Press CTRL+C to quit)</li>
+</ul>
+<p> docker rm <code>docker ps -a -q</code></p>
+<p> docker rmi <code>docker images -q</code></p>
+<p> docker run -p 4000:80 –name py-http6 –link mariadb:mysql finsenty/http5</p>
+<p> mysql.connecter 查询后面带一个，</p>
+<p> -u “<a href="http://192.168.160.1/sqltest/post.php&quot;" target="_blank" rel="noopener">http://192.168.160.1/sqltest/post.php&quot;</a> –forms</p>
 
-    </header>
+      
+    </div>
+    <footer class="article-footer">
+    <span id="busuanzi_container_page_pv">
+  本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+	</span>
+      <a data-url="http://finsenty54.github.io/2019/03/16/Docker学习笔记/" data-id="cjtr210lw00020ww8qvp0m1wi" class="article-share-link">Share</a>
+      
+      
+    </footer>
   </div>
-</article>
-  
-  
-    </div></section>
   
 
+    
+    <div id="git"></div>
+<link rel="stylesheet" href="https://jjeejj.github.io/css/gitment.css">
+<script src="https://jjeejj.github.io/js/gitment.js"></script>
+<script>
+var gitment =new Gitment({
+	id: 'Fri Mar 15 2019 19:36:58 GMT+0000',
+	owner: "Finsenty54",
+	repo: "finsenty54.github.io",
+	oauth: {
+		client_id: "b7fda5001654b9511380",
+		client_secret: "86d94c8d960fea5bbe4c4e8e7c3ea549a76ad893",
+	},
+})
+gitment.render('git')
+</script>
+    
+      
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2019/03/02/xss/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">XSS 20关挑战</div>
+    </a>
+  
+</nav>
+
+  
+</article>
 
 </section>
         
