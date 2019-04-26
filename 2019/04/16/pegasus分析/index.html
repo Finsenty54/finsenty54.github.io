@@ -1,133 +1,131 @@
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!doctype html>
-<html lang="zh-CN">
+<!DOCTYPE HTML>
+<html>
 <head><meta name="generator" content="Hexo 3.8.0">
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
-  <meta name="renderer" content="webkit">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" , user-scalable="no"">
-  <title>pegasus分析FINSENTY54</title>
-  <link rel="shortcut icon" href>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
   
-    
-    
-      <link rel="stylesheet" href="/css/bootstrap.min.css">
-    
-      <link rel="stylesheet" href="/css/font-awesome.min.css">
-    
-      <link rel="stylesheet" href="/css/atom-one-dark.css">
-    
-      <link rel="stylesheet" href="/css/jquery.fancybox.css">
-    
-      <link rel="stylesheet" href="/css/nprogress.min.css">
-    
-      <link rel="stylesheet" href="/css/valine.css">
-    
-      <link rel="stylesheet" href="/css/life.css">
-    
+  <title>pegasus分析 | FINSENTY54</title>
+  <meta name="author" content="finsenty54">
+  
+  <meta name="description" content="blog">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="pegasus分析">
+  <meta property="og:site_name" content="FINSENTY54">
+
+  
+    <meta property="og:image" content>
   
 
   
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 
-  <!-- jQuery first, then Tether, then Bootstrap JS. -->
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
   
-  
-  
-    <script src="/js/jquery-2.2.4.min.js"></script>
-  
-    <script src="https://cdn1.lncld.net/static/js/3.1.0/av-min.js"></script>
-  
-    <script src="/js/jquery.pjax.js"></script>
-  
-    <script src="/js/nprogress.min.js"></script>
-  
-    <script src="/js/tether.min.js"></script>
-  
-    <script src="/js/bootstrap.min.js"></script>
-  
-    <script src="/js/highlight.min.js"></script>
-  
-    <script src="/js/highlightjs-line-numbers.min.js"></script>
-  
-    <script src="/js/jquery.fancybox.js"></script>
-  
-    <script src="/js/jquery.qrcode.min.js"></script>
-  
-    <script src="/js/Valine.min.js"></script>
-  
-  
-</head>
-<body>
-<script>AV.init({appId:'',appKey:''});</script>
-<script type="text/javascript">
-      var config = {
-            ClasS: 'Counter',
-            el:'.views',
-            elP: '.views-post'
-      }
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-135283153-1', 'auto');
+  ga('send', 'pageview');
 </script>
-<div class="container">
-    <div class="row blog-box-shadow">
-        <!--博客主栏开始-->
-        <div class="col-xl-9 col-lg-12 blog-main" id="pjax-box">
-            <header class="blog-header">
-                <a href="http://finsenty54.github.io" class="blog-header-mobile-title">FINSENTY54</a>
-                <a href="javascript:;" class="blog-header-navbar-btn"><i class="fa fa-bars"></i></a>
-                <nav class="blog-header-navbar blog-header-fixed">
-                    <ul class="blog-navbar-links">
-                        
-                          <li class="blog-nav-item"><a href="/" class="transition">首页</a></li>
-                        
-                          <li class="blog-nav-item"><a href="/about/" class="transition">关于</a></li>
-                        
-                          <li class="blog-nav-item"><a href="/links/" class="transition">链接</a></li>
-                        
-                        <div class="blog-navbar-right">
-                            <form action>
-                                <div class="input-group">
-                                    <input type="text" class="blog-header-search" placeholder="search...">
-                                    <buttn type="submit" class="blog-header-search-btn"><i class="fa fa-search"></i></buttn>
-                                </div>
-                            </form>
-                        </div>
-                    </ul>
-                </nav>
-            </header>
-                
-<header class="blog-post-page-title">
-    <h4>pegasus分析</h4>
-    <time datetime="2019-04-16T08:54:59.000Z"><i class="fa fa-clock-o"></i>2019-04-16</time>
-    
-    
-    <span>
-        <i class="fa fa-eye"></i>
-        <span id="/2019/04/16/pegasus分析/" class="views views-post" title="pegasus分析"></span>
-    </span>
-    
-    
-    
+
+
+
+
+</head>
+</html>
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/">FINSENTY54</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/archives" title="All the articles.">
+			  <i class></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/categories" title="All the categories.">
+			  <i class></i>Categories
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/tags" title="All the tags.">
+			  <i class></i>Tags
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/about" title="About me.">
+			  <i class></i>About
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/atom.xml" title="Subscribe me.">
+			  <i class></i>RSS
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
 	
-    
-</header>
-<div class="blog-main-post blog-post-page-box">
-    <article class="blog-post-block blog-post-page-content">
-        <section>
-            
-                <h1 id="PEGASUS攻击分析"><a href="#PEGASUS攻击分析" class="headerlink" title="PEGASUS攻击分析"></a>PEGASUS攻击分析</h1><h6 id="参考-lookout-report"><a href="#参考-lookout-report" class="headerlink" title="参考 lookout report"></a>参考 <a href="https://info.lookout.com/rs/051-ESQ-475/images/pegasus-exploits-technical-details.pdf" title="lookout report" target="_blank" rel="noopener">lookout report</a></h6><h3 id="攻击过程"><a href="#攻击过程" class="headerlink" title="攻击过程"></a>攻击过程</h3><p>受害者点击链接之后，攻击者展开攻击。攻击分为三个阶段，每个阶段都包含了攻击模块代码和隐蔽软件。攻击是线性的，每个阶段都依赖于上个阶段的代码、隐蔽软件的成功，每个阶段都使用了关键的0day漏洞，以确保进攻成功进行。</p>
+		<div class="page-header">
+			<h1> pegasus分析</h1>
+		</div>
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <h1 id="PEGASUS攻击分析"><a href="#PEGASUS攻击分析" class="headerlink" title="PEGASUS攻击分析"></a>PEGASUS攻击分析</h1><h6 id="参考-lookout-report"><a href="#参考-lookout-report" class="headerlink" title="参考 lookout report"></a>参考 <a href="https://info.lookout.com/rs/051-ESQ-475/images/pegasus-exploits-technical-details.pdf" title="lookout report" target="_blank" rel="noopener">lookout report</a></h6><h3 id="攻击过程"><a href="#攻击过程" class="headerlink" title="攻击过程"></a>攻击过程</h3><p>受害者点击链接之后，攻击者展开攻击。攻击分为三个阶段，每个阶段都包含了攻击模块代码和隐蔽软件。攻击是线性的，每个阶段都依赖于上个阶段的代码、隐蔽软件的成功，每个阶段都使用了关键的0day漏洞，以确保进攻成功进行。</p>
 <h5 id="阶段一：传送并利用WebKit漏洞，通过HTML文件利用WebKit中的CVE-2016-4657漏洞。"><a href="#阶段一：传送并利用WebKit漏洞，通过HTML文件利用WebKit中的CVE-2016-4657漏洞。" class="headerlink" title="阶段一：传送并利用WebKit漏洞，通过HTML文件利用WebKit中的CVE-2016-4657漏洞。"></a>阶段一：传送并利用WebKit漏洞，通过HTML文件利用WebKit中的CVE-2016-4657漏洞。</h5><h5 id="阶段二：越狱。在第一阶段中会根据设备（32-64位）下载相应的，经过加密混淆的包。每次下载的包都是用独一无二的key加密的。软件包内包含针对iOS内核两个漏洞-CVE-2016-4655和CVE-2016-4656-的exp还有一个用来下载解密第三阶段软件包的loader。"><a href="#阶段二：越狱。在第一阶段中会根据设备（32-64位）下载相应的，经过加密混淆的包。每次下载的包都是用独一无二的key加密的。软件包内包含针对iOS内核两个漏洞-CVE-2016-4655和CVE-2016-4656-的exp还有一个用来下载解密第三阶段软件包的loader。" class="headerlink" title="阶段二：越狱。在第一阶段中会根据设备（32/64位）下载相应的，经过加密混淆的包。每次下载的包都是用独一无二的key加密的。软件包内包含针对iOS内核两个漏洞(CVE-2016-4655和CVE-2016-4656)的exp还有一个用来下载解密第三阶段软件包的loader。"></a>阶段二：越狱。在第一阶段中会根据设备（32/64位）下载相应的，经过加密混淆的包。每次下载的包都是用独一无二的key加密的。软件包内包含针对iOS内核两个漏洞(CVE-2016-4655和CVE-2016-4656)的exp还有一个用来下载解密第三阶段软件包的loader。</h5><h5 id="阶段三：安装间谍软件。经过了第二阶段的越狱，第三阶段中，攻击者会选择需要监听的软件，把hook安装到应用中。另外，第三阶段还会检查设备之前有没有通过其他方式越狱过，如果有，则会移除之前越狱后开放的系统访问权限，如ssh。软件还有一个“故障保险“，如果检测到设备满足某些条件，软件就会自毁。"><a href="#阶段三：安装间谍软件。经过了第二阶段的越狱，第三阶段中，攻击者会选择需要监听的软件，把hook安装到应用中。另外，第三阶段还会检查设备之前有没有通过其他方式越狱过，如果有，则会移除之前越狱后开放的系统访问权限，如ssh。软件还有一个“故障保险“，如果检测到设备满足某些条件，软件就会自毁。" class="headerlink" title="阶段三：安装间谍软件。经过了第二阶段的越狱，第三阶段中，攻击者会选择需要监听的软件，把hook安装到应用中。另外，第三阶段还会检查设备之前有没有通过其他方式越狱过，如果有，则会移除之前越狱后开放的系统访问权限，如ssh。软件还有一个“故障保险“，如果检测到设备满足某些条件，软件就会自毁。"></a>阶段三：安装间谍软件。经过了第二阶段的越狱，第三阶段中，攻击者会选择需要监听的软件，把hook安装到应用中。另外，第三阶段还会检查设备之前有没有通过其他方式越狱过，如果有，则会移除之前越狱后开放的系统访问权限，如ssh。软件还有一个“故障保险“，如果检测到设备满足某些条件，软件就会自毁。</h5><p>第三阶段中，间谍会部署一个test222.tar文件，这是一个tar包，包中包含各种实现各种目的的文件，如实现中间人攻击的根TLS证书、针对Viber、Whatsapp的嗅探库、专门用于通话录音的库等。</p>
 <p>##CVE-2016-4657<br>第一阶段用到了<strong>WebKit’s JavaScriptCore library</strong> 中的漏洞<strong>CVE-2016-4657</strong>。让Safari运行一段JavaScript payload，以此来获得Safari WebContent进程的代码执行权。</p>
 <h4 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h4><p>MarkedArgumentBuffer中的<strong>slowAppend()</strong>函数中存在这个漏洞，并且可以在静态方法<strong>definePropertries()</strong>中使用MarkedArgumentBuffer来利用这个漏洞。definePropertries()接受一个对象，这个对象的可枚举变量构成要在另一个目标对象上定义或修改的属性的描述符。算法链接这些变量和目标对象，基于变量列表进行两次迭代。在第一个部分，检查每个变量的格式，并创建一个有默认值的PropertyDescriptor对象。<br> <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">size_t numProperties = propertyName.size();</span><br><span class="line">Vector&lt;PropertyDescriptor&gt; descriptors;</span><br><span class="line">size_t numProperties = propertyName.size();</span><br><span class="line">Vector&lt;PropertyDescriptor&gt; descriptors;</span><br><span class="line">MarkedArgumentBuffer markBuffer;</span><br><span class="line"><span class="keyword">for</span>(size_t i =<span class="number">0</span>;i&lt;numProperties;i++)&#123;</span><br><span class="line">	JSValue prop = properties-&gt;<span class="keyword">get</span>(exec,propertyNames[i]);</span><br><span class="line">	if(exec-&gt;hadException())</span><br><span class="line">		return jsNull();</span><br><span class="line">	PropertyDescriptor descriptor;</span><br><span class="line">	if(!toPropertyDescriptor(exec, prop,descriptor))</span><br><span class="line">		return jsNull();</span><br><span class="line">	descriptors.append(descriptor);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
@@ -191,231 +189,132 @@
 <p>通过一段特殊设计的数据块，接下来会详细谈到，现在调用<em>clock_get_attributes</em>就可以在内核内执行任意函数。如果受害者的内核已经以某种方式暴露了，这种时钟修改才可能发生，这是值得注意的。所以，如果在一个没有越狱的手机上，修改可能不成功。</p>
 <p>如果32包已经获得了内核端口并且完成了上述对不同时钟的修改，会略过接下来的几个步骤，获取访问权，逐步提升权限。如果因现阶段内核端口不可用，使内核修改失败，32包创建并锁向前初始化阶段的锁定文件。这个文件非常重要，因为后面获得内核改写权限会使用这个文件。</p>
 <p>64位包不会利用已越狱手机上的后门。</p>
+	  
+	</div>
 
-            
-        </section>
-        <footer class="blog-post-page-tags">
-        
-			
-				
-			<a href="/tags/ios/" rel="tag" data-toggle="tooltip" data-placement="top" title="Linux">ios</a>
-				
-			
-		
-        </footer>
-    </article>
-    <article class="blog-post-page-readmore">
-    	
-    	
-		
+	<div>
+  	<center>
+	<div class="pagination">
 
-		
-		
-			<a href="/2019/03/29/penetration-test-report-interpretation/" class="blog-post-page-readmore-next" data-toggle="tooltip" data-placement="top" title="penetration test report interpretation">下一篇</a>
-		
+    
+    
+    <a type="button" class="btn btn-default disabled"><i class="fa fa-arrow-circle-o-left"></i>上一页</a>
+    
 
-        <div style="clear: both;"></div>
-    </article>
+    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/2019/03/29/penetration-test-report-interpretation/" type="button" class="btn btn-default ">下一页<i class="fa fa-arrow-circle-o-right"></i></a>
+    
 
-    <article class="blog-post-block blog-post-page-content">
-            <div class="row">
-            
-                <div class="col-md-4 col-sm-4 post-page-more-btn">
-                    <span class="post-comments-btn btn btn-info btn-block" data-toggle="tooltip" data-placement="top" title="本站采用Disqus评论组件，若您没有科学上网可能会无法查看并评论">加载评论</span>
-                </div>
-            
-                <div class="col-md-4 col-sm-4 post-page-more-btn">
-                    <span data-toggle="modal" data-target="#post-donate-content">
-                        <span id="post-donate-btn" class="btn btn-danger btn-block" data-toggle="tooltip" data-placement="top" title="如果您觉得本文还不错或者对您有帮助，可以考虑打赏一下作者哦">打赏本文</span>
-                    </span>
-                </div>
-                <div class="col-md-4 col-sm-4 post-page-more-btn">
-                    <span data-toggle="modal" data-target="#post-qrcode-content">
-                        <span><span id="post-qrcode-btn" class="btn btn-success btn-block" data-toggle="tooltip" data-placement="top" title="微信扫描二维码手机端查看本文及分享本文">二维码</span></span>
-                    </span>
-                </div>
-            </div>
-        <div class="post-more-function-br"></div>
-
-        <div class="modal fade" id="post-donate-content" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">打赏本文</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row post-donate-content">
-                            <div class="col-md-4">
-                                <p>支付宝</p>
-                                <img class="post-donate-content-img no-lightbox" src>
-                            </div>
-                            <div class="col-md-4">
-                                <p>微信</p>
-                                <img class="post-donate-content-img no-lightbox" src>
-                            </div>
-                            <div class="col-md-4">
-                                <p>财付通</p>
-                                <img class="post-donate-content-img no-lightbox" src>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="modal fade" id="post-qrcode-content" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-sm" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">文章二维码</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row post-qrcode-content">
-                            <span class="post-qrcode-content-canvas"></span>
-                            <img class="post-qrcode-content-img no-lightbox" src>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <script>
-            // post QRcode
-            // 中文转码
-            function toUtf8(str) {
-                var out, i, len, c;
-                out = "";
-                len = str.length;
-                for (i = 0; i < len; i++) {
-                    c = str.charCodeAt(i);
-                    if ((c >= 0x0001) && (c <= 0x007F)) {
-                        out += str.charAt(i);
-                    } else if (c > 0x07FF) {
-                        out += String.fromCharCode(0xE0 | ((c >> 12) & 0x0F));
-                        out += String.fromCharCode(0x80 | ((c >> 6) & 0x3F));
-                        out += String.fromCharCode(0x80 | ((c >> 0) & 0x3F));
-                    } else {
-                        out += String.fromCharCode(0xC0 | ((c >> 6) & 0x1F));
-                        out += String.fromCharCode(0x80 | ((c >> 0) & 0x3F));
-                    }
-                }
-                return out;
-            }
-            // 生成
-            var qrcode= $('.post-qrcode-content-canvas').qrcode({width: 150,height: 150,text: toUtf8("http://finsenty54.github.io/2019/04/16/pegasus分析/")}).hide();
-            var canvas=qrcode.find('canvas').get(0);
-            $('.post-qrcode-content-img').attr('src',canvas.toDataURL('image/jpg'));
-        </script>
-
-        
-    </article>
     
 </div>
 
-                
-            <footer class="blog-footer">
-                <p class="blog-footer-left">Copyright ©  2019 <a href="http://finsenty54.github.io">FINSENTY54</a></p>
-                <p class="blog-footer-right">Powered by <a href="https://hexo.io" target="_blank">Hexo</a>,Theme <a href="https://note.isweic.com/themes-life/" target="_blank">Life</a></p>
-            </footer>
-        </div><!--博客主栏结束-->
-        <!--博客侧边栏开始-->
-        <div class="col-xl-3 blog-sidebar">
-            <div class="blog-sidebar-title">
-                <a href>FINSENTY54</a>
-            </div>
-            <div class="blog-sidebar-logo">
-                <img src>
-            </div>
-            <div class="blog-sidebar-count blog-sidebar-padding">
-                <div class="blog-sidebar-count-left">
-                    <p class="blog-sidebar-count-p">5</p>
-                    <span class="blog-sidebar-count-span">文章</span>
-                </div>
-                <div class="blog-sidebar-count-right">
-                    <p class="blog-sidebar-count-p">4</p>
-                    <span class="blog-sidebar-count-span">标签</span>
-                </div>
-                <div style="clear: both;"></div>
-            </div>
-            <div class="blog-sidebar-icon blog-sidebar-padding">
-                <ul>
-                    <li><a href class="icon-github" target="_blank" data-toggle="tooltip" data-placement="top" title="Github"><i class="fa fa-github"></i></a></li>
-                    <li><a href class="icon-weibo" target="_blank" data-toggle="tooltip" data-placement="top" title="新浪微博"><i class="fa fa-weibo"></i></a></li>
-                    <li><a href class="icon-twitter" target="_blank" data-toggle="tooltip" data-placement="top" title="Twitter"><i class="fa fa-twitter"></i></a></li>
-                    <!--<li><a href="" class="icon-facebook" target="_blank" data-toggle="tooltip" data-placement="top" title="FaceBook"><i class="fa fa-facebook"></i></a></li>-->
-                    <li><a href="mailto:" class="icon-email" data-toggle="tooltip" data-placement="top" title="E-Mail"><i class="fa fa-envelope"></i></a></li>
-                    <li><a href class="icon-rss" data-toggle="tooltip" target="_blank" data-placement="top" title="RSS"><i class="fa fa-rss"></i></a></li>
-                </ul>
-            </div>
-            <div class="blog-sidebar-categories">
-                <h4 class="blog-sidebar-h4"><i class="fa fa-folder-open"></i>&nbsp;文章分类</h4>
-                <ul class="list-group blog-sidebar-padding">
-                  
-                </ul>
-            </div>
-            <div class="blog-sidebar-tags">
-                <h4 class="blog-sidebar-h4"><i class="fa fa-tag"></i>&nbsp;标签云</h4>
-                <ul class="blog-sidebar-tags-ul blog-sidebar-padding">
-                  
-                    
-                      <li><a href="/tags/xss/" class="tag-could" data-toggle="tooltip" data-placement="top" title="xss">xss</a></li>
-                    
-                      <li><a href="/tags/sql/" class="tag-could" data-toggle="tooltip" data-placement="top" title="sql">sql</a></li>
-                    
-                      <li><a href="/tags/penetation-test/" class="tag-could" data-toggle="tooltip" data-placement="top" title="penetation test">penetation test</a></li>
-                    
-                      <li><a href="/tags/ios/" class="tag-could" data-toggle="tooltip" data-placement="top" title="ios">ios</a></li>
-                    
-                  
-                </ul>
-            </div>
-            <script>
-              // 博客侧栏标签云随机色
-              var tag_cloud = $('.tag-could');
-              tag_cloud.each(function () {
-                  var Cnum = 9;
-                  var Crand = parseInt(Math.random() * Cnum);
-                  $(this).addClass("tag-could" + Crand);
-              })
-            </script>
-            <!--返回顶部按钮-->
-            <div class="retop">
-                <i class="fa fa-angle-up"></i>
-            </div>
-        </div><!--博客侧边栏结束-->
-    </div>
-</div>
-<script src="/js/LeanStatistics.min.js"></script>
-<script src="/js/Life.js"></script>
+    </center>
+	</div>
+	
+	<!-- comment -->
+	
+<section id="comment">
+    <h2 class="title">留言</h2>
+
+    
+</section>
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+		
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2019-04-16 
+	</div>
+	
+
+	<!-- categories -->
+    
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>		  
+    <ul id="tags" class="tag_box list-unstyled collapse in">	  
+	    
+  <li><a href="/tags/ios/">ios<span>1</span></a></li>
+    </ul>
+	</div>
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i></a>
+	   <div id="toc" class="toc collapse in">
+		   <span class="toc-title">Contents</span>
+			<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#PEGASUS攻击分析"><span class="toc-article-text">PEGASUS攻击分析</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-6"><a class="toc-article-link" href="#参考-lookout-report"><span class="toc-article-text">参考 lookout report</span></a></li></ol></li></ol><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#攻击过程"><span class="toc-article-text">攻击过程</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-5"><a class="toc-article-link" href="#阶段一：传送并利用WebKit漏洞，通过HTML文件利用WebKit中的CVE-2016-4657漏洞。"><span class="toc-article-text">阶段一：传送并利用WebKit漏洞，通过HTML文件利用WebKit中的CVE-2016-4657漏洞。</span></a></li><li class="toc-article-item toc-article-level-5"><a class="toc-article-link" href="#阶段二：越狱。在第一阶段中会根据设备（32-64位）下载相应的，经过加密混淆的包。每次下载的包都是用独一无二的key加密的。软件包内包含针对iOS内核两个漏洞-CVE-2016-4655和CVE-2016-4656-的exp还有一个用来下载解密第三阶段软件包的loader。"><span class="toc-article-text">阶段二：越狱。在第一阶段中会根据设备（32/64位）下载相应的，经过加密混淆的包。每次下载的包都是用独一无二的key加密的。软件包内包含针对iOS内核两个漏洞(CVE-2016-4655和CVE-2016-4656)的exp还有一个用来下载解密第三阶段软件包的loader。</span></a></li><li class="toc-article-item toc-article-level-5"><a class="toc-article-link" href="#阶段三：安装间谍软件。经过了第二阶段的越狱，第三阶段中，攻击者会选择需要监听的软件，把hook安装到应用中。另外，第三阶段还会检查设备之前有没有通过其他方式越狱过，如果有，则会移除之前越狱后开放的系统访问权限，如ssh。软件还有一个“故障保险“，如果检测到设备满足某些条件，软件就会自毁。"><span class="toc-article-text">阶段三：安装间谍软件。经过了第二阶段的越狱，第三阶段中，攻击者会选择需要监听的软件，把hook安装到应用中。另外，第三阶段还会检查设备之前有没有通过其他方式越狱过，如果有，则会移除之前越狱后开放的系统访问权限，如ssh。软件还有一个“故障保险“，如果检测到设备满足某些条件，软件就会自毁。</span></a></li></ol></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#背景"><span class="toc-article-text">背景</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#攻击"><span class="toc-article-text">攻击</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-5"><a class="toc-article-link" href="#设置触发漏洞"><span class="toc-article-text">设置触发漏洞</span></a></li></ol></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#获取任意读写原语"><span class="toc-article-text">获取任意读写原语</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#获取对象地址"><span class="toc-article-text">获取对象地址</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#本地代码执行"><span class="toc-article-text">本地代码执行</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#回避检测"><span class="toc-article-text">回避检测</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#分析KASLR绕过"><span class="toc-article-text">分析KASLR绕过</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#32位和63位二进制包不同的地方"><span class="toc-article-text">32位和63位二进制包不同的地方</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#加载API"><span class="toc-article-text">加载API</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#环境设置和平台确定"><span class="toc-article-text">环境设置和平台确定</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#攻入KASLR"><span class="toc-article-text">攻入KASLR</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#在受害设备上建立读-写-执行原语（32bit）"><span class="toc-article-text">在受害设备上建立读/写/执行原语（32bit）</span></a></li></ol></li>
+		</div>
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	</div>
+		
+
+</div><!-- row -->
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2019 finsenty54
+  
+      with help from <a href="http://hexo.io/" target="_blank">Hexo</a>,<a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>,<a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a> and <a href="http://getbootstrap.com/" target="_blank">BOOTSTRA.386</a>. 
+     <br> Theme by <a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind.386</a>.    
+</p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
 <script type="text/javascript">
-    hljs.initHighlightingOnLoad();
-    hljs.initLineNumbersOnLoad();
-    otherF();
-    LeanStatistics();
-    $(document).pjax('a', '#pjax-box', {fragment:'#pjax-box', timeout:8000}).on('pjax:complete', function() {
-      $('pre code').each(function(i, block){
-        hljs.highlightBlock(block);
-      })
-      $('code.hljs').each(function(i, block) {
-        hljs.lineNumbersBlock(block);
-      });
-      LeanStatistics();
-    }).on('pjax:start', function() { NProgress.start(); }).on('pjax:end',   function() {
-      NProgress.done();
-      otherF();
-    });
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
 </script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
 </body>
-</html>
+   </html>
