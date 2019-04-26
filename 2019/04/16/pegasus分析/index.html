@@ -9,7 +9,7 @@
   <title>pegasus分析 | FINSENTY54</title>
   <meta name="author" content="finsenty54">
   
-  <meta name="description" content="blog">
+  <meta name="description" content="翻译下内容">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -22,8 +22,10 @@
   
 
   
+    <link rel="alternative" href="/atom.xml" title="FINSENTY54" type="application/atom+xml">
   
-    <link href="/favicon.png" rel="icon">
+  
+    <link href="/[object Object]" rel="icon">
   
   
   <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
@@ -67,31 +69,31 @@
 		  
 		  <li>
 			<a href="/archives" title="All the articles.">
-			  <i class></i>Archives
+			  <i class="fa fa-archive"></i>Archives
 			</a>
 		  </li>
 		  
 		  <li>
 			<a href="/categories" title="All the categories.">
-			  <i class></i>Categories
+			  <i class="fa fa-folder"></i>Categories
 			</a>
 		  </li>
 		  
 		  <li>
 			<a href="/tags" title="All the tags.">
-			  <i class></i>Tags
+			  <i class="fa fa-tags"></i>Tags
 			</a>
 		  </li>
 		  
 		  <li>
 			<a href="/about" title="About me.">
-			  <i class></i>About
+			  <i class="fa fa-user"></i>About
 			</a>
 		  </li>
 		  
 		  <li>
-			<a href="/atom.xml" title="Subscribe me.">
-			  <i class></i>RSS
+			<a href="/rss" title="Subscribe me.">
+			  <i class="fa fa-user"></i>RSS
 			</a>
 		  </li>
 		  
@@ -123,11 +125,18 @@
 
 	<!-- content -->
 	<div class="mypage">		
+	  
+		 <div class="alert alert-success description">
+			<i class="fa fa-info-circle"></i> 翻译下内容
+		 </div> <!-- alert -->
 	  		
 
 	  <h1 id="PEGASUS攻击分析"><a href="#PEGASUS攻击分析" class="headerlink" title="PEGASUS攻击分析"></a>PEGASUS攻击分析</h1><h6 id="参考-lookout-report"><a href="#参考-lookout-report" class="headerlink" title="参考 lookout report"></a>参考 <a href="https://info.lookout.com/rs/051-ESQ-475/images/pegasus-exploits-technical-details.pdf" title="lookout report" target="_blank" rel="noopener">lookout report</a></h6><h3 id="攻击过程"><a href="#攻击过程" class="headerlink" title="攻击过程"></a>攻击过程</h3><p>受害者点击链接之后，攻击者展开攻击。攻击分为三个阶段，每个阶段都包含了攻击模块代码和隐蔽软件。攻击是线性的，每个阶段都依赖于上个阶段的代码、隐蔽软件的成功，每个阶段都使用了关键的0day漏洞，以确保进攻成功进行。</p>
-<h5 id="阶段一：传送并利用WebKit漏洞，通过HTML文件利用WebKit中的CVE-2016-4657漏洞。"><a href="#阶段一：传送并利用WebKit漏洞，通过HTML文件利用WebKit中的CVE-2016-4657漏洞。" class="headerlink" title="阶段一：传送并利用WebKit漏洞，通过HTML文件利用WebKit中的CVE-2016-4657漏洞。"></a>阶段一：传送并利用WebKit漏洞，通过HTML文件利用WebKit中的CVE-2016-4657漏洞。</h5><h5 id="阶段二：越狱。在第一阶段中会根据设备（32-64位）下载相应的，经过加密混淆的包。每次下载的包都是用独一无二的key加密的。软件包内包含针对iOS内核两个漏洞-CVE-2016-4655和CVE-2016-4656-的exp还有一个用来下载解密第三阶段软件包的loader。"><a href="#阶段二：越狱。在第一阶段中会根据设备（32-64位）下载相应的，经过加密混淆的包。每次下载的包都是用独一无二的key加密的。软件包内包含针对iOS内核两个漏洞-CVE-2016-4655和CVE-2016-4656-的exp还有一个用来下载解密第三阶段软件包的loader。" class="headerlink" title="阶段二：越狱。在第一阶段中会根据设备（32/64位）下载相应的，经过加密混淆的包。每次下载的包都是用独一无二的key加密的。软件包内包含针对iOS内核两个漏洞(CVE-2016-4655和CVE-2016-4656)的exp还有一个用来下载解密第三阶段软件包的loader。"></a>阶段二：越狱。在第一阶段中会根据设备（32/64位）下载相应的，经过加密混淆的包。每次下载的包都是用独一无二的key加密的。软件包内包含针对iOS内核两个漏洞(CVE-2016-4655和CVE-2016-4656)的exp还有一个用来下载解密第三阶段软件包的loader。</h5><h5 id="阶段三：安装间谍软件。经过了第二阶段的越狱，第三阶段中，攻击者会选择需要监听的软件，把hook安装到应用中。另外，第三阶段还会检查设备之前有没有通过其他方式越狱过，如果有，则会移除之前越狱后开放的系统访问权限，如ssh。软件还有一个“故障保险“，如果检测到设备满足某些条件，软件就会自毁。"><a href="#阶段三：安装间谍软件。经过了第二阶段的越狱，第三阶段中，攻击者会选择需要监听的软件，把hook安装到应用中。另外，第三阶段还会检查设备之前有没有通过其他方式越狱过，如果有，则会移除之前越狱后开放的系统访问权限，如ssh。软件还有一个“故障保险“，如果检测到设备满足某些条件，软件就会自毁。" class="headerlink" title="阶段三：安装间谍软件。经过了第二阶段的越狱，第三阶段中，攻击者会选择需要监听的软件，把hook安装到应用中。另外，第三阶段还会检查设备之前有没有通过其他方式越狱过，如果有，则会移除之前越狱后开放的系统访问权限，如ssh。软件还有一个“故障保险“，如果检测到设备满足某些条件，软件就会自毁。"></a>阶段三：安装间谍软件。经过了第二阶段的越狱，第三阶段中，攻击者会选择需要监听的软件，把hook安装到应用中。另外，第三阶段还会检查设备之前有没有通过其他方式越狱过，如果有，则会移除之前越狱后开放的系统访问权限，如ssh。软件还有一个“故障保险“，如果检测到设备满足某些条件，软件就会自毁。</h5><p>第三阶段中，间谍会部署一个test222.tar文件，这是一个tar包，包中包含各种实现各种目的的文件，如实现中间人攻击的根TLS证书、针对Viber、Whatsapp的嗅探库、专门用于通话录音的库等。</p>
-<p>##CVE-2016-4657<br>第一阶段用到了<strong>WebKit’s JavaScriptCore library</strong> 中的漏洞<strong>CVE-2016-4657</strong>。让Safari运行一段JavaScript payload，以此来获得Safari WebContent进程的代码执行权。</p>
+<h5 id="阶段一"><a href="#阶段一" class="headerlink" title="阶段一"></a>阶段一</h5><p>传送并利用WebKit漏洞，通过HTML文件利用WebKit中的CVE-2016-4657漏洞。</p>
+<h5 id="阶段二"><a href="#阶段二" class="headerlink" title="阶段二"></a>阶段二</h5><p>越狱。在第一阶段中会根据设备（32/64位）下载相应的，经过加密混淆的包。每次下载的包都是用独一无二的key加密的。软件包内包含针对iOS内核两个漏洞(CVE-2016-4655和CVE-2016-4656)的exp还有一个用来下载解密第三阶段软件包的loader。</p>
+<h5 id="阶段三"><a href="#阶段三" class="headerlink" title="阶段三"></a>阶段三</h5><p>安装间谍软件。经过了第二阶段的越狱，第三阶段中，攻击者会选择需要监听的软件，把hook安装到应用中。另外，第三阶段还会检查设备之前有没有通过其他方式越狱过，如果有，则会移除之前越狱后开放的系统访问权限，如ssh。软件还有一个“故障保险“，如果检测到设备满足某些条件，软件就会自毁。</p>
+<p>第三阶段中，间谍会部署一个test222.tar文件，这是一个tar包，包中包含各种实现各种目的的文件，如实现中间人攻击的根TLS证书、针对Viber、Whatsapp的嗅探库、专门用于通话录音的库等。</p>
+<h2 id="CVE-2016-4657"><a href="#CVE-2016-4657" class="headerlink" title="CVE-2016-4657"></a>CVE-2016-4657</h2><p>第一阶段用到了<strong>WebKit’s JavaScriptCore library</strong> 中的漏洞<strong>CVE-2016-4657</strong>。让Safari运行一段JavaScript payload，以此来获得Safari WebContent进程的代码执行权。</p>
 <h4 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h4><p>MarkedArgumentBuffer中的<strong>slowAppend()</strong>函数中存在这个漏洞，并且可以在静态方法<strong>definePropertries()</strong>中使用MarkedArgumentBuffer来利用这个漏洞。definePropertries()接受一个对象，这个对象的可枚举变量构成要在另一个目标对象上定义或修改的属性的描述符。算法链接这些变量和目标对象，基于变量列表进行两次迭代。在第一个部分，检查每个变量的格式，并创建一个有默认值的PropertyDescriptor对象。<br> <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">size_t numProperties = propertyName.size();</span><br><span class="line">Vector&lt;PropertyDescriptor&gt; descriptors;</span><br><span class="line">size_t numProperties = propertyName.size();</span><br><span class="line">Vector&lt;PropertyDescriptor&gt; descriptors;</span><br><span class="line">MarkedArgumentBuffer markBuffer;</span><br><span class="line"><span class="keyword">for</span>(size_t i =<span class="number">0</span>;i&lt;numProperties;i++)&#123;</span><br><span class="line">	JSValue prop = properties-&gt;<span class="keyword">get</span>(exec,propertyNames[i]);</span><br><span class="line">	if(exec-&gt;hadException())</span><br><span class="line">		return jsNull();</span><br><span class="line">	PropertyDescriptor descriptor;</span><br><span class="line">	if(!toPropertyDescriptor(exec, prop,descriptor))</span><br><span class="line">		return jsNull();</span><br><span class="line">	descriptors.append(descriptor);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>如果每一个变量都是有效的，那么第二部分就会执行。这个部分将用户提供的属性变量与目标对象结合在一起，通过defineOwnProperty()实现。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(size_t i=<span class="number">0</span>;i&lt;numProperties; i++)&#123;</span><br><span class="line">	Identifier propertyName = propertyNames[i];</span><br><span class="line">	<span class="keyword">if</span>(exec-&gt;propertyName().isPrivateName(properName))</span><br><span class="line">		<span class="keyword">continue</span>;</span><br><span class="line">	</span><br><span class="line">	object-&gt;methodTable(exec-&gt;vm())-&gt;defineOwnProperty(object, exec, propertyName,descriptors[i],<span class="literal">true</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -255,7 +264,7 @@
 	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i></a>
 	   <div id="toc" class="toc collapse in">
 		   <span class="toc-title">Contents</span>
-			<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#PEGASUS攻击分析"><span class="toc-article-text">PEGASUS攻击分析</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-6"><a class="toc-article-link" href="#参考-lookout-report"><span class="toc-article-text">参考 lookout report</span></a></li></ol></li></ol><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#攻击过程"><span class="toc-article-text">攻击过程</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-5"><a class="toc-article-link" href="#阶段一：传送并利用WebKit漏洞，通过HTML文件利用WebKit中的CVE-2016-4657漏洞。"><span class="toc-article-text">阶段一：传送并利用WebKit漏洞，通过HTML文件利用WebKit中的CVE-2016-4657漏洞。</span></a></li><li class="toc-article-item toc-article-level-5"><a class="toc-article-link" href="#阶段二：越狱。在第一阶段中会根据设备（32-64位）下载相应的，经过加密混淆的包。每次下载的包都是用独一无二的key加密的。软件包内包含针对iOS内核两个漏洞-CVE-2016-4655和CVE-2016-4656-的exp还有一个用来下载解密第三阶段软件包的loader。"><span class="toc-article-text">阶段二：越狱。在第一阶段中会根据设备（32/64位）下载相应的，经过加密混淆的包。每次下载的包都是用独一无二的key加密的。软件包内包含针对iOS内核两个漏洞(CVE-2016-4655和CVE-2016-4656)的exp还有一个用来下载解密第三阶段软件包的loader。</span></a></li><li class="toc-article-item toc-article-level-5"><a class="toc-article-link" href="#阶段三：安装间谍软件。经过了第二阶段的越狱，第三阶段中，攻击者会选择需要监听的软件，把hook安装到应用中。另外，第三阶段还会检查设备之前有没有通过其他方式越狱过，如果有，则会移除之前越狱后开放的系统访问权限，如ssh。软件还有一个“故障保险“，如果检测到设备满足某些条件，软件就会自毁。"><span class="toc-article-text">阶段三：安装间谍软件。经过了第二阶段的越狱，第三阶段中，攻击者会选择需要监听的软件，把hook安装到应用中。另外，第三阶段还会检查设备之前有没有通过其他方式越狱过，如果有，则会移除之前越狱后开放的系统访问权限，如ssh。软件还有一个“故障保险“，如果检测到设备满足某些条件，软件就会自毁。</span></a></li></ol></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#背景"><span class="toc-article-text">背景</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#攻击"><span class="toc-article-text">攻击</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-5"><a class="toc-article-link" href="#设置触发漏洞"><span class="toc-article-text">设置触发漏洞</span></a></li></ol></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#获取任意读写原语"><span class="toc-article-text">获取任意读写原语</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#获取对象地址"><span class="toc-article-text">获取对象地址</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#本地代码执行"><span class="toc-article-text">本地代码执行</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#回避检测"><span class="toc-article-text">回避检测</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#分析KASLR绕过"><span class="toc-article-text">分析KASLR绕过</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#32位和63位二进制包不同的地方"><span class="toc-article-text">32位和63位二进制包不同的地方</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#加载API"><span class="toc-article-text">加载API</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#环境设置和平台确定"><span class="toc-article-text">环境设置和平台确定</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#攻入KASLR"><span class="toc-article-text">攻入KASLR</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#在受害设备上建立读-写-执行原语（32bit）"><span class="toc-article-text">在受害设备上建立读/写/执行原语（32bit）</span></a></li></ol></li>
+			<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#PEGASUS攻击分析"><span class="toc-article-text">PEGASUS攻击分析</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-6"><a class="toc-article-link" href="#参考-lookout-report"><span class="toc-article-text">参考 lookout report</span></a></li></ol></li></ol><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#攻击过程"><span class="toc-article-text">攻击过程</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-5"><a class="toc-article-link" href="#阶段一"><span class="toc-article-text">阶段一</span></a></li><li class="toc-article-item toc-article-level-5"><a class="toc-article-link" href="#阶段二"><span class="toc-article-text">阶段二</span></a></li><li class="toc-article-item toc-article-level-5"><a class="toc-article-link" href="#阶段三"><span class="toc-article-text">阶段三</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#CVE-2016-4657"><span class="toc-article-text">CVE-2016-4657</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#背景"><span class="toc-article-text">背景</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#攻击"><span class="toc-article-text">攻击</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-5"><a class="toc-article-link" href="#设置触发漏洞"><span class="toc-article-text">设置触发漏洞</span></a></li></ol></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#获取任意读写原语"><span class="toc-article-text">获取任意读写原语</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#获取对象地址"><span class="toc-article-text">获取对象地址</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#本地代码执行"><span class="toc-article-text">本地代码执行</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#回避检测"><span class="toc-article-text">回避检测</span></a></li></ol></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#分析KASLR绕过"><span class="toc-article-text">分析KASLR绕过</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#32位和63位二进制包不同的地方"><span class="toc-article-text">32位和63位二进制包不同的地方</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#加载API"><span class="toc-article-text">加载API</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#环境设置和平台确定"><span class="toc-article-text">环境设置和平台确定</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#攻入KASLR"><span class="toc-article-text">攻入KASLR</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#在受害设备上建立读-写-执行原语（32bit）"><span class="toc-article-text">在受害设备上建立读/写/执行原语（32bit）</span></a></li></ol></li>
 		</div>
 	
 	</div>
