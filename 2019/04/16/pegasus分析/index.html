@@ -185,6 +185,225 @@
 <p>通过一段特殊设计的数据块，接下来会详细谈到，现在调用<em>clock_get_attributes</em>就可以在内核内执行任意函数。如果受害者的内核已经以某种方式暴露了，这种时钟修改才可能发生，这是值得注意的。所以，如果在一个没有越狱的手机上，修改可能不成功。</p>
 <p>如果32包已经获得了内核端口并且完成了上述对不同时钟的修改，会略过接下来的几个步骤，获取访问权，逐步提升权限。如果因现阶段内核端口不可用，使内核修改失败，32包创建并锁向前初始化阶段的锁定文件。这个文件非常重要，因为后面获得内核改写权限会使用这个文件。</p>
 <p>64位包不会利用已越狱手机上的后门。</p>
+<h4 id="线程操作"><a href="#线程操作" class="headerlink" title="线程操作"></a>线程操作</h4><p>为在内核中执行任意代码，最终阶段二会利用一个UFA（use after free）漏洞。当间接引用的内存区域（漏洞想要控制的）在漏洞利用开始前分配给了另一个线程，这时竞争状况产生了。其他线程可能突然申请一段重要的已释放区域，为降低这种可能性，阶段二会创建非常多的线程，并立刻将每个线程（主线程之外的）暂停。接着，阶段二为主线程修改时刻表策略，使利用UAF时不会碰到内存竞争占用的情况的可能性大大增加。</p>
+<p>阶段二64位版本中还有额外的一个步骤。在线程时刻表修改完成后，阶段二会创建1000个线程。每个线程都含有一个单紧环，这个循环等待全局变量降至预定义值以下（值小于0）。这是为了确保（至少，增加可能性）没有其他的线程会争夺UFA目标内存块。</p>
+<h4 id="建立通信隧道（32位）"><a href="#建立通信隧道（32位）" class="headerlink" title="建立通信隧道（32位）"></a>建立通信隧道（32位）</h4><p>阶段二32包利用pipe命令创建另一个<em>pipe</em>，重新使用原先生成的<em>pipe</em>的变量。在调用<em>host_get_clock_service</em>之后，这个命令立刻执行，以获得实时和电池时钟。因这个pipe，<em>host_get_clock_service</em>再使用了之前为获得不同时钟端口<em>host_get_clock_service</em>使用的变量。</p>
+<p>先前生成的<em>pipe</em>和时钟端口非常关键，因为接下来的内核操作会用到，如果内核任务端口早已可得，<strong>32Stage2</strong>会略过这个对修改内核很重要的过程而是直接调用<em>vm_write</em>来修改内核。然而，如果<strong>32Stage2</strong>没有得到内核任务端口（手机没有越狱的情况），漏洞利用就很重要。作为攻击的一部分，32Stage2在攻击前向要获得<em>pipe</em>组和时钟，因此二进制包可以确保获得。尽管没必要重复，这是为确保重要的对象可达。</p>
+<p>假定用于最终调用函数的触发机制只不过是将现有函数指针重定向到sysctl处理程序，64位包不用执行这一步骤。</p>
+<h4 id="payload构造和内核插入"><a href="#payload构造和内核插入" class="headerlink" title="payload构造和内核插入"></a>payload构造和内核插入</h4><p>如果不能通过内核端口修改内核存储空间，<strong>32Stage2</strong>必须利用iOS已存漏洞去控制内核。其构造了两个数据缓冲块：包含修改实时和电池时钟的20字节的关键覆盖数据和38字节的一段payload，会运行一系列小程序来安装时钟覆盖程序。如下：<br><strong>clock_ops_overwrite</strong> 缓存区：</p>
+<pre><code>[00] (rtclock.getattr):address of OSSerializer::serialize
+[04] (calend_config):NULL
+[08] (calend_init):NULL
+[0C] (calend_gettime):address of calen_gatattr
+[10] (calend_getattr):address of _bufattr_cpx
+</code></pre><p><strong>uaf_payload_buffer</strong>攻击利用的缓存区：</p>
+<pre><code>[00] ptr to clock_ops_overwrite buffer
+[04] address of clock_ops array in kern memory
+[08] address of _copyin
+[0C] NULL
+[10] address of OSSerializer::serialize
+[14] address of &quot;BX LR&quot; code fragment
+[18] NULL
+[1C] address of OSSymbol::getMetaClass
+[20] address of &quot;BX LR&quot; code fragment
+[24] address of &quot;BX LR&quot; code fragment
+</code></pre><p><strong>32Stage2</strong>创建一个新线程来处理安装一新的时钟处理程序所需要的初始操作，但这个新线程不会进行安装。这个线程在栈上创建<strong>kauth_filesec</strong>数据块：</p>
+<pre><code>.fsec_magic=KAUTH_FILESEC_MAGIC; //0x12CC16D
+.fsec.owner=&lt;undetermind, random stack value&gt;;
+.fsec.group=&lt;undetermind, random stack value&gt;;
+.fsec_acl.entrycount=KAUTH_FILESEC_NOACL;//-1
+</code></pre><p><em>uaf_payload_buffer</em>添加到<em>kauth _filesec</em>中的<strong>kauth_filesec.fsec_acl.acl_ace[]</strong>数组末尾处。这个会在IOKit上开设一个端口，为AppleKeyStore调用I<em>OServiceGetMatchingService</em>。该线程利用与获取内核地址相同的方法，获得一段有效的内核内存空间。新线程和之前相同操作不同之处在于属性名称不同（新线程使用“ararararararararararararararararararararararararararararararararararararararararararararararararararararararararararararararara”）。</p>
+<p>接着，<strong>open_extended </strong>调用<em>syscall</em>。32包将锁定文件的地址传到syscall，还有KAUTH_UID_NONE和KAUTH_GID_NONE两个参数值，在线程开始时，创建<strong>kauth_filesec</strong>。<strong>open_extended</strong>会执行下列代码：</p>
+<pre><code>if ((uap-&gt;xsecurity!=USER_ADD_NULL)&amp;&amp;
+    ((ciferrror=kauth_copyinfilesec(uap-&gt;xsecurity,&amp;xsecdst))!=0))
+</code></pre><p><strong>kauth_copyinfilesec</strong>从用户块中复制<strong>kauth_filesec </strong>到内核块中的<strong>kauth_filesec </strong>数据块中。<strong>kauth_filesec </strong>制作了一个访问控制列表(acl)包含访问控制入口(ace)。如下：</p>
+<pre><code>/* FILE SECURITY information */
+struct kauth_filesec{
+    u_int32_t        fsec_magic;
+    guid_t            fsec_owner;
+    guid_t            fsec_group;
+    struct kauth_acl fsec_acl;
+}；
+</code></pre><p>ACL储存在<strong>kauth_acl</strong> ，如下：</p>
+<pre><code>/* Access Contro List */
+struct kauth_acl{
+    u_int32_t        acl_entrycount;
+    u_int32_t        acl_flags;
+    struct kauth_ace acl_ace[1];
+};
+</code></pre><p><strong>kauth_ace</strong>有24字节，如下：</p>
+<pre><code>typedef u_int32_t kauth_ace_rights_t;
+/* Access Control List Entry (ACE) */
+struct kauth_ace{
+    guid_t        ace_applicable;
+    u_int32_t    ace_flags;
+    kauth_ace_rights_t    ace_rights;                    /*scope specific*/
+};
+</code></pre><p><strong>kauth_acl</strong>里的<strong>acl_entrycount</strong>是一个无符号整型，定义了acl_ace数组里有多少个<strong>kauth_ace</strong>入口。如果ACL里没有ACE记录，acl_entrycount会定义为KAUTH_FILESEC_NOACL，这个值为-1。在<strong>kauth_copyinfilesec</strong>中发现如下注释。</p>
+<pre><code>/* 
+    猜测filesec的大小。从基指针开始，
+    看看还有页面上还有多少空间剩余，
+    裁剪到合理的上界。如果空间不够，
+    重新基于实际ACL空间大小定义，重新开始。
+
+    上届值必须小于KAUTH_ACL_MAX_ENTRIES。
+    但可任意取值，0也可以。
+*/
+</code></pre><p>当该线程构建了kauth_filesec，会直接操控栈上的数据块地址，如下：</p>
+<pre><code>//get stack address
+p=(unsigned int)&amp;stackAnchor &amp; 0xFFFFFF000;
+//kauth_filesec.fsec_magic
+(p+0xEC0)=0x12CC16D;
+//kauth_filesec.fsec_acl.entrycount=KAUTH_FILESEC_NOACL
+(p+0xEE4)=-1;
+//kauth_filesec.fsec_acl.acl_ace[...]
+memcpy(&amp;stackAnchor &amp; 0xFFFFF000 | 0xEEC, pExploit, 128);
+</code></pre><p>堆栈在新线程执行开始时内容如下：</p>
+<pre><code>char stackAnchor; //[sp+101Fh] [bp-2031h]@1
+unsigned int size; //[sp+2020h] [bp-2013h]@12
+char buffer[4096]; //[sp+2024h] [bp-102h]@12
+int v26; //[sp+3024h] [bp-2Ch]@7
+mach_port_t connection; //[sp+3028h] [hp-28h]@4
+kern_return_t result; //[sp+320Ch] [bp-24h]@4
+mach_port_t masterPort; //[sp+3030h] [bp-20h]@3 MAPDST
+</code></pre><p>该新线程利用<em>stackAnchor</em>变量找到栈的一个页边界值。接着，线程创建一个非常大的数组，确保至少栈上的一页空间不会分配给函数关键变量，就可以创建一个<em>kauth_filesec</em>结构块，其包含了比必需的更多的信息。通过设置<strong>acl_entrycount</strong>去向系统说明没有ACE项，则当<em>open_extended </em>加载<em>kauth_filesec</em>时，其不会解析<em>acl _ flags </em>以外的任何数组。因此保护了攻击缓冲区的完整性，并防止因攻击缓冲区作为一真的ACE会被中断，内核可能因此产生错误。最终<em>open_extended</em>会将攻击缓冲区（以及<em>clock _ ops _ overwrite </em>缓冲区）的内容复制到内核区域中。</p>
+<p>新线程利用<em>open_extended </em>的漏洞将未修改的<strong>payload</strong>放到了内核中。利用先前讨论的漏洞，即允许内核数据泄露进用户内存中，就可以找到<strong>payload</strong>的地址。当完成了对<strong>AppleKeyStore</strong>漏洞的攻击，<em>buffer </em>变量传向<em>io_service_open_extended </em>（位于stackAnchor附近的相同变量）。这意味着<em>AppleKeyStore </em>会返回指向内核块的指针，指针指向<em>open_extended </em>复制进内核的代码块的后一项。因此，新线程的目的不是重写时钟处理程序指针，而是为这样的攻击做准备。</p>
+<p>一旦新线程完成工作，包含了攻击缓冲区地址的变量会被检测，判断是否真是新线程设定的（在调用新线程前，该变量已被初始化为0x12345678）。如果没有获得内核地址，攻击便会停止。</p>
+<p>在新线程活动完成后，若手机是iPhone4.1（iPhone4s），主线程会创建1000个线程。每个线程都生成一个小循环，循环等待一全局变量降为0以下（创建是默认值为1000）。并不清楚为什么对iPhone4s会有这种行为，这种行为的结果似乎对所有平台都有价值。主线程大量消耗内存资源，从而在UAF开发期间，减少了另一个线程将产生并因此争夺内存资源的概率。</p>
+<h4 id="payload结构和内核插入（64位）"><a href="#payload结构和内核插入（64位）" class="headerlink" title="payload结构和内核插入（64位）"></a>payload结构和内核插入（64位）</h4><p>考虑到<em>64Stage2</em>中使用的触发机制的不同，设置和<em>payload</em>结构也有点不同的。64位没有创建管道和覆盖时钟<em>getattr</em>语句，而是重写了一<em>sysctl </em>处理函数，最终也会导致<strong> OSSerializer::serialize</strong>以32位相似方式执行。为建立执行原语，64位用到了<strong>net.inet.ip.dummynet.extract_heap</strong>的接口，64位可向其传送一精心制作的数据块，该数据块允许该二进制包重写指向连接内核区域的变量的指针。最终结果和<em>getattr</em>差不多，即允许64Stage2二进制文件执行来自用户空间的内核中的任意ROP链代码。</p>
+<h4 id="建立内核读-写基元（32位）"><a href="#建立内核读-写基元（32位）" class="headerlink" title="建立内核读/写基元（32位）"></a>建立内核读/写基元（32位）</h4><p>利用现在内核内存中的漏洞利用代码，32Stage2必须激活代码才能安装新的<strong>clock_ops</strong>处理程序，该程序可使用户可以访问内核内存。32Stage2在<em>io_service_open_extended</em>反序列化例程中使用了free-after-free（UAF）漏洞。虽然报告先前展示了<em>io_service_open_extended</em>的反序列化功能会泄漏内核地址信息，但同一组件中的另一个漏洞也可会造成在内核中可执行任意代码。当<em>io_service_open_extended</em>传递属性数据blob时，该函数会在将信息传递给OSUnserializeXML之前将内容从用户空间复制到内核空间。 如果kOSSerializeBinarySignature值出现在数据blob的开头，OSUnserializeXML按顺序将信息传递给OSUnserializeBinary。OSUnserializeBinary存在这个漏洞。</p>
+<p>properties参数中的数据<strong>blob</strong>表示一已序列化的XML字典（或容器）。为了重构关系，OSUnserializeBinary遍历整个blob数据来解析出各个数据对象。在编码过程中（将原始XML转换为其二进制表示的过程）可能会重复发现相同的对象。为了更有效地处理重复数据，将重复对象存储在数组（objsArray）中，重构的XML字典中的对象就可以由数组的索引来表示。</p>
+<p>在OSUnserializeBinary中，while循环遍历blob中的每个已编码对象。循环首先确定对象的类型（例如，kOS Serialize Dictionary，kOS SerializeArray，kOSSerializeNumber，等等）及其大小。</p>
+<pre><code>len = (key &amp; kOSSerializeDataMask);
+...
+switch ( kOSSerializeTypeMask &amp; key)
+{
+    case kOSSerializeDictionary:
+        o = newDict = OSDictionary::withCapacity(len);
+        newCollect = (len!=0);
+        break;
+    case kOSSerializeArray:
+        o = newArray =OSArray::withCapacity(len);
+        newCollect = (len!=0);
+        break;
+    case kOSSerializeSet:
+        o = newSet = OSSet::withCapacity(len);
+        newCollect = (len!=0);
+    case kOSSerializeObject;
+        if(len&gt;=objsIdx) break;
+        o = objsArray[len];
+        o-&gt;retain();
+        isRef = true;
+        break;
+}
+</code></pre><p>堆栈在新线程执行开始时内容如下：</p>
+<pre><code>char stackAnchor; //[sp+101Fh] [bp-2031h]@1
+unsigned int size; //[sp+2020h] [bp-2013h]@12
+char buffer[4096]; //[sp+2024h] [bp-102h]@12
+int v26; //[sp+3024h] [bp-2Ch]@7
+mach_port_t connection; //[sp+3028h] [hp-28h]@4
+kern_return_t result; //[sp+320Ch] [bp-24h]@4
+mach_port_t masterPort; //[sp+3030h] [bp-20h]@3 MAPDST
+</code></pre><p>该新线程利用<em>stackAnchor</em>变量找到栈的一个页边界值。接着，线程创建一个非常大的数组，确保至少栈上的一页空间不会分配给函数关键变量，就可以创建一个<em>kauth_filesec</em>结构块，其包含了比必需的更多的信息。通过设置<strong>acl_entrycount</strong>去向系统说明没有ACE项，则当<em>open_extended </em>加载<em>kauth_filesec</em>时，其不会解析<em>acl _ flags </em>以外的任何数组。因此保护了攻击缓冲区的完整性，并防止因攻击缓冲区作为一真的ACE会被中断，内核可能因此产生错误。最终<em>open_extended</em>会将攻击缓冲区（以及<em>clock _ ops _ overwrite </em>缓冲区）的内容复制到内核区域中。</p>
+<p>新线程利用<em>open_extended </em>的漏洞将未修改的<strong>payload</strong>放到了内核中。利用先前讨论的漏洞，即允许内核数据泄露进用户内存中，就可以找到<strong>payload</strong>的地址。当完成了对<strong>AppleKeyStore</strong>漏洞的攻击，<em>buffer </em>变量传向<em>io_service_open_extended </em>（位于stackAnchor附近的相同变量）。这意味着<em>AppleKeyStore </em>会返回指向内核块的指针，指针指向<em>open_extended </em>复制进内核的代码块的后一项。因此，新线程的目的不是重写时钟处理程序指针，而是为这样的攻击做准备。</p>
+<p>一旦新线程完成工作，包含了攻击缓冲区地址的变量会被检测，判断是否真是新线程设定的（在调用新线程前，该变量已被初始化为0x12345678）。如果没有获得内核地址，攻击便会停止。</p>
+<p>在新线程活动完成后，若手机是iPhone4.1（iPhone4s），主线程会创建1000个线程。每个线程都生成一个小循环，循环等待一全局变量降为0以下（创建是默认值为1000）。并不清楚为什么对iPhone4s会有这种行为，这种行为的结果似乎对所有平台都有价值。主线程大量消耗内存资源，从而在UAF开发期间，减少了另一个线程将产生并因此争夺内存资源的概率。</p>
+<h4 id="payload结构和内核插入（64位）-1"><a href="#payload结构和内核插入（64位）-1" class="headerlink" title="payload结构和内核插入（64位）"></a>payload结构和内核插入（64位）</h4><p>考虑到<em>64Stage2</em>中使用的触发机制的不同，设置和<em>payload</em>结构也有点不同的。64位没有创建管道和覆盖时钟<em>getattr</em>语句，而是重写了一<em>sysctl </em>处理函数，最终也会导致<strong> OSSerializer::serialize</strong>以32位相似方式执行。为建立执行原语，64位用到了<strong>net.inet.ip.dummynet.extract_heap</strong>的接口，64位可向其传送一精心制作的数据块，该数据块允许该二进制包重写指向连接内核区域的变量的指针。最终结果和<em>getattr</em>差不多，即允许64Stage2二进制文件执行来自用户空间的内核中的任意ROP链代码。</p>
+<h4 id="建立内核读-写基元（32位）-1"><a href="#建立内核读-写基元（32位）-1" class="headerlink" title="建立内核读/写基元（32位）"></a>建立内核读/写基元（32位）</h4><p>利用现在内核内存中的漏洞利用代码，32Stage2必须激活代码才能安装新的<strong>clock_ops</strong>处理程序，该程序可使用户可以访问内核内存。32Stage2在<em>io_service_open_extended</em>反序列化例程中使用了free-after-free（UAF）漏洞。虽然报告先前展示了<em>io_service_open_extended</em>的反序列化功能会泄漏内核地址信息，但同一组件中的另一个漏洞也可会造成在内核中可执行任意代码。当<em>io_service_open_extended</em>传递属性数据blob时，该函数会在将信息传递给OSUnserializeXML之前将内容从用户空间复制到内核空间。 如果kOSSerializeBinarySignature值出现在数据blob的开头，OSUnserializeXML按顺序将信息传递给OSUnserializeBinary。OSUnserializeBinary存在这个漏洞。</p>
+<p>properties参数中的数据<strong>blob</strong>表示一已序列化的XML字典（或容器）。为了重构关系，OSUnserializeBinary遍历整个blob数据来解析出各个数据对象。在编码过程中（将原始XML转换为其二进制表示的过程）可能会重复发现相同的对象。为了更有效地处理重复数据，将重复对象存储在数组（objsArray）中，重构的XML字典中的对象就可以由数组的索引来表示。</p>
+<p>在OSUnserializeBinary中，while循环遍历blob中的每个已编码对象。循环首先确定对象的类型（例如，kOS Serialize Dictionary，kOS SerializeArray，kOSSerializeNumber，等等）及其大小。</p>
+<pre><code>len = (key &amp; kOSSerializeDataMask);
+...
+switch ( kOSSerializeTypeMask &amp; key)
+{
+    case kOSSerializeDictionary:
+        o = newDict = OSDictionary::withCapacity(len);
+        newCollect = (len!=0);
+        break;
+    case kOSSerializeArray:
+        o = newArray =OSArray::withCapacity(len);
+        newCollect = (len!=0);
+        break;
+    case kOSSerializeSet:
+        o = newSet = OSSet::withCapacity(len);
+        newCollect = (len!=0);
+    case kOSSerializeObject;
+        if(len&gt;=objsIdx) break;
+        o = objsArray[len];
+        o-&gt;retain();
+        isRef = true;
+        break;
+}
+</code></pre><p><strong>switch</strong>语句调度适当的指令来处理数据blob中找到的每种类型的对象。这些指令会生成新对象，并根据特定对象在反序列化过程中所需的内容设置与对象相关的标志。kOSSerializeObject对象类型是一种特殊情况，表示已经反序列化的对象，因此，将标志isRef设置为true，表示该对象是对objsArray数组中已有对象的引用。如果isRef值未设置为true，则刚刚进行反序列化的当前对象将通过setAtIndex添加到objsArray：</p>
+<p><strong>switch</strong>语句调度适当的指令来处理数据blob中找到的每种类型的对象。这些指令会生成新对象，并根据特定对象在反序列化过程中所需的内容设置与对象相关的标志。kOSSerializeObject对象类型是一种特殊情况，表示已经反序列化的对象，因此，将标志isRef设置为true，表示该对象是对objsArray数组中已有对象的引用。如果isRef值未设置为true，则刚刚进行反序列化的当前对象将通过setAtIndex添加到objsArray：</p>
+<pre><code>if (! isRef)
+{
+        setAtIndex (objs, objsIdx, o);
+        if ( !ok) break;
+        objsIdx++;
+}
+</code></pre><p><strong>setAtIndex</strong>是一个宏，将对象（o）添加到objsArray。虽然iOS环境中存在更强大的数组对象，例如OSArray（会自动处理引用计数的数组容器），但<em>OSUnserializeBinary</em>对其已反序列化的对象的数组对象管理采用手动多一些的管理方式。反序列化后，通过调用o-&gt; release（）来将对象的引用计数清零，在大多数情况下将导致对象被释放。可能会在<em>kOSSerializeObject</em>对象中抛出异常。</p>
+<p>由于<em>kOSSerializeObject</em>对象是一个表示被其他条目引用的对象，因此必须在序列化后保留该对象。因此，在反序列化期间，kOSSerializeObject对象将调用o-&gt; retain（），从而增加对象的引用计数并防止从内存中删除它。</p>
+<p>序列化数据blob允许多次使用相同的密钥。 换句话说，有可能（直到iOS 9.3.1，在CVE-2016-1828中修复了重复密钥问题）使XML代码如下：</p>
+<pre><code>&lt;dict&gt;
+        &lt;key&gt;KEY1&lt;/key&gt;
+        &lt;number&gt;1&lt;/number&gt;
+        &lt;key&gt;KEY1&lt;/key&gt;
+        &lt;string&gt;2&lt;/string&gt;
+&lt;/dict&gt;
+</code></pre><p>上面的XML一旦序列化，将包含五个对象。第一个对象是字典容器（<code>&lt;dict&gt;</code>表示kOSSerializeDictionary对象），后跟表示键的符号（“KEY1”赋给kOSSerializeSymbol）及其数据对象（整数1赋给kOSSerializeNumber）。第四个属性指定另一个密钥对象，会再次分配给KEY1，现在这个属性是一个包含字符串“2”的字符串对象（kOSSerializeString）。作为反序列化过程的一部分，KEY1的重用导致接下来的对象会替换分配给KEY1的原始值。用新数据替换密钥便是<em>OSUnserializeBinary</em>容易受到攻击的地方。</p>
+<p>如前所述，当对象被反序列化时，只要该对象不是kOSSerializeObject，该对象就存储在objsArray中以供之后引用。此存储是setAtIndex宏的结果，如下：</p>
+<pre><code>#define setAtIndex(v, idx, o) \
+        if (idx &gt;= v##Capacity) \
+        { \
+                unint32_t ncap = v##Capacity+64; \
+                typeof(v##Array)nbuf = (typeof (v##Array)) kalloc_container(ncap*sizeof(o)); \
+                if (!nbuf) ok =false; \
+                if(v##Array) \
+                { \
+                        bcopy(v##Array, nbuf, v##Capacity * sizeof(o)); \
+                        kfree(v##Array,v##Capacity * sizeof(o)); \
+                } \
+                v##Array=nbuf; \
+                v##Capacity=ncap; \
+        } \
+        if (ok) v##Array[idx]=o;
+</code></pre><p>宏将扩展objsArray以容纳附加对象，并将对象分配到objsArray的末尾，而不通过o-&gt; retain（）调用增加其引用计数。此方法的问题在于，当第二个对象替换现有对象时（在我们的示例中，就是每当字符串对象替换KEY1的数字对象时），第一个对象被释放并随后被释放，但是指向现在释放的对象的指针存在于objsArray中。通常这只是一个糟糕的编程设计问题，但如果通过kOSSerializeObject条目引用该对象，则问题会变得更加复杂。如果kOSSerializeObject条目通过索引引用已释放对象的指针，则对o-&gt; retain（）的调用将尝试执行受攻击者控制的虚函数。</p>
+<p>为了利用UAF漏洞，32Stage2必须控制已解除分配的内存位置，并放置一个自定义vtable，它将使retain条目指向自己选择的函数。安装自定义vtable需要访问两个已释放的相邻内存位置。由于在序列化过程中无法直接覆盖对象的vtable，通过分配然后释放两个内存位置，32Stage2可以使用OSData或OSString对象一次替换两个内存位置，其中一个内存位置包含恶意vtable。导致UAF漏洞的上述条件是CVE-2016-18284的结果，并且存在于9.0到9.3.1的iOS版本中。32Stage2通过使用以下payload来利用此漏洞，以便在iOS时钟处理程序中安装内核读/写原语。   </p>
+<pre><code>[0x00] kOSSerailizeBinarySignature
+[0x04] kOSSerailizeEndCollecton | kOSSerailizeDictionary | 0x10
+[0x08] kOSSerailizeString | 4
+[0x0C] &quot;sy2&quot;
+[0x10] kOSSerailizeEndCollecton | kOSSerailizeArray | 0x10
+[0x14] kOSSerailizeDictionary | 0x10
+[0x18] kOSSerailizeSymbol | 4
+[0x1C] &quot;sy1&quot;
+[0x20] kOSSerailizeData | 0x14
+[0x24] &quot;ffff\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0&quot;
+[0x38] kOSSerailizeSymbol | 4
+[0x3C] &quot;sy1&quot;
+[0x40] kOSSerailizeEndCollecton | kOSSerailizeSymbol | 4
+[0x44] &quot;sy1&quot;
+[0x48] kOSSerailizeString | 0x1C
+[0x4C] {payload buffer}
+[0x68] kOSSerailizeString | 0x1C
+[0x6C] {payload buffer}
+[0x88] kOSSerailizeString | 0x1C
+[0x8C] {payload buffer}
+[0xA8] kOSSerailizeEndCollecton | kOSSerailizeObject | 5
+</code></pre><p>在payload中，32Stage2重用sy1密钥以通过UAF漏洞激活payload。</p>
+<p>从iOS版本9.3.2开始，修补了CVE-2016-1828漏洞，这迫使需要一种不同的机制来安装内核读/写原语。但是，OSUnserializeBinary的kOSSerializeObject仍包含UAF漏洞。</p>
+<p>理解这个概念的最简单方法是查看32Stage2生成的payload，以利用OSUnserializeBinary UAF漏洞。</p>
+<p>对于iOS版本9.3.2至少9.3.3，payload采用以下形式：</p>
+<pre><code>[0x00] kOSSerailizeBinarySignature
+[0x04] kOSSerailizeEndCollecton | kOSSerailizeDictionary | 0x10
+[0x08] kOSSerializeString | 4
+[0x0C] &quot;sy2&quot;
+[0x10] kOSSerializeData | 0x14
+[0x14] {payload buffer}
+[0x28] kOSSerializeEndCollecton | kOSSerializeObject | 1 
+</code></pre><p>虽然在结构上它们看起来有些不同，但最终它们都利用了UAF漏洞。在iOS 9.3.2及更高版本中使用的这种更简单的payload是最容易理解的。当OSUnserializeBinary开始反序列化payload的解析过程时，该函数将创建一个新的字典对象，偏移0x04处的运行结果。在词典中有两个无键对象。第一个对象是一个<strong>OSString</strong>对象，其值为<strong>sy2</strong>（分别在偏移量0x08和0x0C中指定）。在偏移量0x10处指定大小为0x14（20）字节的<strong>OSData</strong>对象。OSData对象包含payload缓冲区数据结构。由于对象是无键的，OSUnserializeBinary将用OSData对象替换OSString对象，但将指针留在objsArray中。由于OSString对象没有retain（）调用，OSString被释放，从而将两个内存数组放入空闲列表中（一个用于OSString对象本身，另一个用于与OSString对象关联的字符串）。</p>
+<p>当OSUnserializeBinary解析kOSSerializeData时，将分配新的OSData对象，从而从空闲列表中消耗一个已释放的内存位置。当与kOSSerializeData关联的数据被复制到OSData对象中时，将为数据分配新的缓冲区，该缓冲区将消耗空闲列表中的剩余数据位置。此时，objsArray中的悬空指针已被OSData对象的数据替换。它是与OSData对象关联的数据，其中包含恶意payload，最终将给予32Stage2写访问内核权限，以便安装读/写原语。</p>
 	  
 	</div>
 
@@ -251,7 +470,7 @@
 	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i></a>
 	   <div id="toc" class="toc collapse in">
 		   <span class="toc-title">Contents</span>
-			<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#PEGASUS攻击分析"><span class="toc-article-text">PEGASUS攻击分析</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-6"><a class="toc-article-link" href="#参考-lookout-report"><span class="toc-article-text">参考 lookout report</span></a></li></ol></li></ol><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#攻击过程"><span class="toc-article-text">攻击过程</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-5"><a class="toc-article-link" href="#阶段一"><span class="toc-article-text">阶段一</span></a></li><li class="toc-article-item toc-article-level-5"><a class="toc-article-link" href="#阶段二"><span class="toc-article-text">阶段二</span></a></li><li class="toc-article-item toc-article-level-5"><a class="toc-article-link" href="#阶段三"><span class="toc-article-text">阶段三</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#CVE-2016-4657"><span class="toc-article-text">CVE-2016-4657</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#背景"><span class="toc-article-text">背景</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#攻击"><span class="toc-article-text">攻击</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-5"><a class="toc-article-link" href="#设置触发漏洞"><span class="toc-article-text">设置触发漏洞</span></a></li></ol></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#获取任意读写原语"><span class="toc-article-text">获取任意读写原语</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#获取对象地址"><span class="toc-article-text">获取对象地址</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#本地代码执行"><span class="toc-article-text">本地代码执行</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#回避检测"><span class="toc-article-text">回避检测</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#绕过KASLR"><span class="toc-article-text">绕过KASLR</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#注入的第二阶段：内核位置泄露"><span class="toc-article-text">注入的第二阶段：内核位置泄露</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#分析KASLR绕过"><span class="toc-article-text">分析KASLR绕过</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#32位和63位二进制包不同的地方"><span class="toc-article-text">32位和63位二进制包不同的地方</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#加载API"><span class="toc-article-text">加载API</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#环境设置和平台确定"><span class="toc-article-text">环境设置和平台确定</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#攻入KASLR"><span class="toc-article-text">攻入KASLR</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#在受害设备上建立读-写-执行原语（32bit）"><span class="toc-article-text">在受害设备上建立读/写/执行原语（32bit）</span></a></li></ol></li></ol></li>
+			<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#PEGASUS攻击分析"><span class="toc-article-text">PEGASUS攻击分析</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-6"><a class="toc-article-link" href="#参考-lookout-report"><span class="toc-article-text">参考 lookout report</span></a></li></ol></li></ol><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#攻击过程"><span class="toc-article-text">攻击过程</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-5"><a class="toc-article-link" href="#阶段一"><span class="toc-article-text">阶段一</span></a></li><li class="toc-article-item toc-article-level-5"><a class="toc-article-link" href="#阶段二"><span class="toc-article-text">阶段二</span></a></li><li class="toc-article-item toc-article-level-5"><a class="toc-article-link" href="#阶段三"><span class="toc-article-text">阶段三</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#CVE-2016-4657"><span class="toc-article-text">CVE-2016-4657</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#背景"><span class="toc-article-text">背景</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#攻击"><span class="toc-article-text">攻击</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-5"><a class="toc-article-link" href="#设置触发漏洞"><span class="toc-article-text">设置触发漏洞</span></a></li></ol></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#获取任意读写原语"><span class="toc-article-text">获取任意读写原语</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#获取对象地址"><span class="toc-article-text">获取对象地址</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#本地代码执行"><span class="toc-article-text">本地代码执行</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#回避检测"><span class="toc-article-text">回避检测</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#绕过KASLR"><span class="toc-article-text">绕过KASLR</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#注入的第二阶段：内核位置泄露"><span class="toc-article-text">注入的第二阶段：内核位置泄露</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#分析KASLR绕过"><span class="toc-article-text">分析KASLR绕过</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#32位和63位二进制包不同的地方"><span class="toc-article-text">32位和63位二进制包不同的地方</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#加载API"><span class="toc-article-text">加载API</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#环境设置和平台确定"><span class="toc-article-text">环境设置和平台确定</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#攻入KASLR"><span class="toc-article-text">攻入KASLR</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#在受害设备上建立读-写-执行原语（32bit）"><span class="toc-article-text">在受害设备上建立读/写/执行原语（32bit）</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#线程操作"><span class="toc-article-text">线程操作</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#建立通信隧道（32位）"><span class="toc-article-text">建立通信隧道（32位）</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#payload构造和内核插入"><span class="toc-article-text">payload构造和内核插入</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#payload结构和内核插入（64位）"><span class="toc-article-text">payload结构和内核插入（64位）</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#建立内核读-写基元（32位）"><span class="toc-article-text">建立内核读/写基元（32位）</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#payload结构和内核插入（64位）-1"><span class="toc-article-text">payload结构和内核插入（64位）</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#建立内核读-写基元（32位）-1"><span class="toc-article-text">建立内核读/写基元（32位）</span></a></li></ol></li></ol></li>
 		</div>
 	
 	</div>
