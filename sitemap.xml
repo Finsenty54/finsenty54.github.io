@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://finsenty54.github.io/about/index.html</loc>
+    
+    <lastmod>2019-09-24T08:58:54.706Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://finsenty54.github.io/2019/05/17/sql-more-details/</loc>
     
     <lastmod>2019-05-18T04:28:24.887Z</lastmod>
@@ -33,13 +40,6 @@
     <loc>http://finsenty54.github.io/2019/03/29/penetration-test-report-interpretation/</loc>
     
     <lastmod>2019-04-26T07:52:00.425Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://finsenty54.github.io/about/index.html</loc>
-    
-    <lastmod>2019-04-26T07:48:28.493Z</lastmod>
     
   </url>
   
