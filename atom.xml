@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://finsenty54.github.io/"/>
-  <updated>2019-11-19T15:13:08.438Z</updated>
+  <updated>2019-11-19T15:06:56.882Z</updated>
   <id>http://finsenty54.github.io/</id>
   
   <author>
@@ -15,30 +15,6 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title>《逆向工程核心原理》学习笔记1</title>
-    <link href="http://finsenty54.github.io/2019/11/20/%E3%80%8A%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E3%80%8B%E5%AD%A6%E4%B9%A01/"/>
-    <id>http://finsenty54.github.io/2019/11/20/《逆向工程核心原理》学习1/</id>
-    <published>2019-11-19T23:06:56.000Z</published>
-    <updated>2019-11-19T15:13:08.438Z</updated>
-    
-    <content type="html"><![CDATA[<p>买这本书有一年了，但只看了一点点，希望能学完</p><ol><li>保存更改到可执行文件，<em>1保存到COPY TO EXECUTABLE FILE</em>，<em>2选择SAVE FILE</em></li><li>应用程序被加载到内存时，有一最小分配空间</li><li>space = assemble，用于更改代码<a id="more"></a></li><li>大端序 12 34 </li><li>小端序 34 12 一个字节里顺序一样</li><li>逆序压栈，栈FILO</li><li>栈窗口，address-relative to EBP</li><li>EBP ESP 存储的是栈地址-》代表数据</li><li>1.CALL 压入下一地址 -1 2.PUSH 压入上一栈帧基地址 -1 3.MOV EBP ESP 4. MOV ESP EBP 5.POP EBP 取出基地址 +1 6.RETN 取出下一地址+1</li><li>local 局部变量 ARG 参数</li><li>test = and =0 则 ZF=1 JE ZF=1 跳转</li><li>局部对象存储在栈区</li><li>选中地址，Follow in dump</li><li>dump中，long-address with ASCII dump</li><li>VB使用unicode</li><li>API get…Text</li><li>调试前预测代码的实现</li><li>先上托，找到栈帧生成部分</li></ol>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;买这本书有一年了，但只看了一点点，希望能学完&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;保存更改到可执行文件，&lt;em&gt;1保存到COPY TO EXECUTABLE FILE&lt;/em&gt;，&lt;em&gt;2选择SAVE FILE&lt;/em&gt;&lt;/li&gt;
-&lt;li&gt;应用程序被加载到内存时，有一最小分配空间&lt;/li&gt;
-&lt;li&gt;space = assemble，用于更改代码
-    
-    </summary>
-    
-    
-      <category term="RCE" scheme="http://finsenty54.github.io/tags/RCE/"/>
-    
-  </entry>
   
   <entry>
     <title>RCE</title>
