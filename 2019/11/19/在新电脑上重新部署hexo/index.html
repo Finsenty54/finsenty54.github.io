@@ -115,7 +115,27 @@
 	<div class="mypage">		
 	  		
 
-	  <a id="more"></a>
+	  <p>近期有了一台新电脑，所以需要重新部署一下hexo，我看了几个教程，其实很简单的，却弄复杂了</p>
+<h4 id="1-前期准备"><a href="#1-前期准备" class="headerlink" title="1. 前期准备"></a>1. 前期准备</h4><p><a href="https://hexo.io/docs/" title="hexo安装" target="_blank" rel="noopener">hexo安装</a>遵循该页面进行<strong>git</strong>和<strong>nodejs</strong>的安装<br><strong>将之前的hexo文件整个拷贝过来</strong><br><a id="more"></a></p>
+<h4 id="2-配置SSH"><a href="#2-配置SSH" class="headerlink" title="2. 配置SSH"></a>2. 配置SSH</h4><p>生成rsa公私钥</p>
+<pre><code>$ cd ~/.ssh
+# Checks to see if there is a directory named &quot;.ssh&quot; in your user directory
+
+$ ssh-keygen -t rsa -C &quot;your_email@example.com&quot;
+# Creates a new ssh key using the provided email
+Generating public/private rsa key pair.
+Enter file in which to save the key (/home/you/.ssh/id_rsa):
+</code></pre><p>然后在GitHub里添加公钥，在项目的setting里有一<code>deploy key</code>，在这里添加公钥<br>使用下列命令验证</p>
+<pre><code>ssh -T git@github.com
+</code></pre><p>如果不行，就是没有在<code>.ssh</code>文件夹里创建，需要接下来的两步</p>
+<pre><code>ssh-agent -s
+ssh-add ~/.ssh/id_rsa
+</code></pre><p>若提示要输入密码什么的，则在<code>_config.yml</code>配置文件中修改<code>repo</code></p>
+<pre><code>deploy:
+  type: git
+  repo: git@github.com:chengjianhua/chengjianhua.github.io.git
+  branch: master
+</code></pre><p>这样就可以了，不用<code>npm install</code>或<code>initial</code></p>
 	  
 	</div>
 
@@ -183,7 +203,7 @@
 	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i></a>
 	   <div id="toc" class="toc collapse in">
 		   <span class="toc-title">Contents</span>
-			
+			<ol class="toc-article"><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#1-前期准备"><span class="toc-article-text">1. 前期准备</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#2-配置SSH"><span class="toc-article-text">2. 配置SSH</span></a></li></ol>
 		</div>
 	
 	</div>
