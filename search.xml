@@ -4,6 +4,25 @@
   
     
     <entry>
+      <title>bug</title>
+      <link href="/2019/11/20/bug/"/>
+      <url>/2019/11/20/bug/</url>
+      
+        <content type="html"><![CDATA[<ol><li>修复了发布时间超前的问题<br>–在配置文件中将时区修改为<code>Asia/Shanghai</code><br><del>2019-11-20 20:28:32 星期三</del></li></ol><a id="more"></a>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> bug </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>《逆向工程核心原理》学习笔记2</title>
       <link href="/2019/11/20/%E3%80%8A%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B02/"/>
       <url>/2019/11/20/%E3%80%8A%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B02/</url>

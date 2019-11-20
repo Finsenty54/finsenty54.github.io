@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://finsenty54.github.io/"/>
-  <updated>2019-11-20T12:06:09.238Z</updated>
+  <updated>2019-11-20T12:29:19.438Z</updated>
   <id>http://finsenty54.github.io/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>bug</title>
+    <link href="http://finsenty54.github.io/2019/11/20/bug/"/>
+    <id>http://finsenty54.github.io/2019/11/20/bug/</id>
+    <published>2019-11-20T12:25:45.000Z</published>
+    <updated>2019-11-20T12:29:19.438Z</updated>
+    
+    <content type="html"><![CDATA[<ol><li>修复了发布时间超前的问题<br>–在配置文件中将时区修改为<code>Asia/Shanghai</code><br><del>2019-11-20 20:28:32 星期三</del></li></ol><a id="more"></a>]]></content>
+    
+    <summary type="html">
+    
+      &lt;ol&gt;
+&lt;li&gt;修复了发布时间超前的问题&lt;br&gt;–在配置文件中将时区修改为&lt;code&gt;Asia/Shanghai&lt;/code&gt;&lt;br&gt;&lt;del&gt;2019-11-20 20:28:32 星期三&lt;/del&gt;&lt;/li&gt;
+&lt;/ol&gt;
+    
+    </summary>
+    
+    
+      <category term="bug" scheme="http://finsenty54.github.io/tags/bug/"/>
+    
+  </entry>
   
   <entry>
     <title>《逆向工程核心原理》学习笔记2</title>
