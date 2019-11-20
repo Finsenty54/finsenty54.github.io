@@ -23,7 +23,7 @@
   <meta http-equiv="cache-control" content="no-cache">
   <meta http-equiv="expires" content="0">
   
-  <title>XSS 20关挑战 | FINSENTY54</title>
+  <title>《逆向工程核心原理》学习笔记2 | FINSENTY54</title>
   <meta name="author" content="finsenty54">
   
   <meta name="description" content="blog">
@@ -31,7 +31,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="XSS 20关挑战">
+  <meta property="og:title" content="《逆向工程核心原理》学习笔记2">
   <meta property="og:site_name" content="FINSENTY54">
 
   
@@ -115,7 +115,7 @@
 
 	
 		<div class="page-header">
-			<h1> XSS 20关挑战</h1>
+			<h1> 《逆向工程核心原理》学习笔记2</h1>
 		</div>
 	
 
@@ -132,35 +132,73 @@
 	<div class="mypage">		
 	  		
 
-	  <h2 id="less1"><a href="#less1" class="headerlink" title="less1"></a>less1</h2><p>反射型XSS也被称为非持久性CSS<br>当用户访问一个带有XSS代码的URL请求时，服务器端接收数据后处理，然后把带有XSS代码的数据发送到浏览器，浏览器解析这段带有XSS代码的数据后，最终造成XSS漏洞。</p>
-<p>alert() 方法用于显示带有一条指定消息和一个 OK 按钮的警告框。</p>
-<p>查看源码<code>window.alert = function()</code><br><code>echo &quot;&lt;h2 align=center&gt;欢迎用户&quot;.$str.&quot;&lt;/h2&gt;&quot;;</code>没有过滤<br>直接调用函数就可以通关<code>&lt;script&gt;window.alert()&lt;/script&gt;</code></p>
-<p><em><code>&lt;script&gt;</code> 标签用于定义客户端脚本，比如 JavaScript。</em></p>
-<a id="more"></a>
+	  <ol>
+<li>栈就是一小段内存空间，大小记录在PE头中</li>
+<li>RETN 8 =RETN POP 8 stdcall清理方式 被调用者清理，cdecl调用者清理</li>
+<li>Nags 唠叨</li>
+<li>VB ThunRTMain 函数 调用消息框 rtcMsgBox<a id="more"></a></li>
+<li>Set Breakpoint on every call to rtcMsgBox</li>
+<li>1 opcode == 1 byte</li>
+<li>4 bytes == 1 dword</li>
+<li>registers is 32 bit</li>
+</ol>
 <hr>
-<h2 id="less2"><a href="#less2" class="headerlink" title="less2"></a>less2</h2><p>利用页面元素看到输入在<code>&lt;input name=keyword  value=&quot;&#39;.$str.&#39;&quot;&gt;</code><br>闭合input语句即可<br><code>1&quot;&gt;&lt;script&gt;alert()&lt;/script&gt;</code><br><code>1&quot;&gt;&lt;script&gt;alert()&lt;/script&gt;&lt;&quot;</code></p>
-<p><a href="https://imgchr.com/i/kqT7Ed" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/03/03/kqT7Ed.png" alt="kqT7Ed.png"></a></p>
-<hr>
-<h2 id="less3"><a href="#less3" class="headerlink" title="less3"></a>less3</h2><p>查看页面元素<code>&lt;input name=keyword  value=&#39;1&#39;&gt;</code>在input语句里<br>尝试闭合无用<br>查看源码<code>str</code>都加上了<code>htmlspecialchars</code>函数，但默认配置是不过滤单引号的<br><code>&#39;onmouseover=&#39;window.alert()</code>即可</p>
-<p>输入<code>&#39;</code> <code>&lt;input name=&quot;keyword&quot; value=&quot;&quot; &#39;=&quot;&quot;&gt;</code><br>输入<code>&#39;&#39;</code> <code>&lt;input name=&quot;keyword&quot; value=&quot;&quot; &#39;&#39;=&quot;&quot;&gt;</code><br>输入<code>&#39;onclick&#39;</code> <code>&lt;input name=&quot;keyword&quot; value=&quot;&quot; onclick&#39;&#39;=&quot;&quot;&gt;</code><br>输入<code>onclick=</code> <code>&lt;input name=&quot;keyword&quot; value=&quot;&quot; onclick=&quot;&quot;&gt;</code></p>
-<hr>
-<h2 id="less4"><a href="#less4" class="headerlink" title="less4"></a>less4</h2><p>输入<code>&quot;&gt;&lt;script&gt;alert()&lt;/script&gt;&lt;&quot;</code><br>查看可知<code>&lt;input name=&quot;keyword&quot; value=&quot;&quot; scriptalert()=&quot;&quot; script&quot;&quot;=&quot;&quot;&gt;</code>过滤了<code>&lt;</code> <code>&gt;</code><br>利用上节方法<br><code>&quot;onclick=&quot;alert()</code></p>
-<p>更新于2019-03-03 11:19:50 星期日</p>
-<hr>
-<h2 id="less5"><a href="#less5" class="headerlink" title="less5"></a>less5</h2><p>试过后发现<code>onclick</code>变为<code>o_nclick</code><br><code>script</code>变为<code>sc_ript</code><br>使用<code>&quot;&gt;&lt;a href=&quot;javascript:alert()&quot;&gt;</code></p>
-<hr>
-<h2 id="less6"><a href="#less6" class="headerlink" title="less6"></a>less6</h2><p><code>onclick script href</code>输入后都进行了变化<br><code>&quot;&gt;&lt;a HRef=&quot;javascript:alert()&quot;&gt;</code><br><code>keyword=&quot;ONclick=&quot;alert()</code><br><code>keyword=&quot;&gt;&lt;scriPt&gt;alert()&lt;/SCRIpt&gt;&lt;&quot;</code><br><code>keyword=&quot;&gt;&lt;a HreF=javascript:alert()&gt;213&lt;/a&gt;&quot;&lt;</code><br>进行大小写替换可以</p>
-<hr>
-<h2 id="less7"><a href="#less7" class="headerlink" title="less7"></a>less7</h2><p><code>script</code>被过滤，改变大小写也没有用<br><code>on</code>被过滤<br><code>href</code>同样如此<br><code>keyword=&quot;&gt;&lt;scriscriptpt&gt;alert()&lt;/scrscriptipt&gt;&lt;&quot;</code><br>利用双写绕过</p>
-<p>更新于2019-03-06 21:20:39 星期三</p>
-<hr>
-<h2 id="less8"><a href="#less8" class="headerlink" title="less8"></a>less8</h2><p>这题可以添加链接<br>直接使用<code>javascript:alert(1)</code><br>但并没有用，查看源码<code>$str2=str_replace(&quot;script&quot;,&quot;scr_ipt&quot;,$str);</code>被替换了<br>使用制表符绕过<code>%09</code><br><code>keyword=javasc%09ript%3Aalert%281%29&amp;submit=添加友情链接</code></p>
-<hr>
-<h2 id="less9"><a href="#less9" class="headerlink" title="less9"></a>less9</h2><p>上题结果没有用，查看源码<code>if(false===strpos($str7,&#39;http://&#39;))</code><br>知一定要有<code>http://</code><br>在javascript伪协议里面，属于js范畴，所以单行注释符是可以使用的<br><code>javasc%09ript%3Aalert%281%29//http://www.test.com</code></p>
-<hr>
-<h2 id="less10"><a href="#less10" class="headerlink" title="less10"></a>less10</h2><p>查看页面元素<br><a href="https://imgchr.com/i/AdFKeI" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/03/27/AdFKeI.th.png" alt="AdFKeI.th.png"></a><br>有几个隐藏的值，注入点就在这<br><code>keyword=test&amp;t_sort=&quot; type=&quot;text&quot; onclick=&quot;alert()</code><br><a href="https://imgchr.com/i/AdkZNV" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/03/27/AdkZNV.th.png" alt="AdkZNV.th.png"></a></p>
-<hr>
-<h2 id="更新于2019-03-27-18-15-42-星期三"><a href="#更新于2019-03-27-18-15-42-星期三" class="headerlink" title="更新于2019-03-27 18:15:42 星期三"></a>更新于2019-03-27 18:15:42 星期三</h2>	  
+<h5 id="Lena视频学习"><a href="#Lena视频学习" class="headerlink" title="Lena视频学习"></a>Lena视频学习</h5><p><em>这是书本介绍的，这是<a href="https://tuts4you.com/download/2876/" title="tuts4you" target="_blank" rel="noopener">tuts4you</a>crackme下载地址，里面还有视频教程和一些其他教程。</em></p>
+<h5 id="Assembler-The-Basics-In-Reversing"><a href="#Assembler-The-Basics-In-Reversing" class="headerlink" title="Assembler : The Basics In Reversing"></a>Assembler : The Basics In Reversing</h5><p>SS stack segment<br>C-Flag &gt;FFFFFFFF  and &lt;0 时设置<br><code>segmens(a page in a book) + offsets(a specific line on that page)</code></p>
+<pre><code>add eax,ebx                    ;; Register, Register
+add eax,123                    ;; Register, Value
+add eax,dword ptr [404000]            ;; Register, Dword Pointer [value]
+add eax,dword ptr [eax]            ;; Register, Dword Pointer [register]
+add eax,dword ptr [eax+00404000]    ;; Register, Dword Pointer [register+value]
+add dword ptr [404000],eax            ;; Dword Pointer [value], Register
+add dword ptr [404000],123        ;; Dword Pointer [value], Value
+add dword ptr [eax],eax            ;; Dword Pointer [register], Register
+add dword ptr [eax],123            ;; Dword Pointer [register], Value
+add dword ptr [eax+404000],eax        ;; Dword Pointer [register+value], Register
+add dword ptr [eax+404000],123        ;; Dword Pointer [register+value], value
+</code></pre><p>INT3 and INTO are interrupt calls that take no parameters but call the handlers for interrupts 3 and 4, respectively.</p>
+<pre><code>JA*    -    Jump if (unsigned) above            - CF=0 and ZF=0
+JAE    -    Jump if (unsigned) above or equal        - CF=0
+JB*    -    Jump if (unsigned) below            - CF=1
+JBE    -    Jump if (unsigned) below or equal        - CF=1 or ZF=1
+JC    -    Jump if carry flag set            - CF=1
+JCXZ    -    Jump if CX is 0                - CX=0
+JE**    -    Jump if equal                    - ZF=1
+JECXZ    -    Jump if ECX is 0                - ECX=0
+JG*    -    Jump if (signed) greater            - ZF=0 and SF=OF (SF = Sign Flag)
+JGE*    -    Jump if (signed) greater or equal        - SF=OF
+JL*    -    Jump if (signed) less                - SF != OF (!= is not)
+JLE*    -    Jump if (signed) less or equal        - ZF=1 and OF != OF
+JMP**    -    Jump                        - Jumps always
+JNA    -    Jump if (unsigned) not above        - CF=1 or ZF=1
+JNAE    -    Jump if (unsigned) not above or equal    - CF=1
+JNB    -    Jump if (unsigned) not below        - CF=0
+JNBE     -    Jump if (unsigned) not below or equal    - CF=0 and ZF=0
+JNC    -    Jump if carry flag not set            - CF=0
+JNE**    -    Jump if not equal                - ZF=0
+JNG    -    Jump if (signed) not greater            - ZF=1 or SF!=OF
+JNGE    -    Jump if (signed) not greater or equal    - SF!=OF
+JNL    -    Jump if (signed) not less            - SF=OF
+JNLE    -    Jump if (signed) not less or equal        - ZF=0 and SF=OF
+JNO    -    Jump if overflow flag not set        - OF=0
+JNP    -    Jump if parity flag not set            - PF=0
+JNS    -    Jump if sign flag not set            - SF=0
+JNZ    -    Jump if not zero                - ZF=0
+JO    -    Jump if overflow flag is set            - OF=1
+JP    -    Jump if parity flag set            - PF=1
+JPE    -    Jump if parity is equal            - PF=1
+JPO    -    Jump if parity is odd                - PF=0
+JS    -    Jump if sign flag is set            - SF=1
+JZ    -    Jump if zero                    - ZF=1
+</code></pre><h6 id="LEA-Load-Effective-Address"><a href="#LEA-Load-Effective-Address" class="headerlink" title="LEA (Load Effective Address)"></a>LEA (Load Effective Address)</h6><p>Syntax: LEA dest,src<br>LEA can be treated the same way as the MOV instruction. It isn’t used too much for its original function, but more for quick multiplications like this:<br>   <code>lea eax, dword ptr [4*ecx+ebx]</code><br> <strong>which gives eax the value of 4*ecx+ebx</strong><br><del>ptr== pointer</del></p>
+<h6 id="POP"><a href="#POP" class="headerlink" title="POP"></a>POP</h6><p>Syntax: POP dest<br>POP loads the value of byte/word/dword ptr <strong>[esp] 直接寻址 esp指向的值</strong>and puts it into dest. </p>
+<h6 id="TEST"><a href="#TEST" class="headerlink" title="TEST"></a>TEST</h6><p>Syntax: TEST operand1, operand2<br>This instruction is in 99% of all cases used for “TEST EAX, EAX”. It performs a Logical<br>AND(AND instruction)<code>but does not save the values</code>.<strong> It only sets the Z-Flag, when EAX is 0 or clears it, when EAX is not 0. The O/C flags are always cleared.</strong></p>
+<h6 id="XOR"><a href="#XOR" class="headerlink" title="XOR"></a>XOR</h6><p>Syntax: XOR dest,src<br>The XOR instruction connects two values using logical exclusive OR (remember OR uses inclusive OR).<br><code>This instruction clears the O-Flag and the C-Flag and can set the Z-Flag.</code><br>To understand XOR better, consider those two binary values:</p>
+<pre><code>1001010110
+0101001101
+</code></pre><p><code>If you XOR them, the result is 1100011011</code></p>
+<p>The most often seen use of XOR is “XOR, EAX, EAX”.<code>This will set EAX to 0,</code> because when you XOR a value with itself, the result is always 0. I hope you understand why, else<br>write down a value on paper and try ;)</p>
+	  
 	</div>
 
 	<div>
@@ -169,13 +207,12 @@
 
     
     
-    <a href="/2019/03/16/Docker学习笔记/" type="button" class="btn btn-default"><i
-                class="fa fa-arrow-circle-o-left"></i> 上一页</a>
+    <a type="button" class="btn btn-default disabled"><i class="fa fa-arrow-circle-o-left"></i>上一页</a>
     
 
     <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
     
-    <a href="/2019/02/27/sqli-labs/" type="button" class="btn btn-default ">下一页<i
+    <a href="/2019/11/19/《逆向工程核心原理》学习笔记1/" type="button" class="btn btn-default ">下一页<i
                 class="fa fa-arrow-circle-o-right"></i></a>
     
 
@@ -229,7 +266,7 @@
 	
 	<div class="meta-widget">
 	<i class="fa fa-clock-o"></i>
-	2019-03-02 
+	2019-11-20 
 	</div>
 	
 
@@ -242,7 +279,7 @@
 	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>		  
     <ul id="tags" class="tag_box list-unstyled collapse in">	  
 	    
-  <li><a href="/tags/xss/">xss<span>1</span></a></li>
+  <li><a href="/tags/RCE/">RCE<span>2</span></a></li>
     </ul>
 	</div>
 		
@@ -253,7 +290,7 @@
 	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i></a>
 	   <div id="toc" class="toc collapse in">
 		   <span class="toc-title">Contents</span>
-			<ol class="toc-article"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#less1"><span class="toc-article-text">less1</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#less2"><span class="toc-article-text">less2</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#less3"><span class="toc-article-text">less3</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#less4"><span class="toc-article-text">less4</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#less5"><span class="toc-article-text">less5</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#less6"><span class="toc-article-text">less6</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#less7"><span class="toc-article-text">less7</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#less8"><span class="toc-article-text">less8</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#less9"><span class="toc-article-text">less9</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#less10"><span class="toc-article-text">less10</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#更新于2019-03-27-18-15-42-星期三"><span class="toc-article-text">更新于2019-03-27 18:15:42 星期三</span></a></li></ol>
+			<ol class="toc-article"><li class="toc-article-item toc-article-level-5"><a class="toc-article-link" href="#Lena视频学习"><span class="toc-article-text">Lena视频学习</span></a></li><li class="toc-article-item toc-article-level-5"><a class="toc-article-link" href="#Assembler-The-Basics-In-Reversing"><span class="toc-article-text">Assembler : The Basics In Reversing</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-6"><a class="toc-article-link" href="#LEA-Load-Effective-Address"><span class="toc-article-text">LEA (Load Effective Address)</span></a></li><li class="toc-article-item toc-article-level-6"><a class="toc-article-link" href="#POP"><span class="toc-article-text">POP</span></a></li><li class="toc-article-item toc-article-level-6"><a class="toc-article-link" href="#TEST"><span class="toc-article-text">TEST</span></a></li><li class="toc-article-item toc-article-level-6"><a class="toc-article-link" href="#XOR"><span class="toc-article-text">XOR</span></a></li></ol></li></ol>
 		</div>
 	
 	</div>

@@ -23,7 +23,7 @@
   <meta http-equiv="cache-control" content="no-cache">
   <meta http-equiv="expires" content="0">
   
-  <title>Docker学习笔记 | FINSENTY54</title>
+  <title>《逆向工程核心原理》学习笔记1 | FINSENTY54</title>
   <meta name="author" content="finsenty54">
   
   <meta name="description" content="blog">
@@ -31,7 +31,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="Docker学习笔记">
+  <meta property="og:title" content="《逆向工程核心原理》学习笔记1">
   <meta property="og:site_name" content="FINSENTY54">
 
   
@@ -115,7 +115,7 @@
 
 	
 		<div class="page-header">
-			<h1> Docker学习笔记</h1>
+			<h1> 《逆向工程核心原理》学习笔记1</h1>
 		</div>
 	
 
@@ -132,22 +132,27 @@
 	<div class="mypage">		
 	  		
 
-	  <p>sudo add-apt-repository \<br>   “deb [arch=amd64] <a href="https://download.docker.com/linux/ubuntu" target="_blank" rel="noopener">https://download.docker.com/linux/ubuntu</a> \<br>   $(lsb_release -cs) \<br>   stable”</p>
-<p><a href="https://download.docker.com/linux/ubuntu/dists/bionic/pool/stable/amd64/" target="_blank" rel="noopener">https://download.docker.com/linux/ubuntu/dists/bionic/pool/stable/amd64/</a><br><a id="more"></a></p>
-<p>配置完镜像源后，记得重启</p>
-<p>/bin/sh<br>/bin/bash<br>运行shell</p>
-<p>docker run –name mysql-data -p 3306:3306 -v /home/finsenty/Documents/mysqldata:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=”123456” -d mysql:5.7</p>
-<p>docker run -p 8888:5000 –name myfirstapp YOUR_USERNAME/myfirstapp</p>
-<ul>
-<li>Running on <a href="http://0.0.0.0:5000/" target="_blank" rel="noopener">http://0.0.0.0:5000/</a> (Press CTRL+C to quit)</li>
-</ul>
-<p> docker rm <code>docker ps -a -q</code></p>
-<p> docker rmi <code>docker images -q</code></p>
-<p> docker run -p 4000:80 –name py-http6 –link mariadb:mysql finsenty/http5</p>
-<p> mysql.connecter 查询后面带一个，</p>
-<p> -u “<a href="http://192.168.160.1/sqltest/post.php&quot;" target="_blank" rel="noopener">http://192.168.160.1/sqltest/post.php&quot;</a> –forms</p>
-<p> docker run -d -p 4000:80 –link mysql:mysql –name http6 finsenty/http5</p>
-<p>docker build -t finsenty/http5 .</p>
+	  <p>买这本书有一年了，但只看了一点点，希望能学完</p>
+<ol>
+<li>保存更改到可执行文件，<em>1保存到COPY TO EXECUTABLE FILE</em>，<em>2选择SAVE FILE</em></li>
+<li>应用程序被加载到内存时，有一最小分配空间</li>
+<li>space = assemble，用于更改代码<a id="more"></a></li>
+<li>大端序 12 34 </li>
+<li>小端序 34 12 一个字节里顺序一样</li>
+<li>逆序压栈，栈FILO</li>
+<li>栈窗口，address-relative to EBP</li>
+<li>EBP ESP 存储的是栈地址-》代表数据</li>
+<li>1.CALL 压入下一地址 -1 2.PUSH 压入上一栈帧基地址 -1 3.MOV EBP ESP 4. MOV ESP EBP 5.POP EBP 取出基地址 +1 6.RETN 取出下一地址+1</li>
+<li>local 局部变量 ARG 参数</li>
+<li>test = and =0 则 ZF=1 JE ZF=1 跳转</li>
+<li>局部对象存储在栈区</li>
+<li>选中地址，Follow in dump</li>
+<li>dump中，long-address with ASCII dump</li>
+<li>VB使用unicode</li>
+<li>API get…Text</li>
+<li>调试前预测代码的实现</li>
+<li>先上托，找到栈帧生成部分</li>
+</ol>
 	  
 	</div>
 
@@ -157,13 +162,13 @@
 
     
     
-    <a href="/2019/03/29/penetration-test-report-interpretation/" type="button" class="btn btn-default"><i
+    <a href="/2019/11/20/《逆向工程核心原理》学习笔记2/" type="button" class="btn btn-default"><i
                 class="fa fa-arrow-circle-o-left"></i> 上一页</a>
     
 
     <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
     
-    <a href="/2019/03/02/xss/" type="button" class="btn btn-default ">下一页<i
+    <a href="/2019/11/19/在新电脑上重新部署hexo/" type="button" class="btn btn-default ">下一页<i
                 class="fa fa-arrow-circle-o-right"></i></a>
     
 
@@ -217,7 +222,7 @@
 	
 	<div class="meta-widget">
 	<i class="fa fa-clock-o"></i>
-	2019-03-16 
+	2019-11-19 
 	</div>
 	
 
@@ -225,6 +230,14 @@
     
 
 	<!-- tags -->
+	
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>		  
+    <ul id="tags" class="tag_box list-unstyled collapse in">	  
+	    
+  <li><a href="/tags/RCE/">RCE<span>2</span></a></li>
+    </ul>
+	</div>
 		
 
 	<!-- toc -->
