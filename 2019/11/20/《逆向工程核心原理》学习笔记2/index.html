@@ -191,7 +191,7 @@ JPO    -    Jump if parity is odd                - PF=0
 JS    -    Jump if sign flag is set            - SF=1
 JZ    -    Jump if zero                    - ZF=1
 </code></pre><h6 id="LEA-Load-Effective-Address"><a href="#LEA-Load-Effective-Address" class="headerlink" title="LEA (Load Effective Address)"></a>LEA (Load Effective Address)</h6><p>Syntax: LEA dest,src<br>LEA can be treated the same way as the MOV instruction. It isn’t used too much for its original function, but more for quick multiplications like this:<br>   <code>lea eax, dword ptr [4*ecx+ebx]</code><br> <strong>which gives eax the value of 4*ecx+ebx</strong><br><del>ptr== pointer</del></p>
-<h6 id="POP"><a href="#POP" class="headerlink" title="POP"></a>POP</h6><p>Syntax: POP dest<br>POP loads the value of byte/word/dword ptr <strong>[esp] 直接寻址 esp指向的值</strong>and puts it into dest. </p>
+<h6 id="POP"><a href="#POP" class="headerlink" title="POP"></a>POP</h6><p>Syntax: POP dest<br>POP loads the value of byte/word/dword ptr <strong>[esp] jian接寻址 esp指向的值zuo wei dizhi</strong>and puts it into dest. </p>
 <h6 id="TEST"><a href="#TEST" class="headerlink" title="TEST"></a>TEST</h6><p>Syntax: TEST operand1, operand2<br>This instruction is in 99% of all cases used for “TEST EAX, EAX”. It performs a Logical<br>AND(AND instruction)<code>but does not save the values</code>.<strong> It only sets the Z-Flag, when EAX is 0 or clears it, when EAX is not 0. The O/C flags are always cleared.</strong></p>
 <h6 id="XOR"><a href="#XOR" class="headerlink" title="XOR"></a>XOR</h6><p>Syntax: XOR dest,src<br>The XOR instruction connects two values using logical exclusive OR (remember OR uses inclusive OR).<br><code>This instruction clears the O-Flag and the C-Flag and can set the Z-Flag.</code><br>To understand XOR better, consider those two binary values:</p>
 <pre><code>1001010110
@@ -229,6 +229,7 @@ JZ    -    Jump if zero                    - ZF=1
     <h2 class="title">留言</h2>
 
     
+	<p>需要梯子</p>
     <div id="disqus_thread" class="ds-thread">
         <script type="text/javascript">
             /**
