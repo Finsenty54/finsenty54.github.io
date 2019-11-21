@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://finsenty54.github.io/"/>
-  <updated>2019-11-20T12:29:19.438Z</updated>
+  <updated>2019-11-21T12:46:02.557Z</updated>
   <id>http://finsenty54.github.io/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>《逆向工程核心原理》学习笔记3</title>
+    <link href="http://finsenty54.github.io/2019/11/21/%E3%80%8A%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B03/"/>
+    <id>http://finsenty54.github.io/2019/11/21/《逆向工程核心原理》学习笔记3/</id>
+    <published>2019-11-21T12:44:21.000Z</published>
+    <updated>2019-11-21T12:46:02.557Z</updated>
+    
+    <content type="html"><![CDATA[<ol><li>windows程序运行在Ring 3级，但要运行在内核级（Ring 0），使用API请求，API存储在dll中</li><li>FFFFFFFF==-1</li><li>双击可改变FLAG 寄存器值<a id="more"></a></li><li>双击EIP回去</li><li>info 从一个API中返回总在EAX中</li><li>PE文件。内存节区头要在各自最小基本单位的倍数上，所以使用NULL填充</li><li>RVA+imageBase==VA(绝对地址）</li><li>PE头内部使用RVA</li><li>4D5A =,,,MZ （PE文件开头，IMAGE_DOS_HEADER)</li><li>INTEL 小端序：：e_lfanew==000000E0</li><li>32位EXE ImageBase == 00400000</li></ol>]]></content>
+    
+    <summary type="html">
+    
+      &lt;ol&gt;
+&lt;li&gt;windows程序运行在Ring 3级，但要运行在内核级（Ring 0），使用API请求，API存储在dll中&lt;/li&gt;
+&lt;li&gt;FFFFFFFF==-1&lt;/li&gt;
+&lt;li&gt;双击可改变FLAG 寄存器值
+    
+    </summary>
+    
+    
+      <category term="RCE" scheme="http://finsenty54.github.io/tags/RCE/"/>
+    
+  </entry>
   
   <entry>
     <title>bug</title>

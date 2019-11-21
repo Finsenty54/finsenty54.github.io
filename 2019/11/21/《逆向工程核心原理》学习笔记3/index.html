@@ -23,7 +23,7 @@
   <meta http-equiv="cache-control" content="no-cache">
   <meta http-equiv="expires" content="0">
   
-  <title>ios | FINSENTY54</title>
+  <title>《逆向工程核心原理》学习笔记3 | FINSENTY54</title>
   <meta name="author" content="finsenty54">
   
   <meta name="description" content="blog">
@@ -31,7 +31,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  
+  <meta property="og:title" content="《逆向工程核心原理》学习笔记3">
   <meta property="og:site_name" content="FINSENTY54">
 
   
@@ -112,128 +112,150 @@
   	<div class="content">
     	 
 
-<!-- title -->
-<div class="page-header">
-  <h1 class="archive-title-tag"><i class="fa fa-archive"></i> ios</h1>
-</div>
 
-<div class="row page">
-  <!-- cols -->
-  
-  <div class="col-md-9">
 	
-
-	  <div id="top_search"></div>
-
-	  <div class="archive">
-		
-		
-		
-			
-			
-			<h4 class="archive-ul" data-toggle="collapse" data-target="#2019">2019<b class="caret"></b></h4>
-			<ul id="2019" class="collapse in">
-			
-		
-		<li class="listing-item">
-		<span class="date_class"> 2019-04-16 </span> &raquo;
-		
-		   <span class="title"><a href="/2019/04/16/pegasus分析/"  title="英语翻译不行啊" >pegasus分析</a></span>
-		
-		</li>			
-		
-		</ul>
+		<div class="page-header">
+			<h1> 《逆向工程核心原理》学习笔记3</h1>
 		</div>
-
-</div> <!-- col-md-9/col-md-12 -->
-
-
-<div class="col-md-3">
-	<div id="sidebar">
 	
-			
-  <div id="site_search">
-   <div class="form-group">
-    <input type="text" id="local-search-input" name="q" results="0" placeholder="搜索" class="st-search-input st-default-search-input form-control"/>
-   </div>  
-  <div id="local-search-result"></div>
-  </div>
 
 
-		
-			
-		
-			
-	<div class="widget">
-		<h4>标签云</h4>
-		<ul class="tag_box inline list-unstyled">		
-		
-			<li><a href="/tags/ios/">ios<span>1</span></a></li>
-		
-			<li><a href="/tags/xss/">xss<span>1</span></a></li>
-		
-			<li><a href="/tags/sql/">sql<span>2</span></a></li>
-		
-			<li><a href="/tags/bug/">bug<span>1</span></a></li>
-		
-			<li><a href="/tags/penetation-test/">penetation test<span>1</span></a></li>
-		
-			<li><a href="/tags/RCE/">RCE<span>3</span></a></li>
-		
-			<li><a href="/tags/else/">else<span>1</span></a></li>
-		
-		 
-		</ul>
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <ol>
+<li>windows程序运行在Ring 3级，但要运行在内核级（Ring 0），使用API请求，API存储在dll中</li>
+<li>FFFFFFFF==-1</li>
+<li>双击可改变FLAG 寄存器值<a id="more"></a></li>
+<li>双击EIP回去</li>
+<li>info 从一个API中返回总在EAX中</li>
+<li>PE文件。内存节区头要在各自最小基本单位的倍数上，所以使用NULL填充</li>
+<li>RVA+imageBase==VA(绝对地址）</li>
+<li>PE头内部使用RVA</li>
+<li>4D5A =,,,MZ （PE文件开头，IMAGE_DOS_HEADER)</li>
+<li>INTEL 小端序：：e_lfanew==000000E0</li>
+<li>32位EXE ImageBase == 00400000</li>
+</ol>
+	  
 	</div>
 
+	<div>
+  	<center>
+	<div class="pagination">
 
-		
-			
-<div class="widget">
-  <h4>最新文章</h4>
-  <ul class="entry list-unstyled">
     
-      <li>
-        <a href="/2019/11/21/《逆向工程核心原理》学习笔记3/" ><i class="fa fa-file-o"></i>《逆向工程核心原理》学习笔记3</a>
-      </li>
     
-      <li>
-        <a href="/2019/11/20/bug/" ><i class="fa fa-file-o"></i>bug</a>
-      </li>
+    <a type="button" class="btn btn-default disabled"><i class="fa fa-arrow-circle-o-left"></i>上一页</a>
     
-      <li>
-        <a href="/2019/11/20/《逆向工程核心原理》学习笔记2/" ><i class="fa fa-file-o"></i>《逆向工程核心原理》学习笔记2</a>
-      </li>
+
+    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
     
-      <li>
-        <a href="/2019/11/19/《逆向工程核心原理》学习笔记1/" ><i class="fa fa-file-o"></i>《逆向工程核心原理》学习笔记1</a>
-      </li>
+    <a href="/2019/11/20/bug/" type="button" class="btn btn-default ">下一页<i
+                class="fa fa-arrow-circle-o-right"></i></a>
     
-      <li>
-        <a href="/2019/11/19/在新电脑上重新部署hexo/" ><i class="fa fa-file-o"></i>在新电脑上重新部署hexo</a>
-      </li>
+
     
-  </ul>
 </div>
 
+    </center>
+	</div>
+	
+	<!-- comment -->
+	
+<section id="comment">
+    <h2 class="title">留言</h2>
+
+    
+	<p>需要梯子</p>
+    <div id="disqus_thread" class="ds-thread">
+        <script type="text/javascript">
+            /**
+             * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+             * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+             */
+                /*
+                 var disqus_config = function () {
+                 this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
+                 this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                 };
+                 */
+            (function() { // DON'T EDIT BELOW THIS LINE
+                var d = document, s = d.createElement('script');
+
+                s.src = '//finsenty54.disqus.com/embed.js';
+
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by
+                Disqus.</a></noscript>
+    </div>
+    
+</section>
+
+
+	</div> <!-- col-md-9/col-md-12 -->
 		
-			
-<div class="widget">
-	<h4>链接</h4>
-	<ul class="blogroll list-unstyled">
 	
-		<li><i class="fa fa-github"></i><a href="https://github.com/blackshow/hexo-theme-freemind.386" title="Freemind.386's Github repository." target="_blank"]);">Freemind.386</a></li>
-	
-		<li><i class="fa fa-github"></i><a href="http://www.github.com/Finsenty54" title="My Github account." target="_blank"]);">My Github</a></li>
-	
-	</ul>
-</div>
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
 
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2019-11-21 
+	</div>
+	
 
+	<!-- categories -->
+    
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>		  
+    <ul id="tags" class="tag_box list-unstyled collapse in">	  
+	    
+  <li><a href="/tags/RCE/">RCE<span>3</span></a></li>
+    </ul>
+	</div>
 		
-	</div> <!-- sidebar -->
-</div> <!-- col-md-3 -->
 
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	</div>
+		
+
+</div><!-- row -->
+
+<script type="text/javascript">
+var disqus_shortname = 'finsenty54';
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
 
 
 
