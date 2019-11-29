@@ -136,12 +136,12 @@
 <h5 id="PE文件组成"><a href="#PE文件组成" class="headerlink" title="PE文件组成"></a>PE文件组成</h5><pre><code>DOS header 
 DOS stub
 PE file header
-</code></pre><a id="more"></a>
-<pre><code>Image Optional Header
+Image Optional Header
 Section table
 Data Directories
 Sections
-</code></pre><p>PE header 通常位于[imagebase]~[imagebase+1000]<br>memory double click</p>
+</code></pre><a id="more"></a>
+<p>PE header 通常位于[imagebase]~[imagebase+1000]<br>memory double click</p>
 <p>改变PE entry point 以跳过一些代码<br>binary fill with nops<br>PE header通常大小是1000h</p>
 <p>EAT 库用来方便其他程序使用函数</p>
 <h5 id="trick"><a href="#trick" class="headerlink" title="trick"></a>trick</h5><p>弹出消息框的地方，pased， alt+f9  , 再点消息框（80%的情况下有用）<br>在memory窗口下搜索，内存中的数据<br>find reference </p>

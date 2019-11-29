@@ -8,7 +8,7 @@
       <link href="/2019/11/29/%E3%80%8A%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04/"/>
       <url>/2019/11/29/%E3%80%8A%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04/</url>
       
-        <content type="html"><![CDATA[<p>在PE文件中找到什么，在内存同样可以找到</p><h5 id="PE文件组成"><a href="#PE文件组成" class="headerlink" title="PE文件组成"></a>PE文件组成</h5><pre><code>DOS header DOS stubPE file header</code></pre><a id="more"></a><pre><code>Image Optional HeaderSection tableData DirectoriesSections</code></pre><p>PE header 通常位于[imagebase]~[imagebase+1000]<br>memory double click</p><p>改变PE entry point 以跳过一些代码<br>binary fill with nops<br>PE header通常大小是1000h</p><p>EAT 库用来方便其他程序使用函数</p><h5 id="trick"><a href="#trick" class="headerlink" title="trick"></a>trick</h5><p>弹出消息框的地方，pased， alt+f9  , 再点消息框（80%的情况下有用）<br>在memory窗口下搜索，内存中的数据<br>find reference </p>]]></content>
+        <content type="html"><![CDATA[<p>在PE文件中找到什么，在内存同样可以找到</p><h5 id="PE文件组成"><a href="#PE文件组成" class="headerlink" title="PE文件组成"></a>PE文件组成</h5><pre><code>DOS header DOS stubPE file headerImage Optional HeaderSection tableData DirectoriesSections</code></pre><a id="more"></a><p>PE header 通常位于[imagebase]~[imagebase+1000]<br>memory double click</p><p>改变PE entry point 以跳过一些代码<br>binary fill with nops<br>PE header通常大小是1000h</p><p>EAT 库用来方便其他程序使用函数</p><h5 id="trick"><a href="#trick" class="headerlink" title="trick"></a>trick</h5><p>弹出消息框的地方，pased， alt+f9  , 再点消息框（80%的情况下有用）<br>在memory窗口下搜索，内存中的数据<br>find reference </p>]]></content>
       
       
       
