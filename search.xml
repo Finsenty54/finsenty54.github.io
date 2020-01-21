@@ -4,6 +4,25 @@
   
     
     <entry>
+      <title>Medical Image WatermarkingTechniques and Applications&gt;&gt;笔记1</title>
+      <link href="/2020/01/21/Medical%20Image%20WatermarkingTechniques%20and%20Applications%3E%3E%E7%AC%94%E8%AE%B01/"/>
+      <url>/2020/01/21/Medical%20Image%20WatermarkingTechniques%20and%20Applications%3E%3E%E7%AC%94%E8%AE%B01/</url>
+      
+        <content type="html"><![CDATA[<ol><li>the  water-mark robustness is the key performance parameter.</li><li>a  watermark  can  be  embedded  in  every  frame.  </li><li>watermarking that pro-tects the content even after decryption<a id="more"></a></li><li>due  to  higher  data  embedding  capacity of image,</li><li>visible watermark is a secondary translu-cent  overlaid  into  the  primary  image. </li><li>Dual watermark is a combination of a visible and an invisible watermark </li><li>the  watermarking  system  consists  of  two  processes  -  encoding  and  extraction  process<br><img src="https://s2.ax1x.com/2020/01/21/1kQhQA.png" alt></li></ol><p>lossy compression 有损压缩<br>steganography  隐写术<br>obustness 健壮性<br>exponentially 指数地<br>archiving 存档<br>geometrical 几何<br>Classification 分类<br>Spatial 空间的<br>cryptography 密码学<br>pixel 像素点 [ˈpɪksl]<br>designated  特定的<br>confidentiality 保密<br>on  account of 由于<br>Tamper 篡改<br>confidentiality 机密性</p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> watermark </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>《逆向工程核心原理》学习笔记4</title>
       <link href="/2019/11/29/%E3%80%8A%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04/"/>
       <url>/2019/11/29/%E3%80%8A%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04/</url>

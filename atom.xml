@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://finsenty54.github.io/"/>
-  <updated>2019-11-29T08:12:54.684Z</updated>
+  <updated>2020-01-21T11:33:29.920Z</updated>
   <id>http://finsenty54.github.io/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Medical Image WatermarkingTechniques and Applications&gt;&gt;笔记1</title>
+    <link href="http://finsenty54.github.io/2020/01/21/Medical%20Image%20WatermarkingTechniques%20and%20Applications%3E%3E%E7%AC%94%E8%AE%B01/"/>
+    <id>http://finsenty54.github.io/2020/01/21/Medical Image WatermarkingTechniques and Applications&gt;&gt;笔记1/</id>
+    <published>2020-01-21T11:30:44.000Z</published>
+    <updated>2020-01-21T11:33:29.920Z</updated>
+    
+    <content type="html"><![CDATA[<ol><li>the  water-mark robustness is the key performance parameter.</li><li>a  watermark  can  be  embedded  in  every  frame.  </li><li>watermarking that pro-tects the content even after decryption<a id="more"></a></li><li>due  to  higher  data  embedding  capacity of image,</li><li>visible watermark is a secondary translu-cent  overlaid  into  the  primary  image. </li><li>Dual watermark is a combination of a visible and an invisible watermark </li><li>the  watermarking  system  consists  of  two  processes  -  encoding  and  extraction  process<br><img src="https://s2.ax1x.com/2020/01/21/1kQhQA.png" alt></li></ol><p>lossy compression 有损压缩<br>steganography  隐写术<br>obustness 健壮性<br>exponentially 指数地<br>archiving 存档<br>geometrical 几何<br>Classification 分类<br>Spatial 空间的<br>cryptography 密码学<br>pixel 像素点 [ˈpɪksl]<br>designated  特定的<br>confidentiality 保密<br>on  account of 由于<br>Tamper 篡改<br>confidentiality 机密性</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;ol&gt;
+&lt;li&gt;the  water-mark robustness is the key performance parameter.&lt;/li&gt;
+&lt;li&gt;a  watermark  can  be  embedded  in  every  frame.  &lt;/li&gt;
+&lt;li&gt;watermarking that pro-tects the content even after decryption
+    
+    </summary>
+    
+    
+      <category term="watermark" scheme="http://finsenty54.github.io/tags/watermark/"/>
+    
+  </entry>
   
   <entry>
     <title>《逆向工程核心原理》学习笔记4</title>
