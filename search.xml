@@ -4,6 +4,25 @@
   
     
     <entry>
+      <title>Medical Image WatermarkingTechniques and Applications&gt;&gt;笔记2</title>
+      <link href="/2020/01/23/Medical%20Image%20WatermarkingTechniques%20and%20Applications%3E%3E%E7%AC%94%E8%AE%B02/"/>
+      <url>/2020/01/23/Medical%20Image%20WatermarkingTechniques%20and%20Applications%3E%3E%E7%AC%94%E8%AE%B02/</url>
+      
+        <content type="html"><![CDATA[<p>state-of-the-art 最先进的<br>Error Correcting Codes  ECC<br>discrete wavelet transform (DWT) 离散小波变换<br>The  ECC  based  watermarking  methods  attempt  to  find  a  trade-off  between the number of bits to be embedded and the number of bit-errors that can be corrected.  </p><p>the  technique  embeds  medical  text  watermarks  into  selected  sub-band  of  discrete wavelet transform (DWT) cover medical image coefficients using spread-spectrum technique.该技术使用扩展频谱技术将医学文本水印嵌入离散小波变换（DWT）覆盖医学图像系数的选定子带中。</p><p> <strong>Any  image  com-prises of two sections called ROI and NROI </strong><br><a id="more"></a><br> ROI is an area that has sensi-tive data, so it cannot be allowed to be modified because most of the information is  present  in  this  area  [105].  NROI  is  an  area  of  image  that  does  not  have  an  important  data  i.e.  background  of  image.<br> The  spatial  domain  tech-niques such as LSB substitutions, correlation-based, spread-spectrum and Patchwork are straight forward and computationally simple.<br> In the transform domain techniques, the data is embedded by modulating the coefficients of a transform discrete wavelet transform  (DWT),  discrete  cosine  transform  (DCT),  singular  value  decomposition  (SVD) and discrete Fourier transform (DFT).<br>finite energy function 有限能量函数</p><p>在数位信号处理领域中，降采样，又作减采集,是一种多速率数字信号处理的技术或是降低信号采样率的过程，通常用于降低数据传输速率或者数据大小。<br>降采样因子（常用表示符号为＂M＂）一般是大于１的整数或有理数。<br>这个因子表达采样周期变成原来的M倍，或者等价表示采样率变成原来的1/M倍。 采样率的降低会造成频谱的压缩，因此需要利用滤波器确保在较低的采样频率下不发生混叠，确保奈奎式采样定理依旧成立。</p><p>形式幂级数上的一个重要映射是系数的提取操作：将一个形式幂级数映射到它的X^n的系数。这个操作常常记作[X^n]，</p><p>以一变数为t 的函数 f(t) 为例，f(t) 经过一积分转换T 得到Tf(u)：<br>其中 K 是个确定的二元函数, 称为此积分变换的核函数（kernel function）或核（nucleus）。当选取不同的积分域和变换核时，就得到不同名称的积分变换。f(t) 称为象原函数，Tf(u) 称为 f(t) 的象函数，在一定条件下，它们是一一对应而变换是可逆的。</p><p>定义在实数域上的实函数相对于值c的n阶矩为:</p><p>如果f(x)是概率密度函数，则容易看出相对于值0的1阶矩是连续随机变量的数学期望。</p><p>vanishing moment</p><p>母小波定义为<br>其中a是缩放因子，当|a|&lt;1时，母小波被压缩，在时间轴上有较小的支撑度，并且对应到高频，因为母小波变窄、变化变快， 反之，当|a|&gt;1时，母小波变宽、变化较慢，所以对应到低频。b则是平移参数，用来决定母小波的位置。<br>小波分析（英语：wavelet analysis）或小波变换（英语：wavelet transform）是指用有限长或快速衰减的“母小波”（mother wavelet）的振荡波形来表示信号。该波形被缩放和平移以匹配输入的信号。<br>在信号处理中，窗函数（英语：window function）是一种除在给定区间之外取值均为0的实函数。譬如：在给定区间内为常数而在区间外为0的窗函数被形象地称为矩形窗。任何函数与窗函数之积仍为窗函数，所以相乘的结果就像透过窗口“看”其他函数一样</p><p>变换(Transform)、量化(Quantization)和编码(Coding)[<br>另外，当输入信号为二维时（例如：影像），短时距傅里叶变换的输出为四维度，但小波变换仍是二维信号，所以在影像处理上通常会使用小波变换而非短时距傅里叶变<br>换。</p><p>ΣΣ 这是二重求和符号<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">i=m j=n</span><br><span class="line">..Σ... Σ . . . . ai bj = a1b1+a1b2+ . . . +a1bn+</span><br><span class="line">i=<span class="number">1</span> j=<span class="number">1</span> . . . . . . .+a2b1+a2b2+ . . . +a2bn+</span><br><span class="line">. . . . . .. . . . . . . . . . +. . . . +</span><br><span class="line">. . . . . . . . . . . . . . . .+amb1+amb2+ . . . . +ambn.</span><br></pre></td></tr></table></figure></p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> watermark </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Medical Image WatermarkingTechniques and Applications&gt;&gt;笔记1</title>
       <link href="/2020/01/21/Medical%20Image%20WatermarkingTechniques%20and%20Applications%3E%3E%E7%AC%94%E8%AE%B01/"/>
       <url>/2020/01/21/Medical%20Image%20WatermarkingTechniques%20and%20Applications%3E%3E%E7%AC%94%E8%AE%B01/</url>
