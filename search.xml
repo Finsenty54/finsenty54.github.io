@@ -5,6 +5,25 @@
     
     <entry>
       <title>Medical Image WatermarkingTechniques and Applications&gt;&gt;笔记2</title>
+      <link href="/2020/01/25/Medical%20Image%20WatermarkingTechniques%20and%20Applications%3E%3E%E7%AC%94%E8%AE%B03/"/>
+      <url>/2020/01/25/Medical%20Image%20WatermarkingTechniques%20and%20Applications%3E%3E%E7%AC%94%E8%AE%B03/</url>
+      
+        <content type="html"><![CDATA[<p>There  are  a  wide  variety  of  popular  wavelet  algorithms,  including  Daubechies  wavelets,  Mexican  Hat  wavelets  and  Morlet  wavelets </p><p>HAAR</p><p>In addition, the Haar wavelet transform is fast, memory efficient and  exactly  reversible  without  the  edge  effects  that  are  present  in  other  wavelet  transforms.</p><p>the water-mark can be embedded into the other three sub-bands (HL, LH and HH sub-band) to  maintain  better  image  quality.<br><a id="more"></a></p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> watermark </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Medical Image WatermarkingTechniques and Applications&gt;&gt;笔记2</title>
       <link href="/2020/01/23/Medical%20Image%20WatermarkingTechniques%20and%20Applications%3E%3E%E7%AC%94%E8%AE%B02/"/>
       <url>/2020/01/23/Medical%20Image%20WatermarkingTechniques%20and%20Applications%3E%3E%E7%AC%94%E8%AE%B02/</url>
       
