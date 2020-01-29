@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://finsenty54.github.io/"/>
-  <updated>2020-01-25T07:22:36.843Z</updated>
+  <updated>2020-01-29T07:35:45.871Z</updated>
   <id>http://finsenty54.github.io/</id>
   
   <author>
@@ -17,11 +17,32 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>Medical Image WatermarkingTechniques and Applications&gt;&gt;笔记2</title>
+    <title>Medical Image WatermarkingTechniques and Applications&gt;&gt;笔记4</title>
+    <link href="http://finsenty54.github.io/2020/01/28/Medical%20Image%20WatermarkingTechniques%20and%20Applications%3E%3E%E7%AC%94%E8%AE%B04/"/>
+    <id>http://finsenty54.github.io/2020/01/28/Medical Image WatermarkingTechniques and Applications&gt;&gt;笔记4/</id>
+    <published>2020-01-28T10:45:56.000Z</published>
+    <updated>2020-01-29T07:35:45.871Z</updated>
+    
+    <content type="html"><![CDATA[<p>orthonormal matrices  正交矩阵<br>a  message  can  be  hidden  in  cover document   if   the   content   of   the   document   hashigh redundancy.<br>propose  a  new  reliable  method  by hiding  the  encrypted  watermark  in  the  RONI  part  of  the medical   image   using   DWT   approach.<br>ROI Based Medical Image Watermarking with Zero Distortion and Enhanced Security 所读论文</p><p>直方图均衡化（Histogram Equalization）<br><a id="more"></a></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;orthonormal matrices  正交矩阵&lt;br&gt;a  message  can  be  hidden  in  cover document   if   the   content   of   the   document   hashigh redundancy.&lt;br&gt;propose  a  new  reliable  method  by hiding  the  encrypted  watermark  in  the  RONI  part  of  the medical   image   using   DWT   approach.&lt;br&gt;ROI Based Medical Image Watermarking with Zero Distortion and Enhanced Security 所读论文&lt;/p&gt;
+&lt;p&gt;直方图均衡化（Histogram Equalization）&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="watermark" scheme="http://finsenty54.github.io/tags/watermark/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Medical Image WatermarkingTechniques and Applications&gt;&gt;笔记3</title>
     <link href="http://finsenty54.github.io/2020/01/25/Medical%20Image%20WatermarkingTechniques%20and%20Applications%3E%3E%E7%AC%94%E8%AE%B03/"/>
     <id>http://finsenty54.github.io/2020/01/25/Medical Image WatermarkingTechniques and Applications&gt;&gt;笔记3/</id>
     <published>2020-01-25T07:21:36.000Z</published>
-    <updated>2020-01-25T07:22:36.843Z</updated>
+    <updated>2020-01-29T07:29:13.842Z</updated>
     
     <content type="html"><![CDATA[<p>There  are  a  wide  variety  of  popular  wavelet  algorithms,  including  Daubechies  wavelets,  Mexican  Hat  wavelets  and  Morlet  wavelets </p><p>HAAR</p><p>In addition, the Haar wavelet transform is fast, memory efficient and  exactly  reversible  without  the  edge  effects  that  are  present  in  other  wavelet  transforms.</p><p>the water-mark can be embedded into the other three sub-bands (HL, LH and HH sub-band) to  maintain  better  image  quality.<br><a id="more"></a></p>]]></content>
     

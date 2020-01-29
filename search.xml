@@ -4,7 +4,26 @@
   
     
     <entry>
-      <title>Medical Image WatermarkingTechniques and Applications&gt;&gt;笔记2</title>
+      <title>Medical Image WatermarkingTechniques and Applications&gt;&gt;笔记4</title>
+      <link href="/2020/01/28/Medical%20Image%20WatermarkingTechniques%20and%20Applications%3E%3E%E7%AC%94%E8%AE%B04/"/>
+      <url>/2020/01/28/Medical%20Image%20WatermarkingTechniques%20and%20Applications%3E%3E%E7%AC%94%E8%AE%B04/</url>
+      
+        <content type="html"><![CDATA[<p>orthonormal matrices  正交矩阵<br>a  message  can  be  hidden  in  cover document   if   the   content   of   the   document   hashigh redundancy.<br>propose  a  new  reliable  method  by hiding  the  encrypted  watermark  in  the  RONI  part  of  the medical   image   using   DWT   approach.<br>ROI Based Medical Image Watermarking with Zero Distortion and Enhanced Security 所读论文</p><p>直方图均衡化（Histogram Equalization）<br><a id="more"></a></p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> watermark </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Medical Image WatermarkingTechniques and Applications&gt;&gt;笔记3</title>
       <link href="/2020/01/25/Medical%20Image%20WatermarkingTechniques%20and%20Applications%3E%3E%E7%AC%94%E8%AE%B03/"/>
       <url>/2020/01/25/Medical%20Image%20WatermarkingTechniques%20and%20Applications%3E%3E%E7%AC%94%E8%AE%B03/</url>
       
