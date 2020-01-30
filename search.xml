@@ -4,6 +4,25 @@
   
     
     <entry>
+      <title>matlab笔记1</title>
+      <link href="/2020/01/30/matlab%E7%AC%94%E8%AE%B01/"/>
+      <url>/2020/01/30/matlab%E7%AC%94%E8%AE%B01/</url>
+      
+        <content type="html"><![CDATA[<p><code>a = [1 2 3 4]</code><br>创建矩阵的另一种方法是使用 ones、zeros 或 rand 等函数。例如，创建一个由零组成的 5×1 列向量。<br><code>z = zeros(5,1)</code></p><hr><p>MATLAB 允许您使用单一的算术运算符或函数来处理矩阵中的所有值。<br><code>a + 10</code></p><hr><a id="more"></a><p>要转置矩阵，请使用单引号 (‘)</p><hr><p>format 命令可以显示更多小数位数：<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">format long</span><br><span class="line">p = a*inv(a)</span><br><span class="line">format short</span><br></pre></td></tr></table></figure></p><p>format 仅影响数字显示，而不影响 MATLAB 对数字的计算或保存方式。</p><hr><p>要执行元素级乘法（而非矩阵乘法），请使用 .<em> 运算符：<br>`p = a.</em>a<code>乘法、除法和幂的矩阵运算符分别具有执行元素级运算的对应数组运算符。例如，计算 a 的各个元素的三次方：</code>a.^3`</p><hr><p>串联是连接数组以便形成更大数组的过程。实际上，第一个数组是通过将其各个元素串联起来而构成的。成对的方括号 [] 即为串联运算符。<br><code>A = [a,a]</code></p><hr><p>使用逗号将彼此相邻的数组串联起来称为水平串联。每个数组必须具有相同的行数。同样，如果各数组具有相同的列数，则可以使用分号垂直串联。<br><code>A = [a; a]</code></p><hr><p>要表示复数的虚部，请使用 i 或 j。</p><pre><code>c = [3+4i, 4+3j; -i, 10j]c = 2×2 complex</code></pre><hr><p><code>clc</code></p><hr><blockquote><p>每个变量都是一个可包含许多数字的数组</p></blockquote><hr><p>引用数组中的特定元素有两种方法。最常见的方法是指定行和列下标，例如<br><code>A(4,2)</code><br>另一种方法不太常用，但有时非常有用，即使用单一下标按顺序向下遍历每一列：<br><code>A(8)</code><br>可以在赋值语句左侧指定当前维外部的元素。数组大小会增大以便容纳新元素。<br><code>A(4,5) = 17</code></p><hr><p>要引用多个数组元素，请使用冒号运算符，这使您可以指定一个格式为<code>start:end</code>的范围。例如，列出 A 前三行及第二列中的元素：<br><code>A(1:3,2)</code><br>单独的冒号（没有起始值或结束值）指定该维中的所有元素。例如，选择 A 第三行中的所有列：<br><code>A(3,:)</code></p><hr><p>冒号运算符还允许您使用较通用的格式<code>start: step :end</code>创建等距向量值。如果省略中间的步骤（如 <code>start:end</code> 中），MATLAB 会使用默认步长值 1。<br><code>B = 0:10:100</code></p><hr><p>退出 MATLAB 后，工作区变量不会保留。使用<code>save</code>命令保存数据以供将来使用，<br><code>save myfile.mat</code><br>要清除工作区中的所有变量，请使用<code>clear</code>命令。<br>使用 load 将 MAT 文件中的数据还原到工作区。<br><code>load myfile.mat</code></p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> matlab </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Medical Image WatermarkingTechniques and Applications&gt;&gt;笔记4</title>
       <link href="/2020/01/28/Medical%20Image%20WatermarkingTechniques%20and%20Applications%3E%3E%E7%AC%94%E8%AE%B04/"/>
       <url>/2020/01/28/Medical%20Image%20WatermarkingTechniques%20and%20Applications%3E%3E%E7%AC%94%E8%AE%B04/</url>
