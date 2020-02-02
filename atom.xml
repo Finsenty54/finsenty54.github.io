@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://finsenty54.github.io/"/>
-  <updated>2020-02-01T11:18:59.771Z</updated>
+  <updated>2020-02-02T06:13:25.447Z</updated>
   <id>http://finsenty54.github.io/</id>
   
   <author>
@@ -17,11 +17,34 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>matlab笔记1</title>
+    <title>matlab笔记3</title>
+    <link href="http://finsenty54.github.io/2020/02/02/matlab%E7%AC%94%E8%AE%B03/"/>
+    <id>http://finsenty54.github.io/2020/02/02/matlab笔记3/</id>
+    <published>2020-02-02T06:12:38.000Z</published>
+    <updated>2020-02-02T06:13:25.447Z</updated>
+    
+    <content type="html"><![CDATA[<p>科学记数法使用字母 e 来指定 10 次方的缩放因子<br>浮点数的有限精度约为 16 位有效小数位数，有限范围约为 10-308 至 10+308。双精度格式表示的数字的最大精度为 52 位。整数的可用精度为 8 位、16 位、32 位和 64 位</p><pre><code>x = uint64(36028797018963968);y = uint64(36028797018963972);</code></pre><a id="more"></a><hr><p>例如，sort 函数根据量值进行排序，如果量值相等，则根据相位角度排序。</p><pre><code>sort([3+4i, 4+3i])  量值都为5ans =   4.0000 + 3.0000i   3.0000 + 4.0000iangle(3+4i)ans =    0.9273</code></pre><p>“等于”关系运算符 == 要求实部和虚部相等。其他二进制关系运算符 &gt;、&lt;、&gt;= 和 &lt;= 忽略数字的虚部，而仅考虑实部。</p><hr><p>数组运算对构建表非常有用。假定 n 为列向量<br><code>n = (0:9)&#39;;</code><br>然后，<br><code>pows = [n  n.^2  2.^n]</code><br>构建一个平方和 2 次幂的表：</p><pre><code>pows =     0     0     1     1     1     2     2     4     4     3     9     8     4    16    16     5    25    32     6    36    64     7    49   128     8    64   256     9    81   512</code></pre><hr><pre><code>format short gx = (1:0.1:2)&apos;;logs = [x log10(x)]</code></pre><p>构建一个对数表。</p><pre><code>logs =     1.0            0      1.1      0.04139     1.2      0.07918     1.3      0.11394     1.4      0.14613     1.5      0.17609     1.6      0.20412     1.7      0.23045     1.8      0.25527     1.9      0.27875     2.0      0.30103</code></pre><hr><p>有关初等数学函数的列表，请键入<br>help elfun<br>有关更多高等数学函数和矩阵函数的列表，请键入<br>help specfun<br>help elmat</p><hr><p>format 函数控制所显示的值的数值格式。</p><pre><code>x = [4/3 1.2345e-6]format short   1.3333    0.0000format short e   1.3333e+000  1.2345e-006format short g   1.3333  1.2345e-006format long   1.33333333333333   0.00000123450000format long e   1.333333333333333e+000    1.234500000000000e-006format long g   1.33333333333333               1.2345e-006format bank   1.33          0.00format rat   4/3          1/810045format hex   3ff5555555555555   3eb4b6231abfd271</code></pre><p>语句无法容纳在一行中，请使用省略号（三个句点）<strong>…</strong></p><p>要进一步控制输出格式，请使用 sprintf 和 fprintf 函数。</p><hr><pre><code>100:-7:50sum(A(1:4,4))sum(A(:,end)) end 引用最后一个行或列</code></pre><p>为什么 4×4 幻方矩阵的幻数和等于 34？如果将介于 1 到 16 之间的整数分为四个总和相等的组，该总和必须为<br>sum(1:16)/4<br>当然，也即<br>ans =<br>     34</p><p><code>B = [A  A+32; A+48  A+16]</code></p><hr><p>要删除 X 的第二列，请使用<br><code>X(:,2) = []</code></p><p><code>X( 2 : 2 : 10) = []</code> 按列数第几个<br>生成<br><code>X =    16     9     2     7    13    12     1</code></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;科学记数法使用字母 e 来指定 10 次方的缩放因子&lt;br&gt;浮点数的有限精度约为 16 位有效小数位数，有限范围约为 10-308 至 10+308。双精度格式表示的数字的最大精度为 52 位。整数的可用精度为 8 位、16 位、32 位和 64 位&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;x = uint64(36028797018963968);
+y = uint64(36028797018963972);
+&lt;/code&gt;&lt;/pre&gt;
+    
+    </summary>
+    
+    
+      <category term="matlab" scheme="http://finsenty54.github.io/tags/matlab/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>matlab笔记2</title>
     <link href="http://finsenty54.github.io/2020/02/01/matlab%E7%AC%94%E8%AE%B02/"/>
     <id>http://finsenty54.github.io/2020/02/01/matlab笔记2/</id>
     <published>2020-02-01T11:17:59.000Z</published>
-    <updated>2020-02-01T11:18:59.771Z</updated>
+    <updated>2020-02-02T06:12:27.923Z</updated>
     
     <content type="html"><![CDATA[<p>处理文本时，将字符序列括在单引号中。可以将文本赋给变量。<br><code>myText = &#39;Hello, world&#39;;</code><br>如果文本包含单引号，使用两个单引号。</p><pre><code>otherText = &apos;You&apos;&apos;re right&apos;otherText = &apos;You&apos;re right&apos;</code></pre><hr><a id="more"></a><p><code>whos</code>查询已有变量</p><hr><p>可以使用方括号串联字符数组，就像串联数值数组一样。<br><code>longText = [myText,&#39; - &#39;,otherText]</code></p><p>要将数值转换为字符，使用 num2str 或 int2str 等函数。</p><pre><code>f = 71;c = (f-32)/1.8;tempText = [&apos;Temperature is &apos;,num2str(c),&apos;C&apos;]</code></pre><hr><p>调用函数，例如 max，请将其输入参数括在圆括号中，存在多个输入参数，请使用逗号加以分隔，存在多个输出参数，请将其括在方括号中：</p><pre><code>[maxA,location] = max(A)maxA = 5location = 3</code></pre><hr><p>任何字符输入括在单引号中：<br><code>disp(&#39;hello world&#39;)</code></p><hr><p>创建二维线图，请使用 plot（绘制） 函数。</p><pre><code>x = 0:pi/100:2*pi; 创建矩阵的一种方法y = sin(x);plot(x,y）</code></pre><p>标记轴并添加标题。</p><pre><code>xlabel(&apos;x&apos;)ylabel(&apos;sin(x)&apos;)title(&apos;Plot of the Sine Function&apos;)</code></pre><p>向 plot 函数添加第三个输入参数，您可以使用红色虚线绘制相同的变量。<br><code>plot(x,y,&#39;r--&#39;)</code><br>‘r–’ 为线条设定。每个设定可包含表示线条颜色、样式和标记的字符。标记是在绘制的每个数据点上显示的符号，例如，+、o 或 <em>。例如，’g:</em>‘ 请求绘制使用 * 标记的绿色点线。</p><p>将绘图添加到现有图窗中，请使用 hold on。在使用 hold off 或关闭窗口之前，当前图窗窗口中会显示所有绘图</p><pre><code>hold ony2 = cos(x);plot(x,y2,&apos;:&apos;)legend(&apos;sin&apos;,&apos;cos&apos;) legend就是添加图例的标注比如：legend(&apos;First&apos;,&apos;Second&apos;,-1)，表示字符串依次注释plot中的图，后面板的参数（此处是-1）表示注释的位置。hold off</code></pre><hr><p>三维图通常显示一个由带两个变量的函数（即 z = f (x,y)）定义的曲面图。</p><p><code>[X,Y] = meshgrid(-2:.2:2);</code> STEP=0.2  meshgrid函数生成的X，Y是大小相等的矩阵</p><p>surf 函数及其伴随函数 mesh 以三维形式显示曲面图。surf 使用颜色显示曲面图的连接线和面。mesh 生成仅以颜色标记连接定义点的线条的线框曲面图。</p><hr><p>使用 subplot 函数可以在同一窗口的不同子区域显示多个绘图。<br>subplot 的前两个输入表示每行和每列中的绘图数。第三个输入指定绘图是否处于活动状态。</p><hr><blockquote><p>键入脚本名称即可运行该脚本。脚本是最简单的一种 MATLAB® 程序。脚本是一个包含多行连续 MATLAB 命令和函数调用的扩展名为<code>.m</code>的文件。在命令行中<em>键入脚本名称</em>即可运行该脚本。<br>要创建脚本，请使用 edit 命令。<br><code>edit plotrand</code><br>使用百分比 (%) 符号添加注释</p></blockquote><hr><pre><code>nsamples = 5;npoints = 50;for k = 1:nsamples    currentData = rand(npoints,1);    sampleMean(k) = mean(currentData);endoverallMean = mean(sampleMean)if overallMean &lt; .49   disp(&apos;Mean is less than expected&apos;)elseif overallMean &gt; .51   disp(&apos;Mean is greater than expected&apos;)else   disp(&apos;Mean is within the expected range&apos;)end</code></pre><hr><p>使用 doc 命令在单独的窗口中打开函数文档。<br><code>doc mean</code><br>在键入函数输入参数的左括号之后暂停，此时命令行窗口中会显示相应函数的提示<br>使用 help 命令可在命令行窗口中查看相应函数的简明文档。</p><hr><p>使用空格或逗号分隔行的元素。<br>使用分号 ; 表示每行末尾。<br>使用方括号 [ ] 将整个元素列表括起来。</p><p>sum(A) 计算列<br>sum(A’)’<br>避免双重转置的其他方法，请在 sum 函数中使用维度参数：<br><code>sum(A,2)</code></p><p><code>diag(A)</code> 获取对角线值</p><hr><p>图形的函数 fliplr 可以从左往右地翻转矩阵：<br><code>sum(diag(fliplr(A)))</code></p><hr><p>magic 函数创建几乎任意大小的幻方矩阵。行列对角线相加都相同<br>四个用于生成基本矩阵的函数。<br>zeros<br>全部为零<br>ones<br>全部为 1<br>rand<br>均匀分布的随机元素<br>randn<br>正态分布的随机元素</p><hr><p>MATLAB 不需要任何类型声明或维度说明。当 MATLAB 遇到新的变量名称时，它会自动创建变量，并分配适当大小的存储。如果此变量已存在，MATLAB 会更改其内容，并根据需要分配新存储。</p><p>MATLAB 仅使用名称的前 N 个字符（其中 N 是函数 namelengthmax 返回的数字） 为63</p>]]></content>
     
