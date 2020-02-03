@@ -4,6 +4,25 @@
   
     
     <entry>
+      <title>matlab笔记4</title>
+      <link href="/2020/02/03/matlab%E7%AC%94%E8%AE%B04/"/>
+      <url>/2020/02/03/matlab%E7%AC%94%E8%AE%B04/</url>
+      
+        <content type="html"><![CDATA[<pre><code>B = A - 8.5B(1:2,2:3) = 0x = [2.1 1.7 1.6 1.5 NaN 1.9 1.8 1.5 5.1 1.8 1.4 2.2 1.6 1.8];x = x(isfinite(x))x =  2.1 1.7 1.6 1.5 1.9 1.8 1.5 5.1 1.8 1.4 2.2 1.6 1.8x = x(abs(x-mean(x)) &lt;= 3*std(x))x =  2.1 1.7 1.6 1.5 1.9 1.8 1.5 1.8 1.4 2.2 1.6 1.8</code></pre><a id="more"></a><hr><p>find 函数可用于确定与指定逻辑条件相符的数组元素的索引。find 以最简单的形式返回索引的列向量。转置该向量以便获取索引的行向量。</p><pre><code>k = find(isprime(A))&apos;k =     2     5     9    10    11    13</code></pre><p><code>R = randn(3,4,5);</code></p><hr><p>MATLAB 中的元胞数组是以其他数组的副本为元素的多维数组<br><code>C = {A sum(A) prod(prod(A))}</code><br>。第一，要检索某个元胞的内容，请在花括号中使用下标。例如，C{1} 检索幻方矩阵，C{3} 为 16!。第二，<strong>元胞数组包含其他数组的副本，而不包含指向这些数组的指针</strong>。</p><pre><code>M = cell(8,1); 元胞数组for n = 1:8   M{n} = magic(n);endM</code></pre><hr><p><code>v = [s; &#39;world&#39;]</code><br>垂直联接字符并生成</p><pre><code>v =   Hello   world</code></pre><p>char 函数可执行这种填充操作。例如，<br><code>S = char(&#39;A&#39;,&#39;rolling&#39;,&#39;stone&#39;,&#39;gathers&#39;,&#39;momentum.&#39;)</code></p><p>也可以将文本存储在元胞数组中。例如，</p><p><code>C = {&#39;A&#39;;&#39;rolling&#39;;&#39;stone&#39;;&#39;gathers&#39;;&#39;momentum.&#39;}</code></p><p>可以将填充后的字符数组转换为字符向量元胞数组：<br><code>C = cellstr(S)</code><br>使用以下语句可以逆转此过程<br><code>S = char(C)</code></p><hr><p>结构体是多维 MATLAB 数组，包含可按文本字段标志符访问的元素。例如，</p><pre><code>S.name = &apos;Ed Plum&apos;;S.score = 83;S.grade = &apos;B+&apos;S =      name: &apos;Ed Plum&apos;    score: 83    grade: &apos;B+&apos;</code></pre><p>可以一次添加一个字段，</p><pre><code>S(2).name = &apos;Toni Miller&apos;;S(2).score = 91;S(2).grade = &apos;A-&apos;;</code></pre><p>可以使用一个语句添加整个元素：</p><pre><code>S(3) = struct(&apos;name&apos;,&apos;Jerry Garcia&apos;,...                &apos;score&apos;,70,&apos;grade&apos;,&apos;C&apos;)</code></pre><p>键入<br><code>S.score</code><br>与键入<br><code>S(1).score, S(2).score, S(3).score</code><br>相同，这是一个逗号分隔列表。</p><pre><code>scores = [S.score]names = char(S.name)names = {S.name}[N1 N2 N3] = S.name</code></pre><p>访问结构体数据的另一种方法是使用动态字段名称。这些名称将字段表示为变量表达式，MATLAB 会在运行时计算这些表达式。此处显示的点-括号语法将 expression 作为动态字段名称：<br><code>structName.(expression)</code><br>例如，要在字段名称中计算 expression，并在行 7 中的 1 至 25 列内获取该字段的值，请使用<br><code>structName.(expression)(7,1:25)</code></p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> matlab </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>matlab笔记3</title>
       <link href="/2020/02/02/matlab%E7%AC%94%E8%AE%B03/"/>
       <url>/2020/02/02/matlab%E7%AC%94%E8%AE%B03/</url>

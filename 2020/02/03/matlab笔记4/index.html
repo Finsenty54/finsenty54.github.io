@@ -23,7 +23,7 @@
   <meta http-equiv="cache-control" content="no-cache">
   <meta http-equiv="expires" content="0">
   
-  <title>matlab笔记3 | FINSENTY54</title>
+  <title>matlab笔记4 | FINSENTY54</title>
   <meta name="author" content="finsenty54">
   
   <meta name="description" content="blog">
@@ -31,7 +31,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="matlab笔记3">
+  <meta property="og:title" content="matlab笔记4">
   <meta property="og:site_name" content="FINSENTY54">
 
   
@@ -115,7 +115,7 @@
 
 	
 		<div class="page-header">
-			<h1> matlab笔记3</h1>
+			<h1> matlab笔记4</h1>
 		</div>
 	
 
@@ -132,102 +132,61 @@
 	<div class="mypage">		
 	  		
 
-	  <p>科学记数法使用字母 e 来指定 10 次方的缩放因子<br>浮点数的有限精度约为 16 位有效小数位数，有限范围约为 10-308 至 10+308。双精度格式表示的数字的最大精度为 52 位。整数的可用精度为 8 位、16 位、32 位和 64 位</p>
-<pre><code>x = uint64(36028797018963968);
-y = uint64(36028797018963972);
+	  <pre><code>B = A - 8.5
+B(1:2,2:3) = 0
+x = [2.1 1.7 1.6 1.5 NaN 1.9 1.8 1.5 5.1 1.8 1.4 2.2 1.6 1.8];
+x = x(isfinite(x))
+x =
+  2.1 1.7 1.6 1.5 1.9 1.8 1.5 5.1 1.8 1.4 2.2 1.6 1.8
+x = x(abs(x-mean(x)) &lt;= 3*std(x))
+x =
+  2.1 1.7 1.6 1.5 1.9 1.8 1.5 1.8 1.4 2.2 1.6 1.8
 </code></pre><a id="more"></a>
 <hr>
-<p>例如，sort 函数根据量值进行排序，如果量值相等，则根据相位角度排序。</p>
-<pre><code>sort([3+4i, 4+3i])  量值都为5
-ans =
-   4.0000 + 3.0000i   3.0000 + 4.0000i
-angle(3+4i)
-ans =
-    0.9273
-</code></pre><p>“等于”关系运算符 == 要求实部和虚部相等。其他二进制关系运算符 &gt;、&lt;、&gt;= 和 &lt;= 忽略数字的虚部，而仅考虑实部。</p>
+<p>find 函数可用于确定与指定逻辑条件相符的数组元素的索引。find 以最简单的形式返回索引的列向量。转置该向量以便获取索引的行向量。</p>
+<pre><code>k = find(isprime(A))&apos;
+k =
+     2     5     9    10    11    13
+</code></pre><p><code>R = randn(3,4,5);</code></p>
 <hr>
-<p>数组运算对构建表非常有用。假定 n 为列向量<br><code>n = (0:9)&#39;;</code><br>然后，<br><code>pows = [n  n.^2  2.^n]</code><br>构建一个平方和 2 次幂的表：</p>
-<pre><code>pows =
-     0     0     1
-     1     1     2
-     2     4     4
-     3     9     8
-     4    16    16
-     5    25    32
-     6    36    64
-     7    49   128
-     8    64   256
-     9    81   512
+<p>MATLAB 中的元胞数组是以其他数组的副本为元素的多维数组<br><code>C = {A sum(A) prod(prod(A))}</code><br>。第一，要检索某个元胞的内容，请在花括号中使用下标。例如，C{1} 检索幻方矩阵，C{3} 为 16!。第二，<strong>元胞数组包含其他数组的副本，而不包含指向这些数组的指针</strong>。</p>
+<pre><code>M = cell(8,1); 元胞数组
+for n = 1:8
+   M{n} = magic(n);
+end
+M
 </code></pre><hr>
-<pre><code>format short g
-x = (1:0.1:2)&apos;;
-logs = [x log10(x)]
-</code></pre><p>构建一个对数表。</p>
-<pre><code>logs =
-     1.0            0 
-     1.1      0.04139
-     1.2      0.07918
-     1.3      0.11394
-     1.4      0.14613
-     1.5      0.17609
-     1.6      0.20412
-     1.7      0.23045
-     1.8      0.25527
-     1.9      0.27875
-     2.0      0.30103
-</code></pre><hr>
-<p>有关初等数学函数的列表，请键入<br>help elfun<br>有关更多高等数学函数和矩阵函数的列表，请键入<br>help specfun<br>help elmat</p>
+<p><code>v = [s; &#39;world&#39;]</code><br>垂直联接字符并生成</p>
+<pre><code>v =
+   Hello
+   world
+</code></pre><p>char 函数可执行这种填充操作。例如，<br><code>S = char(&#39;A&#39;,&#39;rolling&#39;,&#39;stone&#39;,&#39;gathers&#39;,&#39;momentum.&#39;)</code></p>
+<p>也可以将文本存储在元胞数组中。例如，</p>
+<p><code>C = {&#39;A&#39;;&#39;rolling&#39;;&#39;stone&#39;;&#39;gathers&#39;;&#39;momentum.&#39;}</code></p>
+<p>可以将填充后的字符数组转换为字符向量元胞数组：<br><code>C = cellstr(S)</code><br>使用以下语句可以逆转此过程<br><code>S = char(C)</code></p>
 <hr>
-<p>format 函数控制所显示的值的数值格式。</p>
-<pre><code>x = [4/3 1.2345e-6]
+<p>结构体是多维 MATLAB 数组，包含可按文本字段标志符访问的元素。例如，</p>
+<pre><code>S.name = &apos;Ed Plum&apos;;
+S.score = 83;
+S.grade = &apos;B+&apos;
 
-format short
-
-   1.3333    0.0000
-
-format short e
-
-   1.3333e+000  1.2345e-006
-
-format short g
-
-   1.3333  1.2345e-006
-
-format long
-
-   1.33333333333333   0.00000123450000
-
-format long e
-
-   1.333333333333333e+000    1.234500000000000e-006
-
-format long g
-
-   1.33333333333333               1.2345e-006
-
-format bank
-
-   1.33          0.00
-
-format rat
-
-   4/3          1/810045
-
-format hex
-
-   3ff5555555555555   3eb4b6231abfd271
-</code></pre><p>语句无法容纳在一行中，请使用省略号（三个句点）<strong>…</strong></p>
-<p>要进一步控制输出格式，请使用 sprintf 和 fprintf 函数。</p>
-<hr>
-<pre><code>100:-7:50
-sum(A(1:4,4))
-sum(A(:,end)) end 引用最后一个行或列
-</code></pre><p>为什么 4×4 幻方矩阵的幻数和等于 34？如果将介于 1 到 16 之间的整数分为四个总和相等的组，该总和必须为<br>sum(1:16)/4<br>当然，也即<br>ans =<br>     34</p>
-<p><code>B = [A  A+32; A+48  A+16]</code></p>
-<hr>
-<p>要删除 X 的第二列，请使用<br><code>X(:,2) = []</code></p>
-<p><code>X( 2 : 2 : 10) = []</code> 按列数第几个<br>生成<br><code>X =
-    16     9     2     7    13    12     1</code></p>
+S = 
+     name: &apos;Ed Plum&apos;
+    score: 83
+    grade: &apos;B+&apos;
+</code></pre><p>可以一次添加一个字段，</p>
+<pre><code>S(2).name = &apos;Toni Miller&apos;;
+S(2).score = 91;
+S(2).grade = &apos;A-&apos;;
+</code></pre><p>可以使用一个语句添加整个元素：</p>
+<pre><code>S(3) = struct(&apos;name&apos;,&apos;Jerry Garcia&apos;,... 
+               &apos;score&apos;,70,&apos;grade&apos;,&apos;C&apos;)
+</code></pre><p>键入<br><code>S.score</code><br>与键入<br><code>S(1).score, S(2).score, S(3).score</code><br>相同，这是一个逗号分隔列表。</p>
+<pre><code>scores = [S.score]
+names = char(S.name)
+names = {S.name}
+[N1 N2 N3] = S.name
+</code></pre><p>访问结构体数据的另一种方法是使用动态字段名称。这些名称将字段表示为变量表达式，MATLAB 会在运行时计算这些表达式。此处显示的点-括号语法将 expression 作为动态字段名称：<br><code>structName.(expression)</code><br>例如，要在字段名称中计算 expression，并在行 7 中的 1 至 25 列内获取该字段的值，请使用<br><code>structName.(expression)(7,1:25)</code></p>
 	  
 	</div>
 
@@ -237,13 +196,12 @@ sum(A(:,end)) end 引用最后一个行或列
 
     
     
-    <a href="/2020/02/03/matlab笔记4/" type="button" class="btn btn-default"><i
-                class="fa fa-arrow-circle-o-left"></i> 上一页</a>
+    <a type="button" class="btn btn-default disabled"><i class="fa fa-arrow-circle-o-left"></i>上一页</a>
     
 
     <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
     
-    <a href="/2020/02/01/matlab笔记2/" type="button" class="btn btn-default ">下一页<i
+    <a href="/2020/02/02/matlab笔记3/" type="button" class="btn btn-default ">下一页<i
                 class="fa fa-arrow-circle-o-right"></i></a>
     
 
@@ -298,7 +256,7 @@ sum(A(:,end)) end 引用最后一个行或列
 	
 	<div class="meta-widget">
 	<i class="fa fa-clock-o"></i>
-	2020-02-02 
+	2020-02-03 
 	</div>
 	
 
