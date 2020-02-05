@@ -23,7 +23,7 @@
   <meta http-equiv="cache-control" content="no-cache">
   <meta http-equiv="expires" content="0">
   
-  <title>matlab笔记2 | FINSENTY54</title>
+  <title>matlab笔记5 image | FINSENTY54</title>
   <meta name="author" content="finsenty54">
   
   <meta name="description" content="blog">
@@ -31,7 +31,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="matlab笔记2">
+  <meta property="og:title" content="matlab笔记5 image">
   <meta property="og:site_name" content="FINSENTY54">
 
   
@@ -115,7 +115,7 @@
 
 	
 		<div class="page-header">
-			<h1> matlab笔记2</h1>
+			<h1> matlab笔记5 image</h1>
 		</div>
 	
 
@@ -132,83 +132,52 @@
 	<div class="mypage">		
 	  		
 
-	  <p>处理文本时，将字符序列括在单引号中。可以将文本赋给变量。<br><code>myText = &#39;Hello, world&#39;;</code><br>如果文本包含单引号，使用两个单引号。</p>
-<pre><code>otherText = &apos;You&apos;&apos;re right&apos;
-otherText = 
-&apos;You&apos;re right&apos;
-</code></pre><hr>
-<a id="more"></a>
-<p><code>whos</code>查询已有变量</p>
+	  <p>使用基于帕斯卡三角形的项创建一个对称矩阵：<br><code>A = pascal(3)</code></p>
+<p>randi 的第一个输入描述整数可能值的范围，后面两个输入描述行和列的数量。<br><code>C = randi(10,3,2)</code></p>
+<p>有一个专门的点积函数，称为 <code>dot</code>。<br><a id="more"></a><br>非共轭复数转置（其中每个元素的复数部分保留其符号）表示为<code>z.&#39;</code></p>
+<p><code>eye(m,n)</code><br>返回 m×n 矩形单位矩阵，eye(n) 返回 n×n 单位方阵。</p>
+<p>向量 x 的 p-范数，<br><code>norm(x,p)</code> 进行计算，此运算是为 p &gt; 1 的任意值定义的，但最常见的 p 值为 1、2 和 ∞。默认值为 p = 2，</p>
+<p><code>x = b/A</code><br>表示使用 mrdivide 获得的矩阵方程 xA = b 的解。<br><code>x = A\b</code><br>表示使用 mldivide 获得的矩阵方程 Ax = b 的解。</p>
+<p><code>(b/A)&#39; = (A&#39;\b&#39;)</code>.<br>m = n<br>方阵方程组。求精确解。<br>m &gt; n<br>超定方程组，即方程个数多于未知数个数。求最小二乘解。<br>m &lt; n<br>欠定方程组，即方程个数少于未知数个数。使用最多 m 个非零分量求基本解。</p>
+<p><em>非奇异矩阵==可逆矩阵</em></p>
+<p><code>eig</code><br>特征值和特征向量</p>
+<p>提供的数据分析函数的列表，请键入<br><code>help datafun</code></p>
 <hr>
-<p>可以使用方括号串联字符数组，就像串联数值数组一样。<br><code>longText = [myText,&#39; - &#39;,otherText]</code></p>
-<p>要将数值转换为字符，使用 num2str 或 int2str 等函数。</p>
-<pre><code>f = 71;
-c = (f-32)/1.8;
-tempText = [&apos;Temperature is &apos;,num2str(c),&apos;C&apos;]
-</code></pre><hr>
-<p>调用函数，例如 max，请将其输入参数括在圆括号中，存在多个输入参数，请使用逗号加以分隔，存在多个输出参数，请将其括在方括号中：</p>
-<pre><code>[maxA,location] = max(A)
-maxA = 5
-location = 3
-</code></pre><hr>
-<p>任何字符输入括在单引号中：<br><code>disp(&#39;hello world&#39;)</code></p>
+<h1 id="图像"><a href="#图像" class="headerlink" title="图像"></a>图像</h1><p>要显示图像，请使用 imshow 函数：<br><code>imshow(X,map)</code><br>使用<code>imread</code> 函数可以读取标准图像文件（TIFF、JPEG、PNG 等）。imread 返回的数据类型取决于读取的图像类型。<br>使用<code>imwrite</code> 函数可以将 MATLAB 数据写入到各种标准图像格式。<br>大多数图像表示为二维数组（矩阵），其中矩阵的每个元素对应所显示图像的一个像素。例如，由 200 行和 300 列不同颜色的点组成的图像保存为一个 200×300 的矩阵。有些图像，如 RGB，需要三维数组，其中三个维度的第一个平面表示红色像素强度，第二个平面表示绿色像素强度，第三个平面表示蓝色像素强度。<br>MATLAB 数学支持三种不同的数值类用于图像显示：<br>双精度浮点数（double）<br>16 位无符号整数（uint16）<br>8 位无符号整数（uint8）</p>
+<pre><code>imshow    显示图像
+image    从数组显示图像
+imagesc    显示使用经过标度映射的颜色的图像
+imread    从图形文件读取图像
+imresize    调整图像大小
+imwrite    将图像写入图形文件
+imfinfo    有关图形文件的信息
+imformats    管理图像文件格式注册表
+frame2im    返回与影片帧关联的图像数据
+im2frame    将图像转换为影片帧
+im2java    将图像转换 Java 图像
+im2double    将图像转换为双精度值
+ind2rgb    将索引图像转换为 RGB 图像
+rgb2gray    将 RGB 图像或颜色图转换为灰度图
+rgb2ind    将 RGB 图像转换为索引图像
+imapprox    通过减少颜色数量来近似处理索引图像
+dither    转换图像，通过抖动提高表观颜色分辨率
+cmpermute    重新排列颜色图中的颜色
+cmunique    消除颜色图中的重复颜色；将灰度或真彩色图像转换为索引图像
+</code></pre><p><code>A = imread(&#39;ngc6543a.jpg&#39;);</code></p>
 <hr>
-<p>创建二维线图，请使用 plot（绘制） 函数。</p>
-<pre><code>x = 0:pi/100:2*pi; 创建矩阵的一种方法
-y = sin(x);
-plot(x,y）
-</code></pre><p>标记轴并添加标题。</p>
-<pre><code>xlabel(&apos;x&apos;)
-ylabel(&apos;sin(x)&apos;)
-title(&apos;Plot of the Sine Function&apos;)
-</code></pre><p>向 plot 函数添加第三个输入参数，您可以使用红色虚线绘制相同的变量。<br><code>plot(x,y,&#39;r--&#39;)</code><br>‘r–’ 为线条设定。每个设定可包含表示线条颜色、样式和标记的字符。标记是在绘制的每个数据点上显示的符号，例如，+、o 或 <em>。例如，’g:</em>‘ 请求绘制使用 * 标记的绿色点线。</p>
-<p>将绘图添加到现有图窗中，请使用 hold on。在使用 hold off 或关闭窗口之前，当前图窗窗口中会显示所有绘图</p>
-<pre><code>hold on
-y2 = cos(x);
-plot(x,y2,&apos;:&apos;)
-legend(&apos;sin&apos;,&apos;cos&apos;) legend就是添加图例的标注
-比如：legend(&apos;First&apos;,&apos;Second&apos;,-1)，表示字符串依次注释plot中的图，后面板的参数（此处是-1）表示注释的位置。
-hold off
-</code></pre><hr>
-<p>三维图通常显示一个由带两个变量的函数（即 z = f (x,y)）定义的曲面图。</p>
-<p><code>[X,Y] = meshgrid(-2:.2:2);</code> STEP=0.2  meshgrid函数生成的X，Y是大小相等的矩阵</p>
-<p>surf 函数及其伴随函数 mesh 以三维形式显示曲面图。surf 使用颜色显示曲面图的连接线和面。mesh 生成仅以颜色标记连接定义点的线条的线框曲面图。</p>
+<p>索引图像由数据矩阵 X 和颜色图矩阵 map 组成。map 是一个 double 类的 m×3 数组，由 [0, 1] 范围内的浮点值组成。map 的每一行指定单一颜色的红、绿和蓝分量。索引图像使用像素值到颜色图值的“直接映射”。每个图像像素的颜色是以 X 中的对应值为索引求得的 map 中的值。<strong>因此 X 值必须是整数。值 1 指向 map 中第一行，值 2 指向第二行，以此类推。使用以下语句显示索引图像。</strong><br><code>image(X); colormap(map)</code><br>图像矩阵和颜色图中值的关系取决于图像矩阵的类。如果图像矩阵是 double 类，那么值 1 指向颜色图中的第一行，值 2 指向第二行，以此类推。如果图像矩阵是 uint8 或 uint16 类，那么有个偏移 - 值 0 指向颜色图中的第一行，值 1 指向第二行，以此类推。在图形文件格式中使用偏移是为了使可支持的颜色数目达到最大。在上面的图像中，图像矩阵是 double 类。</p>
 <hr>
-<p>使用 subplot 函数可以在同一窗口的不同子区域显示多个绘图。<br>subplot 的前两个输入表示每行和每列中的绘图数。第三个输入指定绘图是否处于活动状态。</p>
+<p>强度图像是一个数据矩阵 I，其中的值表示某一范围内的强度。强度图像表示为单个矩阵，矩阵的每个元素对应一个图像像素。<br>imagesc(A); colormap(gray)<br>imagesc(A,[min(A(:)) max(A(:))]); colormap(gray)</p>
 <hr>
-<blockquote>
-<p>键入脚本名称即可运行该脚本。脚本是最简单的一种 MATLAB® 程序。脚本是一个包含多行连续 MATLAB 命令和函数调用的扩展名为<code>.m</code>的文件。在命令行中<em>键入脚本名称</em>即可运行该脚本。<br>要创建脚本，请使用 edit 命令。<br><code>edit plotrand</code><br>使用百分比 (%) 符号添加注释</p>
-</blockquote>
+<p>bit-depth：使用多少位来定义一个像素点。bit-depth越大，可以表示的色彩就越多。通常情况下，图像的像素值范围为0-255， 则其bit-depth就是8。RGB图像的bit-depth为24：8bit表示R，8bit表示G，8bit表示B。</p>
+<p>RGB 图像，有时称为真彩色图像，以 m×n×3 数据数组形式存储，该数组定义了对应图像每个像素的红色、绿色和蓝色分量。<br><strong>例如像素 (10,5) 的红色、绿色和蓝色分量分别存储在 RGB(10,5,1)、RGB(10,5,2) 和 RGB(10,5,3) 中。</strong></p>
 <hr>
-<pre><code>nsamples = 5;
-npoints = 50;
-for k = 1:nsamples
-    currentData = rand(npoints,1);
-    sampleMean(k) = mean(currentData);
-end
-overallMean = mean(sampleMean)
-
-if overallMean &lt; .49
-   disp(&apos;Mean is less than expected&apos;)
-elseif overallMean &gt; .51
-   disp(&apos;Mean is greater than expected&apos;)
-else
-   disp(&apos;Mean is within the expected range&apos;)
-end
-</code></pre><hr>
-<p>使用 doc 命令在单独的窗口中打开函数文档。<br><code>doc mean</code><br>在键入函数输入参数的左括号之后暂停，此时命令行窗口中会显示相应函数的提示<br>使用 help 命令可在命令行窗口中查看相应函数的简明文档。</p>
-<hr>
-<p>使用空格或逗号分隔行的元素。<br>使用分号 ; 表示每行末尾。<br>使用方括号 [ ] 将整个元素列表括起来。</p>
-<p>sum(A) 计算列<br>sum(A’)’<br>避免双重转置的其他方法，请在 sum 函数中使用维度参数：<br><code>sum(A,2)</code></p>
-<p><code>diag(A)</code> 获取对角线值</p>
-<hr>
-<p>图形的函数 fliplr 可以从左往右地翻转矩阵：<br><code>sum(diag(fliplr(A)))</code></p>
-<hr>
-<p>magic 函数创建几乎任意大小的幻方矩阵。行列对角线相加都相同<br>四个用于生成基本矩阵的函数。<br>zeros<br>全部为零<br>ones<br>全部为 1<br>rand<br>均匀分布的随机元素<br>randn<br>正态分布的随机元素</p>
-<hr>
-<p>MATLAB 不需要任何类型声明或维度说明。当 MATLAB 遇到新的变量名称时，它会自动创建变量，并分配适当大小的存储。如果此变量已存在，MATLAB 会更改其内容，并根据需要分配新存储。</p>
-<p>MATLAB 仅使用名称的前 N 个字符（其中 N 是函数 namelengthmax 返回的数字） 为63</p>
-	  
+<p>您可以对 uint8 和 uint16 数组执行其他几种操作，包括：<br>使用 reshape、cat、permute 函数以及 [] 和 ‘ 运算符重构、重新排序和串联数组<br>使用 save 和 load 将 uint8 和 uint16 数组保存及加载到 MAT 文件。（请记住，如果要加载或保存图形格式文件图像，则必须使用 imread 和imwrite 命令代替。）<br>使用 find 定位 uint8 和 uint16 数组中非零元素的索引。但返回的数组始终为 double 类。<br>关系运算符</p>
+<p>基于 NTSC 标准合并 RGB 值，以此方式来计算单色亮度，这会将与眼睛敏感度相关的系数应用到 RGB 颜色：</p>
+<pre><code>I = .2989*rgb_img(:,:,1)...
+    +.5870*rgb_img(:,:,2)...
+    +.1140*rgb_img(:,:,3);
+</code></pre>	  
 	</div>
 
 	<div>
@@ -217,13 +186,12 @@ end
 
     
     
-    <a href="/2020/02/02/matlab笔记3/" type="button" class="btn btn-default"><i
-                class="fa fa-arrow-circle-o-left"></i> 上一页</a>
+    <a type="button" class="btn btn-default disabled"><i class="fa fa-arrow-circle-o-left"></i>上一页</a>
     
 
     <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
     
-    <a href="/2020/01/30/matlab笔记1/" type="button" class="btn btn-default ">下一页<i
+    <a href="/2020/02/03/matlab笔记4/" type="button" class="btn btn-default ">下一页<i
                 class="fa fa-arrow-circle-o-right"></i></a>
     
 
@@ -278,7 +246,7 @@ end
 	
 	<div class="meta-widget">
 	<i class="fa fa-clock-o"></i>
-	2020-02-01 
+	2020-02-05 
 	</div>
 	
 
