@@ -4,6 +4,25 @@
   
     
     <entry>
+      <title>matlab图像示例笔记2</title>
+      <link href="/2020/02/07/matlab%E5%9B%BE%E5%83%8F%E7%A4%BA%E4%BE%8B%E7%AC%94%E8%AE%B02/"/>
+      <url>/2020/02/07/matlab%E5%9B%BE%E5%83%8F%E7%A4%BA%E4%BE%8B%E7%AC%94%E8%AE%B02/</url>
+      
+        <content type="html"><![CDATA[<h4 id="dicom-（a-image-type-using-in-medical"><a href="#dicom-（a-image-type-using-in-medical" class="headerlink" title="dicom （a image type using in medical)"></a>dicom （a image type using in medical)</h4><p>To read <code>metadata</code>from a DICOM file, use the <code>dicominfo function</code></p><hr><p>To read<code>image data</code>from a DICOM file, use the <code>dicomread function.</code></p><a id="more"></a><hr><p>If you just want to view the <code>metadata in a DICOM file</code>, for debugging purposes, you can use the<code>dicomdisp function.</code></p><hr><p>use one of the toolbox image display functions <code>imshow or imtool.</code></p><hr><p>the image data in this DICOM file is signed <code>16-bit data</code>, you must use the autoscaling syntax with either display function to make the image viewable.<br><code>imshow(I,&#39;DisplayRange&#39;,[])</code></p><hr><p>use the <code>dicomanon function</code>. Remove Confidential Information</p><hr><p>To write image data or metadata to a file in DICOM format, use the <code>dicomwrite function</code>.</p><hr><h4 id="Create-New-DICOM-Series"><a href="#Create-New-DICOM-Series" class="headerlink" title="Create New DICOM Series"></a>Create New DICOM Series</h4><pre><code>info.SeriesInstanceUID</code></pre><p>Generate a new DICOM unique identifier (UID) using the <code>dicomuid function.</code></p><pre><code>uid = dicomuidinfo.SeriesInstanceUID = uid;dicomwrite(Imodified,&apos;ankle_newseries.dcm&apos;,info);</code></pre><hr><p>The example finds the maximum and minimum values of all pixels in the image. The pixels that form the white <code>text characters</code>are<code>set to the maximum pixel value</code>. </p><hr><p>MATLAB command prompt: Enter dicomBrowser.</p><hr><p><a href="https://ww2.mathworks.cn/help/releases/R2018a/images/image-type-conversions.html" title="Image Type Conversion" target="_blank" rel="noopener">Image Type Conversion</a></p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> matlab </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>matlab图像示例笔记1</title>
       <link href="/2020/02/06/matlab%E5%9B%BE%E5%83%8F%E7%A4%BA%E4%BE%8B%E7%AC%94%E8%AE%B01/"/>
       <url>/2020/02/06/matlab%E5%9B%BE%E5%83%8F%E7%A4%BA%E4%BE%8B%E7%AC%94%E8%AE%B01/</url>

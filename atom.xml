@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://finsenty54.github.io/"/>
-  <updated>2020-02-06T06:30:57.460Z</updated>
+  <updated>2020-02-07T08:24:28.471Z</updated>
   <id>http://finsenty54.github.io/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>matlab图像示例笔记2</title>
+    <link href="http://finsenty54.github.io/2020/02/07/matlab%E5%9B%BE%E5%83%8F%E7%A4%BA%E4%BE%8B%E7%AC%94%E8%AE%B02/"/>
+    <id>http://finsenty54.github.io/2020/02/07/matlab图像示例笔记2/</id>
+    <published>2020-02-07T08:23:56.000Z</published>
+    <updated>2020-02-07T08:24:28.471Z</updated>
+    
+    <content type="html"><![CDATA[<h4 id="dicom-（a-image-type-using-in-medical"><a href="#dicom-（a-image-type-using-in-medical" class="headerlink" title="dicom （a image type using in medical)"></a>dicom （a image type using in medical)</h4><p>To read <code>metadata</code>from a DICOM file, use the <code>dicominfo function</code></p><hr><p>To read<code>image data</code>from a DICOM file, use the <code>dicomread function.</code></p><a id="more"></a><hr><p>If you just want to view the <code>metadata in a DICOM file</code>, for debugging purposes, you can use the<code>dicomdisp function.</code></p><hr><p>use one of the toolbox image display functions <code>imshow or imtool.</code></p><hr><p>the image data in this DICOM file is signed <code>16-bit data</code>, you must use the autoscaling syntax with either display function to make the image viewable.<br><code>imshow(I,&#39;DisplayRange&#39;,[])</code></p><hr><p>use the <code>dicomanon function</code>. Remove Confidential Information</p><hr><p>To write image data or metadata to a file in DICOM format, use the <code>dicomwrite function</code>.</p><hr><h4 id="Create-New-DICOM-Series"><a href="#Create-New-DICOM-Series" class="headerlink" title="Create New DICOM Series"></a>Create New DICOM Series</h4><pre><code>info.SeriesInstanceUID</code></pre><p>Generate a new DICOM unique identifier (UID) using the <code>dicomuid function.</code></p><pre><code>uid = dicomuidinfo.SeriesInstanceUID = uid;dicomwrite(Imodified,&apos;ankle_newseries.dcm&apos;,info);</code></pre><hr><p>The example finds the maximum and minimum values of all pixels in the image. The pixels that form the white <code>text characters</code>are<code>set to the maximum pixel value</code>. </p><hr><p>MATLAB command prompt: Enter dicomBrowser.</p><hr><p><a href="https://ww2.mathworks.cn/help/releases/R2018a/images/image-type-conversions.html" title="Image Type Conversion" target="_blank" rel="noopener">Image Type Conversion</a></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h4 id=&quot;dicom-（a-image-type-using-in-medical&quot;&gt;&lt;a href=&quot;#dicom-（a-image-type-using-in-medical&quot; class=&quot;headerlink&quot; title=&quot;dicom （a image type using in medical)&quot;&gt;&lt;/a&gt;dicom （a image type using in medical)&lt;/h4&gt;&lt;p&gt;To read &lt;code&gt;metadata&lt;/code&gt;from a DICOM file, use the &lt;code&gt;dicominfo function&lt;/code&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;To read&lt;code&gt;image data&lt;/code&gt;from a DICOM file, use the &lt;code&gt;dicomread function.&lt;/code&gt;&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="matlab" scheme="http://finsenty54.github.io/tags/matlab/"/>
+    
+  </entry>
   
   <entry>
     <title>matlab图像示例笔记1</title>
@@ -454,25 +476,6 @@ Sections
     
     
       <category term="penetation test" scheme="http://finsenty54.github.io/tags/penetation-test/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Docker学习笔记</title>
-    <link href="http://finsenty54.github.io/2019/03/15/Docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
-    <id>http://finsenty54.github.io/2019/03/15/Docker学习笔记/</id>
-    <published>2019-03-15T11:36:58.000Z</published>
-    <updated>2019-11-19T06:16:47.752Z</updated>
-    
-    <content type="html"><![CDATA[<p>sudo add-apt-repository \<br>   “deb [arch=amd64] <a href="https://download.docker.com/linux/ubuntu" target="_blank" rel="noopener">https://download.docker.com/linux/ubuntu</a> \<br>   $(lsb_release -cs) \<br>   stable”</p><p><a href="https://download.docker.com/linux/ubuntu/dists/bionic/pool/stable/amd64/" target="_blank" rel="noopener">https://download.docker.com/linux/ubuntu/dists/bionic/pool/stable/amd64/</a><br><a id="more"></a></p><p>配置完镜像源后，记得重启</p><p>/bin/sh<br>/bin/bash<br>运行shell</p><p>docker run –name mysql-data -p 3306:3306 -v /home/finsenty/Documents/mysqldata:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=”123456” -d mysql:5.7</p><p>docker run -p 8888:5000 –name myfirstapp YOUR_USERNAME/myfirstapp</p><ul><li>Running on <a href="http://0.0.0.0:5000/" target="_blank" rel="noopener">http://0.0.0.0:5000/</a> (Press CTRL+C to quit)</li></ul><p> docker rm <code>docker ps -a -q</code></p><p> docker rmi <code>docker images -q</code></p><p> docker run -p 4000:80 –name py-http6 –link mariadb:mysql finsenty/http5</p><p> mysql.connecter 查询后面带一个，</p><p> -u “<a href="http://192.168.160.1/sqltest/post.php&quot;" target="_blank" rel="noopener">http://192.168.160.1/sqltest/post.php&quot;</a> –forms</p><p> docker run -d -p 4000:80 –link mysql:mysql –name http6 finsenty/http5</p><p>docker build -t finsenty/http5 .</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;sudo add-apt-repository \&lt;br&gt;   “deb [arch=amd64] &lt;a href=&quot;https://download.docker.com/linux/ubuntu&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://download.docker.com/linux/ubuntu&lt;/a&gt; \&lt;br&gt;   $(lsb_release -cs) \&lt;br&gt;   stable”&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;https://download.docker.com/linux/ubuntu/dists/bionic/pool/stable/amd64/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://download.docker.com/linux/ubuntu/dists/bionic/pool/stable/amd64/&lt;/a&gt;&lt;br&gt;
-    
-    </summary>
-    
     
   </entry>
   

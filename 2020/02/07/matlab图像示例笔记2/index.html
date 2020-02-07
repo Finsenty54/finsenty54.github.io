@@ -23,7 +23,7 @@
   <meta http-equiv="cache-control" content="no-cache">
   <meta http-equiv="expires" content="0">
   
-  <title>matlab图像示例笔记1 | FINSENTY54</title>
+  <title>matlab图像示例笔记2 | FINSENTY54</title>
   <meta name="author" content="finsenty54">
   
   <meta name="description" content="blog">
@@ -31,7 +31,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="matlab图像示例笔记1">
+  <meta property="og:title" content="matlab图像示例笔记2">
   <meta property="og:site_name" content="FINSENTY54">
 
   
@@ -115,7 +115,7 @@
 
 	
 		<div class="page-header">
-			<h1> matlab图像示例笔记1</h1>
+			<h1> matlab图像示例笔记2</h1>
 		</div>
 	
 
@@ -132,40 +132,32 @@
 	<div class="mypage">		
 	  		
 
-	  <h3 id="对比度"><a href="#对比度" class="headerlink" title="对比度"></a>对比度</h3><p>histogram  直方图<br>Precede the call to <code>imhist</code>with the <code>figure</code>command so that the histogram does not overwrite the display of the image I in the current figure window.</p>
-<p>To see the distribution of intensities in the image, <code>create a histogram by calling the imhist</code> function.<br>输入图片，图片要求为灰度图或者二值图 imhist<br><a id="more"></a><br>    F=imread(‘test.jpg’);<br>    I=rgb2gray(F);<br>    [count,x]=imhist(I，30)</p>
-<p><del>% 获取直方图的横坐标和纵坐标，即各个像素级，以及每个像素级上的像素出现的次数<br>figure;</del></p>
-<pre><code>subplot(221);imhist(I,2);
-subplot(222);imhist(I,5);
-subplot(223);imhist(I,10);
-subplot(224);imhist(I);
-
-figure;
-subplot(121); imhist(I,10)
-[count,x] = imhist(I,10)
-subplot(122);stem(x,count);
-</code></pre><blockquote>
-<p>stem<br>绘制离散序列数据</p>
-</blockquote>
-<p><code>Improve the contrast</code>in an image, using the <code>histeq function</code>. The toolbox includes several other functions that perform contrast adjustment, including <code>imadjust</code> and <code>adapthisteq</code>, and interactive tools such as the Adjust Contrast tool, available in the Image Viewer<br>adjust the contrast </p>
-<blockquote>
-<p>灰度直方图均衡化histeq</p>
-</blockquote>
+	  <h4 id="dicom-（a-image-type-using-in-medical"><a href="#dicom-（a-image-type-using-in-medical" class="headerlink" title="dicom （a image type using in medical)"></a>dicom （a image type using in medical)</h4><p>To read <code>metadata</code>from a DICOM file, use the <code>dicominfo function</code></p>
 <hr>
-<h3 id="Correct-Nonuniform-Background-Illumination-and-Analyze-Foreground-Objects"><a href="#Correct-Nonuniform-Background-Illumination-and-Analyze-Foreground-Objects" class="headerlink" title="Correct Nonuniform Background Illumination and Analyze Foreground Objects"></a>Correct Nonuniform Background Illumination and Analyze Foreground Objects</h3><p>nonuniform</p>
-<blockquote>
-<p>strel（）<br>Morphological structuring element</p>
-</blockquote>
-<p><code>J = imopen(I,SE)</code>performs morphological opening on the grayscale or binary image I, returning the opened image, J. SE is a single structuring element object returned by the <code>strel or offsetstrel functions</code>. The morphological open operation is an erosion followed by a dilation, using the same structuring element for both operations.</p>
-<p>surf<br>曲面图全页折叠<br>语法<br>surf(X,Y,Z)<br>surf(X,Y,Z,C)</p>
-<p><code>f1=imadjust（f，[low_in  high_in],[low_out  high_out],gamma）</code><br>该函数的意义如图1所示，把图像f 灰度变换到新图像f1的过程中，f 中灰度值<code>低于low_in</code>的像素点在f1中灰度值被赋值为<code>low_out</code>,同理，f中灰度值<code>高于high_in</code>的像素点变换到f1时其灰度值也被赋值为<code>high_out</code>;</p>
-<blockquote>
-<p>J=imadjust(I,[0.2 0.5],[0 1])<br>原图像灰度范围为0-255，程序将小于255×0.2的灰度值设置为0，将大于255×0.5的灰度值设置为255</p>
-</blockquote>
-<p>饱和度取决于该色中含色成分和消色成分（灰色）的比例<br>比度指的是一幅图像中明暗区域最亮的白和最暗的黑之间不同亮度层级的测量，差异范围越大代表对比越大</p>
-<p>Use the<code>imbinarize function</code> to convert the grayscale image into a<code>binary image</code></p>
-<p><code>Remove background noise</code> from the image with the<code>bwareaopen function</code>.</p>
-<p>F = false(sz1,…,szN) 是由逻辑值“0”组成的 sz1×…×szN 数组，其中 sz1,…,szN 表示每个维度的大小。例如，false(2,3) 返回由逻辑值“0”组成的 2×3 数组。</p>
+<p>To read<code>image data</code>from a DICOM file, use the <code>dicomread function.</code></p>
+<a id="more"></a>
+<hr>
+<p>If you just want to view the <code>metadata in a DICOM file</code>, for debugging purposes, you can use the<code>dicomdisp function.</code></p>
+<hr>
+<p>use one of the toolbox image display functions <code>imshow or imtool.</code></p>
+<hr>
+<p>the image data in this DICOM file is signed <code>16-bit data</code>, you must use the autoscaling syntax with either display function to make the image viewable.<br><code>imshow(I,&#39;DisplayRange&#39;,[])</code></p>
+<hr>
+<p>use the <code>dicomanon function</code>. Remove Confidential Information</p>
+<hr>
+<p>To write image data or metadata to a file in DICOM format, use the <code>dicomwrite function</code>.</p>
+<hr>
+<h4 id="Create-New-DICOM-Series"><a href="#Create-New-DICOM-Series" class="headerlink" title="Create New DICOM Series"></a>Create New DICOM Series</h4><pre><code>info.SeriesInstanceUID
+</code></pre><p>Generate a new DICOM unique identifier (UID) using the <code>dicomuid function.</code></p>
+<pre><code>uid = dicomuid
+info.SeriesInstanceUID = uid;
+dicomwrite(Imodified,&apos;ankle_newseries.dcm&apos;,info);
+</code></pre><hr>
+<p>The example finds the maximum and minimum values of all pixels in the image. The pixels that form the white <code>text characters</code>are<code>set to the maximum pixel value</code>. </p>
+<hr>
+<p>MATLAB command prompt: Enter dicomBrowser.</p>
+<hr>
+<p><a href="https://ww2.mathworks.cn/help/releases/R2018a/images/image-type-conversions.html" title="Image Type Conversion" target="_blank" rel="noopener">Image Type Conversion</a></p>
 	  
 	</div>
 
@@ -175,13 +167,12 @@ subplot(122);stem(x,count);
 
     
     
-    <a href="/2020/02/07/matlab图像示例笔记2/" type="button" class="btn btn-default"><i
-                class="fa fa-arrow-circle-o-left"></i> 上一页</a>
+    <a type="button" class="btn btn-default disabled"><i class="fa fa-arrow-circle-o-left"></i>上一页</a>
     
 
     <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
     
-    <a href="/2020/02/05/matlab笔记5/" type="button" class="btn btn-default ">下一页<i
+    <a href="/2020/02/06/matlab图像示例笔记1/" type="button" class="btn btn-default ">下一页<i
                 class="fa fa-arrow-circle-o-right"></i></a>
     
 
@@ -236,7 +227,7 @@ subplot(122);stem(x,count);
 	
 	<div class="meta-widget">
 	<i class="fa fa-clock-o"></i>
-	2020-02-06 
+	2020-02-07 
 	</div>
 	
 
