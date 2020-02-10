@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://finsenty54.github.io/"/>
-  <updated>2020-02-10T06:50:40.936Z</updated>
+  <updated>2020-02-10T06:56:40.270Z</updated>
   <id>http://finsenty54.github.io/</id>
   
   <author>
@@ -17,11 +17,11 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>matlab图像示例笔记2</title>
+    <title>matlab图像示例笔记3</title>
     <link href="http://finsenty54.github.io/2020/02/10/matlab%E5%9B%BE%E5%83%8F%E7%A4%BA%E4%BE%8B%E7%AC%94%E8%AE%B03/"/>
     <id>http://finsenty54.github.io/2020/02/10/matlab图像示例笔记3/</id>
     <published>2020-02-10T06:47:00.000Z</published>
-    <updated>2020-02-10T06:50:40.936Z</updated>
+    <updated>2020-02-10T06:56:40.270Z</updated>
     
     <content type="html"><![CDATA[<p><code>mat2gray</code> 将dicom变为grey<br><code>im2uint8</code></p><hr><a id="more"></a><p> The image on the right has higher contrast, <code>with intensity values that fill the entire intensity range [0, 255].</code></p><hr><p><del>如果指定空矩阵 ([])，则 imshow 使用 [min(I(:)) max(I(:))]。换言之，使用 I 中的最小值作为黑色，使用最大值作为白色。</del></p><hr><p>imadjust<br>You must specify the intensities as values between 0 and 1 regardless of the class of I. If I is uint8, the values you supply are multiplied by 255 to determine the actual values to use; if I is uint16, the values are multiplied by 65535. </p><hr><p>figure<code>,</code>imshow(pout_histeq)<code>;</code><br>title(‘Histeq’);</p><hr><p>ROI<br>Create a Binary Mask<br>You can use the createMask function of the imroi base class to create a binary mask for any type of ROI object — impoint, imline, imrect, imellipse, impoly, or imfreehand. </p>]]></content>
     
@@ -38,11 +38,11 @@
   </entry>
   
   <entry>
-    <title>matlab图像示例笔记3</title>
+    <title>matlab图像示例笔记2</title>
     <link href="http://finsenty54.github.io/2020/02/07/matlab%E5%9B%BE%E5%83%8F%E7%A4%BA%E4%BE%8B%E7%AC%94%E8%AE%B02/"/>
     <id>http://finsenty54.github.io/2020/02/07/matlab图像示例笔记2/</id>
     <published>2020-02-07T08:23:56.000Z</published>
-    <updated>2020-02-10T06:50:50.700Z</updated>
+    <updated>2020-02-10T06:56:33.170Z</updated>
     
     <content type="html"><![CDATA[<h4 id="dicom-（a-image-type-using-in-medical"><a href="#dicom-（a-image-type-using-in-medical" class="headerlink" title="dicom （a image type using in medical)"></a>dicom （a image type using in medical)</h4><p>To read <code>metadata</code>from a DICOM file, use the <code>dicominfo function</code></p><hr><p>To read<code>image data</code>from a DICOM file, use the <code>dicomread function.</code></p><a id="more"></a><hr><p>If you just want to view the <code>metadata in a DICOM file</code>, for debugging purposes, you can use the<code>dicomdisp function.</code></p><hr><p>use one of the toolbox image display functions <code>imshow or imtool.</code></p><hr><p>the image data in this DICOM file is signed <code>16-bit data</code>, you must use the autoscaling syntax with either display function to make the image viewable.<br><code>imshow(I,&#39;DisplayRange&#39;,[])</code></p><hr><p>use the <code>dicomanon function</code>. Remove Confidential Information</p><hr><p>To write image data or metadata to a file in DICOM format, use the <code>dicomwrite function</code>.</p><hr><h4 id="Create-New-DICOM-Series"><a href="#Create-New-DICOM-Series" class="headerlink" title="Create New DICOM Series"></a>Create New DICOM Series</h4><pre><code>info.SeriesInstanceUID</code></pre><p>Generate a new DICOM unique identifier (UID) using the <code>dicomuid function.</code></p><pre><code>uid = dicomuidinfo.SeriesInstanceUID = uid;dicomwrite(Imodified,&apos;ankle_newseries.dcm&apos;,info);</code></pre><hr><p>The example finds the maximum and minimum values of all pixels in the image. The pixels that form the white <code>text characters</code>are<code>set to the maximum pixel value</code>. </p><hr><p>MATLAB command prompt: Enter dicomBrowser.</p><hr><p><a href="https://ww2.mathworks.cn/help/releases/R2018a/images/image-type-conversions.html" title="Image Type Conversion" target="_blank" rel="noopener">Image Type Conversion</a></p>]]></content>
     
