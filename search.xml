@@ -5,6 +5,25 @@
     
     <entry>
       <title>matlab图像示例笔记2</title>
+      <link href="/2020/02/10/matlab%E5%9B%BE%E5%83%8F%E7%A4%BA%E4%BE%8B%E7%AC%94%E8%AE%B03/"/>
+      <url>/2020/02/10/matlab%E5%9B%BE%E5%83%8F%E7%A4%BA%E4%BE%8B%E7%AC%94%E8%AE%B03/</url>
+      
+        <content type="html"><![CDATA[<p><code>mat2gray</code> 将dicom变为grey<br><code>im2uint8</code></p><hr><a id="more"></a><p> The image on the right has higher contrast, <code>with intensity values that fill the entire intensity range [0, 255].</code></p><hr><p><del>如果指定空矩阵 ([])，则 imshow 使用 [min(I(:)) max(I(:))]。换言之，使用 I 中的最小值作为黑色，使用最大值作为白色。</del></p><hr><p>imadjust<br>You must specify the intensities as values between 0 and 1 regardless of the class of I. If I is uint8, the values you supply are multiplied by 255 to determine the actual values to use; if I is uint16, the values are multiplied by 65535. </p><hr><p>figure<code>,</code>imshow(pout_histeq)<code>;</code><br>title(‘Histeq’);</p><hr><p>ROI<br>Create a Binary Mask<br>You can use the createMask function of the imroi base class to create a binary mask for any type of ROI object — impoint, imline, imrect, imellipse, impoly, or imfreehand. </p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> matlab </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>matlab图像示例笔记3</title>
       <link href="/2020/02/07/matlab%E5%9B%BE%E5%83%8F%E7%A4%BA%E4%BE%8B%E7%AC%94%E8%AE%B02/"/>
       <url>/2020/02/07/matlab%E5%9B%BE%E5%83%8F%E7%A4%BA%E4%BE%8B%E7%AC%94%E8%AE%B02/</url>
       
