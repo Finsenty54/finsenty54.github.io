@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://finsenty54.github.io/"/>
-  <updated>2020-02-11T05:54:14.257Z</updated>
+  <updated>2020-02-12T06:09:39.007Z</updated>
   <id>http://finsenty54.github.io/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>matlab_haar2</title>
+    <link href="http://finsenty54.github.io/2020/02/12/matlab_haar2/"/>
+    <id>http://finsenty54.github.io/2020/02/12/matlab_haar2/</id>
+    <published>2020-02-12T06:09:07.000Z</published>
+    <updated>2020-02-12T06:09:39.007Z</updated>
+    
+    <content type="html"><![CDATA[<p><code>imbinarize</code><br>Binarize 2-D grayscale image or 3-D volume by thresholding</p><hr><a id="more"></a><p>64:1<br>ans =<br>  空的 1×0 double 行向量<br><del>我人傻了</del><br><code>注意文件所在文件夹</code><br><del>这两个问题弄了我一下午</del></p><hr><p>图形的函数 fliplr 可以从左往右地翻转矩阵</p><hr><p>我觉得我懂炒股了<br><a href="http://player.bilibili.com/player.html?aid=68967083&amp;cid=119544791&amp;page=1" target="_blank" rel="noopener">https://player.bilibili.com/player.html?aid=68967083&amp;cid=119544791&amp;page=1</a></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;code&gt;imbinarize&lt;/code&gt;&lt;br&gt;Binarize 2-D grayscale image or 3-D volume by thresholding&lt;/p&gt;
+&lt;hr&gt;
+    
+    </summary>
+    
+    
+      <category term="matlab" scheme="http://finsenty54.github.io/tags/matlab/"/>
+    
+  </entry>
   
   <entry>
     <title>matlab_haar1</title>
@@ -452,32 +473,6 @@ Sections
     
     
       <category term="else" scheme="http://finsenty54.github.io/tags/else/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>burpsuite 安全学院笔记</title>
-    <link href="http://finsenty54.github.io/2019/05/17/sql-more-details/"/>
-    <id>http://finsenty54.github.io/2019/05/17/sql-more-details/</id>
-    <published>2019-05-17T02:33:13.000Z</published>
-    <updated>2019-11-19T06:17:16.100Z</updated>
-    
-    <content type="html"><![CDATA[<p>For a UNION query to work, two key requirements must be met:</p><ol><li><strong>The individual queries must return the same number of columns.</strong></li><li>The data types in each column must be compatible between the individual queries.</li></ol><p>‘ ORDER BY 1–<br>‘ ORDER BY 2–<br>‘ ORDER BY 3–</p><p>‘ UNION SELECT NULL–<br>‘ UNION SELECT NULL,NULL–<br>‘ UNION SELECT NULL,NULL,NULL–<br><a id="more"></a><br>The reason for using NULL as the values returned from the injected SELECT query is that the data types in each column must be compatible between the original and the injected queries. Since NULL is convertible to every commonly used data type, using NULL maximizes the chance that the payload will succeed when the column count is correct.<br>On Oracle, every SELECT query must use the FROM keyword and specify a valid table. There is a built-in table on Oracle called DUAL which can be used for this purpose. So the injected queries on Oracle would need to look like: ‘ UNION SELECT NULL FROM DUAL–.<br>The payloads described use the double-dash comment sequence – to comment out the remainder of the original query following the injection point. On MySQL, the double-dash sequence must be followed by a space. Alternatively, the hash character # can be used to identify a comment.</p><p>Database type     Query<br>Microsoft, MySQL     SELECT @@version<br>Oracle     SELECT * FROM v$version<br>PostgreSQL     SELECT version() </p><p>For more advanced users, the solution described here could be made more elegant in various ways. For example, instead of iterating over every character, you could perform a binary search of the character space. Or you could create a single Intruder attack with two payload positions and the “Cluster bomb” attack type, and work through all permutations of offsets and character values. </p><p>Review the attack results to find the value of the character at the first position. The application returns an HTTP 500 status code when the error occurs, and an HTTP 200 status code normally. The “Status” column in the Intruder results shows the HTTP status code, so you can easily find the row with 500 in this column. The payload showing for that row is the value of the character at the first position. </p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;For a UNION query to work, two key requirements must be met:&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;&lt;strong&gt;The individual queries must return the same number of columns.&lt;/strong&gt;&lt;/li&gt;
-&lt;li&gt;The data types in each column must be compatible between the individual queries.&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;‘ ORDER BY 1–&lt;br&gt;‘ ORDER BY 2–&lt;br&gt;‘ ORDER BY 3–&lt;/p&gt;
-&lt;p&gt;‘ UNION SELECT NULL–&lt;br&gt;‘ UNION SELECT NULL,NULL–&lt;br&gt;‘ UNION SELECT NULL,NULL,NULL–&lt;br&gt;
-    
-    </summary>
-    
-    
-      <category term="sql" scheme="http://finsenty54.github.io/tags/sql/"/>
     
   </entry>
   

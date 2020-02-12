@@ -4,6 +4,25 @@
   
     
     <entry>
+      <title>matlab_haar2</title>
+      <link href="/2020/02/12/matlab_haar2/"/>
+      <url>/2020/02/12/matlab_haar2/</url>
+      
+        <content type="html"><![CDATA[<p><code>imbinarize</code><br>Binarize 2-D grayscale image or 3-D volume by thresholding</p><hr><a id="more"></a><p>64:1<br>ans =<br>  空的 1×0 double 行向量<br><del>我人傻了</del><br><code>注意文件所在文件夹</code><br><del>这两个问题弄了我一下午</del></p><hr><p>图形的函数 fliplr 可以从左往右地翻转矩阵</p><hr><p>我觉得我懂炒股了<br><a href="http://player.bilibili.com/player.html?aid=68967083&amp;cid=119544791&amp;page=1" target="_blank" rel="noopener">https://player.bilibili.com/player.html?aid=68967083&amp;cid=119544791&amp;page=1</a></p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> matlab </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>matlab_haar1</title>
       <link href="/2020/02/11/matlab_haar1/"/>
       <url>/2020/02/11/matlab_haar1/</url>
