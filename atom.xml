@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://finsenty54.github.io/"/>
-  <updated>2020-02-12T06:09:39.007Z</updated>
+  <updated>2020-02-18T06:39:50.920Z</updated>
   <id>http://finsenty54.github.io/</id>
   
   <author>
@@ -15,6 +15,26 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>matlab_haar3</title>
+    <link href="http://finsenty54.github.io/2020/02/18/matlab_haar3/"/>
+    <id>http://finsenty54.github.io/2020/02/18/matlab_haar3/</id>
+    <published>2020-02-18T06:39:08.000Z</published>
+    <updated>2020-02-18T06:39:50.920Z</updated>
+    
+    <content type="html"><![CDATA[<p>RGB  三个二维数组分别表示R,G,B<br>即，如果imshow的参数类型为double ，那么参数的取值范围只有在[0 1]才会正常显示。当值大于1时，都显示白色。这与matlab的传统是一致的， 对于灰度图像，uint8表示范围是[0 255] ,double表示范围是[0 1]<br><a id="more"></a><br>isequal()</p><p>塞尔达荒野之息Onedrive</p><pre><code>https://imhuanggh-my.sharepoint.com/:f:/g/personal/bin_imhuanggh_onmicrosoft_com/EhOlmQivpRBLh3BLkqxyDLYBW0JDW1V7i8lixd1T1Df-4g</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;RGB  三个二维数组分别表示R,G,B&lt;br&gt;即，如果imshow的参数类型为double ，那么参数的取值范围只有在[0 1]才会正常显示。当值大于1时，都显示白色。这与matlab的传统是一致的， 对于灰度图像，uint8表示范围是[0 255] ,double表示范围是[0 1]&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="matlab" scheme="http://finsenty54.github.io/tags/matlab/"/>
+    
+  </entry>
   
   <entry>
     <title>matlab_haar2</title>
@@ -452,27 +472,6 @@ Sections
     
     
       <category term="RCE" scheme="http://finsenty54.github.io/tags/RCE/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>在新电脑上重新部署hexo</title>
-    <link href="http://finsenty54.github.io/2019/11/19/%E5%9C%A8%E6%96%B0%E7%94%B5%E8%84%91%E4%B8%8A%E9%87%8D%E6%96%B0%E9%83%A8%E7%BD%B2hexo/"/>
-    <id>http://finsenty54.github.io/2019/11/19/在新电脑上重新部署hexo/</id>
-    <published>2019-11-19T03:31:43.000Z</published>
-    <updated>2019-11-19T06:19:51.580Z</updated>
-    
-    <content type="html"><![CDATA[<p>近期有了一台新电脑，所以需要重新部署一下hexo，我看了几个教程，其实很简单的，却弄复杂了</p><h4 id="1-前期准备"><a href="#1-前期准备" class="headerlink" title="1. 前期准备"></a>1. 前期准备</h4><p><a href="https://hexo.io/docs/" title="hexo安装" target="_blank" rel="noopener">hexo安装</a>遵循该页面进行<strong>git</strong>和<strong>nodejs</strong>的安装<br><code>将之前的hexo文件整个拷贝过来</code><br><a id="more"></a></p><h4 id="2-配置SSH"><a href="#2-配置SSH" class="headerlink" title="2. 配置SSH"></a>2. 配置SSH</h4><p>生成rsa公私钥</p><pre><code>$ cd ~/.ssh# Checks to see if there is a directory named &quot;.ssh&quot; in your user directory$ ssh-keygen -t rsa -C &quot;your_email@example.com&quot;# Creates a new ssh key using the provided emailGenerating public/private rsa key pair.Enter file in which to save the key (/home/you/.ssh/id_rsa):</code></pre><p>然后在GitHub里添加公钥，在项目的setting里有一<code>deploy key</code>，在这里添加公钥<br>使用下列命令验证</p><pre><code>ssh -T git@github.com</code></pre><p>如果不行，就是没有在<code>.ssh</code>文件夹里创建，需要接下来的两步</p><pre><code>ssh-agent -sssh-add ~/.ssh/id_rsa</code></pre><p>若提示要输入密码什么的，则在<code>_config.yml</code>配置文件中修改<code>repo</code></p><pre><code>deploy:  type: git  repo: git@github.com:chengjianhua/chengjianhua.github.io.git  branch: master</code></pre><p>这样就可以了，不用<code>npm install</code>或<code>initial</code></p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;近期有了一台新电脑，所以需要重新部署一下hexo，我看了几个教程，其实很简单的，却弄复杂了&lt;/p&gt;
-&lt;h4 id=&quot;1-前期准备&quot;&gt;&lt;a href=&quot;#1-前期准备&quot; class=&quot;headerlink&quot; title=&quot;1. 前期准备&quot;&gt;&lt;/a&gt;1. 前期准备&lt;/h4&gt;&lt;p&gt;&lt;a href=&quot;https://hexo.io/docs/&quot; title=&quot;hexo安装&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;hexo安装&lt;/a&gt;遵循该页面进行&lt;strong&gt;git&lt;/strong&gt;和&lt;strong&gt;nodejs&lt;/strong&gt;的安装&lt;br&gt;&lt;code&gt;将之前的hexo文件整个拷贝过来&lt;/code&gt;&lt;br&gt;
-    
-    </summary>
-    
-    
-      <category term="else" scheme="http://finsenty54.github.io/tags/else/"/>
     
   </entry>
   

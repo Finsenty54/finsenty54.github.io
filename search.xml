@@ -4,6 +4,25 @@
   
     
     <entry>
+      <title>matlab_haar3</title>
+      <link href="/2020/02/18/matlab_haar3/"/>
+      <url>/2020/02/18/matlab_haar3/</url>
+      
+        <content type="html"><![CDATA[<p>RGB  三个二维数组分别表示R,G,B<br>即，如果imshow的参数类型为double ，那么参数的取值范围只有在[0 1]才会正常显示。当值大于1时，都显示白色。这与matlab的传统是一致的， 对于灰度图像，uint8表示范围是[0 255] ,double表示范围是[0 1]<br><a id="more"></a><br>isequal()</p><p>塞尔达荒野之息Onedrive</p><pre><code>https://imhuanggh-my.sharepoint.com/:f:/g/personal/bin_imhuanggh_onmicrosoft_com/EhOlmQivpRBLh3BLkqxyDLYBW0JDW1V7i8lixd1T1Df-4g</code></pre>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> matlab </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>matlab_haar2</title>
       <link href="/2020/02/12/matlab_haar2/"/>
       <url>/2020/02/12/matlab_haar2/</url>
