@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://finsenty54.github.io/"/>
-  <updated>2020-02-19T05:42:58.270Z</updated>
+  <updated>2020-03-31T11:18:55.062Z</updated>
   <id>http://finsenty54.github.io/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>SVM学习笔记1</title>
+    <link href="http://finsenty54.github.io/2020/03/31/SVM%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B01/"/>
+    <id>http://finsenty54.github.io/2020/03/31/SVM学习笔记1/</id>
+    <published>2020-03-31T09:06:21.000Z</published>
+    <updated>2020-03-31T11:18:55.062Z</updated>
+    
+    <content type="html"><![CDATA[<p><a href="https://m.youtube.com/watch?v=Hu71tIm1iX0&amp;list=PLt0SBi1p7xrRKE2us8doqryRou6eDYEOy&amp;index=9&amp;t=0s" target="_blank" rel="noopener">https://m.youtube.com/watch?v=Hu71tIm1iX0&amp;list=PLt0SBi1p7xrRKE2us8doqryRou6eDYEOy&amp;index=9&amp;t=0s</a><br>参考视频课程</p><p>mvnrnd（）产生特定均值和协方差的矩阵</p><hr><a id="more"></a><p>kenel 矩阵要有限正半定，kenel函数：R^d-&gt;R<br><a href="https://imgchr.com/i/GQilQJ" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2020/03/31/GQilQJ.th.png" alt="GQilQJ.th.png"></a></p><hr><p>常见kenel 可以自己构造<br><a href="https://imgchr.com/i/GQF9Tx" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2020/03/31/GQF9Tx.th.png" alt="GQF9Tx.th.png"></a></p><hr><p>REPRODUCING KENEL MAP<br>由kenel 推出 feature mapping 以及其逆<br><a href="https://imgchr.com/i/GQdhI1" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2020/03/31/GQdhI1.th.png" alt="GQdhI1.th.png"></a></p><hr><p>Principal Component Analysis 主成分分析<br>KPCA</p><hr><p>Linear Discriminant Analysis 線性區別分析<br>投影坐标：内积*v<br>廣義區別分析(Generalized Discriminant Analysis)。<br><a href="https://imgchr.com/i/GQUvmd" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2020/03/31/GQUvmd.th.png" alt="GQUvmd.th.png"></a></p><hr><p>KKT svm证明中会用到<br><a href="https://imgchr.com/i/GQdzJP" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2020/03/31/GQdzJP.th.png" alt="GQdzJP.th.png"></a></p><p><a href="https://imgchr.com/i/GQwZiq" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2020/03/31/GQwZiq.th.png" alt="GQwZiq.th.png"></a></p><hr><p>其他</p><p><a href="https://ww2.mathworks.cn/help/matlab/data-type-conversion.html" target="_blank" rel="noopener">https://ww2.mathworks.cn/help/matlab/data-type-conversion.html</a><br>matlab 数据类型转换</p><pre><code>&lt;iframe width=&quot;560&quot; height=&quot;315&quot; src=&quot;https://www.youtube.com/embed/Ap0huJwyT7g&quot; frameborder=&quot;0&quot; allow=&quot;accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture&quot; allowfullscreen&gt;&lt;/iframe&gt;</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;a href=&quot;https://m.youtube.com/watch?v=Hu71tIm1iX0&amp;amp;list=PLt0SBi1p7xrRKE2us8doqryRou6eDYEOy&amp;amp;index=9&amp;amp;t=0s&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://m.youtube.com/watch?v=Hu71tIm1iX0&amp;amp;list=PLt0SBi1p7xrRKE2us8doqryRou6eDYEOy&amp;amp;index=9&amp;amp;t=0s&lt;/a&gt;&lt;br&gt;参考视频课程&lt;/p&gt;
+&lt;p&gt;mvnrnd（）产生特定均值和协方差的矩阵&lt;/p&gt;
+&lt;hr&gt;
+    
+    </summary>
+    
+    
+      <category term="SVM" scheme="http://finsenty54.github.io/tags/SVM/"/>
+    
+  </entry>
   
   <entry>
     <title>essay1</title>
@@ -448,30 +470,6 @@ Sections
     
     
       <category term="bug" scheme="http://finsenty54.github.io/tags/bug/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>《逆向工程核心原理》学习笔记2</title>
-    <link href="http://finsenty54.github.io/2019/11/20/%E3%80%8A%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B02/"/>
-    <id>http://finsenty54.github.io/2019/11/20/《逆向工程核心原理》学习笔记2/</id>
-    <published>2019-11-20T12:02:41.000Z</published>
-    <updated>2019-11-20T13:05:34.766Z</updated>
-    
-    <content type="html"><![CDATA[<ol><li>栈就是一小段内存空间，大小记录在PE头中</li><li>RETN 8 =RETN POP 8 stdcall清理方式 被调用者清理，cdecl调用者清理</li><li>Nags 唠叨</li><li>VB ThunRTMain 函数 调用消息框 rtcMsgBox<a id="more"></a></li><li>Set Breakpoint on every call to rtcMsgBox</li><li>1 opcode == 1 byte</li><li>4 bytes == 1 dword</li><li>registers is 32 bit</li></ol><hr><h5 id="Lena视频学习"><a href="#Lena视频学习" class="headerlink" title="Lena视频学习"></a>Lena视频学习</h5><p><em>这是书本介绍的，这是<a href="https://tuts4you.com/download/2876/" title="tuts4you" target="_blank" rel="noopener">tuts4you</a>crackme下载地址，里面还有视频教程和一些其他教程。</em></p><h5 id="Assembler-The-Basics-In-Reversing"><a href="#Assembler-The-Basics-In-Reversing" class="headerlink" title="Assembler : The Basics In Reversing"></a>Assembler : The Basics In Reversing</h5><p>SS stack segment<br>C-Flag &gt;FFFFFFFF  and &lt;0 时设置<br><code>segmens(a page in a book) + offsets(a specific line on that page)</code></p><pre><code>add eax,ebx                    ;; Register, Registeradd eax,123                    ;; Register, Valueadd eax,dword ptr [404000]            ;; Register, Dword Pointer [value]add eax,dword ptr [eax]            ;; Register, Dword Pointer [register]add eax,dword ptr [eax+00404000]    ;; Register, Dword Pointer [register+value]add dword ptr [404000],eax            ;; Dword Pointer [value], Registeradd dword ptr [404000],123        ;; Dword Pointer [value], Valueadd dword ptr [eax],eax            ;; Dword Pointer [register], Registeradd dword ptr [eax],123            ;; Dword Pointer [register], Valueadd dword ptr [eax+404000],eax        ;; Dword Pointer [register+value], Registeradd dword ptr [eax+404000],123        ;; Dword Pointer [register+value], value</code></pre><p>INT3 and INTO are interrupt calls that take no parameters but call the handlers for interrupts 3 and 4, respectively.</p><pre><code>JA*    -    Jump if (unsigned) above            - CF=0 and ZF=0JAE    -    Jump if (unsigned) above or equal        - CF=0JB*    -    Jump if (unsigned) below            - CF=1JBE    -    Jump if (unsigned) below or equal        - CF=1 or ZF=1JC    -    Jump if carry flag set            - CF=1JCXZ    -    Jump if CX is 0                - CX=0JE**    -    Jump if equal                    - ZF=1JECXZ    -    Jump if ECX is 0                - ECX=0JG*    -    Jump if (signed) greater            - ZF=0 and SF=OF (SF = Sign Flag)JGE*    -    Jump if (signed) greater or equal        - SF=OFJL*    -    Jump if (signed) less                - SF != OF (!= is not)JLE*    -    Jump if (signed) less or equal        - ZF=1 and OF != OFJMP**    -    Jump                        - Jumps alwaysJNA    -    Jump if (unsigned) not above        - CF=1 or ZF=1JNAE    -    Jump if (unsigned) not above or equal    - CF=1JNB    -    Jump if (unsigned) not below        - CF=0JNBE     -    Jump if (unsigned) not below or equal    - CF=0 and ZF=0JNC    -    Jump if carry flag not set            - CF=0JNE**    -    Jump if not equal                - ZF=0JNG    -    Jump if (signed) not greater            - ZF=1 or SF!=OFJNGE    -    Jump if (signed) not greater or equal    - SF!=OFJNL    -    Jump if (signed) not less            - SF=OFJNLE    -    Jump if (signed) not less or equal        - ZF=0 and SF=OFJNO    -    Jump if overflow flag not set        - OF=0JNP    -    Jump if parity flag not set            - PF=0JNS    -    Jump if sign flag not set            - SF=0JNZ    -    Jump if not zero                - ZF=0JO    -    Jump if overflow flag is set            - OF=1JP    -    Jump if parity flag set            - PF=1JPE    -    Jump if parity is equal            - PF=1JPO    -    Jump if parity is odd                - PF=0JS    -    Jump if sign flag is set            - SF=1JZ    -    Jump if zero                    - ZF=1</code></pre><h6 id="LEA-Load-Effective-Address"><a href="#LEA-Load-Effective-Address" class="headerlink" title="LEA (Load Effective Address)"></a>LEA (Load Effective Address)</h6><p>Syntax: LEA dest,src<br>LEA can be treated the same way as the MOV instruction. It isn’t used too much for its original function, but more for quick multiplications like this:<br>   <code>lea eax, dword ptr [4*ecx+ebx]</code><br> <strong>which gives eax the value of 4*ecx+ebx</strong><br><del>ptr== pointer</del></p><h6 id="POP"><a href="#POP" class="headerlink" title="POP"></a>POP</h6><p>Syntax: POP dest<br>POP loads the value of byte/word/dword ptr <strong>[esp] jian接寻址 esp指向的值zuo wei dizhi</strong>and puts it into dest. </p><h6 id="TEST"><a href="#TEST" class="headerlink" title="TEST"></a>TEST</h6><p>Syntax: TEST operand1, operand2<br>This instruction is in 99% of all cases used for “TEST EAX, EAX”. It performs a Logical<br>AND(AND instruction)<code>but does not save the values</code>.<strong> It only sets the Z-Flag, when EAX is 0 or clears it, when EAX is not 0. The O/C flags are always cleared.</strong></p><h6 id="XOR"><a href="#XOR" class="headerlink" title="XOR"></a>XOR</h6><p>Syntax: XOR dest,src<br>The XOR instruction connects two values using logical exclusive OR (remember OR uses inclusive OR).<br><code>This instruction clears the O-Flag and the C-Flag and can set the Z-Flag.</code><br>To understand XOR better, consider those two binary values:</p><pre><code>10010101100101001101</code></pre><p><code>If you XOR them, the result is 1100011011</code></p><p>The most often seen use of XOR is “XOR, EAX, EAX”.<code>This will set EAX to 0,</code> because when you XOR a value with itself, the result is always 0. I hope you understand why, else<br>write down a value on paper and try ;)</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;ol&gt;
-&lt;li&gt;栈就是一小段内存空间，大小记录在PE头中&lt;/li&gt;
-&lt;li&gt;RETN 8 =RETN POP 8 stdcall清理方式 被调用者清理，cdecl调用者清理&lt;/li&gt;
-&lt;li&gt;Nags 唠叨&lt;/li&gt;
-&lt;li&gt;VB ThunRTMain 函数 调用消息框 rtcMsgBox
-    
-    </summary>
-    
-    
-      <category term="RCE" scheme="http://finsenty54.github.io/tags/RCE/"/>
     
   </entry>
   
