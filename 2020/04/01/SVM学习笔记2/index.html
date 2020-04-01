@@ -23,7 +23,7 @@
   <meta http-equiv="cache-control" content="no-cache">
   <meta http-equiv="expires" content="0">
   
-  <title>watermark | FINSENTY54</title>
+  <title>SVM学习笔记2 | FINSENTY54</title>
   <meta name="author" content="finsenty54">
   
   <meta name="description" content="blog">
@@ -31,7 +31,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  
+  <meta property="og:title" content="SVM学习笔记2">
   <meta property="og:site_name" content="FINSENTY54">
 
   
@@ -112,161 +112,157 @@
   	<div class="content">
     	 
 
-<!-- title -->
-<div class="page-header">
-  <h1 class="archive-title-tag"><i class="fa fa-archive"></i> watermark</h1>
-</div>
 
-<div class="row page">
-  <!-- cols -->
-  
-  <div class="col-md-9">
 	
-
-	  <div id="top_search"></div>
-
-	  <div class="archive">
-		
-		
-		
-			
-			
-			<h4 class="archive-ul" data-toggle="collapse" data-target="#2020">2020<b class="caret"></b></h4>
-			<ul id="2020" class="collapse in">
-			
-		
-		<li class="listing-item">
-		<span class="date_class"> 2020-01-28 </span> &raquo;
-		
-		   <span class="title"><a href="/2020/01/28/Medical Image WatermarkingTechniques and Applications>>笔记4/" >Medical Image WatermarkingTechniques and Applications&gt;&gt;笔记4</a></span>
-		
-		</li>			
-		
-		
-		
-		<li class="listing-item">
-		<span class="date_class"> 2020-01-25 </span> &raquo;
-		
-		   <span class="title"><a href="/2020/01/25/Medical Image WatermarkingTechniques and Applications>>笔记3/" >Medical Image WatermarkingTechniques and Applications&gt;&gt;笔记3</a></span>
-		
-		</li>			
-		
-		
-		
-		<li class="listing-item">
-		<span class="date_class"> 2020-01-23 </span> &raquo;
-		
-		   <span class="title"><a href="/2020/01/23/Medical Image WatermarkingTechniques and Applications>>笔记2/" >Medical Image WatermarkingTechniques and Applications&gt;&gt;笔记2</a></span>
-		
-		</li>			
-		
-		
-		
-		<li class="listing-item">
-		<span class="date_class"> 2020-01-21 </span> &raquo;
-		
-		   <span class="title"><a href="/2020/01/21/Medical Image WatermarkingTechniques and Applications>>笔记1/" >Medical Image WatermarkingTechniques and Applications&gt;&gt;笔记1</a></span>
-		
-		</li>			
-		
-		</ul>
+		<div class="page-header">
+			<h1> SVM学习笔记2</h1>
 		</div>
-
-</div> <!-- col-md-9/col-md-12 -->
-
-
-<div class="col-md-3">
-	<div id="sidebar">
 	
-			
-  <div id="site_search">
-   <div class="form-group">
-    <input type="text" id="local-search-input" name="q" results="0" placeholder="搜索" class="st-search-input st-default-search-input form-control"/>
-   </div>  
-  <div id="local-search-result"></div>
-  </div>
 
 
-		
-			
-		
-			
-	<div class="widget">
-		<h4>标签云</h4>
-		<ul class="tag_box inline list-unstyled">		
-		
-			<li><a href="/tags/watermark/">watermark<span>4</span></a></li>
-		
-			<li><a href="/tags/sql/">sql<span>2</span></a></li>
-		
-			<li><a href="/tags/bug/">bug<span>1</span></a></li>
-		
-			<li><a href="/tags/RCE/">RCE<span>4</span></a></li>
-		
-			<li><a href="/tags/matlab/">matlab<span>12</span></a></li>
-		
-			<li><a href="/tags/xss/">xss<span>1</span></a></li>
-		
-			<li><a href="/tags/ios/">ios<span>1</span></a></li>
-		
-			<li><a href="/tags/else/">else<span>1</span></a></li>
-		
-			<li><a href="/tags/SVM/">SVM<span>2</span></a></li>
-		
-			<li><a href="/tags/penetation-test/">penetation test<span>1</span></a></li>
-		
-		 
-		</ul>
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <p>凸二次规划 ==  开口向下</p>
+<hr>
+<p>分类靠支撑向量计算  其 a~=0</p>
+<a id="more"></a>
+<hr>
+<p>hard-margin</p>
+<p>soft-margin 容忍一些误差<br>每个容忍值和希望最小</p>
+<hr>
+<p>KKT帮助确定a ， L函数系数 拉格朗日</p>
+<hr>
+<p>K-fold 数据分成k份进行train test<br>获取最佳参数</p>
+<p>调用crossval就是要找到参数C(惩罚系数)和sigma，使误分率mcr最小</p>
+<hr>
+<p>one vs one<br>多类判定投票</p>
+<p>one vs all<br>有符号距离取最大</p>
+<hr>
+<p>才发现 matlab %%<br>%%<br>运行节</p>
+<hr>
+<p>代码<br>参考 <a href="http://www.matlabsky.com/thread-11026-1-1.html" target="_blank" rel="noopener">http://www.matlabsky.com/thread-11026-1-1.html</a></p>
+<p><code>fitcsvm()</code><br>使用<code>&#39;OptimizeHyperparameters&#39;</code>- 要优化的参数 和<br><code>&#39;HyperparameterOptimizationOptions&#39;</code> - 优化的选项<br><code>来找到最佳sigma 和 C 罚因子</code></p>
+	  
 	</div>
 
+	<div>
+  	<center>
+	<div class="pagination">
 
-		
-			
-<div class="widget">
-  <h4>最新文章</h4>
-  <ul class="entry list-unstyled">
     
-      <li>
-        <a href="/2020/04/01/SVM学习笔记2/" ><i class="fa fa-file-o"></i>SVM学习笔记2</a>
-      </li>
     
-      <li>
-        <a href="/2020/03/31/SVM学习笔记1/" ><i class="fa fa-file-o"></i>SVM学习笔记1</a>
-      </li>
+    <a type="button" class="btn btn-default disabled"><i class="fa fa-arrow-circle-o-left"></i>上一页</a>
     
-      <li>
-        <a href="/2020/02/19/essay1/" ><i class="fa fa-file-o"></i>essay1</a>
-      </li>
+
+    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
     
-      <li>
-        <a href="/2020/02/18/matlab_haar3/" ><i class="fa fa-file-o"></i>matlab_haar3</a>
-      </li>
+    <a href="/2020/03/31/SVM学习笔记1/" type="button" class="btn btn-default ">下一页<i
+                class="fa fa-arrow-circle-o-right"></i></a>
     
-      <li>
-        <a href="/2020/02/12/matlab_haar2/" ><i class="fa fa-file-o"></i>matlab_haar2</a>
-      </li>
+
     
-  </ul>
 </div>
 
+    </center>
+	</div>
+	
+	<!-- comment -->
+	
+<section id="comment">
+    <h2 class="title">留言</h2>
+
+    
+	<p>需要梯子</p>
+    <div id="disqus_thread" class="ds-thread">
+        <script type="text/javascript">
+            /**
+             * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+             * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+             */
+                /*
+                 var disqus_config = function () {
+                 this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
+                 this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                 };
+                 */
+            (function() { // DON'T EDIT BELOW THIS LINE
+                var d = document, s = d.createElement('script');
+
+                s.src = '//finsenty54.disqus.com/embed.js';
+
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by
+                Disqus.</a></noscript>
+    </div>
+    
+</section>
+
+
+	</div> <!-- col-md-9/col-md-12 -->
 		
-			
-<div class="widget">
-	<h4>链接</h4>
-	<ul class="blogroll list-unstyled">
 	
-		<li><i class="fa fa-github"></i><a href="https://github.com/blackshow/hexo-theme-freemind.386" title="Freemind.386's Github repository." target="_blank"]);">Freemind.386</a></li>
-	
-		<li><i class="fa fa-github"></i><a href="http://www.github.com/Finsenty54" title="My Github account." target="_blank"]);">My Github</a></li>
-	
-	</ul>
-</div>
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
 
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2020-04-01 
+	</div>
+	
 
+	<!-- categories -->
+    
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>		  
+    <ul id="tags" class="tag_box list-unstyled collapse in">	  
+	    
+  <li><a href="/tags/SVM/">SVM<span>2</span></a></li>
+    </ul>
+	</div>
 		
-	</div> <!-- sidebar -->
-</div> <!-- col-md-3 -->
 
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	</div>
+		
+
+</div><!-- row -->
+
+<script type="text/javascript">
+var disqus_shortname = 'finsenty54';
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
 
 
 
