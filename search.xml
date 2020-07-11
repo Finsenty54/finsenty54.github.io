@@ -4,6 +4,25 @@
   
     
     <entry>
+      <title>CTF入门 WECALL4+hackthebox-REVERSE</title>
+      <link href="/2020/07/11/CTF%E5%85%A5%E9%97%A8%20WECALL4+hackthebox-REVERSE/"/>
+      <url>/2020/07/11/CTF%E5%85%A5%E9%97%A8%20WECALL4+hackthebox-REVERSE/</url>
+      
+        <content type="html"><![CDATA[<h4 id="wechall-register-globals"><a href="#wechall-register-globals" class="headerlink" title="wechall register_globals"></a>wechall register_globals</h4><p>register_globals 在php 5.4.0 后被移除 其会自动生成各种变量 如html请求变量<br><a href="http://1.1.1.1/report.asp?id=123&amp;kehu=222" target="_blank" rel="noopener">http://1.1.1.1/report.asp?id=123&amp;kehu=222</a><br>login[0]=admin 直接login=admin 只取第一第二个字符</p><hr><h4 id="hackthebox"><a href="#hackthebox" class="headerlink" title="hackthebox"></a>hackthebox</h4><p>invite challenge 浏览器console 下运行函数 加（）<br>curl -X POST https://…</p><a id="more"></a><hr><h4 id="hackthebox-–-Enumeration"><a href="#hackthebox-–-Enumeration" class="headerlink" title="hackthebox – Enumeration"></a>hackthebox – Enumeration</h4><p>ports=$(nmap -p- –min-rate=1000 -T4 10.10.10.27 | grep ^[0-9] | cut -d ‘/‘ -f 1 | tr ‘\n’ ‘,’ | sed s/,$//)<br>nmap -sC -sV -p$ports 10.10.10.27</p><p>command 1 | command 2 把第一个命令command 1执行的结果作为command 2的输入传给command 2<br>-T4 可以加快执行速度<br>-p- 扫描所有端口<br>-min-rate 1000 to request that Nmap send at least 1,000 packets per secondcut<br>cut Print selected parts of lines from each FILE to standard output.<br>-f 指定第一列 -d 指定列分隔符<br> tr 命令用于转换或删除文件中的字符 ‘\n’ 转换为‘，’<br>sed ‘s/regexp/replacement/flags’.<br>Its basic concept is simple: the s command attempts to match the pattern space against the supplied regular expression regexp; if the match is successful, then that portion of the pattern space which was matched is replaced with replacement.<br>regexp匹配成功后用replace替代</p><p>select IS_SRVROLEMEMBER (‘sysadmin’)</p><hr><p>remote code execution (RCE)</p><h4 id="A-reverse-shell"><a href="#A-reverse-shell" class="headerlink" title="A reverse shell"></a>A reverse shell</h4><p>is a type of shell in which the target machine communicates back to the attacking machine. The attacking machine has a listener port on which it receives the connection, which by using, code or command execution is achieved.</p><h4 id="Bind-shell"><a href="#Bind-shell" class="headerlink" title="Bind shell"></a>Bind shell</h4><p>Bind shell is a type of shell in which the target machine opens up a communication port or a listener on the victim machine and waits for an incoming connection. The attacker then connects to the victim machine’s listener which then leads to code or command execution on the server.</p><hr><p>netcat<br>nc -lvnp 443 监听模式 443 外来请求</p><hr><h4 id="ollydbg"><a href="#ollydbg" class="headerlink" title="ollydbg"></a>ollydbg</h4><p>显示当前EIP *<br>执行到光标位置 F4<br>F2 断点<br>CALL 把接下来的地址先压入栈<br>win 压入参数逆序 f(a,b) 先压b 后 a<br>test = and 不改变操作数值</p><h4 id="x64dbg"><a href="#x64dbg" class="headerlink" title="x64dbg"></a>x64dbg</h4><p>file test.py</p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> CTF </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>CTF入门 WECALL2-正则</title>
       <link href="/2020/07/06/CTF%E5%85%A5%E9%97%A8%20WECALL2/"/>
       <url>/2020/07/06/CTF%E5%85%A5%E9%97%A8%20WECALL2/</url>

@@ -20,19 +20,20 @@
     var CONFIG = {"hostname":"finsenty54.github.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","width":320,"display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"disqus","storage":true,"lazyload":false,"nav":null,"activeClass":"disqus"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="blog">
-<meta name="keywords" content="study">
-<meta property="og:type" content="website">
-<meta property="og:title" content="FINSENTY54">
-<meta property="og:url" content="http://finsenty54.github.io/archives/2020/page/3/index.html">
+  <meta name="description" content="wechall register_globalsregister_globals 在php 5.4.0 后被移除 其会自动生成各种变量 如html请求变量http://1.1.1.1/report.asp?id=123&amp;amp;kehu=222login[0]=admin 直接login=admin 只取第一第二个字符  hacktheboxinvite challenge 浏览器console">
+<meta name="keywords" content="CTF">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CTF入门 WECALL4+hackthebox-REVERSE">
+<meta property="og:url" content="http://finsenty54.github.io/2020/07/11/CTF入门 WECALL4+hackthebox-REVERSE/index.html">
 <meta property="og:site_name" content="FINSENTY54">
-<meta property="og:description" content="blog">
+<meta property="og:description" content="wechall register_globalsregister_globals 在php 5.4.0 后被移除 其会自动生成各种变量 如html请求变量http://1.1.1.1/report.asp?id=123&amp;amp;kehu=222login[0]=admin 直接login=admin 只取第一第二个字符  hacktheboxinvite challenge 浏览器console">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-07-11T02:40:05.281Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="FINSENTY54">
-<meta name="twitter:description" content="blog">
+<meta name="twitter:title" content="CTF入门 WECALL4+hackthebox-REVERSE">
+<meta name="twitter:description" content="wechall register_globalsregister_globals 在php 5.4.0 后被移除 其会自动生成各种变量 如html请求变量http://1.1.1.1/report.asp?id=123&amp;amp;kehu=222login[0]=admin 直接login=admin 只取第一第二个字符  hacktheboxinvite challenge 浏览器console">
 
-<link rel="canonical" href="http://finsenty54.github.io/archives/2020/page/3/">
+<link rel="canonical" href="http://finsenty54.github.io/2020/07/11/CTF入门 WECALL4+hackthebox-REVERSE/">
 
 
 <script id="page-configurations">
@@ -40,12 +41,12 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>归档 | FINSENTY54</title>
+  <title>CTF入门 WECALL4+hackthebox-REVERSE | FINSENTY54</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-135283153-1"></script>
     <script>
@@ -199,80 +200,150 @@
         <div class="content-wrap">
           
 
-          <div class="content archive">
+          <div class="content post posts-expand">
             
 
+    
   
   
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://finsenty54.github.io/2020/07/11/CTF入门 WECALL4+hackthebox-REVERSE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="finsenty54">
+      <meta itemprop="description" content="blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="FINSENTY54">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          CTF入门 WECALL4+hackthebox-REVERSE
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-07-11 10:37:31 / 修改时间：10:40:05" itemprop="dateCreated datePublished" datetime="2020-07-11T10:37:31+08:00">2020-07-11</time>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
   
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        
-        <span class="collection-header">还行! 目前共计 34 篇日志。 继续努力。</span>
-      </div>
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2020/07/11/CTF入门 WECALL4+hackthebox-REVERSE/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/07/11/CTF入门 WECALL4+hackthebox-REVERSE/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <span class="collection-header">2020</span>
+        <h4 id="wechall-register-globals"><a href="#wechall-register-globals" class="headerlink" title="wechall register_globals"></a>wechall register_globals</h4><p>register_globals 在php 5.4.0 后被移除 其会自动生成各种变量 如html请求变量<br><a href="http://1.1.1.1/report.asp?id=123&amp;kehu=222" target="_blank" rel="noopener">http://1.1.1.1/report.asp?id=123&amp;kehu=222</a><br>login[0]=admin 直接login=admin 只取第一第二个字符</p>
+<hr>
+<h4 id="hackthebox"><a href="#hackthebox" class="headerlink" title="hackthebox"></a>hackthebox</h4><p>invite challenge 浏览器console 下运行函数 加（）<br>curl -X POST https://…</p>
+<a id="more"></a>
+<hr>
+<h4 id="hackthebox-–-Enumeration"><a href="#hackthebox-–-Enumeration" class="headerlink" title="hackthebox – Enumeration"></a>hackthebox – Enumeration</h4><p>ports=$(nmap -p- –min-rate=1000 -T4 10.10.10.27 | grep ^[0-9] | cut -d ‘/‘ -f 1 | tr ‘\n’ ‘,’ | sed s/,$//)<br>nmap -sC -sV -p$ports 10.10.10.27</p>
+<p>command 1 | command 2 把第一个命令command 1执行的结果作为command 2的输入传给command 2<br>-T4 可以加快执行速度<br>-p- 扫描所有端口<br>-min-rate 1000 to request that Nmap send at least 1,000 packets per secondcut<br>cut Print selected parts of lines from each FILE to standard output.<br>-f 指定第一列 -d 指定列分隔符<br> tr 命令用于转换或删除文件中的字符 ‘\n’ 转换为‘，’<br>sed ‘s/regexp/replacement/flags’.<br>Its basic concept is simple: the s command attempts to match the pattern space against the supplied regular expression regexp; if the match is successful, then that portion of the pattern space which was matched is replaced with replacement.<br>regexp匹配成功后用replace替代</p>
+<p>select IS_SRVROLEMEMBER (‘sysadmin’)</p>
+<hr>
+<p>remote code execution (RCE)</p>
+<h4 id="A-reverse-shell"><a href="#A-reverse-shell" class="headerlink" title="A reverse shell"></a>A reverse shell</h4><p>is a type of shell in which the target machine communicates back to the attacking machine. The attacking machine has a listener port on which it receives the connection, which by using, code or command execution is achieved.</p>
+<h4 id="Bind-shell"><a href="#Bind-shell" class="headerlink" title="Bind shell"></a>Bind shell</h4><p>Bind shell is a type of shell in which the target machine opens up a communication port or a listener on the victim machine and waits for an incoming connection. The attacker then connects to the victim machine’s listener which then leads to code or command execution on the server.</p>
+<hr>
+<p>netcat<br>nc -lvnp 443 监听模式 443 外来请求</p>
+<hr>
+<h4 id="ollydbg"><a href="#ollydbg" class="headerlink" title="ollydbg"></a>ollydbg</h4><p>显示当前EIP *<br>执行到光标位置 F4<br>F2 断点<br>CALL 把接下来的地址先压入栈<br>win 压入参数逆序 f(a,b) 先压b 后 a<br>test = and 不改变操作数值</p>
+<h4 id="x64dbg"><a href="#x64dbg" class="headerlink" title="x64dbg"></a>x64dbg</h4><p>file test.py</p>
+
     </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+    
+    
+    
+        
 
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-01-23T13:37:04+08:00"
-              content="2020-01-23">
-          01-23
-        </time>
-      </div>
+  <div class="followme">
+    <p>欢迎关注我的其它发布渠道</p>
 
-      <div class="post-title">
-          <a class="post-title-link" href="/2020/01/23/Medical Image WatermarkingTechniques and Applications>>笔记2/" itemprop="url">
-            <span itemprop="name">Medical Image WatermarkingTechniques and Applications>>笔记2</span>
+    <div class="social-list">
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
           </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-01-21T19:30:44+08:00"
-              content="2020-01-21">
-          01-21
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2020/01/21/Medical Image WatermarkingTechniques and Applications>>笔记1/" itemprop="url">
-            <span itemprop="name">Medical Image WatermarkingTechniques and Applications>>笔记1</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-
+        </div>
     </div>
   </div>
-  
-  
-  
 
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/CTF/" rel="tag"><i class="fa fa-tag"></i> CTF</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/07/06/CTF入门 WECALL2/" rel="prev" title="CTF入门 WECALL2-正则">
+      <i class="fa fa-chevron-left"></i> CTF入门 WECALL2-正则
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
   
-  <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/archives/2020/page/2/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/archives/2020/">1</a><a class="page-number" href="/archives/2020/page/2/">2</a><span class="page-number current">3</span>
-  </nav>
+  
+  
 
 
 
           </div>
           
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -319,6 +390,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#wechall-register-globals"><span class="nav-number">1.</span> <span class="nav-text">wechall register_globals</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#hackthebox"><span class="nav-number">2.</span> <span class="nav-text">hackthebox</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#hackthebox-–-Enumeration"><span class="nav-number">3.</span> <span class="nav-text">hackthebox – Enumeration</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#A-reverse-shell"><span class="nav-number">4.</span> <span class="nav-text">A reverse shell</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Bind-shell"><span class="nav-number">5.</span> <span class="nav-text">Bind shell</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ollydbg"><span class="nav-number">6.</span> <span class="nav-text">ollydbg</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#x64dbg"><span class="nav-number">7.</span> <span class="nav-text">x64dbg</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -460,6 +532,26 @@
   }
   // defer loading until the whole page loading is completed
   window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "http://finsenty54.github.io/2020/07/11/CTF入门 WECALL4+hackthebox-REVERSE/";
+    this.page.identifier = "2020/07/11/CTF入门 WECALL4+hackthebox-REVERSE/";
+    this.page.title = "CTF入门 WECALL4+hackthebox-REVERSE";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://finsenty54.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
 </script>
 
 </body>
