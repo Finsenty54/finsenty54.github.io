@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"finsenty54.github.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","width":320,"display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"disqus","storage":true,"lazyload":false,"nav":null,"activeClass":"disqus"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="DebugThe Debug traitenables us to print our struct in a way that is useful for developers so we can see its value while we’re debugging our code.">
+<meta name="keywords" content="RUST">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RUST学习3">
+<meta property="og:url" content="http://finsenty54.github.io/2020/08/03/RUST学习3/index.html">
+<meta property="og:site_name" content="FINSENTY54">
+<meta property="og:description" content="DebugThe Debug traitenables us to print our struct in a way that is useful for developers so we can see its value while we’re debugging our code.">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-08-03T05:59:20.019Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="RUST学习3">
+<meta name="twitter:description" content="DebugThe Debug traitenables us to print our struct in a way that is useful for developers so we can see its value while we’re debugging our code.">
+
+<link rel="canonical" href="http://finsenty54.github.io/2020/08/03/RUST学习3/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>RUST学习3 | FINSENTY54</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-135283153-1"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-135283153-1');
+      }
+    </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">FINSENTY54</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">几处早莺争暖树，谁家新燕啄春泥。</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container"></div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="algolia-results">
+  <div id="algolia-stats"></div>
+  <div id="algolia-hits"></div>
+  <div id="algolia-pagination" class="algolia-pagination"></div>
+</div>
+
+      
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://finsenty54.github.io/2020/08/03/RUST学习3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="finsenty54">
+      <meta itemprop="description" content="blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="FINSENTY54">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          RUST学习3
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-08-03 13:58:28 / 修改时间：13:59:20" itemprop="dateCreated datePublished" datetime="2020-08-03T13:58:28+08:00">2020-08-03</time>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2020/08/03/RUST学习3/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/08/03/RUST学习3/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="Debug"><a href="#Debug" class="headerlink" title="Debug"></a>Debug</h3><p>The <code>Debug trait</code>enables us to print our struct in a way that is useful for developers so we can see its value while we’re debugging our code.<br><a id="more"></a><br><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">[derive(Debug)]  //开启使用debug :?打印结构体</span><br><span class="line">struct Rectangle &#123;</span><br><span class="line">    width: u32,</span><br><span class="line">    height: u32,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">fn main() &#123;</span><br><span class="line">    let rect1 = Rectangle &#123;</span><br><span class="line">        width: <span class="number">30</span>,</span><br><span class="line">        height: <span class="number">50</span>,</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    println!(<span class="string">"rect1 is &#123;:?&#125;"</span>, rect1);  //or&#123;:<span class="comment">#?&#125;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="method"><a href="#method" class="headerlink" title="method"></a>method</h3><p>their first parameter is <code>always self,</code>which represents the instance of the struct the method is being called on.</p>
+<p>impl (implementation)</p>
+<p>Methods can<code>take ownership of self,</code> borrow<code>self immutably</code>as we’ve done here, or borrow self mutably, just as they can any other parameter.<br><code>&amp;mut self</code></p>
+<h3 id="associated-function"><a href="#associated-function" class="headerlink" title="associated function"></a>associated function</h3><p>You’ve already used the String::from associated function.</p>
+<p>Associated functions are often used for constructors that will <code>return a new instance of the struct.</code><br><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">[derive(Debug)]</span><br><span class="line">struct Rectangle &#123;</span><br><span class="line">    width: u32,</span><br><span class="line">    height: u32,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">impl Rectangle &#123;</span><br><span class="line">    fn square(size: u32) -&gt; Rectangle &#123;  //没有self</span><br><span class="line">        Rectangle &#123;</span><br><span class="line">            width: size,</span><br><span class="line">            height: size,</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">fn main() &#123;</span><br><span class="line">    let sq = Rectangle::square(<span class="number">3</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Each struct is allowed to have multiple impl blocks. </p>
+<h3 id="Enum"><a href="#Enum" class="headerlink" title="Enum"></a>Enum</h3><p>枚举<br><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">enum IpAddrKind &#123;</span><br><span class="line">    V4,  //V4 V6就是所谓的变体</span><br><span class="line">    V6,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">fn main() &#123;</span><br><span class="line">    let four = IpAddrKind::V4;</span><br><span class="line">    let six = IpAddrKind::V6;</span><br><span class="line"></span><br><span class="line">    route(IpAddrKind::V4);</span><br><span class="line">    route(IpAddrKind::V6);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">fn route(ip_kind: IpAddrKind) &#123;&#125;</span><br></pre></td></tr></table></figure></p>
+<p>枚举比struct更简明<br><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">fn main() &#123;</span><br><span class="line">    enum IpAddr &#123;</span><br><span class="line">        V4(String),</span><br><span class="line">        V6(String),</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    let home = IpAddr::V4(String::from(<span class="string">"127.0.0.1"</span>));</span><br><span class="line"></span><br><span class="line">    let loopback = IpAddr::V6(String::from(<span class="string">"::1"</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>枚举每个变体可以有不同的类型<br><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">fn main() &#123;</span><br><span class="line">    enum IpAddr &#123;</span><br><span class="line">        V4(u8, u8, u8, u8),</span><br><span class="line">        V6(String),</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    let home = IpAddr::V4(<span class="number">127</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">    let loopback = IpAddr::V6(String::from(<span class="string">"::1"</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">[allow(unused_variables)]</span><br><span class="line">fn main() &#123;</span><br><span class="line">struct Ipv4Addr &#123;</span><br><span class="line">    // --snip--</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">struct Ipv6Addr &#123;</span><br><span class="line">    // --snip--</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">enum IpAddr &#123;</span><br><span class="line">    V4(Ipv4Addr),</span><br><span class="line">    V6(Ipv6Addr),</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">enum Message &#123;</span><br><span class="line">    Quit,</span><br><span class="line">    Move &#123; x: i32, y: i32 &#125;,</span><br><span class="line">    Write(String),</span><br><span class="line">    ChangeColor(i32, i32, i32),</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">fn main() &#123;</span><br><span class="line">    enum Message &#123;</span><br><span class="line">        Quit,</span><br><span class="line">        Move &#123; x: i32, y: i32 &#125;,</span><br><span class="line">        Write(String),</span><br><span class="line">        ChangeColor(i32, i32, i32),</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    impl Message &#123;</span><br><span class="line">        fn call(&amp;self) &#123;</span><br><span class="line">            // method body would be defined here</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    let m = Message::Write(String::from(<span class="string">"hello"</span>));</span><br><span class="line">    m.call();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="enum-option"><a href="#enum-option" class="headerlink" title="enum option"></a>enum option</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">![allow(unused_variables)]</span><br><span class="line">fn main() &#123;</span><br><span class="line">enum Option&lt;<span class="literal">T</span>&gt; &#123; //&lt;<span class="literal">T</span>&gt; means the Some variant of the Option enum can hold one piece of data of any type</span><br><span class="line">    Some(<span class="literal">T</span>),</span><br><span class="line">    None,</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>option不用显示引入，已经提前有了</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">fn main() &#123;</span><br><span class="line">    let some_number = Some(<span class="number">5</span>);</span><br><span class="line">    let some_string = Some(<span class="string">"a string"</span>);</span><br><span class="line"></span><br><span class="line">    let absent_number: Option&lt;i32&gt; = None;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>If we use None rather than Some, we need to tell Rust what<code>type of Option&lt;T&gt;</code> we have<br>Option<t> and T (where T can be any type) are different types,<br>In other words, you have to convert an Option<t> to a <code>T</code> before you can perform T operations with it. </t></t></p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">match</span><br><span class="line">enum Coin &#123;</span><br><span class="line">    Penny,</span><br><span class="line">    Nickel,</span><br><span class="line">    Dime,</span><br><span class="line">    Quarter,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">fn value_in_cents(coin: Coin) -&gt; u8 &#123;</span><br><span class="line">    match coin &#123;</span><br><span class="line">        Coin::Penny =&gt; <span class="number">1</span>,</span><br><span class="line">        Coin::Nickel =&gt; <span class="number">5</span>,</span><br><span class="line">        Coin::Dime =&gt; <span class="number">10</span>,</span><br><span class="line">        Coin::Quarter =&gt; <span class="number">25</span>,</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">fn main() &#123;&#125;</span><br></pre></td></tr></table></figure>
+<p>The code associated with <code>each arm is an expression</code>, and the resulting value of the expression in the matching arm is the value that gets returned for the entire match expression.</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">fn value_in_cents(coin: Coin) -&gt; u8 &#123;</span><br><span class="line">    match coin &#123;</span><br><span class="line">        Coin::Penny =&gt; &#123;</span><br><span class="line">            println!(<span class="string">"Lucky penny!"</span>);</span><br><span class="line">            <span class="number">1</span></span><br><span class="line">        &#125;</span><br><span class="line">        Coin::Nickel =&gt; <span class="number">5</span>,</span><br><span class="line">        Coin::Dime =&gt; <span class="number">10</span>,</span><br><span class="line">        Coin::Quarter =&gt; <span class="number">25</span>,</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">[derive(Debug)]</span><br><span class="line">enum UsState &#123;</span><br><span class="line">    Alabama,</span><br><span class="line">    Alaska,</span><br><span class="line">    // --snip--</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">enum Coin &#123;</span><br><span class="line">    Penny,</span><br><span class="line">    Nickel,</span><br><span class="line">    Dime,</span><br><span class="line">    Quarter(UsState),</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">fn value_in_cents(coin: Coin) -&gt; u8 &#123;</span><br><span class="line">    match coin &#123;</span><br><span class="line">        Coin::Penny =&gt; <span class="number">1</span>,</span><br><span class="line">        Coin::Nickel =&gt; <span class="number">5</span>,</span><br><span class="line">        Coin::Dime =&gt; <span class="number">10</span>,</span><br><span class="line">        Coin::Quarter(state) =&gt; &#123;</span><br><span class="line">            println!(<span class="string">"State quarter from &#123;:?&#125;!"</span>, state); //得到coin里quarter里的usstate值</span><br><span class="line">            <span class="number">25</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">fn main() &#123;</span><br><span class="line">    value_in_cents(Coin::Quarter(UsState::Alaska));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用option<t><br><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">fn main() &#123;</span><br><span class="line">    fn plus_one(x: Option&lt;i32&gt;) -&gt; Option&lt;i32&gt; &#123;</span><br><span class="line">        match x &#123;</span><br><span class="line">            None =&gt; None,</span><br><span class="line">            Some(i) =&gt; Some(i + <span class="number">1</span>),</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    let five = Some(<span class="number">5</span>);</span><br><span class="line">    let six = plus_one(five);</span><br><span class="line">    let none = plus_one(None);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></t></p>
+<p><code>Combining match and enums</code> is useful in many situations.<br>match against an enum, <code>bind a variable to the data inside,</code> and then execute code based on it.</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">fn main() &#123;</span><br><span class="line">    let some_u8_value = 0u8;</span><br><span class="line">    match some_u8_value &#123;</span><br><span class="line">        <span class="number">1</span> =&gt; println!(<span class="string">"one"</span>),</span><br><span class="line">        <span class="number">3</span> =&gt; println!(<span class="string">"three"</span>),</span><br><span class="line">        <span class="number">5</span> =&gt; println!(<span class="string">"five"</span>),</span><br><span class="line">        <span class="number">7</span> =&gt; println!(<span class="string">"seven"</span>),</span><br><span class="line">        _ =&gt; (),</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>_</code>省略The _ pattern will match any value.<code>The () is just the unit value</code></p>
+<h3 id="if-let"><a href="#if-let" class="headerlink" title="if let"></a>if let</h3><p>care about only one of the cases. For this situation, Rust provides if let.<br><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">fn main() &#123;</span><br><span class="line">    let some_u8_value = Some(0u8);</span><br><span class="line">    <span class="keyword">if</span> let Some(<span class="number">3</span>) = some_u8_value &#123;</span><br><span class="line">        println!(<span class="string">"three"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">fn main() &#123;</span><br><span class="line">    let coin = Coin::Penny;</span><br><span class="line">    let mut count = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span> let Coin::Quarter(state) = coin &#123;</span><br><span class="line">        println!(<span class="string">"State quarter from &#123;:?&#125;!"</span>, state);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        count += <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">fn main() &#123;</span><br><span class="line">    let coin = Coin::Penny;</span><br><span class="line">    let mut count = <span class="number">0</span>;</span><br><span class="line">    match coin &#123;</span><br><span class="line">        Coin::Quarter(state) =&gt; println!(<span class="string">"State quarter from &#123;:?&#125;!"</span>, state),</span><br><span class="line">        _ =&gt; count += <span class="number">1</span>,</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="packages-gt-crates-gt-modules"><a href="#packages-gt-crates-gt-modules" class="headerlink" title="packages&gt;crates&gt;modules"></a>packages&gt;crates&gt;modules</h3><p> A package is<code>one or more crates</code>that provide a set of functionality. A package contains a Cargo.toml file that describes how to build those crates.<br>A package must contain zero or one library crates, and no more. It can contain as many binary crates as you’d like, but it must <code>contain at least one crate</code> (either library or binary).<br>If a package <code>contains src/main.rs and src/lib.rs, it has two crates: a library and a binary,</code> both with the same name as the package.<br>A package can<code>have multiple binary crates by placing files in the src/bin directory:</code>each file will be a separate binary crate.</p>
+<p>the <code>use</code> keyword that brings a path into scope; and the <code>pub</code> keyword to make items public. We’ll also discuss the as keyword, external packages, and the glob operator</p>
+<p>Modules let us organize code within a crate into groups</p>
+<p>Create a new library named restaurant by running <code>cargo new --lib</code>restaurant;<br>crate //implicit module  src/main.rs and src/lib.rs 产生<br> └── front_of_house<br>     ├── hosting<br>     │   ├── add_to_waitlist<br>     │   └── seat_at_table<br>     └── serving<br>         ├── take_order<br>         ├── serve_order<br>         └── take_payment</p>
+<p> If we want to call a function, we need to know its path.<br>A path can take two forms:</p>
+<p>An <code>absolute path</code> starts from a crate root by using a crate name or a literal crate.<br>A <code>relative path</code>starts from the current module and uses self, super, or an identifier in the current module.<br>Both absolute and relative paths are followed by one or more identifiers separated by double colons (<code>::</code>).</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">mod front_of_house &#123;</span><br><span class="line">    mod hosting &#123;</span><br><span class="line">        fn add_to_waitlist() &#123;&#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">pub fn eat_at_restaurant() &#123;</span><br><span class="line">    // Absolute path</span><br><span class="line">    crate::front_of_house::hosting::add_to_waitlist();</span><br><span class="line"></span><br><span class="line">    // Relative path</span><br><span class="line">    front_of_house::hosting::add_to_waitlist();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>The way privacy works in Rust is that all items (<code>functions, methods, structs, enums, modules, and constants) are private by default</code>.</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">mod front_of_house &#123;</span><br><span class="line">    pub mod hosting &#123;</span><br><span class="line">        pub fn add_to_waitlist() &#123;&#125; //making the module public doesn’t make its contents public. </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">pub fn eat_at_restaurant() &#123;</span><br><span class="line">    // Absolute path</span><br><span class="line">    crate::front_of_house::hosting::add_to_waitlist();</span><br><span class="line"></span><br><span class="line">    // Relative path</span><br><span class="line">    front_of_house::hosting::add_to_waitlist();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">fn serve_order() &#123;&#125;</span><br><span class="line"></span><br><span class="line">mod back_of_house &#123;</span><br><span class="line">    fn fix_incorrect_order() &#123;</span><br><span class="line">        cook_order();</span><br><span class="line">        super::serve_order();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    fn cook_order() &#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p> Enums aren’t very useful unless their variants are public; it would be annoying to have to annotate all enum variants with pub in every case, so the <code>default for enum variants is to be public.</code>Structs are often useful without their fields being public, so struct fields follow the general rule of <code>everything being private by default</code> unless annotated with pub.</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">use</span><br><span class="line">mod front_of_house &#123;</span><br><span class="line">    pub mod hosting &#123;</span><br><span class="line">        pub fn add_to_waitlist() &#123;&#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">use crate::front_of_house::hosting;</span><br><span class="line"></span><br><span class="line">pub fn eat_at_restaurant() &#123;</span><br><span class="line">    hosting::add_to_waitlist();</span><br><span class="line">    hosting::add_to_waitlist();</span><br><span class="line">    hosting::add_to_waitlist();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">mod front_of_house &#123;</span><br><span class="line">    pub mod hosting &#123;</span><br><span class="line">        pub fn add_to_waitlist() &#123;&#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">use self::front_of_house::hosting;</span><br><span class="line"></span><br><span class="line">pub fn eat_at_restaurant() &#123;</span><br><span class="line">    hosting::add_to_waitlist();</span><br><span class="line">    hosting::add_to_waitlist();</span><br><span class="line">    hosting::add_to_waitlist();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">fn main() &#123;&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="as"><a href="#as" class="headerlink" title="as"></a>as</h3><p>There’s another solution to the problem of bringing two types of the same name into the same scope with use: after the path, we can specify <code>as and a new local name</code>, or alias, for the type.</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">![allow(unused_variables)]</span><br><span class="line">fn main() &#123;</span><br><span class="line">use std::fmt::Result;</span><br><span class="line">use std::io::Result as IoResult;</span><br><span class="line"></span><br><span class="line">fn function1() -&gt; Result &#123;</span><br><span class="line">    // --snip--</span><br><span class="line">    Ok(())</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">fn function2() -&gt; IoResult&lt;()&gt; &#123;</span><br><span class="line">    // --snip--</span><br><span class="line">    Ok(())</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>this technique is called re-exporting because we’re bringing an item into scope but also making that item available for others to bring into their scope<br><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">mod front_of_house &#123;</span><br><span class="line">    pub mod hosting &#123;</span><br><span class="line">        pub fn add_to_waitlist() &#123;&#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">pub use crate::front_of_house::hosting;  //其他可以 另外创立一个链接</span><br><span class="line"></span><br><span class="line">pub fn eat_at_restaurant() &#123;</span><br><span class="line">    hosting::add_to_waitlist();</span><br><span class="line">    hosting::add_to_waitlist();</span><br><span class="line">    hosting::add_to_waitlist();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">fn main() &#123;&#125;</span><br><span class="line"></span><br><span class="line">fn main() &#123;</span><br><span class="line">use std::collections::HashMap;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>This is an absolute path starting with std, the name of the standard library crate.</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">use rand::Rng;</span><br><span class="line">// --snip--</span><br><span class="line">use std::&#123;cmp::Ordering, io&#125;;</span><br><span class="line">// --snip--</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">fn main() &#123;</span><br><span class="line">use std::io::&#123;self, Write&#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">#![allow(unused_variables)]</span></span><br><span class="line">fn main() &#123;</span><br><span class="line">use std::collections::*;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p> brings all public items </p>
+<p>The <code>mod</code> keyword declares modules, and Rust looks in a file with the same name as the module for the code that goes into that module.</p>
+<h3 id="vector"><a href="#vector" class="headerlink" title="vector"></a>vector</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">fn main() &#123;</span><br><span class="line">    let v: Vec&lt;i32&gt; = Vec::new();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">fn main() &#123;</span><br><span class="line">    let v = vec![<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]; //类别自己推测</span><br><span class="line">&#125;</span><br><span class="line">fn main() &#123;</span><br><span class="line">    let mut v = Vec::new();</span><br><span class="line"></span><br><span class="line">    v.push(<span class="number">5</span>);</span><br><span class="line">    v.push(<span class="number">6</span>);</span><br><span class="line">    v.push(<span class="number">7</span>);</span><br><span class="line">    v.push(<span class="number">8</span>);</span><br><span class="line">&#125;</span><br><span class="line">fn main() &#123;</span><br><span class="line">    &#123;</span><br><span class="line">        let v = vec![<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>];</span><br><span class="line"></span><br><span class="line">        // do stuff with v</span><br><span class="line">    &#125; // &lt;- v goes out of scope and is freed here</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">fn main() &#123;</span><br><span class="line">    let v = vec![<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>];</span><br><span class="line"></span><br><span class="line">    let third: &amp;i32 = &amp;v[<span class="number">2</span>];</span><br><span class="line">    println!(<span class="string">"The third element is &#123;&#125;"</span>, third);</span><br><span class="line"></span><br><span class="line">    match v.get(<span class="number">2</span>) &#123; //gives us an Option&lt;&amp;<span class="literal">T</span>&gt;.</span><br><span class="line">        Some(third) =&gt; println!(<span class="string">"The third element is &#123;&#125;"</span>, third),</span><br><span class="line">        None =&gt; println!(<span class="string">"There is no third element."</span>),</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">fn main() &#123;</span><br><span class="line">    let mut v = vec![<span class="number">100</span>, <span class="number">32</span>, <span class="number">57</span>];</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> &amp;mut v &#123;</span><br><span class="line">        *i += <span class="number">50</span>; //解引用 dereference operator (*) to get to the value <span class="keyword">in</span> i</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">fn main() &#123;</span><br><span class="line">    enum SpreadsheetCell &#123;</span><br><span class="line">        Int(i32),</span><br><span class="line">        Float(f64),</span><br><span class="line">        Text(String),</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    let row = vec![  //vec类型为SpreadsheetCell 实际上存储不同类型值</span><br><span class="line">        SpreadsheetCell::Int(<span class="number">3</span>),</span><br><span class="line">        SpreadsheetCell::Text(String::from(<span class="string">"blue"</span>)),</span><br><span class="line">        SpreadsheetCell::Float(<span class="number">10.12</span>),</span><br><span class="line">    ];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>枚举要配合match使用</p>
+<h3 id="string"><a href="#string" class="headerlink" title="string"></a>string</h3><p>Remember that<code>strings are UTF-8</code>encoded,<br><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">fn main() &#123;</span><br><span class="line">    let hello = String::from(<span class="string">"السلام عليكم"</span>);</span><br><span class="line">    let hello = String::from(<span class="string">"Dobrý den"</span>);</span><br><span class="line">    let hello = String::from(<span class="string">"Hello"</span>);</span><br><span class="line">    let hello = String::from(<span class="string">"שָׁלוֹם"</span>);</span><br><span class="line">    let hello = String::from(<span class="string">"नमस्ते"</span>);</span><br><span class="line">    let hello = String::from(<span class="string">"こんにちは"</span>);</span><br><span class="line">    let hello = String::from(<span class="string">"안녕하세요"</span>);</span><br><span class="line">    let hello = String::from(<span class="string">"你好"</span>);</span><br><span class="line">    let hello = String::from(<span class="string">"Olá"</span>);</span><br><span class="line">    let hello = String::from(<span class="string">"Здравствуйте"</span>);</span><br><span class="line">    let hello = String::from(<span class="string">"Hola"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">fn main() &#123;</span><br><span class="line">    let mut s = String::from(<span class="string">"foo"</span>);</span><br><span class="line">    s.push_str(<span class="string">"bar"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">fn main() &#123;</span><br><span class="line">    let mut s = String::from(<span class="string">"lo"</span>);</span><br><span class="line">    s.push(<span class="string">'l'</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>push method takes<code>a single character</code></p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">fn main() &#123;</span><br><span class="line">    let s1 = String::from(<span class="string">"Hello, "</span>);</span><br><span class="line">    let s2 = String::from(<span class="string">"world!"</span>);</span><br><span class="line">    let s3 = s1 + &amp;s2; // note s1 has been moved here and can no longer be used//be moved into the add call and no longer be valid after that.</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p> add is that the compiler can coerce the &amp;String argument into a &amp;str</p>
+<h4 id="format"><a href="#format" class="headerlink" title="format"></a>format</h4><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">fn main() &#123;</span><br><span class="line">    let s1 = String::from(<span class="string">"tic"</span>);</span><br><span class="line">    let s2 = String::from(<span class="string">"tac"</span>);</span><br><span class="line">    let s3 = String::from(<span class="string">"toe"</span>);</span><br><span class="line"></span><br><span class="line">    let s = format!(<span class="string">"&#123;&#125;-&#123;&#125;-&#123;&#125;"</span>, s1, s2, s3); //doesn’t take ownership of any of its parameters.</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>utf-8</code>可变字节 1-4字节，有些一个字节 有些4个字节</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[allow(unused_variables)]</span><br><span class="line">fn main() &#123;</span><br><span class="line">let hello = <span class="string">"Здравствуйте"</span>;</span><br><span class="line"></span><br><span class="line">let s = &amp;hello[<span class="number">0.</span><span class="number">.4</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#![allow(unused_variables)]</span></span><br><span class="line">fn main() &#123;</span><br><span class="line"><span class="keyword">for</span> c <span class="keyword">in</span> <span class="string">"नमस्ते"</span>.chars() &#123;</span><br><span class="line">    println!(<span class="string">"&#123;&#125;"</span>, c);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#![allow(unused_variables)]</span></span><br><span class="line">fn main() &#123;</span><br><span class="line"><span class="keyword">for</span> b <span class="keyword">in</span> <span class="string">"नमस्ते"</span>.bytes() &#123; // returns each raw byte,</span><br><span class="line">    println!(<span class="string">"&#123;&#125;"</span>, b);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="hashmap"><a href="#hashmap" class="headerlink" title="hashmap"></a>hashmap</h3><p><code>all of the keys</code> must have the<code>same type</code>, and all of the<code>values</code>must have the<code>same type.</code><br><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">fn main() &#123;</span><br><span class="line">    use std::collections::HashMap;</span><br><span class="line">    let mut scores = HashMap::new();</span><br><span class="line">    scores.insert(String::from(<span class="string">"Blue"</span>), <span class="number">10</span>);</span><br><span class="line">    scores.insert(String::from(<span class="string">"Yellow"</span>), <span class="number">50</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">fn main() &#123;</span><br><span class="line">    use std::collections::HashMap;</span><br><span class="line"></span><br><span class="line">    let teams = vec![String::from(<span class="string">"Blue"</span>), String::from(<span class="string">"Yellow"</span>)];</span><br><span class="line">    let initial_scores = vec![<span class="number">10</span>, <span class="number">50</span>];</span><br><span class="line"></span><br><span class="line">    let mut scores: HashMap&lt;_, _&gt; =</span><br><span class="line">        teams.into_iter().zip(initial_scores.into_iter()).collect();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>zip</code>method to create a vector of tuples<br><code>collect</code>method to turn that vector of tuples into a hash map,</p>
+<p>For types that implement the <code>Copy trait</code>, like i32, the values<code>are copied into</code> the hash map. For owned values like String, the values will be moved and the hash map will be the <code>owner of those values</code></p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">fn main() &#123;</span><br><span class="line">    use std::collections::HashMap;</span><br><span class="line"></span><br><span class="line">    let mut scores = HashMap::new();</span><br><span class="line"></span><br><span class="line">    scores.insert(String::from(<span class="string">"Blue"</span>), <span class="number">10</span>);</span><br><span class="line">    scores.insert(String::from(<span class="string">"Yellow"</span>), <span class="number">50</span>);</span><br><span class="line"></span><br><span class="line">    let team_name = String::from(<span class="string">"Blue"</span>);</span><br><span class="line">    let score = scores.get(&amp;team_name);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Some(&amp;10). The result is wrapped in Some because get returns an Option&lt;&amp;V&gt;<br>no value get will return None.</p>
+<pre><code>for (key, value) in &amp;scores {
+    println!(&quot;{}: {}&quot;, key, value);
+}
+</code></pre><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">fn main() &#123;</span><br><span class="line">    use std::collections::HashMap;</span><br><span class="line"></span><br><span class="line">    let mut scores = HashMap::new();</span><br><span class="line">    scores.insert(String::from(<span class="string">"Blue"</span>), <span class="number">10</span>);</span><br><span class="line"></span><br><span class="line">    scores.entry(String::from(<span class="string">"Yellow"</span>)).or_insert(<span class="number">50</span>);  //entry检查值是否存在，返回Entry， or_insert是Entry的方法 <span class="keyword">return</span> a mutable reference to the value   没有值插入</span><br><span class="line">    scores.entry(String::from(<span class="string">"Blue"</span>)).or_insert(<span class="number">50</span>);</span><br><span class="line"></span><br><span class="line">    println!(<span class="string">"&#123;:?&#125;"</span>, scores); //&#123;<span class="string">"Yellow"</span>: <span class="number">50</span>, <span class="string">"Blue"</span>: <span class="number">10</span>&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">fn main() &#123;</span><br><span class="line">    use std::collections::HashMap;</span><br><span class="line"></span><br><span class="line">    let text = <span class="string">"hello world wonderful world"</span>;</span><br><span class="line"></span><br><span class="line">    let mut map = HashMap::new();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> word <span class="keyword">in</span> text.split_whitespace() &#123;</span><br><span class="line">        let count = map.entry(word).or_insert(<span class="number">0</span>); //or_insert method actually returns a mutable reference (&amp;mut V) 所以可以加<span class="number">1</span></span><br><span class="line">        *count += <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    println!(<span class="string">"&#123;:?&#125;"</span>, map);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+        
+
+  <div class="followme">
+    <p>欢迎关注我的其它发布渠道</p>
+
+    <div class="social-list">
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+        </div>
+    </div>
+  </div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/RUST/" rel="tag"><i class="fa fa-tag"></i> RUST</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/07/29/RUST学习2/" rel="prev" title="RUST学习2">
+      <i class="fa fa-chevron-left"></i> RUST学习2
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Debug"><span class="nav-number">1.</span> <span class="nav-text">Debug</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#method"><span class="nav-number">2.</span> <span class="nav-text">method</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#associated-function"><span class="nav-number">3.</span> <span class="nav-text">associated function</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Enum"><span class="nav-number">4.</span> <span class="nav-text">Enum</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#enum-option"><span class="nav-number">5.</span> <span class="nav-text">enum option</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#if-let"><span class="nav-number">6.</span> <span class="nav-text">if let</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#packages-gt-crates-gt-modules"><span class="nav-number">7.</span> <span class="nav-text">packages&gt;crates&gt;modules</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#as"><span class="nav-number">8.</span> <span class="nav-text">as</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#vector"><span class="nav-number">9.</span> <span class="nav-text">vector</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#string"><span class="nav-number">10.</span> <span class="nav-text">string</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#format"><span class="nav-number">10.1.</span> <span class="nav-text">format</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hashmap"><span class="nav-number">11.</span> <span class="nav-text">hashmap</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">finsenty54</p>
+  <div class="site-description" itemprop="description">blog</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">37</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Finsenty54" title="GitHub → https://github.com/Finsenty54" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:finsenty54@qq.com" title="E-Mail → mailto:finsenty54@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">finsenty54</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+  
+<script src="//cdn.jsdelivr.net/npm/algoliasearch@4/dist/algoliasearch-lite.umd.js"></script>
+<script src="//cdn.jsdelivr.net/npm/instantsearch.js@4/dist/instantsearch.production.min.js"></script><script src="/js/algolia-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://finsenty54.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "http://finsenty54.github.io/2020/08/03/RUST学习3/";
+    this.page.identifier = "2020/08/03/RUST学习3/";
+    this.page.title = "RUST学习3";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://finsenty54.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>
