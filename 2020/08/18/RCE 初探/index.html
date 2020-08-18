@@ -20,20 +20,20 @@
     var CONFIG = {"hostname":"finsenty54.github.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","width":320,"display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"disqus","storage":true,"lazyload":false,"nav":null,"activeClass":"disqus"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="栈就是一小段内存空间，大小记录在PE头中 RETN 8 =RETN POP 8 stdcall清理方式 被调用者清理，cdecl调用者清理 Nags 唠叨 VB ThunRTMain 函数 调用消息框 rtcMsgBox">
+  <meta name="description" content="UPXupx == 加壳？代码压缩器，执行时解码后运行PS  .\upx.exe -1 -o notepad_upx.exe D:\RCE\notepad.exe">
 <meta name="keywords" content="RCE">
 <meta property="og:type" content="article">
-<meta property="og:title" content="《逆向工程核心原理》学习笔记2">
-<meta property="og:url" content="http://finsenty54.github.io/2019/11/20/《逆向工程核心原理》学习笔记2/index.html">
+<meta property="og:title" content="RCE 初探">
+<meta property="og:url" content="http://finsenty54.github.io/2020/08/18/RCE 初探/index.html">
 <meta property="og:site_name" content="FINSENTY54">
-<meta property="og:description" content="栈就是一小段内存空间，大小记录在PE头中 RETN 8 =RETN POP 8 stdcall清理方式 被调用者清理，cdecl调用者清理 Nags 唠叨 VB ThunRTMain 函数 调用消息框 rtcMsgBox">
+<meta property="og:description" content="UPXupx == 加壳？代码压缩器，执行时解码后运行PS  .\upx.exe -1 -o notepad_upx.exe D:\RCE\notepad.exe">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-11-20T13:05:34.766Z">
+<meta property="og:updated_time" content="2020-08-18T13:07:58.509Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="《逆向工程核心原理》学习笔记2">
-<meta name="twitter:description" content="栈就是一小段内存空间，大小记录在PE头中 RETN 8 =RETN POP 8 stdcall清理方式 被调用者清理，cdecl调用者清理 Nags 唠叨 VB ThunRTMain 函数 调用消息框 rtcMsgBox">
+<meta name="twitter:title" content="RCE 初探">
+<meta name="twitter:description" content="UPXupx == 加壳？代码压缩器，执行时解码后运行PS  .\upx.exe -1 -o notepad_upx.exe D:\RCE\notepad.exe">
 
-<link rel="canonical" href="http://finsenty54.github.io/2019/11/20/《逆向工程核心原理》学习笔记2/">
+<link rel="canonical" href="http://finsenty54.github.io/2020/08/18/RCE 初探/">
 
 
 <script id="page-configurations">
@@ -46,7 +46,7 @@
   };
 </script>
 
-  <title>《逆向工程核心原理》学习笔记2 | FINSENTY54</title>
+  <title>RCE 初探 | FINSENTY54</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-135283153-1"></script>
     <script>
@@ -207,7 +207,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://finsenty54.github.io/2019/11/20/《逆向工程核心原理》学习笔记2/">
+    <link itemprop="mainEntityOfPage" href="http://finsenty54.github.io/2020/08/18/RCE 初探/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -220,7 +220,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          《逆向工程核心原理》学习笔记2
+          RCE 初探
         </h1>
 
         <div class="post-meta">
@@ -231,7 +231,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2019-11-20 20:02:41 / 修改时间：21:05:34" itemprop="dateCreated datePublished" datetime="2019-11-20T20:02:41+08:00">2019-11-20</time>
+              <time title="创建时间：2020-08-18 21:07:01 / 修改时间：21:07:58" itemprop="dateCreated datePublished" datetime="2020-08-18T21:07:01+08:00">2020-08-18</time>
             </span>
 
           
@@ -250,8 +250,8 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/2019/11/20/《逆向工程核心原理》学习笔记2/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/11/20/《逆向工程核心原理》学习笔记2/" itemprop="commentCount"></span>
+    <a title="disqus" href="/2020/08/18/RCE 初探/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/08/18/RCE 初探/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -266,72 +266,41 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <ol>
-<li>栈就是一小段内存空间，大小记录在PE头中</li>
-<li>RETN 8 =RETN POP 8 stdcall清理方式 被调用者清理，cdecl调用者清理</li>
-<li>Nags 唠叨</li>
-<li>VB ThunRTMain 函数 调用消息框 rtcMsgBox<a id="more"></a></li>
-<li>Set Breakpoint on every call to rtcMsgBox</li>
-<li>1 opcode == 1 byte</li>
-<li>4 bytes == 1 dword</li>
-<li>registers is 32 bit</li>
-</ol>
+        <h4 id="UPX"><a href="#UPX" class="headerlink" title="UPX"></a>UPX</h4><p>upx == 加壳？<br>代码压缩器，执行时解码后运行<br>PS  .\upx.exe -1 -o notepad_upx.exe D:\RCE\notepad.exe</p>
+<a id="more"></a>
 <hr>
-<h5 id="Lena视频学习"><a href="#Lena视频学习" class="headerlink" title="Lena视频学习"></a>Lena视频学习</h5><p><em>这是书本介绍的，这是<a href="https://tuts4you.com/download/2876/" title="tuts4you" target="_blank" rel="noopener">tuts4you</a>crackme下载地址，里面还有视频教程和一些其他教程。</em></p>
-<h5 id="Assembler-The-Basics-In-Reversing"><a href="#Assembler-The-Basics-In-Reversing" class="headerlink" title="Assembler : The Basics In Reversing"></a>Assembler : The Basics In Reversing</h5><p>SS stack segment<br>C-Flag &gt;FFFFFFFF  and &lt;0 时设置<br><code>segmens(a page in a book) + offsets(a specific line on that page)</code></p>
-<pre><code>add eax,ebx                    ;; Register, Register
-add eax,123                    ;; Register, Value
-add eax,dword ptr [404000]            ;; Register, Dword Pointer [value]
-add eax,dword ptr [eax]            ;; Register, Dword Pointer [register]
-add eax,dword ptr [eax+00404000]    ;; Register, Dword Pointer [register+value]
-add dword ptr [404000],eax            ;; Dword Pointer [value], Register
-add dword ptr [404000],123        ;; Dword Pointer [value], Value
-add dword ptr [eax],eax            ;; Dword Pointer [register], Register
-add dword ptr [eax],123            ;; Dword Pointer [register], Value
-add dword ptr [eax+404000],eax        ;; Dword Pointer [register+value], Register
-add dword ptr [eax+404000],123        ;; Dword Pointer [register+value], value
-</code></pre><p>INT3 and INTO are interrupt calls that take no parameters but call the handlers for interrupts 3 and 4, respectively.</p>
-<pre><code>JA*    -    Jump if (unsigned) above            - CF=0 and ZF=0
-JAE    -    Jump if (unsigned) above or equal        - CF=0
-JB*    -    Jump if (unsigned) below            - CF=1
-JBE    -    Jump if (unsigned) below or equal        - CF=1 or ZF=1
-JC    -    Jump if carry flag set            - CF=1
-JCXZ    -    Jump if CX is 0                - CX=0
-JE**    -    Jump if equal                    - ZF=1
-JECXZ    -    Jump if ECX is 0                - ECX=0
-JG*    -    Jump if (signed) greater            - ZF=0 and SF=OF (SF = Sign Flag)
-JGE*    -    Jump if (signed) greater or equal        - SF=OF
-JL*    -    Jump if (signed) less                - SF != OF (!= is not)
-JLE*    -    Jump if (signed) less or equal        - ZF=1 and OF != OF
-JMP**    -    Jump                        - Jumps always
-JNA    -    Jump if (unsigned) not above        - CF=1 or ZF=1
-JNAE    -    Jump if (unsigned) not above or equal    - CF=1
-JNB    -    Jump if (unsigned) not below        - CF=0
-JNBE     -    Jump if (unsigned) not below or equal    - CF=0 and ZF=0
-JNC    -    Jump if carry flag not set            - CF=0
-JNE**    -    Jump if not equal                - ZF=0
-JNG    -    Jump if (signed) not greater            - ZF=1 or SF!=OF
-JNGE    -    Jump if (signed) not greater or equal    - SF!=OF
-JNL    -    Jump if (signed) not less            - SF=OF
-JNLE    -    Jump if (signed) not less or equal        - ZF=0 and SF=OF
-JNO    -    Jump if overflow flag not set        - OF=0
-JNP    -    Jump if parity flag not set            - PF=0
-JNS    -    Jump if sign flag not set            - SF=0
-JNZ    -    Jump if not zero                - ZF=0
-JO    -    Jump if overflow flag is set            - OF=1
-JP    -    Jump if parity flag set            - PF=1
-JPE    -    Jump if parity is equal            - PF=1
-JPO    -    Jump if parity is odd                - PF=0
-JS    -    Jump if sign flag is set            - SF=1
-JZ    -    Jump if zero                    - ZF=1
-</code></pre><h6 id="LEA-Load-Effective-Address"><a href="#LEA-Load-Effective-Address" class="headerlink" title="LEA (Load Effective Address)"></a>LEA (Load Effective Address)</h6><p>Syntax: LEA dest,src<br>LEA can be treated the same way as the MOV instruction. It isn’t used too much for its original function, but more for quick multiplications like this:<br>   <code>lea eax, dword ptr [4*ecx+ebx]</code><br> <strong>which gives eax the value of 4*ecx+ebx</strong><br><del>ptr== pointer</del></p>
-<h6 id="POP"><a href="#POP" class="headerlink" title="POP"></a>POP</h6><p>Syntax: POP dest<br>POP loads the value of byte/word/dword ptr <strong>[esp] jian接寻址 esp指向的值zuo wei dizhi</strong>and puts it into dest. </p>
-<h6 id="TEST"><a href="#TEST" class="headerlink" title="TEST"></a>TEST</h6><p>Syntax: TEST operand1, operand2<br>This instruction is in 99% of all cases used for “TEST EAX, EAX”. It performs a Logical<br>AND(AND instruction)<code>but does not save the values</code>.<strong> It only sets the Z-Flag, when EAX is 0 or clears it, when EAX is not 0. The O/C flags are always cleared.</strong></p>
-<h6 id="XOR"><a href="#XOR" class="headerlink" title="XOR"></a>XOR</h6><p>Syntax: XOR dest,src<br>The XOR instruction connects two values using logical exclusive OR (remember OR uses inclusive OR).<br><code>This instruction clears the O-Flag and the C-Flag and can set the Z-Flag.</code><br>To understand XOR better, consider those two binary values:</p>
-<pre><code>1001010110
-0101001101
-</code></pre><p><code>If you XOR them, the result is 1100011011</code></p>
-<p>The most often seen use of XOR is “XOR, EAX, EAX”.<code>This will set EAX to 0,</code> because when you XOR a value with itself, the result is always 0. I hope you understand why, else<br>write down a value on paper and try ;)</p>
+<p>段寄存器 16 位<br>DS 存放数据段的段基址</p>
+<hr>
+<p>每一个<code>内存单元的宽度为8位</code>。<br>[编号]称为地址。<br>内存单元：字节 <code>每个字节有个编号</code>，称为<code>内存地址</code></p>
+<hr>
+<p>dword ptr [esi+13000]=[notepad.01014000]=14D L’ō’</p>
+<p>ds 寄存器没用？</p>
+<hr>
+<p>在栈中设置硬件断点 找到解壳后的OEP<br>具体在<code>PUSHAD</code>中设置硬件断点，指令完成后才暂停 ，也就是<code>POPAD</code> 完成后暂停 ，后面JMP跳转到<code>OEP</code> original EP</p>
+<hr>
+<p>exe默认00400000<br>dll 默认10000000</p>
+<hr>
+<h4 id="节对齐"><a href="#节对齐" class="headerlink" title="节对齐"></a>节对齐</h4><p>Alignment is <code>a rounded up value.</code> Section data size is rounded up for effeciency because the OS moves stuff around in chunks anyway.<br>The File Alignment is usually 512 bytes which fit the blocksize of most filesystems.<br>The Section Alignment is usually 4096 bytes which fit the size of a memory page.<br>So if you have a PE-file with a section (like “.text”) that contains<code>513</code> bytes of data:</p>
+<p><code>不足的改为整数倍</code><br>Section .text will be rounded up to <code>1024</code> bytes on file.<br>Section .text will be rounded up to <code>4096</code>bytes in memory.<br>Note the amount of slack space possible both on file and in memory.</p>
+<hr>
+<h4 id="stud-pe"><a href="#stud-pe" class="headerlink" title="stud_pe"></a>stud_pe</h4><p>修改size of optional header值，向文件头插入解码代码<br>在选项头和节区头间插入代码<br>numberofRVAandSIZES表示data_directory结构体元素个数(有些没用，可以覆盖)</p>
+<h4 id="inline-patch-内嵌补丁"><a href="#inline-patch-内嵌补丁" class="headerlink" title="inline patch 内嵌补丁"></a>inline patch 内嵌补丁</h4><p>将补丁代码放在空白块中</p>
+<hr>
+<p>变量名和函数名只是地址的一种助记符，当源文件被编译和链接成可执行程序后，它们都会被替换成地址。</p>
+<p>取地址符&amp;</p>
+<p>.text 的 size of raw data == 400 virtual size == 280 文件中400 加载到内存中只加了280<br>其他值时0x00</p>
+<hr>
+<p>image_scn_men_write 相应内存区的写权限</p>
+<hr>
+<h4 id="rep-movsb-命令"><a href="#rep-movsb-命令" class="headerlink" title="rep movsb 命令"></a>rep movsb 命令</h4><p> b==byte rep == repeats ECX 里大小 循环</p>
+<h4 id="moves-命令"><a href="#moves-命令" class="headerlink" title="moves  命令"></a>moves  命令</h4><p>== ds:esi -&gt; ds:edi<br>decreasing CX, so at the end CX becomes zero.</p>
+<h4 id="RCE经验"><a href="#RCE经验" class="headerlink" title="RCE经验"></a>RCE经验</h4><p>1 压缩器解码<br>2 区域双重加密 内嵌补丁</p>
+<hr>
+<h4 id="test-按位与"><a href="#test-按位与" class="headerlink" title="test 按位与"></a>test 按位与</h4><p>test eax, eax<br>eax==0 zf 设位1</p>
+<hr>
+<h4 id="Ret相当于-Pop-EIP"><a href="#Ret相当于-Pop-EIP" class="headerlink" title="Ret相当于 Pop EIP"></a>Ret相当于 Pop EIP</h4><hr>
+<h4 id="DLL注入"><a href="#DLL注入" class="headerlink" title="DLL注入"></a>DLL注入</h4><p>threadProc 线程创建函数<br>用句柄控制相应进程<br>三种方法：<br>创建远程线程<br>钩子注入<br>设置里全局注入</p>
+<p>SPaCIoS</p>
 
     </div>
 
@@ -370,13 +339,10 @@ JZ    -    Jump if zero                    - ZF=1
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2019/11/19/《逆向工程核心原理》学习笔记1/" rel="prev" title="《逆向工程核心原理》学习笔记1">
-      <i class="fa fa-chevron-left"></i> 《逆向工程核心原理》学习笔记1
+    <a href="/2020/08/14/RUST学习4/" rel="prev" title="RUST学习4">
+      <i class="fa fa-chevron-left"></i> RUST学习4
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2019/11/20/bug/" rel="next" title="bug">
-      bug <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -442,7 +408,7 @@ JZ    -    Jump if zero                    - ZF=1
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#Lena视频学习"><span class="nav-number">1.</span> <span class="nav-text">Lena视频学习</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Assembler-The-Basics-In-Reversing"><span class="nav-number">2.</span> <span class="nav-text">Assembler : The Basics In Reversing</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#LEA-Load-Effective-Address"><span class="nav-number">2.1.</span> <span class="nav-text">LEA (Load Effective Address)</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#POP"><span class="nav-number">2.2.</span> <span class="nav-text">POP</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#TEST"><span class="nav-number">2.3.</span> <span class="nav-text">TEST</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#XOR"><span class="nav-number">2.4.</span> <span class="nav-text">XOR</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#UPX"><span class="nav-number">1.</span> <span class="nav-text">UPX</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#节对齐"><span class="nav-number">2.</span> <span class="nav-text">节对齐</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#stud-pe"><span class="nav-number">3.</span> <span class="nav-text">stud_pe</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#inline-patch-内嵌补丁"><span class="nav-number">4.</span> <span class="nav-text">inline patch 内嵌补丁</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#rep-movsb-命令"><span class="nav-number">5.</span> <span class="nav-text">rep movsb 命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#moves-命令"><span class="nav-number">6.</span> <span class="nav-text">moves  命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#RCE经验"><span class="nav-number">7.</span> <span class="nav-text">RCE经验</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#test-按位与"><span class="nav-number">8.</span> <span class="nav-text">test 按位与</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Ret相当于-Pop-EIP"><span class="nav-number">9.</span> <span class="nav-text">Ret相当于 Pop EIP</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DLL注入"><span class="nav-number">10.</span> <span class="nav-text">DLL注入</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -587,9 +553,9 @@ JZ    -    Jump if zero                    - ZF=1
 </script>
 <script>
   var disqus_config = function() {
-    this.page.url = "http://finsenty54.github.io/2019/11/20/《逆向工程核心原理》学习笔记2/";
-    this.page.identifier = "2019/11/20/《逆向工程核心原理》学习笔记2/";
-    this.page.title = "《逆向工程核心原理》学习笔记2";
+    this.page.url = "http://finsenty54.github.io/2020/08/18/RCE 初探/";
+    this.page.identifier = "2020/08/18/RCE 初探/";
+    this.page.title = "RCE 初探";
     };
   NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
     if (window.DISQUS) {

@@ -4,6 +4,25 @@
   
     
     <entry>
+      <title>RCE 初探</title>
+      <link href="/2020/08/18/RCE%20%E5%88%9D%E6%8E%A2/"/>
+      <url>/2020/08/18/RCE%20%E5%88%9D%E6%8E%A2/</url>
+      
+        <content type="html"><![CDATA[<h4 id="UPX"><a href="#UPX" class="headerlink" title="UPX"></a>UPX</h4><p>upx == 加壳？<br>代码压缩器，执行时解码后运行<br>PS  .\upx.exe -1 -o notepad_upx.exe D:\RCE\notepad.exe</p><a id="more"></a><hr><p>段寄存器 16 位<br>DS 存放数据段的段基址</p><hr><p>每一个<code>内存单元的宽度为8位</code>。<br>[编号]称为地址。<br>内存单元：字节 <code>每个字节有个编号</code>，称为<code>内存地址</code></p><hr><p>dword ptr [esi+13000]=[notepad.01014000]=14D L’ō’</p><p>ds 寄存器没用？</p><hr><p>在栈中设置硬件断点 找到解壳后的OEP<br>具体在<code>PUSHAD</code>中设置硬件断点，指令完成后才暂停 ，也就是<code>POPAD</code> 完成后暂停 ，后面JMP跳转到<code>OEP</code> original EP</p><hr><p>exe默认00400000<br>dll 默认10000000</p><hr><h4 id="节对齐"><a href="#节对齐" class="headerlink" title="节对齐"></a>节对齐</h4><p>Alignment is <code>a rounded up value.</code> Section data size is rounded up for effeciency because the OS moves stuff around in chunks anyway.<br>The File Alignment is usually 512 bytes which fit the blocksize of most filesystems.<br>The Section Alignment is usually 4096 bytes which fit the size of a memory page.<br>So if you have a PE-file with a section (like “.text”) that contains<code>513</code> bytes of data:</p><p><code>不足的改为整数倍</code><br>Section .text will be rounded up to <code>1024</code> bytes on file.<br>Section .text will be rounded up to <code>4096</code>bytes in memory.<br>Note the amount of slack space possible both on file and in memory.</p><hr><h4 id="stud-pe"><a href="#stud-pe" class="headerlink" title="stud_pe"></a>stud_pe</h4><p>修改size of optional header值，向文件头插入解码代码<br>在选项头和节区头间插入代码<br>numberofRVAandSIZES表示data_directory结构体元素个数(有些没用，可以覆盖)</p><h4 id="inline-patch-内嵌补丁"><a href="#inline-patch-内嵌补丁" class="headerlink" title="inline patch 内嵌补丁"></a>inline patch 内嵌补丁</h4><p>将补丁代码放在空白块中</p><hr><p>变量名和函数名只是地址的一种助记符，当源文件被编译和链接成可执行程序后，它们都会被替换成地址。</p><p>取地址符&amp;</p><p>.text 的 size of raw data == 400 virtual size == 280 文件中400 加载到内存中只加了280<br>其他值时0x00</p><hr><p>image_scn_men_write 相应内存区的写权限</p><hr><h4 id="rep-movsb-命令"><a href="#rep-movsb-命令" class="headerlink" title="rep movsb 命令"></a>rep movsb 命令</h4><p> b==byte rep == repeats ECX 里大小 循环</p><h4 id="moves-命令"><a href="#moves-命令" class="headerlink" title="moves  命令"></a>moves  命令</h4><p>== ds:esi -&gt; ds:edi<br>decreasing CX, so at the end CX becomes zero.</p><h4 id="RCE经验"><a href="#RCE经验" class="headerlink" title="RCE经验"></a>RCE经验</h4><p>1 压缩器解码<br>2 区域双重加密 内嵌补丁</p><hr><h4 id="test-按位与"><a href="#test-按位与" class="headerlink" title="test 按位与"></a>test 按位与</h4><p>test eax, eax<br>eax==0 zf 设位1</p><hr><h4 id="Ret相当于-Pop-EIP"><a href="#Ret相当于-Pop-EIP" class="headerlink" title="Ret相当于 Pop EIP"></a>Ret相当于 Pop EIP</h4><hr><h4 id="DLL注入"><a href="#DLL注入" class="headerlink" title="DLL注入"></a>DLL注入</h4><p>threadProc 线程创建函数<br>用句柄控制相应进程<br>三种方法：<br>创建远程线程<br>钩子注入<br>设置里全局注入</p><p>SPaCIoS</p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> RCE </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>RUST学习4</title>
       <link href="/2020/08/14/RUST%E5%AD%A6%E4%B9%A04/"/>
       <url>/2020/08/14/RUST%E5%AD%A6%E4%B9%A04/</url>
