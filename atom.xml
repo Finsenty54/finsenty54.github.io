@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://finsenty54.github.io/"/>
-  <updated>2020-09-21T14:25:59.079Z</updated>
+  <updated>2020-09-24T00:41:34.491Z</updated>
   <id>http://finsenty54.github.io/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>ARM内联汇编</title>
+    <link href="http://finsenty54.github.io/2020/09/24/ARM%E5%86%85%E8%81%94%E6%B1%87%E7%BC%96/"/>
+    <id>http://finsenty54.github.io/2020/09/24/ARM内联汇编/</id>
+    <published>2020-09-24T00:34:38.000Z</published>
+    <updated>2020-09-24T00:41:34.491Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="gcc-ARM内联汇编-与-预处理"><a href="#gcc-ARM内联汇编-与-预处理" class="headerlink" title="gcc ARM内联汇编 与 预处理"></a>gcc ARM内联汇编 与 预处理</h2><h3 id="预处理"><a href="#预处理" class="headerlink" title="预处理"></a>预处理</h3><p>define 编译<code>预处理</code>时，对程序中所有出现的“宏名”，都用宏定义中的字符串去代换</p><p><code>#</code>开头都是预编译指令</p><a id="more"></a><pre><code>#ifndef HEADER_FILE#define HEADER_FILEthe entire header file file#endif</code></pre><p>这种结构就是通常所说的<code>包装器 #ifndef</code>。当再次引用头文件时，<code>条件为假</code>，因为 HEADER_FILE 已定义。此时，预处理器会<code>跳过</code>文件的整个内容，编译器会忽略它。</p><hr><p>您可以使用 typedef 为一个已有的类型取一个新的名字。下面是使用 typedef 定义一个新类型的语法：</p><pre><code>typedef struct config *config_t; //将config* 重新定为 config_ttypedef type newname; </code></pre><hr><h3 id="ARM内联汇编"><a href="#ARM内联汇编" class="headerlink" title="ARM内联汇编"></a>ARM内联汇编</h3><p>GCC编译器支持直接在C或者C++代码中，嵌入ARM汇编代码。其基本格式非常简单，大致如下：</p><pre><code>__asm__ [__volatile__] ( assembler template            : [output operand list]                  /* optional */           : [input operand list]                   /* optional */           : [clobbered register list]              /* optional */           );</code></pre><p>每一个操作数由下列组成</p><pre><code>[name]&quot;[modifier]constraint&quot;(C expression)</code></pre><p><code>name</code> 表示别名</p><p><code>限定符</code>constraint</p><pre><code>  &quot;a”将输入变量放入eax  &quot;b”将输入变量放入ebx“c”将输入变量放入ecx“d”将输入变量放入edx“s”将输入变量放入esi“d”将输入变量放入edi</code></pre><p>GCC中定义了三个<code>修改符</code>modifier，分别是：<br>修改符    含义</p><pre><code>=    只写操作数，通常用于输出操作数中+    可读且可写操作数，必须要列在输出操作数中&amp;    寄存器只能用于输出</code></pre><p>编译器并不会分析你的汇编代码，找出这种被你修改过，需要恢复的寄存器，因此你必须显式的告诉编译器，被你修改过的寄存器有哪些。这就是<code>修改寄存器列表</code>所起到的作用。<br><code>clobbered register list</code></p><h3 id="示例-flush-and-reload"><a href="#示例-flush-and-reload" class="headerlink" title="示例__flush and reload"></a>示例__flush and reload</h3><pre><code>/*SFENCE——串行化发生在SFENCE指令之前的写操作但是不影响读操作。    LFENCE——串行化发生在SFENCE指令之前的读操作但是不影响写操作。    MFENCE——串行化发生在MFENCE指令之前的读写操作。sfence:在sfence指令前的写操作当必须在sfence指令后的写操作前完成。lfence：在lfence指令前的读操作当必须在lfence指令后的读操作前完成。 no instruction fol-lowing it executes before thelfenceinstructionmfence：在mfence指令前的读写操作当必须在mfence指令后的读写操作前完成。*/</code></pre><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">unsigned</span> <span class="keyword">long</span> <span class="title">gettime</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="keyword">volatile</span> <span class="keyword">unsigned</span> <span class="keyword">long</span> tl;</span><br><span class="line">  <span class="keyword">asm</span> __volatile__(<span class="string">"lfence\nrdtsc"</span> : <span class="string">"=a"</span> (tl): : <span class="string">"%edx"</span>); <span class="comment">//“__volatile__”关键字，这个是可选的，</span></span><br><span class="line">  <span class="comment">//其作用是禁止编译器对后面编写的汇编指令再进行优化</span></span><br><span class="line">  <span class="keyword">return</span> tl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">probe</span><span class="params">(<span class="keyword">char</span> *adrs)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">volatile</span> <span class="keyword">unsigned</span> <span class="keyword">long</span> time;</span><br><span class="line">    <span class="comment">//gcc arm</span></span><br><span class="line">  <span class="keyword">asm</span> __volatile__ (</span><br><span class="line">    <span class="string">"  mfence             \n"</span> <span class="comment">//cpuid (intel) 虚拟机会模拟该指令，导致时间增加</span></span><br><span class="line">    <span class="string">"  lfence             \n"</span></span><br><span class="line">    <span class="string">"  rdtsc              \n"</span></span><br><span class="line">    <span class="string">"  lfence             \n"</span> <span class="comment">//reads  the  64-bitcounter, returning the low 32 bits of the counter in%eax and the high 32 bits in%edx</span></span><br><span class="line">    <span class="string">"  movl %%eax, %%esi  \n"</span> <span class="comment">//把rdtsc返回的时间传入ESI保存</span></span><br><span class="line">    <span class="string">"  movl (%1), %%eax   \n"</span> <span class="comment">//%1表示adrs  reads  4  bytes  from  the  memory  address  in%ecx</span></span><br><span class="line">    <span class="string">"  lfence             \n"</span> <span class="comment">//（）表示指针</span></span><br><span class="line">    <span class="string">"  rdtsc              \n"</span></span><br><span class="line">    <span class="string">"  subl %%esi, %%eax  \n"</span> <span class="comment">//rdtsc返回值保存在eax.相减，结果保存在eax</span></span><br><span class="line">    <span class="string">"  clflush 0(%1)      \n"</span> <span class="comment">//()剔除缓存中的值</span></span><br><span class="line">    : <span class="string">"=a"</span> (time)</span><br><span class="line">    : <span class="string">"c"</span> (adrs)   <span class="comment">//c infer edc</span></span><br><span class="line">    :  <span class="string">"%esi"</span>, <span class="string">"%edx"</span>);</span><br><span class="line">  <span class="keyword">return</span> time;  <span class="comment">/*Loads shorter than the threshold are presumed tobe served from the cache, </span></span><br><span class="line"><span class="comment">                 indicating that another processhas accessed the memory line since it was last flushed5 from the cache*/</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;gcc-ARM内联汇编-与-预处理&quot;&gt;&lt;a href=&quot;#gcc-ARM内联汇编-与-预处理&quot; class=&quot;headerlink&quot; title=&quot;gcc ARM内联汇编 与 预处理&quot;&gt;&lt;/a&gt;gcc ARM内联汇编 与 预处理&lt;/h2&gt;&lt;h3 id=&quot;预处理&quot;&gt;&lt;a href=&quot;#预处理&quot; class=&quot;headerlink&quot; title=&quot;预处理&quot;&gt;&lt;/a&gt;预处理&lt;/h3&gt;&lt;p&gt;define 编译&lt;code&gt;预处理&lt;/code&gt;时，对程序中所有出现的“宏名”，都用宏定义中的字符串去代换&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;#&lt;/code&gt;开头都是预编译指令&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="C++" scheme="http://finsenty54.github.io/tags/C/"/>
+    
+  </entry>
   
   <entry>
     <title>SEH</title>
@@ -413,28 +434,6 @@ waveinfo(&amp;apos;db&amp;apos;)
     
       &lt;h3 id=&quot;对比度&quot;&gt;&lt;a href=&quot;#对比度&quot; class=&quot;headerlink&quot; title=&quot;对比度&quot;&gt;&lt;/a&gt;对比度&lt;/h3&gt;&lt;p&gt;histogram  直方图&lt;br&gt;Precede the call to &lt;code&gt;imhist&lt;/code&gt;with the &lt;code&gt;figure&lt;/code&gt;command so that the histogram does not overwrite the display of the image I in the current figure window.&lt;/p&gt;
 &lt;p&gt;To see the distribution of intensities in the image, &lt;code&gt;create a histogram by calling the imhist&lt;/code&gt; function.&lt;br&gt;输入图片，图片要求为灰度图或者二值图 imhist&lt;br&gt;
-    
-    </summary>
-    
-    
-      <category term="matlab" scheme="http://finsenty54.github.io/tags/matlab/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>matlab笔记5 image</title>
-    <link href="http://finsenty54.github.io/2020/02/05/matlab%E7%AC%94%E8%AE%B05/"/>
-    <id>http://finsenty54.github.io/2020/02/05/matlab笔记5/</id>
-    <published>2020-02-05T05:41:19.000Z</published>
-    <updated>2020-02-05T05:42:28.598Z</updated>
-    
-    <content type="html"><![CDATA[<p>使用基于帕斯卡三角形的项创建一个对称矩阵：<br><code>A = pascal(3)</code></p><p>randi 的第一个输入描述整数可能值的范围，后面两个输入描述行和列的数量。<br><code>C = randi(10,3,2)</code></p><p>有一个专门的点积函数，称为 <code>dot</code>。<br><a id="more"></a><br>非共轭复数转置（其中每个元素的复数部分保留其符号）表示为<code>z.&#39;</code></p><p><code>eye(m,n)</code><br>返回 m×n 矩形单位矩阵，eye(n) 返回 n×n 单位方阵。</p><p>向量 x 的 p-范数，<br><code>norm(x,p)</code> 进行计算，此运算是为 p &gt; 1 的任意值定义的，但最常见的 p 值为 1、2 和 ∞。默认值为 p = 2，</p><p><code>x = b/A</code><br>表示使用 mrdivide 获得的矩阵方程 xA = b 的解。<br><code>x = A\b</code><br>表示使用 mldivide 获得的矩阵方程 Ax = b 的解。</p><p><code>(b/A)&#39; = (A&#39;\b&#39;)</code>.<br>m = n<br>方阵方程组。求精确解。<br>m &gt; n<br>超定方程组，即方程个数多于未知数个数。求最小二乘解。<br>m &lt; n<br>欠定方程组，即方程个数少于未知数个数。使用最多 m 个非零分量求基本解。</p><p><em>非奇异矩阵==可逆矩阵</em></p><p><code>eig</code><br>特征值和特征向量</p><p>提供的数据分析函数的列表，请键入<br><code>help datafun</code></p><hr><h1 id="图像"><a href="#图像" class="headerlink" title="图像"></a>图像</h1><p>要显示图像，请使用 imshow 函数：<br><code>imshow(X,map)</code><br>使用<code>imread</code> 函数可以读取标准图像文件（TIFF、JPEG、PNG 等）。imread 返回的数据类型取决于读取的图像类型。<br>使用<code>imwrite</code> 函数可以将 MATLAB 数据写入到各种标准图像格式。<br>大多数图像表示为二维数组（矩阵），其中矩阵的每个元素对应所显示图像的一个像素。例如，由 200 行和 300 列不同颜色的点组成的图像保存为一个 200×300 的矩阵。有些图像，如 RGB，需要三维数组，其中三个维度的第一个平面表示红色像素强度，第二个平面表示绿色像素强度，第三个平面表示蓝色像素强度。<br>MATLAB 数学支持三种不同的数值类用于图像显示：<br>双精度浮点数（double）<br>16 位无符号整数（uint16）<br>8 位无符号整数（uint8）</p><pre><code>imshow    显示图像image    从数组显示图像imagesc    显示使用经过标度映射的颜色的图像imread    从图形文件读取图像imresize    调整图像大小imwrite    将图像写入图形文件imfinfo    有关图形文件的信息imformats    管理图像文件格式注册表frame2im    返回与影片帧关联的图像数据im2frame    将图像转换为影片帧im2java    将图像转换 Java 图像im2double    将图像转换为双精度值ind2rgb    将索引图像转换为 RGB 图像rgb2gray    将 RGB 图像或颜色图转换为灰度图rgb2ind    将 RGB 图像转换为索引图像imapprox    通过减少颜色数量来近似处理索引图像dither    转换图像，通过抖动提高表观颜色分辨率cmpermute    重新排列颜色图中的颜色cmunique    消除颜色图中的重复颜色；将灰度或真彩色图像转换为索引图像</code></pre><p><code>A = imread(&#39;ngc6543a.jpg&#39;);</code></p><hr><p>索引图像由数据矩阵 X 和颜色图矩阵 map 组成。map 是一个 double 类的 m×3 数组，由 [0, 1] 范围内的浮点值组成。map 的每一行指定单一颜色的红、绿和蓝分量。索引图像使用像素值到颜色图值的“直接映射”。每个图像像素的颜色是以 X 中的对应值为索引求得的 map 中的值。<strong>因此 X 值必须是整数。值 1 指向 map 中第一行，值 2 指向第二行，以此类推。使用以下语句显示索引图像。</strong><br><code>image(X); colormap(map)</code><br>图像矩阵和颜色图中值的关系取决于图像矩阵的类。如果图像矩阵是 double 类，那么值 1 指向颜色图中的第一行，值 2 指向第二行，以此类推。如果图像矩阵是 uint8 或 uint16 类，那么有个偏移 - 值 0 指向颜色图中的第一行，值 1 指向第二行，以此类推。在图形文件格式中使用偏移是为了使可支持的颜色数目达到最大。在上面的图像中，图像矩阵是 double 类。</p><hr><p>强度图像是一个数据矩阵 I，其中的值表示某一范围内的强度。强度图像表示为单个矩阵，矩阵的每个元素对应一个图像像素。<br>imagesc(A); colormap(gray)<br>imagesc(A,[min(A(:)) max(A(:))]); colormap(gray)</p><hr><p>bit-depth：使用多少位来定义一个像素点。bit-depth越大，可以表示的色彩就越多。通常情况下，图像的像素值范围为0-255， 则其bit-depth就是8。RGB图像的bit-depth为24：8bit表示R，8bit表示G，8bit表示B。</p><p>RGB 图像，有时称为真彩色图像，以 m×n×3 数据数组形式存储，该数组定义了对应图像每个像素的红色、绿色和蓝色分量。<br><strong>例如像素 (10,5) 的红色、绿色和蓝色分量分别存储在 RGB(10,5,1)、RGB(10,5,2) 和 RGB(10,5,3) 中。</strong></p><hr><p>您可以对 uint8 和 uint16 数组执行其他几种操作，包括：<br>使用 reshape、cat、permute 函数以及 [] 和 ‘ 运算符重构、重新排序和串联数组<br>使用 save 和 load 将 uint8 和 uint16 数组保存及加载到 MAT 文件。（请记住，如果要加载或保存图形格式文件图像，则必须使用 imread 和imwrite 命令代替。）<br>使用 find 定位 uint8 和 uint16 数组中非零元素的索引。但返回的数组始终为 double 类。<br>关系运算符</p><p>基于 NTSC 标准合并 RGB 值，以此方式来计算单色亮度，这会将与眼睛敏感度相关的系数应用到 RGB 颜色：</p><pre><code>I = .2989*rgb_img(:,:,1)...    +.5870*rgb_img(:,:,2)...    +.1140*rgb_img(:,:,3);</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;使用基于帕斯卡三角形的项创建一个对称矩阵：&lt;br&gt;&lt;code&gt;A = pascal(3)&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;randi 的第一个输入描述整数可能值的范围，后面两个输入描述行和列的数量。&lt;br&gt;&lt;code&gt;C = randi(10,3,2)&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;有一个专门的点积函数，称为 &lt;code&gt;dot&lt;/code&gt;。&lt;br&gt;
     
     </summary>
     
