@@ -4,6 +4,25 @@
   
     
     <entry>
+      <title>学习r2</title>
+      <link href="/2020/09/24/%E5%AD%A6%E4%B9%A0r2/"/>
+      <url>/2020/09/24/%E5%AD%A6%E4%B9%A0r2/</url>
+      
+        <content type="html"><![CDATA[<h2 id="逆向-学习r2"><a href="#逆向-学习r2" class="headerlink" title="逆向 学习r2"></a>逆向 学习r2</h2><h3 id="RABIN2-—-Binary-program-info-extractor"><a href="#RABIN2-—-Binary-program-info-extractor" class="headerlink" title="RABIN2 — Binary program info extractor"></a>RABIN2 — Binary program info extractor</h3><pre><code>$ rabin2 -I megabeets_0x1</code></pre><p><code>stripped false</code><br>没有剥离符号表<br><code>static   false</code> //所以是动态链接<br><a id="more"></a></p><h3 id="r2-radare2"><a href="#r2-radare2" class="headerlink" title="r2 //radare2"></a>r2 //radare2</h3><h4 id="ie"><a href="#ie" class="headerlink" title="ie"></a>ie</h4><pre><code>[0x08048370]&gt; ie</code></pre><p>ie 命令可以打印出程序的入口点</p><hr><h4 id><a href="#" class="headerlink" title="?"></a>?</h4><p>在任何一个命令后面添加 ? 来获得更多的子命令信息：<br>    [0x08048370]&gt; i?</p><hr><h4 id="aa"><a href="#aa" class="headerlink" title="aa"></a>aa</h4><p>使用 ‘aa’ 命令来分析文件</p><pre><code>[0x08048370]&gt; a?</code></pre><p>aa?<br>aaa[?]              autoname functions after aa (see afna)</p><hr><h4 id="flag"><a href="#flag" class="headerlink" title="flag"></a>flag</h4><p>flag 是所有类似特征的集合，展示所有的 flag ，用 ‘fs’ 命令<br>    [0x08048370]&gt; fs</p><h4 id="f"><a href="#f" class="headerlink" title="f"></a>f</h4><p> f         list flags (will only list flags from selected flagspaces<br>    [0x08048370]&gt; fs imports; f</p><hr><h4 id="iz"><a href="#iz" class="headerlink" title="iz"></a>iz</h4><p>iz – 列出数据段里的字符串</p><hr><h4 id="axt"><a href="#axt" class="headerlink" title="axt"></a>axt</h4><pre><code>[0x08048370]&gt; axt @@ str.*</code></pre><p> axt [addr]      find data/code references to this address</p><p><code>@@                   # foreach iterator command:</code></p><hr><h4 id="x"><a href="#x" class="headerlink" title="x"></a>x</h4><p>| x @@ sym.*          run ‘x’ over all flags matching ‘sym.’ in current flagspace</p><hr><h4 id="s"><a href="#s" class="headerlink" title="s"></a>s</h4><p>s    # Help for the seek commands. See ?$? to see all variables</p><hr><h4 id="afl"><a href="#afl" class="headerlink" title="afl"></a>afl</h4><p>af?<br>用 ‘afl’ 指令，这个指令代表着分析函数列表（Analyze Functions List）.</p><hr><h4 id="pdf"><a href="#pdf" class="headerlink" title="pdf"></a>pdf</h4><p>s main<br>用 ‘pdf’（输出反汇编代码）</p><hr><h4 id="m"><a href="#m" class="headerlink" title="m"></a>m</h4><p>m<key> 可以用来标记特定的偏移地址，之后输入对应的key就可以跳转到你设置的地方.</key></p><hr><h4 id="V"><a href="#V" class="headerlink" title="V"></a>V</h4><p>V 视图模式<br>shell 里输入 VV来进入图形模式</p><hr><p>f sym.<tab> 来定位出 sym.beet 函数<br>pdf @ sym.beet 命令，‘@’ 表示临时查找<br>可视视图界面直接跳转到 beet 函数<br>上面说过的方框中的数字吗？这里直接按 3 就可以了<br> gd 命令，d 就是每一个跳转或者调用代码旁边的 字母</tab></p><hr><h4 id="ahi"><a href="#ahi" class="headerlink" title="ahi"></a>ahi</h4><p>:&gt; ahi s @@=0x080485a3 0x080485ad 0x080485b7<br>ahi s       set base to string (1)<br>ahi s 是用来设置字符串特定的偏移地址<br>@@是一个迭代器，可以用来接受后面输入的多个参数,执行完这条命令后</p><hr><h4 id="r"><a href="#r" class="headerlink" title="r"></a>r</h4><p>r 图形模式刷新</p><hr><h3 id="rahash2"><a href="#rahash2" class="headerlink" title="rahash2"></a>rahash2</h3><p>rahash2 包含很多种算法来求证一个文件或者字符串的校验值,具体的用法请使用 ‘man rahash2 ‘.</p><hr><h4 id="00"><a href="#00" class="headerlink" title="00"></a>00</h4><p>oo           reopen current file<br>ood [args]      # reopen in debug mode (with args)</p><hr><h4 id="dc"><a href="#dc" class="headerlink" title="dc"></a>dc</h4><p>dc   Execution continuation commands<br>| dc                           Continue execution of all children</p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> RCE </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>ARM内联汇编</title>
       <link href="/2020/09/24/ARM%E5%86%85%E8%81%94%E6%B1%87%E7%BC%96/"/>
       <url>/2020/09/24/ARM%E5%86%85%E8%81%94%E6%B1%87%E7%BC%96/</url>
