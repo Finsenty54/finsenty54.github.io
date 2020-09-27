@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://finsenty54.github.io/"/>
-  <updated>2020-09-24T08:30:03.440Z</updated>
+  <updated>2020-09-27T11:20:33.245Z</updated>
   <id>http://finsenty54.github.io/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>逆向 学习r2 part2</title>
+    <link href="http://finsenty54.github.io/2020/09/27/%E9%80%86%E5%90%91%E5%AD%A6%E4%B9%A0r2part2/"/>
+    <id>http://finsenty54.github.io/2020/09/27/逆向学习r2part2/</id>
+    <published>2020-09-27T11:19:49.000Z</published>
+    <updated>2020-09-27T11:20:33.245Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="逆向-学习r2-part2"><a href="#逆向-学习r2-part2" class="headerlink" title="逆向 学习r2 part2"></a>逆向 学习r2 part2</h2><p><a href="https://www.megabeets.net/a-journey-into-radare-2-part-2/" target="_blank" rel="noopener">https://www.megabeets.net/a-journey-into-radare-2-part-2/</a></p><p>在NX和ASLR的保护下</p><hr><a id="more"></a><p><code>$ r2 -d megabeets_0x2</code><br><code>-d</code> – Open in the debug mode<br>aas – Analyze functions, symbols and more</p><p><code>dcu address      Continue until address</code></p><p><code>VV</code></p><p><code>pdf @ sym.beet</code></p><hr><h3 id="ragg2"><a href="#ragg2" class="headerlink" title="ragg2"></a>ragg2</h3><p><code>ragg2</code>, which allows us to generate a cyclic pattern called De Bruijn Sequence and check the exact offset where our payload overrides the buffer.<br>它允许我们生成一个称为De Bruijn Sequence的循环模式，并检查有效载荷覆盖缓冲区的确切偏移量</p><pre><code>-P [size]       prepend debruijn pattern -q [fragment]   debruijn pattern offset -r              show raw bytes instead of hexpairs</code></pre><p><code>$ ragg2 -P 100 -r</code><br><em>之前SEH攻击 应该有用过</em></p><hr><h3 id="rarun2"><a href="#rarun2" class="headerlink" title="rarun2"></a>rarun2</h3><p><code>rarun2</code>用作启动器，用于运行具有不同环境，参数，权限，目录的程序，并覆盖默认文件描述符（例如stdin）。<br>当您必须使用长参数运行程序，将大量数据传递给stdin或类似的东西时，这很有用，这通常是利用二进制文件的情况。</p><hr><pre><code>$ ragg2 -P 200 -r &gt; pattern.txt$ cat pattern.txt</code></pre><hr><pre><code>$ vim profile.rr2$ cat profile.rr2#!/usr/bin/rarun2stdin=./pattern.txt</code></pre><hr><p><code>$ r2 -r profile.rr2 -d megabeets_0x2</code><br>-r [rarun2]  specify rarun2 profile to load (same as -e dbg.profile=X)<br>-d           debug the executable ‘file’ or running process ‘pid’</p><hr><p>信号是发送到同一进程中的某个进程或特定线程的异步通知，以便将发生的事件通知给它。<br>·当SIGSEGV（11）信号做出无效的虚拟内存引用或分段错误时，即在执行分段违规时，将其发送到进程。</p><hr><p><code>wopO value</code>       Finds the given value into a De Bruijn Pattern at current offset</p><p>| dr                     Show ‘gpr’ registers<br>wopO <code>dr eip</code><br>没有成功<br>wopO 0x41417641</p><hr><p>i   Get info from opened file (see rabin2’s manpage)<br>ii                 Imports<br>iip 更简明</p><hr><p>The plan</p><ol><li>Leak the real address of puts</li><li>Calculate the base address of libc</li><li>Calculate the address of system</li><li>Find an address in libc that contains the string /bin/sh</li><li>Call system with /bin/sh and spawn a shell</li></ol><hr><p><code>过程链接表Procedure Linkage Table（PLT)</code>是一个内存结构，其中包含外部功能的代码存根，这些函数的地址在链接时是未知的。<br>·每当我们在.text段中看到对函数的CALL指令时，都不会直接调用该函数。<br>·相反，它在PLT处调用存根代码，例如<code>func_name @ plt</code>。<br>然后，存根跳转到<code>全局偏移表（GOT）</code>中为此功能列出的地址。<br>如果它是此功能的第一个CALL，则<code>GOT条目将指向PLT，后者将调用动态链接器，该链接器将解析所需功能的实际地址</code><br>下次调用func_name @ plt时，存根直接从<code>GOT获取功能地址</code>。<br>((少了动态链接步骤？？))</p><hr><p><code>pwntools</code>漏洞利用框架</p><hr><pre><code>~ character is radare’s internal grep[0xf7763b30]&gt; # the address of puts@plt:[0xf7763b30]&gt; ?v sym.imp.puts //Usage: ?v[id][ num]  # Show value0x08048390[0xf7763b30]&gt; ?v reloc.puts</code></pre><p><code>sy按tab键自动搜寻</code></p><hr><pre><code>Usage: dmi    # List/Load SymbolsAll these paddr=0x000xxxxx are the offsets of the function from libc base. </code></pre><hr><p>为此，我们将使用radare的搜索功能。<br>·默认情况下，radare正在dbg.map中搜索，这是当前的内存映射。<br>·我们要搜索所有内存映射，因此我们需要对其进行配置：<br>[0x080483d0]&gt; e search.in = dbg.maps<br>要以可视方式配置雷达，请使用Ve</p><hr><pre><code>Usage: /[!bf] [arg]  Search stuffdmm   List modules of target process[0x080483d0]&gt; ?X 0xf7700768-0xf7599000</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;逆向-学习r2-part2&quot;&gt;&lt;a href=&quot;#逆向-学习r2-part2&quot; class=&quot;headerlink&quot; title=&quot;逆向 学习r2 part2&quot;&gt;&lt;/a&gt;逆向 学习r2 part2&lt;/h2&gt;&lt;p&gt;&lt;a href=&quot;https://www.megabeets.net/a-journey-into-radare-2-part-2/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://www.megabeets.net/a-journey-into-radare-2-part-2/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;在NX和ASLR的保护下&lt;/p&gt;
+&lt;hr&gt;
+    
+    </summary>
+    
+    
+      <category term="RCE" scheme="http://finsenty54.github.io/tags/RCE/"/>
+    
+  </entry>
   
   <entry>
     <title>学习r2</title>
@@ -412,28 +434,6 @@ waveinfo(&amp;apos;db&amp;apos;)
     
       &lt;p&gt;&lt;code&gt;mat2gray&lt;/code&gt; 将dicom变为grey&lt;br&gt;&lt;code&gt;im2uint8&lt;/code&gt;&lt;/p&gt;
 &lt;hr&gt;
-    
-    </summary>
-    
-    
-      <category term="matlab" scheme="http://finsenty54.github.io/tags/matlab/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>matlab图像示例笔记2</title>
-    <link href="http://finsenty54.github.io/2020/02/07/matlab%E5%9B%BE%E5%83%8F%E7%A4%BA%E4%BE%8B%E7%AC%94%E8%AE%B02/"/>
-    <id>http://finsenty54.github.io/2020/02/07/matlab图像示例笔记2/</id>
-    <published>2020-02-07T08:23:56.000Z</published>
-    <updated>2020-02-10T06:56:33.170Z</updated>
-    
-    <content type="html"><![CDATA[<h4 id="dicom-（a-image-type-using-in-medical"><a href="#dicom-（a-image-type-using-in-medical" class="headerlink" title="dicom （a image type using in medical)"></a>dicom （a image type using in medical)</h4><p>To read <code>metadata</code>from a DICOM file, use the <code>dicominfo function</code></p><hr><p>To read<code>image data</code>from a DICOM file, use the <code>dicomread function.</code></p><a id="more"></a><hr><p>If you just want to view the <code>metadata in a DICOM file</code>, for debugging purposes, you can use the<code>dicomdisp function.</code></p><hr><p>use one of the toolbox image display functions <code>imshow or imtool.</code></p><hr><p>the image data in this DICOM file is signed <code>16-bit data</code>, you must use the autoscaling syntax with either display function to make the image viewable.<br><code>imshow(I,&#39;DisplayRange&#39;,[])</code></p><hr><p>use the <code>dicomanon function</code>. Remove Confidential Information</p><hr><p>To write image data or metadata to a file in DICOM format, use the <code>dicomwrite function</code>.</p><hr><h4 id="Create-New-DICOM-Series"><a href="#Create-New-DICOM-Series" class="headerlink" title="Create New DICOM Series"></a>Create New DICOM Series</h4><pre><code>info.SeriesInstanceUID</code></pre><p>Generate a new DICOM unique identifier (UID) using the <code>dicomuid function.</code></p><pre><code>uid = dicomuidinfo.SeriesInstanceUID = uid;dicomwrite(Imodified,&apos;ankle_newseries.dcm&apos;,info);</code></pre><hr><p>The example finds the maximum and minimum values of all pixels in the image. The pixels that form the white <code>text characters</code>are<code>set to the maximum pixel value</code>. </p><hr><p>MATLAB command prompt: Enter dicomBrowser.</p><hr><p><a href="https://ww2.mathworks.cn/help/releases/R2018a/images/image-type-conversions.html" title="Image Type Conversion" target="_blank" rel="noopener">Image Type Conversion</a></p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h4 id=&quot;dicom-（a-image-type-using-in-medical&quot;&gt;&lt;a href=&quot;#dicom-（a-image-type-using-in-medical&quot; class=&quot;headerlink&quot; title=&quot;dicom （a image type using in medical)&quot;&gt;&lt;/a&gt;dicom （a image type using in medical)&lt;/h4&gt;&lt;p&gt;To read &lt;code&gt;metadata&lt;/code&gt;from a DICOM file, use the &lt;code&gt;dicominfo function&lt;/code&gt;&lt;/p&gt;
-&lt;hr&gt;
-&lt;p&gt;To read&lt;code&gt;image data&lt;/code&gt;from a DICOM file, use the &lt;code&gt;dicomread function.&lt;/code&gt;&lt;/p&gt;
     
     </summary>
     
