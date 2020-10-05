@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://finsenty54.github.io/"/>
-  <updated>2020-09-27T11:20:33.245Z</updated>
+  <updated>2020-10-05T11:14:23.029Z</updated>
   <id>http://finsenty54.github.io/</id>
   
   <author>
@@ -15,6 +15,26 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>ch25.bin</title>
+    <link href="http://finsenty54.github.io/2020/10/05/ch25bin/"/>
+    <id>http://finsenty54.github.io/2020/10/05/ch25bin/</id>
+    <published>2020-10-05T11:13:34.000Z</published>
+    <updated>2020-10-05T11:14:23.029Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="逆向-root-me"><a href="#逆向-root-me" class="headerlink" title="逆向 root_me"></a>逆向 root_me</h2><h3 id="ch25-bin"><a href="#ch25-bin" class="headerlink" title="ch25.bin"></a>ch25.bin</h3><p><a href="https://www.root-me.org/en/Challenges/Cracking/ELF-C-0-protection?lang=en" target="_blank" rel="noopener">https://www.root-me.org/en/Challenges/Cracking/ELF-C-0-protection?lang=en</a><br><a id="more"></a></p><h4 id="识别C-类"><a href="#识别C-类" class="headerlink" title="识别C++类"></a>识别C++类</h4><p>如何识别软件是用C++所写？<br>1 频繁使用ECX 保存this 指针 ，指向类对象，如在调用函数前<br>2 虚函数 要先知道类虚函数表，然后得到实际值，也是传到ECX中<br>3 使用STL code 可用IDA imports查看</p><h4 id="类怎么在内存中存储"><a href="#类怎么在内存中存储" class="headerlink" title="类怎么在内存中存储"></a>类怎么在内存中存储</h4><p>每个变量四字节<br>不足要对齐<br>内存中排列与定义相同</p><hr><p>虚函数表要在最开头<br>表包含虚函数地址，按定义排序</p><p><strong>如果继承另一个类</strong></p><p>继承多个类<br><strong>虚表按顺序排序</strong></p><hr><h4 id="识别类"><a href="#识别类" class="headerlink" title="识别类"></a>识别类</h4><h5 id="1-识别构建和撤销"><a href="#1-识别构建和撤销" class="headerlink" title="1 识别构建和撤销"></a>1 识别构建和撤销</h5><h6 id="1-1-全局变量"><a href="#1-1-全局变量" class="headerlink" title="1.1 全局变量"></a>1.1 全局变量</h6><p>在编译时 保存到（PE）文件的数据段<br>构建在main()前调用</p><h6 id="用this调用全局变量，在EP和main-间，确定为构建"><a href="#用this调用全局变量，在EP和main-间，确定为构建" class="headerlink" title="用this调用全局变量，在EP和main()间，确定为构建"></a>用this调用全局变量，在EP和main()间，确定为构建</h6><p>1.2局部变量<br>指针指向未初始化的栈变量</p><h6 id="1-3动态分配变量-new-）"><a href="#1-3动态分配变量-new-）" class="headerlink" title="1.3动态分配变量 new(）"></a>1.3动态分配变量 new(）</h6><p>堆上分配</p><h5 id="2多态类识别"><a href="#2多态类识别" class="headerlink" title="2多态类识别"></a>2多态类识别</h5><h6 id="2-1鉴别多态通过RTTI，其可以让对象在运行时确定类型。"><a href="#2-1鉴别多态通过RTTI，其可以让对象在运行时确定类型。" class="headerlink" title="2.1鉴别多态通过RTTI，其可以让对象在运行时确定类型。"></a>2.1鉴别多态通过RTTI，其可以让对象在运行时确定类型。</h6><p>RTTICompleteObjectLocator pointer</p><hr><p>TypeDescriptor<br>指向的结构包含类名</p><hr><p>RTTIClassHierarchyDescriptor</p><hr><p>RTTIBaseClassDescriptor</p><hr><p>vftable<br>vbtable (virtual base class table)</p><hr><h3 id="指令E9"><a href="#指令E9" class="headerlink" title="指令E9"></a>指令<code>E9</code></h3><p>指令<code>E9</code>相对寻址<br>e9 xxxxxxxx<br><code>xxxxxxxx=要跳转的地址-当前指令地址-当前指令长度（5）</code><br>e9 00 00 00 00  即跳转到下一个地址<br>402005-402000-5=000000</p><h3 id="指令EB"><a href="#指令EB" class="headerlink" title="指令EB"></a>指令<code>EB</code></h3><p><code>EB</code>表示short jmp命令，进行短距离跳转<br>eb xx</p><hr><h3 id="指令setne"><a href="#指令setne" class="headerlink" title="指令setne"></a>指令setne</h3><p><strong>set  if  not  equal</strong><br>setne cl<br>if ZF=1 then cl=0<br>if ZF=0 then cl=1</p><p>strings 命令<br>display printable strings in [file(s)] (stdin by default)</p><hr><h3 id="破解方法1"><a href="#破解方法1" class="headerlink" title="破解方法1"></a>破解方法1</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">$ gdb ./ch25.bin </span><br><span class="line">(gdb) <span class="built_in">set</span> args toto <span class="comment">//设置输入参数toto</span></span><br><span class="line">(gdb) b main <span class="comment">//在main设置断点</span></span><br><span class="line">Breakpoint <span class="number">1</span> at <span class="number">0x8048a95</span> </span><br><span class="line">(gdb) r  <span class="comment">//运行程序（到断点）</span></span><br><span class="line">Breakpoint <span class="number">1</span>, <span class="number">0x08048a95</span> <span class="function">in <span class="title">main</span> <span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="params">(gdb)</span>disass <span class="comment">//显示汇编代码</span></span></span><br><span class="line">(gdb) b *main+268</span><br><span class="line">gdb)c 继续执行</span><br><span class="line">(gdb) layout prev 可以查看堆栈和汇编代码</span><br><span class="line">(gdb) x/<span class="number">1</span>xw $eax</span><br><span class="line">“ x / <span class="number">1</span>xw $ eax命令在EAX寄存器中包含的地址处显示<span class="number">1</span>个十六进制格式的<span class="number">16</span>位字</span><br><span class="line">(gdb) x/<span class="number">1</span>s <span class="number">0X08050b24</span></span><br><span class="line">查看该地址值</span><br></pre></td></tr></table></figure><h3 id="破解方法2"><a href="#破解方法2" class="headerlink" title="破解方法2"></a>破解方法2</h3><p><code>radare2</code> 类似IDA<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">r2 ch25.bin</span><br><span class="line">aaa <span class="comment">//分析函数，参数...</span></span><br><span class="line">VV @main <span class="comment">//使用 VV 进入 图形化模式（需要是函数范围内）。</span></span><br><span class="line">pdf @ main <span class="comment">//分析后就可以正常打印函数代码了（pdf 打印函数代码）</span></span><br></pre></td></tr></table></figure></p><p>peda是GDB的一个插件<br><a href="https://github.com/longld/peda" target="_blank" rel="noopener">https://github.com/longld/peda</a></p><p>gdb-peda$ run jlkd 带参数运行</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;逆向-root-me&quot;&gt;&lt;a href=&quot;#逆向-root-me&quot; class=&quot;headerlink&quot; title=&quot;逆向 root_me&quot;&gt;&lt;/a&gt;逆向 root_me&lt;/h2&gt;&lt;h3 id=&quot;ch25-bin&quot;&gt;&lt;a href=&quot;#ch25-bin&quot; class=&quot;headerlink&quot; title=&quot;ch25.bin&quot;&gt;&lt;/a&gt;ch25.bin&lt;/h3&gt;&lt;p&gt;&lt;a href=&quot;https://www.root-me.org/en/Challenges/Cracking/ELF-C-0-protection?lang=en&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://www.root-me.org/en/Challenges/Cracking/ELF-C-0-protection?lang=en&lt;/a&gt;&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="RCE" scheme="http://finsenty54.github.io/tags/RCE/"/>
+    
+  </entry>
   
   <entry>
     <title>逆向 学习r2 part2</title>
@@ -413,27 +433,6 @@
 waveletfamilies(&amp;apos;f&amp;apos;)
 waveinfo(&amp;apos;db&amp;apos;)
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt; use wfilters, wavefun, and wpfun to obtain the filters, wavelet, or wavelet packets &lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="matlab" scheme="http://finsenty54.github.io/tags/matlab/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>matlab图像示例笔记3</title>
-    <link href="http://finsenty54.github.io/2020/02/10/matlab%E5%9B%BE%E5%83%8F%E7%A4%BA%E4%BE%8B%E7%AC%94%E8%AE%B03/"/>
-    <id>http://finsenty54.github.io/2020/02/10/matlab图像示例笔记3/</id>
-    <published>2020-02-10T06:47:00.000Z</published>
-    <updated>2020-02-10T06:56:40.270Z</updated>
-    
-    <content type="html"><![CDATA[<p><code>mat2gray</code> 将dicom变为grey<br><code>im2uint8</code></p><hr><a id="more"></a><p> The image on the right has higher contrast, <code>with intensity values that fill the entire intensity range [0, 255].</code></p><hr><p><del>如果指定空矩阵 ([])，则 imshow 使用 [min(I(:)) max(I(:))]。换言之，使用 I 中的最小值作为黑色，使用最大值作为白色。</del></p><hr><p>imadjust<br>You must specify the intensities as values between 0 and 1 regardless of the class of I. If I is uint8, the values you supply are multiplied by 255 to determine the actual values to use; if I is uint16, the values are multiplied by 65535. </p><hr><p>figure<code>,</code>imshow(pout_histeq)<code>;</code><br>title(‘Histeq’);</p><hr><p>ROI<br>Create a Binary Mask<br>You can use the createMask function of the imroi base class to create a binary mask for any type of ROI object — impoint, imline, imrect, imellipse, impoly, or imfreehand. </p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;code&gt;mat2gray&lt;/code&gt; 将dicom变为grey&lt;br&gt;&lt;code&gt;im2uint8&lt;/code&gt;&lt;/p&gt;
-&lt;hr&gt;
     
     </summary>
     
