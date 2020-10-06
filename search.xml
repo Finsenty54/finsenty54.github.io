@@ -4,6 +4,25 @@
   
     
     <entry>
+      <title>逆向工程核心原理_little_summary</title>
+      <link href="/2020/10/06/%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86_little_summary/"/>
+      <url>/2020/10/06/%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86_little_summary/</url>
+      
+        <content type="html"><![CDATA[<h3 id="INT-和-IAT"><a href="#INT-和-IAT" class="headerlink" title="INT 和 IAT"></a>INT 和 IAT</h3><p>INT  是rva数组，INT表示数组首地址 数组元素是一个地址 指向由一个2字节ordinall地址和函数名称组成的结构体  第一个值地址指向第一个结构体</p><p>如果IAT存在于 选择头中IAT表明的地址中 相应没有写权限也没事</p><p>INT和IAT指向内容有时相同 表示地址肯定不同 因为保存在不同地址 所指内容相同</p><a id="more"></a><hr><h3 id="进程内存转储"><a href="#进程内存转储" class="headerlink" title="进程内存转储"></a>进程内存转储</h3><p>OLLYGDB插件？？ dump命令<br>是解压缩运行时，将内存转为文件，方便查看</p><hr><h3 id="代码注入"><a href="#代码注入" class="headerlink" title="代码注入"></a>代码注入</h3><p>使用CALL指令将接下来的在代码间的字符串数据地址压入栈，然后直接接下来运行命令</p><p>CALL EAX<br>EAX保存函数地址<br>32位保存返回内容</p><hr><h3 id="top-命令-linux"><a href="#top-命令-linux" class="headerlink" title="top 命令 (linux)"></a>top 命令 (linux)</h3><p>查看 CPU 时间在 User space 与 Kernel Space 之间的分配情况</p><hr><h3 id="SEH链"><a href="#SEH链" class="headerlink" title="SEH链"></a>SEH链</h3><p>ollydbg VIEW-SEH CHAIN</p><hr><h3 id="API钩取"><a href="#API钩取" class="headerlink" title="API钩取"></a>API钩取</h3><p>windows 中内核模式所有代码共用一个虚拟空间地址，用API传<br>e1 = 9Fh =&gt; 0fh*2^7 = 780h</p><p>使用常规系统资源的API会经由kernel32.dll和ntdll.dll不断向下调用，最后经由SYSENTER命令进入内核模式</p><p><img src="https://s1.ax1x.com/2020/10/06/0N35f1.png" alt="0N35f1.png"></p><hr><p><img src="https://s1.ax1x.com/2020/10/06/0N3vtA.png" alt="0N3vtA.png"></p><hr><h3 id="动态方法常用-调试和注入"><a href="#动态方法常用-调试和注入" class="headerlink" title="动态方法常用 调试和注入"></a>动态方法常用 调试和注入</h3><h4 id="方法1：调试"><a href="#方法1：调试" class="headerlink" title="方法1：调试"></a>方法1：调试</h4><p>异常必须处理为EXCEPTION_BREAKPOINT 汇编指令为int 3 IA-32指令为0xCC </p><p>用异常获取API的控制</p><p>线程上下文，（执行完一个线程时间片，执行另一个），也就是各个寄存器信息，保存在CONTEXT结构体中。</p><p>CONTEXT.esp</p><p>api钩取 获取某个API的控制权</p><h4 id="方法2：DLL注入"><a href="#方法2：DLL注入" class="headerlink" title="方法2：DLL注入"></a>方法2：DLL注入</h4><p>setwindowstextA 表示ASCII<br>setwindowstextW 表示宽字符 win中为Unicode码</p><h3 id="IAT钩取"><a href="#IAT钩取" class="headerlink" title="IAT钩取"></a>IAT钩取</h3><p>通过注入DLL，修改IAT中指向某API的地址改为指向自己API的地址，自己的函数再去调用某API，来达到修改的目的</p><hr><h3 id="搜索API"><a href="#搜索API" class="headerlink" title="搜索API"></a>搜索API</h3><p><strong>在用ollydng进行内部模块call 搜索时，先选取对的模块。右键-select moudle</strong><br>在用ollydbg 中<code>search for name</code>命令</p><hr><h3 id="API代码修改"><a href="#API代码修改" class="headerlink" title="API代码修改"></a>API代码修改</h3><p>将API头五个字节 修改 为JMP XXXXXXXX<br>即跳转到注入的函数中</p><p>通过将ntdll.ZwQuerySystemInformation() 函数形成的链表中删除进程信息即可做到隐藏相关进程。</p><h3 id="全局API钩取"><a href="#全局API钩取" class="headerlink" title="全局API钩取"></a>全局API钩取</h3><p>通过修改ntdll.ZwResumeThread() API</p><h3 id="热补丁-hot-patch"><a href="#热补丁-hot-patch" class="headerlink" title="热补丁 hot patch"></a>热补丁 hot patch</h3><p>修改7字节代码<br>1.二次跳转<br>两字节跳到指令上面，用五字节跳到自己的函数地址<br>2.不用脱钩，地址+2字节，就可正常运行</p><p>ia-32 E9 表示far jmp 五字节。<br><code>E9 XXXXXXXX=要跳转的地址-当前指令地址-当前指令长度（5）</code></p><p>EB 表示 short jmp 两字节<br>依托当前EIP 在-128~127范围间跳转<br><code>XX=要跳转的地址-当前指令地址-当前指令长度（2）</code></p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> RCE </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>ch25.bin</title>
       <link href="/2020/10/05/ch25bin/"/>
       <url>/2020/10/05/ch25bin/</url>
