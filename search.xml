@@ -4,6 +4,25 @@
   
     
     <entry>
+      <title>逆向_root_me_2</title>
+      <link href="/2020/10/07/%E9%80%86%E5%90%91_root_me_2/"/>
+      <url>/2020/10/07/%E9%80%86%E5%90%91_root_me_2/</url>
+      
+        <content type="html"><![CDATA[<h2 id="逆向-root-me"><a href="#逆向-root-me" class="headerlink" title="逆向 root_me"></a>逆向 root_me</h2><h3 id="PE-NET"><a href="#PE-NET" class="headerlink" title="PE .NET"></a>PE .NET</h3><p><a href="https://www.root-me.org/en/Challenges/Cracking/PE-DotNet-0-protection" target="_blank" rel="noopener">https://www.root-me.org/en/Challenges/Cracking/PE-DotNet-0-protection</a></p><a id="more"></a><h3 id="MIPS-ELF-MIPS-Basic-Crackme"><a href="#MIPS-ELF-MIPS-Basic-Crackme" class="headerlink" title="MIPS. ELF MIPS - Basic Crackme"></a>MIPS. ELF MIPS - Basic Crackme</h3><p><a href="https://www.root-me.org/en/Challenges/Cracking/ELF-MIPS-Basic-Crackme" target="_blank" rel="noopener">https://www.root-me.org/en/Challenges/Cracking/ELF-MIPS-Basic-Crackme</a></p><p>在MIPS架构中，“ $ ra”寄存器保存返回地址，类似于x86指令指针“ EIP”</p><h3 id="ELF-fake-instrucations"><a href="#ELF-fake-instrucations" class="headerlink" title="ELF  fake instrucations"></a>ELF  fake instrucations</h3><p><a href="https://www.root-me.org/en/Challenges/Cracking/ELF-x86-No-software-breakpoints" target="_blank" rel="noopener">https://www.root-me.org/en/Challenges/Cracking/ELF-x86-No-software-breakpoints</a></p><pre><code>dis main  gdb-peda$ set disassembly-flavor intel //汇编用intel语言显示gdb-peda$ i r $edx //显示edx值ni //ni/si都是汇编级别的断点定位。si会进入汇编和C函数内部,ni不会//这两个命令（si/ni）所针对的是汇编指令，而s/n针对的是源代码</code></pre><p><code>jz</code> 表示当<code>zf =1</code>时跳转，即结果为0跳转。<br><code>jnz</code> 即 <code>zf=0</code>时跳转，即结果不为0 跳转。</p><pre><code>gdb-peda$ i r //全显示gdb-peda$ set $eax=0gdb-peda$ x/s $eax //查看寄存器指向的内容call WPA(&quot;toto&quot;, &quot;toto&quot;) //直接在gdb中运行命令？？</code></pre><h3 id="ELF-ptrace"><a href="#ELF-ptrace" class="headerlink" title="ELF ptrace"></a>ELF ptrace</h3><p><a href="https://www.root-me.org/en/Challenges/Cracking/ELF-x86-Ptrace" target="_blank" rel="noopener">https://www.root-me.org/en/Challenges/Cracking/ELF-x86-Ptrace</a></p><p><em>Load the application into <code>IDA pro</code>,search main function,press <code>F5</code>to disassemble it,get the code below:</em><br><code>IDA 按F5 反编译 生成伪代码</code></p><hr><p><code>r2 -ww ./ch3.bin</code></p><pre><code>-w           open file in write modeww foobar            write wide string &apos;f\x00o\x00o\x00b\x00a\x00r\x00&apos;wx 9090     write two intel nops</code></pre><p><code>[0x080482f0]&gt; wx eb @ 0x0804841A</code><br>Short Jump（短跳转）机器码 EB</p><p><code>pd N             disassemble N instructions</code></p><pre><code>gdb-peda$ i b set $al=$dl </code></pre>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> RCE </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>逆向工程核心原理_little_summary</title>
       <link href="/2020/10/06/%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86_little_summary/"/>
       <url>/2020/10/06/%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86_little_summary/</url>

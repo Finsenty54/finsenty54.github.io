@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://finsenty54.github.io/"/>
-  <updated>2020-10-06T06:19:13.677Z</updated>
+  <updated>2020-10-07T06:29:06.581Z</updated>
   <id>http://finsenty54.github.io/</id>
   
   <author>
@@ -15,6 +15,26 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>逆向_root_me_2</title>
+    <link href="http://finsenty54.github.io/2020/10/07/%E9%80%86%E5%90%91_root_me_2/"/>
+    <id>http://finsenty54.github.io/2020/10/07/逆向_root_me_2/</id>
+    <published>2020-10-07T06:27:22.000Z</published>
+    <updated>2020-10-07T06:29:06.581Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="逆向-root-me"><a href="#逆向-root-me" class="headerlink" title="逆向 root_me"></a>逆向 root_me</h2><h3 id="PE-NET"><a href="#PE-NET" class="headerlink" title="PE .NET"></a>PE .NET</h3><p><a href="https://www.root-me.org/en/Challenges/Cracking/PE-DotNet-0-protection" target="_blank" rel="noopener">https://www.root-me.org/en/Challenges/Cracking/PE-DotNet-0-protection</a></p><a id="more"></a><h3 id="MIPS-ELF-MIPS-Basic-Crackme"><a href="#MIPS-ELF-MIPS-Basic-Crackme" class="headerlink" title="MIPS. ELF MIPS - Basic Crackme"></a>MIPS. ELF MIPS - Basic Crackme</h3><p><a href="https://www.root-me.org/en/Challenges/Cracking/ELF-MIPS-Basic-Crackme" target="_blank" rel="noopener">https://www.root-me.org/en/Challenges/Cracking/ELF-MIPS-Basic-Crackme</a></p><p>在MIPS架构中，“ $ ra”寄存器保存返回地址，类似于x86指令指针“ EIP”</p><h3 id="ELF-fake-instrucations"><a href="#ELF-fake-instrucations" class="headerlink" title="ELF  fake instrucations"></a>ELF  fake instrucations</h3><p><a href="https://www.root-me.org/en/Challenges/Cracking/ELF-x86-No-software-breakpoints" target="_blank" rel="noopener">https://www.root-me.org/en/Challenges/Cracking/ELF-x86-No-software-breakpoints</a></p><pre><code>dis main  gdb-peda$ set disassembly-flavor intel //汇编用intel语言显示gdb-peda$ i r $edx //显示edx值ni //ni/si都是汇编级别的断点定位。si会进入汇编和C函数内部,ni不会//这两个命令（si/ni）所针对的是汇编指令，而s/n针对的是源代码</code></pre><p><code>jz</code> 表示当<code>zf =1</code>时跳转，即结果为0跳转。<br><code>jnz</code> 即 <code>zf=0</code>时跳转，即结果不为0 跳转。</p><pre><code>gdb-peda$ i r //全显示gdb-peda$ set $eax=0gdb-peda$ x/s $eax //查看寄存器指向的内容call WPA(&quot;toto&quot;, &quot;toto&quot;) //直接在gdb中运行命令？？</code></pre><h3 id="ELF-ptrace"><a href="#ELF-ptrace" class="headerlink" title="ELF ptrace"></a>ELF ptrace</h3><p><a href="https://www.root-me.org/en/Challenges/Cracking/ELF-x86-Ptrace" target="_blank" rel="noopener">https://www.root-me.org/en/Challenges/Cracking/ELF-x86-Ptrace</a></p><p><em>Load the application into <code>IDA pro</code>,search main function,press <code>F5</code>to disassemble it,get the code below:</em><br><code>IDA 按F5 反编译 生成伪代码</code></p><hr><p><code>r2 -ww ./ch3.bin</code></p><pre><code>-w           open file in write modeww foobar            write wide string &apos;f\x00o\x00o\x00b\x00a\x00r\x00&apos;wx 9090     write two intel nops</code></pre><p><code>[0x080482f0]&gt; wx eb @ 0x0804841A</code><br>Short Jump（短跳转）机器码 EB</p><p><code>pd N             disassemble N instructions</code></p><pre><code>gdb-peda$ i b set $al=$dl </code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;逆向-root-me&quot;&gt;&lt;a href=&quot;#逆向-root-me&quot; class=&quot;headerlink&quot; title=&quot;逆向 root_me&quot;&gt;&lt;/a&gt;逆向 root_me&lt;/h2&gt;&lt;h3 id=&quot;PE-NET&quot;&gt;&lt;a href=&quot;#PE-NET&quot; class=&quot;headerlink&quot; title=&quot;PE .NET&quot;&gt;&lt;/a&gt;PE .NET&lt;/h3&gt;&lt;p&gt;&lt;a href=&quot;https://www.root-me.org/en/Challenges/Cracking/PE-DotNet-0-protection&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://www.root-me.org/en/Challenges/Cracking/PE-DotNet-0-protection&lt;/a&gt;&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="RCE" scheme="http://finsenty54.github.io/tags/RCE/"/>
+    
+  </entry>
   
   <entry>
     <title>逆向工程核心原理_little_summary</title>
@@ -411,27 +431,6 @@
     <summary type="html">
     
       &lt;p&gt;RGB  三个二维数组分别表示R,G,B&lt;br&gt;即，如果imshow的参数类型为double ，那么参数的取值范围只有在[0 1]才会正常显示。当值大于1时，都显示白色。这与matlab的传统是一致的， 对于灰度图像，uint8表示范围是[0 255] ,double表示范围是[0 1]&lt;br&gt;
-    
-    </summary>
-    
-    
-      <category term="matlab" scheme="http://finsenty54.github.io/tags/matlab/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>matlab_haar2</title>
-    <link href="http://finsenty54.github.io/2020/02/12/matlab_haar2/"/>
-    <id>http://finsenty54.github.io/2020/02/12/matlab_haar2/</id>
-    <published>2020-02-12T06:09:07.000Z</published>
-    <updated>2020-02-12T06:09:39.007Z</updated>
-    
-    <content type="html"><![CDATA[<p><code>imbinarize</code><br>Binarize 2-D grayscale image or 3-D volume by thresholding</p><hr><a id="more"></a><p>64:1<br>ans =<br>  空的 1×0 double 行向量<br><del>我人傻了</del><br><code>注意文件所在文件夹</code><br><del>这两个问题弄了我一下午</del></p><hr><p>图形的函数 fliplr 可以从左往右地翻转矩阵</p><hr><p>我觉得我懂炒股了<br><a href="http://player.bilibili.com/player.html?aid=68967083&amp;cid=119544791&amp;page=1" target="_blank" rel="noopener">https://player.bilibili.com/player.html?aid=68967083&amp;cid=119544791&amp;page=1</a></p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;code&gt;imbinarize&lt;/code&gt;&lt;br&gt;Binarize 2-D grayscale image or 3-D volume by thresholding&lt;/p&gt;
-&lt;hr&gt;
     
     </summary>
     
