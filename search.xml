@@ -4,6 +4,25 @@
   
     
     <entry>
+      <title>逆向_root_me_3</title>
+      <link href="/2020/10/08/%E9%80%86%E5%90%91_root_me_3/"/>
+      <url>/2020/10/08/%E9%80%86%E5%90%91_root_me_3/</url>
+      
+        <content type="html"><![CDATA[<h2 id="ELF-x86-No-software-breakpoints"><a href="#ELF-x86-No-software-breakpoints" class="headerlink" title="ELF x86 - No software breakpoints"></a>ELF x86 - No software breakpoints</h2><h3 id="看反汇编，大致了解过程"><a href="#看反汇编，大致了解过程" class="headerlink" title="看反汇编，大致了解过程"></a>看反汇编，大致了解过程</h3><p>这是众所周知的<code>反调试</code>技术，它不能在应用程序本身中<code>放置任何软件断点</code>。因为当我们在<code>用户模式</code>应用程序中遇到<code>断点</code>时，代码中将放入<code>0xCC（int3）</code>，因此计算将是错误的，并将生成错误的<code>校验和</code>.<br><a id="more"></a><br>这是在ecx中计算一种散列值，它基于入口点的整个代码。如果我们对函数进行任何更改，值将不再相同，从而阻止我们编辑二进制文件.</p><p>计算整个<code>text 指令的和</code>，所以放入<code>0xCC</code>会 报错，也就是改变的指令。</p><hr><h3 id="移位运算符"><a href="#移位运算符" class="headerlink" title="移位运算符"></a>移位运算符</h3><p>a&lt;&lt;3<br><code>a的内容不改变</code></p><p><code>edx &amp; 0xff</code><br>取最后8位</p><hr><h3 id="g"><a href="#g" class="headerlink" title="g++"></a>g++</h3><pre><code>g++主要用来编译c++文件，g++编译c++文件是会连接libc++。gcc主要用来编译c文件，也可编译c++，但gcc编译c++文件默认不连接libc++。</code></pre><hr><h3 id="移位"><a href="#移位" class="headerlink" title="移位"></a>移位</h3><p>移位时，移出的位数全部丢弃，移出的空位补入的数与左移还是右移有关。如果是<code>左移</code>，则规定补入的数全部是<code>0</code>；如果是<code>右移</code>，还与被移位的数据是否带<code>符号</code>有关。若是<code>不带符号数</code>，则补入的数全部为<code>0</code>；若是<code>带符号数</code>，则补入的数全部等于原数的最左端位上的原数(即<code>原符号位</code>)</p><hr><h3 id="命名空间"><a href="#命名空间" class="headerlink" title="命名空间"></a>命名空间</h3><p>引入了命名空间这个概念，它可作为<code>附加信息来区分</code>不同库中相同名称的函数、类、变量等。使用了命名空间即定义了上下文。本质上，命名空间就是定义了<code>一个范围</code>。</p><p>可以使用 <code>using namespace</code> 指令，这样在使用命名空间时就可以<code>不用在前面加上</code>命名空间的名称。这个指令会告诉编译器，后续的代码将使用指定的命名空间中的名称。</p><hr><h2 id="ELF-x86-CrackPass"><a href="#ELF-x86-CrackPass" class="headerlink" title="ELF x86 - CrackPass"></a>ELF x86 - CrackPass</h2><p><code>gdb-peda$ help x</code><br>Examine memory: x/FMT ADDRESS.</p><hr><p><code>gdb-peda$ print/t $ebx</code><br>二进制打印寄存器</p><hr><pre><code>set $ZF = 6set $eflags |= (1 &lt;&lt; $ZF)</code></pre><p>设定ZF值为1</p><hr><p><code>show</code></p><hr><p><code>where</code><br>显示当前位置</p><hr><p><code>MOVZX</code> 指令（进行全零扩展并传送）将源操作数复制到目的操作数，并把目的操作数 扩展到 16 位或 32 位。</p><hr><h3 id="r2-图形模式下，如何跳转和返回函数"><a href="#r2-图形模式下，如何跳转和返回函数" class="headerlink" title="r2 图形模式下，如何跳转和返回函数"></a>r2 图形模式下，如何跳转和返回函数</h3><p>图形模式下，按<code>o</code>进行跳转<br>按<code>u</code>返回上一个函数</p><hr><p>ff07031d6fb052490149f44b1d5e94f1592b6bac93c06ca9</p><p>25260060504_VE_T25_<em>t</em>_</p><hr><p><code>Usage: jump LOCATION</code><br>Give as argument either LINENUM or *ADDR, where ADDR is an express</p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> RCE </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>逆向_root_me_2</title>
       <link href="/2020/10/07/%E9%80%86%E5%90%91_root_me_2/"/>
       <url>/2020/10/07/%E9%80%86%E5%90%91_root_me_2/</url>
