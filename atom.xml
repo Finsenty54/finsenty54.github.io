@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://finsenty54.github.io/"/>
-  <updated>2020-10-12T08:08:47.094Z</updated>
+  <updated>2020-10-13T11:03:41.587Z</updated>
   <id>http://finsenty54.github.io/</id>
   
   <author>
@@ -15,6 +15,26 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>root_me_PE_x86_SEHVEH_WP</title>
+    <link href="http://finsenty54.github.io/2020/10/13/root_me_PE_x86_SEHVEH_WP/"/>
+    <id>http://finsenty54.github.io/2020/10/13/root_me_PE_x86_SEHVEH_WP/</id>
+    <published>2020-10-13T11:02:38.000Z</published>
+    <updated>2020-10-13T11:03:41.587Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="PE-DotNet-0-protection"><a href="#PE-DotNet-0-protection" class="headerlink" title="PE DotNet - 0 protection"></a>PE DotNet - 0 protection</h3><p>使用 <code>NET relector</code>工具<br>或者<code>dnSPY</code><br><a href="https://github.com/0xd4d/dnSpy/releases" target="_blank" rel="noopener">https://github.com/0xd4d/dnSpy/releases</a><br>就可以破解</p><a id="more"></a><hr><h3 id="ELF-x64-Crackme-automating"><a href="#ELF-x64-Crackme-automating" class="headerlink" title="ELF x64 - Crackme automating"></a>ELF x64 - Crackme automating</h3><p>python 编程</p><p><code>别人写的代码</code><br><a href="https://mydiary42.wordpress.com/2019/01/26/root-me-crackme-automating/" target="_blank" rel="noopener">https://mydiary42.wordpress.com/2019/01/26/root-me-crackme-automating/</a></p><p>int([x]) -&gt; integer<br>int(x, base=10) -&gt; integer<br>将数字或字符转为整形<br>Convert a number or string to an integer, or return 0 if no arguments are given. </p><pre><code>num=line[addr+1,-1]byte.append(int (num,16)) //将num变为16进制</code></pre><p>使用<code>pwntools</code> / <code>Capstone</code> /<code>objdump</code> 获得反汇编代码<br>之后进行搜索</p><hr><h3 id="PE-x86-SEHVEH-WP"><a href="#PE-x86-SEHVEH-WP" class="headerlink" title="PE x86 - SEHVEH_WP"></a>PE x86 - SEHVEH_WP</h3><p>从题目知道是关于SEH 和 VEH（VectoredExceptionHandler）的。</p><p><em>OllyDBG 查看seh链 选择 <code>view-seh chain</code></em></p><hr><ol><li><p>在输入后进入主要部分。<br><img src="https://s1.ax1x.com/2020/10/13/0hMvnK.jpg" alt="0hMvnK.jpg" border="0"><br>这段不是很懂，根据多次调试后判断，如果输入12个字节，则<code>0xB814A8</code>处就可以跳转，使<code>EBP</code>为0.<br><img src="https://s1.ax1x.com/2020/10/13/0hQv2n.jpg" alt="0hQv2n.jpg" border="0"><br>为0，即表示密码正确，会输入成功语句。</p></li><li><p>接下来是第一部分密码<br><img src="https://s1.ax1x.com/2020/10/13/0hllIe.jpg" alt="0hllIe.jpg" border="0"><br><code>LODS</code>即将密码头四个字节放入<code>EAX</code>中，将<code>0x5A643059 xor 0x 3628552E</code>得到第一部分密码，还需反序排列为<code>weLl</code></p></li><li><p>FS：[0] 为TEB结构体中指向第一个SEH结构体地址<br><img src="https://s1.ax1x.com/2020/10/13/0h1iOP.jpg" alt="0h1iOP.jpg" border="0"><br><img src="https://s1.ax1x.com/2020/10/13/0h1fXt.jpg" alt="0h1fXt.jpg" border="0"><br>即<code>0xEFFC14</code>.<br>接着，执行<code>INT 1</code>指令后，会进入<code>0xDB1D60</code>处的第一个SEH函数。<br><img src="https://s1.ax1x.com/2020/10/13/0hdwPP.jpg" alt="0hdwPP.jpg" border="0"><br>SEH函数的第三个参数，即<code>[ESP+C]</code>为pContext的地址，pContext保存线程切换时的寄存器信息。在PE 32位下，<code>+0xB0</code>为EAX寄存器的值，<code>0xB81D64</code>处将<code>0x48335621</code>加到<code>EAX+0xB0</code>中，保存着输入的第二部分四字节密码。<br><code>+0xB8</code>为EIP寄存器的值，通过下面的判断将EIP值加2，结果为<code>0xB814E4</code>，即<code>INT 1</code>指令的下一条指令地址。<br><code>XOR EAX,EAX</code>将EAX置0，表示从发生异常的代码处继续执行。<br><img src="https://s1.ax1x.com/2020/10/13/0hwUL4.jpg" alt="0hwUL4.jpg" border="0"><br>最后计算如下：<br><code>FF2C F8E5 XOR 495F 4265 = B673 BA80 - 48335621 = 6E40 645F=n@d_</code><br>反序排列为<code>_d@n</code></p></li><li><p><code>0xB814FF</code>处调用<code>AddVectoredExceptionHandler</code>函数，新增一个SEH函数。<br><img src="https://s1.ax1x.com/2020/10/13/0h09pV.jpg" alt="0h09pV.jpg" border="0"><br>以下摘自<a href="https://docs.microsoft.com/en-us/windows/win32/api/errhandlingapi/nf-errhandlingapi-addvectoredexceptionhandler" target="_blank" rel="noopener">https://docs.microsoft.com/en-us/windows/win32/api/errhandlingapi/nf-errhandlingapi-addvectoredexceptionhandler</a></p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">PVOID <span class="title">AddVectoredExceptionHandler</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">  ULONG                       First,</span></span></span><br><span class="line"><span class="function"><span class="params">  PVECTORED_EXCEPTION_HANDLER Handler</span></span></span><br><span class="line"><span class="function"><span class="params">)</span></span>;</span><br></pre></td></tr></table></figure></li></ol><p><code>First</code><br>The order in which the handler should be called. If the parameter is nonzero, the handler is the first handler to be called. If the parameter is zero, the handler is the last handler to be called.<br>如果不为0，则成为第一个调用的SEH函数，从图中可以看到，<code>First=1</code>.<br><code>Handler</code><br>A pointer to the handler to be called. For more information, see VectoredHandler.<br>从图中看出，函数地址为<code>0xB81940</code>，<br><code>Return value</code><br>If the function succeeds, the return value is a handle to the exception handler.<br>If the function fails, the return value is NULL.<br><img src="https://s1.ax1x.com/2020/10/13/0h0zHH.jpg" alt="0h0zHH.jpg" border="0"><br>该函数将第三部分的四字节密码减去了一个数，之后，又执行第二个SEH函数。<code>有个疑问是这里将返回值置0，又怎么执行第二个SEH函数。</code><br>最后计算如下：<br><code>3C4C7440 xor 74406653 =480C 1213 + 21486553 - 48335621=21212145=!!!E</code><br>反序排列为<code>E!!!</code></p><ol><li>最后三部分密码组合在一起：<code>weLl_d@nE!!!</code><br><img src="https://s1.ax1x.com/2020/10/13/0hDnsO.jpg" alt="0hDnsO.jpg" border="0"><br>密码正确</li></ol>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;PE-DotNet-0-protection&quot;&gt;&lt;a href=&quot;#PE-DotNet-0-protection&quot; class=&quot;headerlink&quot; title=&quot;PE DotNet - 0 protection&quot;&gt;&lt;/a&gt;PE DotNet - 0 protection&lt;/h3&gt;&lt;p&gt;使用 &lt;code&gt;NET relector&lt;/code&gt;工具&lt;br&gt;或者&lt;code&gt;dnSPY&lt;/code&gt;&lt;br&gt;&lt;a href=&quot;https://github.com/0xd4d/dnSpy/releases&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://github.com/0xd4d/dnSpy/releases&lt;/a&gt;&lt;br&gt;就可以破解&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="RCE" scheme="http://finsenty54.github.io/tags/RCE/"/>
+    
+  </entry>
   
   <entry>
     <title>damCTF- rev/schlage (beginner) __WP</title>
@@ -411,28 +431,6 @@
       &lt;p&gt;凸二次规划 ==  开口向下&lt;/p&gt;
 &lt;hr&gt;
 &lt;p&gt;分类靠支撑向量计算  其 a~=0&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="SVM" scheme="http://finsenty54.github.io/tags/SVM/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>SVM学习笔记1</title>
-    <link href="http://finsenty54.github.io/2020/03/31/SVM%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B01/"/>
-    <id>http://finsenty54.github.io/2020/03/31/SVM学习笔记1/</id>
-    <published>2020-03-31T09:06:21.000Z</published>
-    <updated>2020-03-31T11:35:13.640Z</updated>
-    
-    <content type="html"><![CDATA[<p><a href="https://m.youtube.com/watch?v=Hu71tIm1iX0&amp;list=PLt0SBi1p7xrRKE2us8doqryRou6eDYEOy&amp;index=9&amp;t=0s" target="_blank" rel="noopener">https://m.youtube.com/watch?v=Hu71tIm1iX0&amp;list=PLt0SBi1p7xrRKE2us8doqryRou6eDYEOy&amp;index=9&amp;t=0s</a><br>参考视频课程</p><p>mvnrnd（）产生特定均值和协方差的矩阵</p><hr><a id="more"></a><p>kenel 矩阵要有限正半定，kenel函数：R^d-&gt;R<br><a href="https://imgchr.com/i/GQilQJ" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2020/03/31/GQilQJ.th.png" alt="GQilQJ.th.png"></a></p><hr><p>常见kenel 可以自己构造<br><a href="https://imgchr.com/i/GQF9Tx" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2020/03/31/GQF9Tx.th.png" alt="GQF9Tx.th.png"></a></p><hr><p>REPRODUCING KENEL MAP<br>由kenel 推出 feature mapping 以及其逆<br><img src="https://s1.ax1x.com/2020/03/31/GQdhI1.png" alt="GQdhI1.png"></p><hr><p>Principal Component Analysis 主成分分析<br>KPCA</p><hr><p>Linear Discriminant Analysis 線性區別分析<br>投影坐标：内积*v<br>廣義區別分析(Generalized Discriminant Analysis)。</p><p><img src="https://s1.ax1x.com/2020/03/31/GQUvmd.png" alt="GQUvmd.png"></p><hr><p>KKT svm证明中会用到<br><img src="https://s1.ax1x.com/2020/03/31/GQdzJP.png" alt="GQdzJP.png"></p><p><img src="https://s1.ax1x.com/2020/03/31/GQwZiq.png" alt="GQwZiq.png"></p><hr><p>其他</p><p><a href="https://ww2.mathworks.cn/help/matlab/data-type-conversion.html" target="_blank" rel="noopener">https://ww2.mathworks.cn/help/matlab/data-type-conversion.html</a><br>matlab 数据类型转换</p><pre><code>&lt;iframe width=&quot;560&quot; height=&quot;315&quot; src=&quot;https://www.youtube.com/embed/Ap0huJwyT7g&quot; frameborder=&quot;0&quot; allow=&quot;accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture&quot; allowfullscreen&gt;&lt;/iframe&gt;</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;a href=&quot;https://m.youtube.com/watch?v=Hu71tIm1iX0&amp;amp;list=PLt0SBi1p7xrRKE2us8doqryRou6eDYEOy&amp;amp;index=9&amp;amp;t=0s&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://m.youtube.com/watch?v=Hu71tIm1iX0&amp;amp;list=PLt0SBi1p7xrRKE2us8doqryRou6eDYEOy&amp;amp;index=9&amp;amp;t=0s&lt;/a&gt;&lt;br&gt;参考视频课程&lt;/p&gt;
-&lt;p&gt;mvnrnd（）产生特定均值和协方差的矩阵&lt;/p&gt;
-&lt;hr&gt;
     
     </summary>
     
