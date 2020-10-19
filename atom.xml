@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://finsenty54.github.io/"/>
-  <updated>2020-10-13T11:03:41.587Z</updated>
+  <updated>2020-10-19T02:10:41.090Z</updated>
   <id>http://finsenty54.github.io/</id>
   
   <author>
@@ -15,6 +15,26 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>逆向_root_me_4</title>
+    <link href="http://finsenty54.github.io/2020/10/19/%E9%80%86%E5%90%91_root_me_4/"/>
+    <id>http://finsenty54.github.io/2020/10/19/逆向_root_me_4/</id>
+    <published>2020-10-19T02:09:51.000Z</published>
+    <updated>2020-10-19T02:10:41.090Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="ELF-—-Random-Crackme"><a href="#ELF-—-Random-Crackme" class="headerlink" title="ELF — Random Crackme"></a>ELF — Random Crackme</h2><p>将<code>magic</code>之前的内容都删除，因为之前的垃圾内容，使得不能运行ELF文件<br><code>ELF files start with 7f 45 4c 46</code><br><a href="https://imgchr.com/i/0v8xN8" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2020/10/19/0v8xN8.jpg" alt="0v8xN8.jpg" border="0"></a></p><a id="more"></a><hr><p><code>r2 -ww ./ch3.bin</code><br><code>-w</code>          open file in write mode<br><code>ww foobar</code>            write wide string ‘f\x00o\x00o\x00b\x00a\x00r\x00’<br> <code>wx 9090</code>     write two intel nops</p><pre><code>[0x080482f0]&gt; wx eb @ 0x0804841A</code></pre><p><code>Short Jump</code>（短跳转）机器码 <code>EB</code></p><hr><p><a href="https://imgchr.com/i/0vGPjs" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2020/10/19/0vGPjs.jpg" alt="0vGPjs.jpg" border="0"></a></p><p>用time,rand产生随机密码<br>gdb 直接设置<code>eip</code> 跳过代码</p><pre><code>set $eip=xxxx</code></pre><p>再运行<code>c</code></p><hr><pre><code>binwalk crackme_wtf</code></pre><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">r2</span><br><span class="line">aaa</span><br><span class="line">afl <span class="comment">//list function</span></span><br><span class="line">s sym.main</span><br></pre></td></tr></table></figure><h2 id="ELF-x64-Crackme-automating"><a href="#ELF-x64-Crackme-automating" class="headerlink" title="ELF x64 - Crackme automating"></a>ELF x64 - Crackme automating</h2><p>str=”break\n”<br>var4=0<br>var8=0xf7<br><code>(MOVSXD r64, r/m32</code> Move doubleword to quadword with sign-extension.<br>这是64位代码中的指令，它将32位寄存器或地址转换为32位值，并将其符号扩展为64位寄存器。 符号扩展采用源的最高位（符号位）的值，并使用它来填充目标的所有高位。)</p><p>var4+str<br>位置加var4<br>(<code>movzx</code>是将源操作数的内容拷贝到目的操作数，并将该值用0扩展至16位或者32位。但是它只适用于无符号整数。 他大致下面的三种格式。)</p><p>str[0]<br><code>MOVSX</code> 指令（进行符号扩展并传送）将源操作数内容复制到目的操作数，并把目的操作数符号扩展到 16 位或 32 位。这条指令只用于有符号整数，</p><p><code>xor (str[0] ,0xa3)=0xf7</code></p><p><code>str[1]</code></p><p><code>cmp eax, 0xf7</code></p><p>注：上篇有自动化代码链接</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;ELF-—-Random-Crackme&quot;&gt;&lt;a href=&quot;#ELF-—-Random-Crackme&quot; class=&quot;headerlink&quot; title=&quot;ELF — Random Crackme&quot;&gt;&lt;/a&gt;ELF — Random Crackme&lt;/h2&gt;&lt;p&gt;将&lt;code&gt;magic&lt;/code&gt;之前的内容都删除，因为之前的垃圾内容，使得不能运行ELF文件&lt;br&gt;&lt;code&gt;ELF files start with 7f 45 4c 46&lt;/code&gt;&lt;br&gt;&lt;a href=&quot;https://imgchr.com/i/0v8xN8&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;&lt;img src=&quot;https://s1.ax1x.com/2020/10/19/0v8xN8.jpg&quot; alt=&quot;0v8xN8.jpg&quot; border=&quot;0&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="RCE" scheme="http://finsenty54.github.io/tags/RCE/"/>
+    
+  </entry>
   
   <entry>
     <title>root_me_PE_x86_SEHVEH_WP</title>
@@ -414,28 +434,6 @@
     
     
       <category term="CTF" scheme="http://finsenty54.github.io/tags/CTF/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>SVM学习笔记2</title>
-    <link href="http://finsenty54.github.io/2020/04/01/SVM%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B02/"/>
-    <id>http://finsenty54.github.io/2020/04/01/SVM学习笔记2/</id>
-    <published>2020-04-01T12:17:15.000Z</published>
-    <updated>2020-04-01T12:18:45.372Z</updated>
-    
-    <content type="html"><![CDATA[<p>凸二次规划 ==  开口向下</p><hr><p>分类靠支撑向量计算  其 a~=0</p><a id="more"></a><hr><p>hard-margin</p><p>soft-margin 容忍一些误差<br>每个容忍值和希望最小</p><hr><p>KKT帮助确定a ， L函数系数 拉格朗日</p><hr><p>K-fold 数据分成k份进行train test<br>获取最佳参数</p><p>调用crossval就是要找到参数C(惩罚系数)和sigma，使误分率mcr最小</p><hr><p>one vs one<br>多类判定投票</p><p>one vs all<br>有符号距离取最大</p><hr><p>才发现 matlab %%<br>%%<br>运行节</p><hr><p>代码<br>参考 <a href="http://www.matlabsky.com/thread-11026-1-1.html" target="_blank" rel="noopener">http://www.matlabsky.com/thread-11026-1-1.html</a></p><p><code>fitcsvm()</code><br>使用<code>&#39;OptimizeHyperparameters&#39;</code>- 要优化的参数 和<br><code>&#39;HyperparameterOptimizationOptions&#39;</code> - 优化的选项<br><code>来找到最佳sigma 和 C 罚因子</code></p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;凸二次规划 ==  开口向下&lt;/p&gt;
-&lt;hr&gt;
-&lt;p&gt;分类靠支撑向量计算  其 a~=0&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="SVM" scheme="http://finsenty54.github.io/tags/SVM/"/>
     
   </entry>
   
