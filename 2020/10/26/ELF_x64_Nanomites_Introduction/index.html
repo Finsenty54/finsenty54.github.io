@@ -20,19 +20,20 @@
     var CONFIG = {"hostname":"finsenty54.github.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","width":320,"display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"disqus","storage":true,"lazyload":false,"nav":null,"activeClass":"disqus"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="blog">
-<meta name="keywords" content="study">
-<meta property="og:type" content="website">
-<meta property="og:title" content="FINSENTY54">
-<meta property="og:url" content="http://finsenty54.github.io/archives/2019/index.html">
+  <meta name="description" content="ELF x64 - Nanomites - Introductionmmapmmap只是在虚拟内存分配了地址空间，只有在第一次访问虚拟内存的时候才分配物理内存。 void *mmap(void *addr, size_t length, int prot, int flags, int fd, off_t offset);">
+<meta name="keywords" content="RCE">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ELF_x64_Nanomites_Introduction">
+<meta property="og:url" content="http://finsenty54.github.io/2020/10/26/ELF_x64_Nanomites_Introduction/index.html">
 <meta property="og:site_name" content="FINSENTY54">
-<meta property="og:description" content="blog">
+<meta property="og:description" content="ELF x64 - Nanomites - Introductionmmapmmap只是在虚拟内存分配了地址空间，只有在第一次访问虚拟内存的时候才分配物理内存。 void *mmap(void *addr, size_t length, int prot, int flags, int fd, off_t offset);">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-10-26T02:12:52.564Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="FINSENTY54">
-<meta name="twitter:description" content="blog">
+<meta name="twitter:title" content="ELF_x64_Nanomites_Introduction">
+<meta name="twitter:description" content="ELF x64 - Nanomites - Introductionmmapmmap只是在虚拟内存分配了地址空间，只有在第一次访问虚拟内存的时候才分配物理内存。 void *mmap(void *addr, size_t length, int prot, int flags, int fd, off_t offset);">
 
-<link rel="canonical" href="http://finsenty54.github.io/archives/2019/">
+<link rel="canonical" href="http://finsenty54.github.io/2020/10/26/ELF_x64_Nanomites_Introduction/">
 
 
 <script id="page-configurations">
@@ -40,12 +41,12 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>归档 | FINSENTY54</title>
+  <title>ELF_x64_Nanomites_Introduction | FINSENTY54</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-135283153-1"></script>
     <script>
@@ -199,240 +200,169 @@
         <div class="content-wrap">
           
 
-          <div class="content archive">
+          <div class="content post posts-expand">
             
 
+    
   
   
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://finsenty54.github.io/2020/10/26/ELF_x64_Nanomites_Introduction/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="finsenty54">
+      <meta itemprop="description" content="blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="FINSENTY54">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          ELF_x64_Nanomites_Introduction
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-10-26 10:08:58 / 修改时间：10:12:52" itemprop="dateCreated datePublished" datetime="2020-10-26T10:08:58+08:00">2020-10-26</time>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
   
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        
-        <span class="collection-header">不错! 目前共计 52 篇日志。 继续努力。</span>
-      </div>
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2020/10/26/ELF_x64_Nanomites_Introduction/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/10/26/ELF_x64_Nanomites_Introduction/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <span class="collection-header">2019</span>
+        <h2 id="ELF-x64-Nanomites-Introduction"><a href="#ELF-x64-Nanomites-Introduction" class="headerlink" title="ELF x64 - Nanomites - Introduction"></a>ELF x64 - Nanomites - Introduction</h2><h3 id="mmap"><a href="#mmap" class="headerlink" title="mmap"></a>mmap</h3><p><del>mmap只是在虚拟内存分配了地址空间，只有在第一次访问虚拟内存的时候才分配物理内存。</del></p>
+<pre><code>void *mmap(void *addr, size_t length, int prot, int flags, int fd, off_t offset);
+</code></pre><a id="more"></a>
+<p>在虚拟地址空间中为所调用进程创建一个新的映射。开始地址为addr，长度为length<br>内核在靠近页边界的地方，尝试创建。如果已有映射在此，就不用addr，会返回新地址</p>
+<p>The contents of a <code>file mapping</code>(as opposed to an anonymous mapping;<br>       see MAP_ANONYMOUS below), are initialized using <code>length bytes s</code>tarting<br>       at <code>offset</code>offset in the file (or other object) referred to by the<br>       <code>file descriptor</code> fd. </p>
+<hr>
+<p><code>prot</code>参数描述所需的内存保护</p>
+<p> The <code>flags</code> argument determines whether updates to the mapping are<br>       visible to other processes mapping the same region, and whether<br>       updates are carried through to the underlying file.</p>
+<p>mmap 在虚拟空间中开辟一段空间，当要读的时候，将文件内容加载进物理内存</p>
+<hr>
+<h3 id="memcpy"><a href="#memcpy" class="headerlink" title="memcpy"></a>memcpy</h3><pre><code>void * memcpy ( void * destination, const void * source, size_t num );
+</code></pre><p>表示将0x400ac0的141个字节拷贝到新开辟的虚拟空间中0x7ffff7ffb000</p>
+<p>0x4008b6:    mov    rcx,QWORD PTR [rip+0x2007c3]        # 0x601080<br>rcx==0x3148c93148c03148</p>
+<hr>
+<h3 id="r2"><a href="#r2" class="headerlink" title="r2"></a>r2</h3><p><code>help x</code><br>命令：x/3uh 0x54320 表示，从内存地址0x54320读取内容，h表示以双字节为一个单位，3表示输出三个单位，u表示按十六进制显示。</p>
+<p><code>gdb-peda$ x/141xb 0x400ac0</code></p>
+<hr>
+<h3 id="fork"><a href="#fork" class="headerlink" title="fork"></a>fork</h3><p>pid_t fork(void)<br>fork系统调用用于创建一个新进程，称为子进程，它与进程（称为系统调用fork的进程）<code>同时运行</code>，此进程称为父进程。创建新的子进程后，两个进程将<code>执行</code>fork（）系统调用之后的<code>下一条指令</code>。</p>
+<p>返回值： 若成功调用一次则返回两个值，<code>子进程返回0</code>，<code>父进程返回子进程ID</code>；否则，出错返回-1</p>
+<p>这意味着父子进程间不共享这些<code>存储空间</code>。</p>
+<hr>
+<pre><code>0x4008d1:    call   0x400630 &lt;fork@plt&gt;
+</code></pre><p>调用后返回0， 则当前的子进程</p>
+<hr>
+<p><del>gdb catch 捕获异常</del></p>
+<h3 id="waitpid"><a href="#waitpid" class="headerlink" title="waitpid"></a>waitpid</h3><p>作用同于wait，但可指定pid进程清理，可以不阻塞。</p>
+<p><code>pid_t waitpid(pid_t pid,int *status,int options);</code>成功：返回清理掉的子进程ID；失败：-1（无子进程）</p>
+<ul>
+<li>pid&gt;0    只等待进程ID等于pid的子进程，不管其它已经有多少子进程运行结束退出了，只要指定的子进程还没有结束，waitpid就会一直等下去。</li>
+</ul>
+<ul>
+<li>参数status如果不是一个空指针,则终止进程的终止状态就存放在status所指向的单元。</li>
+</ul>
+<hr>
+<h3 id="SAR"><a href="#SAR" class="headerlink" title="SAR"></a>SAR</h3><p>SAR 算术右移指令<br>符号位保持不变</p>
+<p>call rax 如果都不跳转，则到这里<br>0x7ffff7ffb07b:    mov    al,0x3c<br>   0x7ffff7ffb07d:    mov    edi,0x0<br>   0x7ffff7ffb082:    syscall </p>
+<h2 id="没有解出来-tw-1f198-worried"><a href="#没有解出来-tw-1f198-worried" class="headerlink" title="没有解出来:tw-1f198::worried:"></a>没有解出来:tw-1f198::worried:</h2>
     </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+    
+    
+    
+        
 
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2019-11-29T16:05:04+08:00"
-              content="2019-11-29">
-          11-29
-        </time>
-      </div>
+  <div class="followme">
+    <p>欢迎关注我的其它发布渠道</p>
 
-      <div class="post-title">
-          <a class="post-title-link" href="/2019/11/29/《逆向工程核心原理》学习笔记4/" itemprop="url">
-            <span itemprop="name">《逆向工程核心原理》学习笔记4</span>
+    <div class="social-list">
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
           </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2019-11-21T20:44:21+08:00"
-              content="2019-11-21">
-          11-21
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2019/11/21/《逆向工程核心原理》学习笔记3/" itemprop="url">
-            <span itemprop="name">《逆向工程核心原理》学习笔记3</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2019-11-20T20:25:45+08:00"
-              content="2019-11-20">
-          11-20
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2019/11/20/bug/" itemprop="url">
-            <span itemprop="name">bug</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2019-11-20T20:02:41+08:00"
-              content="2019-11-20">
-          11-20
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2019/11/20/《逆向工程核心原理》学习笔记2/" itemprop="url">
-            <span itemprop="name">《逆向工程核心原理》学习笔记2</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2019-11-19T23:06:56+08:00"
-              content="2019-11-19">
-          11-19
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2019/11/19/《逆向工程核心原理》学习笔记1/" itemprop="url">
-            <span itemprop="name">《逆向工程核心原理》学习笔记1</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2019-11-19T11:31:43+08:00"
-              content="2019-11-19">
-          11-19
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2019/11/19/在新电脑上重新部署hexo/" itemprop="url">
-            <span itemprop="name">在新电脑上重新部署hexo</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2019-05-17T10:33:13+08:00"
-              content="2019-05-17">
-          05-17
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2019/05/17/sql-more-details/" itemprop="url">
-            <span itemprop="name">burpsuite 安全学院笔记</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2019-04-16T08:54:59+08:00"
-              content="2019-04-16">
-          04-16
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2019/04/16/pegasus分析/" itemprop="url">
-            <span itemprop="name">pegasus分析</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2019-03-28T16:45:25+08:00"
-              content="2019-03-28">
-          03-28
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2019/03/28/penetration-test-report-interpretation/" itemprop="url">
-            <span itemprop="name">penetration test report interpretation</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2019-03-15T19:36:58+08:00"
-              content="2019-03-15">
-          03-15
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2019/03/15/Docker学习笔记/" itemprop="url">
-            <span itemprop="name">Docker学习笔记</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-
+        </div>
     </div>
   </div>
-  
-  
-  
 
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/RCE/" rel="tag"><i class="fa fa-tag"></i> RCE</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/10/23/ELF x86 - Anti-debug/" rel="prev" title="ELF x86 - Anti-debug">
+      <i class="fa fa-chevron-left"></i> ELF x86 - Anti-debug
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
   
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/archives/2019/page/2/">2</a><a class="extend next" rel="next" href="/archives/2019/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
-  </nav>
+  
+  
 
 
 
           </div>
           
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -479,6 +409,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#ELF-x64-Nanomites-Introduction"><span class="nav-number">1.</span> <span class="nav-text">ELF x64 - Nanomites - Introduction</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#mmap"><span class="nav-number">1.1.</span> <span class="nav-text">mmap</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#memcpy"><span class="nav-number">1.2.</span> <span class="nav-text">memcpy</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#r2"><span class="nav-number">1.3.</span> <span class="nav-text">r2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#fork"><span class="nav-number">1.4.</span> <span class="nav-text">fork</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#waitpid"><span class="nav-number">1.5.</span> <span class="nav-text">waitpid</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SAR"><span class="nav-number">1.6.</span> <span class="nav-text">SAR</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#没有解出来-tw-1f198-worried"><span class="nav-number">2.</span> <span class="nav-text">没有解出来:tw-1f198::worried:</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -620,6 +551,26 @@
   }
   // defer loading until the whole page loading is completed
   window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "http://finsenty54.github.io/2020/10/26/ELF_x64_Nanomites_Introduction/";
+    this.page.identifier = "2020/10/26/ELF_x64_Nanomites_Introduction/";
+    this.page.title = "ELF_x64_Nanomites_Introduction";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://finsenty54.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
 </script>
 
 </body>

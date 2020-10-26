@@ -4,6 +4,25 @@
   
     
     <entry>
+      <title>ELF_x64_Nanomites_Introduction</title>
+      <link href="/2020/10/26/ELF_x64_Nanomites_Introduction/"/>
+      <url>/2020/10/26/ELF_x64_Nanomites_Introduction/</url>
+      
+        <content type="html"><![CDATA[<h2 id="ELF-x64-Nanomites-Introduction"><a href="#ELF-x64-Nanomites-Introduction" class="headerlink" title="ELF x64 - Nanomites - Introduction"></a>ELF x64 - Nanomites - Introduction</h2><h3 id="mmap"><a href="#mmap" class="headerlink" title="mmap"></a>mmap</h3><p><del>mmap只是在虚拟内存分配了地址空间，只有在第一次访问虚拟内存的时候才分配物理内存。</del></p><pre><code>void *mmap(void *addr, size_t length, int prot, int flags, int fd, off_t offset);</code></pre><a id="more"></a><p>在虚拟地址空间中为所调用进程创建一个新的映射。开始地址为addr，长度为length<br>内核在靠近页边界的地方，尝试创建。如果已有映射在此，就不用addr，会返回新地址</p><p>The contents of a <code>file mapping</code>(as opposed to an anonymous mapping;<br>       see MAP_ANONYMOUS below), are initialized using <code>length bytes s</code>tarting<br>       at <code>offset</code>offset in the file (or other object) referred to by the<br>       <code>file descriptor</code> fd. </p><hr><p><code>prot</code>参数描述所需的内存保护</p><p> The <code>flags</code> argument determines whether updates to the mapping are<br>       visible to other processes mapping the same region, and whether<br>       updates are carried through to the underlying file.</p><p>mmap 在虚拟空间中开辟一段空间，当要读的时候，将文件内容加载进物理内存</p><hr><h3 id="memcpy"><a href="#memcpy" class="headerlink" title="memcpy"></a>memcpy</h3><pre><code>void * memcpy ( void * destination, const void * source, size_t num );</code></pre><p>表示将0x400ac0的141个字节拷贝到新开辟的虚拟空间中0x7ffff7ffb000</p><p>0x4008b6:    mov    rcx,QWORD PTR [rip+0x2007c3]        # 0x601080<br>rcx==0x3148c93148c03148</p><hr><h3 id="r2"><a href="#r2" class="headerlink" title="r2"></a>r2</h3><p><code>help x</code><br>命令：x/3uh 0x54320 表示，从内存地址0x54320读取内容，h表示以双字节为一个单位，3表示输出三个单位，u表示按十六进制显示。</p><p><code>gdb-peda$ x/141xb 0x400ac0</code></p><hr><h3 id="fork"><a href="#fork" class="headerlink" title="fork"></a>fork</h3><p>pid_t fork(void)<br>fork系统调用用于创建一个新进程，称为子进程，它与进程（称为系统调用fork的进程）<code>同时运行</code>，此进程称为父进程。创建新的子进程后，两个进程将<code>执行</code>fork（）系统调用之后的<code>下一条指令</code>。</p><p>返回值： 若成功调用一次则返回两个值，<code>子进程返回0</code>，<code>父进程返回子进程ID</code>；否则，出错返回-1</p><p>这意味着父子进程间不共享这些<code>存储空间</code>。</p><hr><pre><code>0x4008d1:    call   0x400630 &lt;fork@plt&gt;</code></pre><p>调用后返回0， 则当前的子进程</p><hr><p><del>gdb catch 捕获异常</del></p><h3 id="waitpid"><a href="#waitpid" class="headerlink" title="waitpid"></a>waitpid</h3><p>作用同于wait，但可指定pid进程清理，可以不阻塞。</p><p><code>pid_t waitpid(pid_t pid,int *status,int options);</code>成功：返回清理掉的子进程ID；失败：-1（无子进程）</p><ul><li>pid&gt;0    只等待进程ID等于pid的子进程，不管其它已经有多少子进程运行结束退出了，只要指定的子进程还没有结束，waitpid就会一直等下去。</li></ul><ul><li>参数status如果不是一个空指针,则终止进程的终止状态就存放在status所指向的单元。</li></ul><hr><h3 id="SAR"><a href="#SAR" class="headerlink" title="SAR"></a>SAR</h3><p>SAR 算术右移指令<br>符号位保持不变</p><p>call rax 如果都不跳转，则到这里<br>0x7ffff7ffb07b:    mov    al,0x3c<br>   0x7ffff7ffb07d:    mov    edi,0x0<br>   0x7ffff7ffb082:    syscall </p><h2 id="没有解出来-tw-1f198-worried"><a href="#没有解出来-tw-1f198-worried" class="headerlink" title="没有解出来:tw-1f198::worried:"></a>没有解出来:tw-1f198::worried:</h2>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> RCE </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>ELF x86 - Anti-debug</title>
       <link href="/2020/10/23/ELF%20x86%20-%20Anti-debug/"/>
       <url>/2020/10/23/ELF%20x86%20-%20Anti-debug/</url>
