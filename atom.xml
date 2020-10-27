@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://finsenty54.github.io/"/>
-  <updated>2020-10-26T02:12:52.564Z</updated>
+  <updated>2020-10-27T07:35:25.612Z</updated>
   <id>http://finsenty54.github.io/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>nice try</title>
+    <link href="http://finsenty54.github.io/2020/10/27/nice_try/"/>
+    <id>http://finsenty54.github.io/2020/10/27/nice_try/</id>
+    <published>2020-10-27T07:34:42.000Z</published>
+    <updated>2020-10-27T07:35:25.612Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="lt-逆向工程-核心原理-gt-终结"><a href="#lt-逆向工程-核心原理-gt-终结" class="headerlink" title="&lt;逆向工程-核心原理&gt;终结"></a>&lt;逆向工程-核心原理&gt;终结</h2><p><strong>看了两三年，终于看完了，</strong><code>nice try</code>2020-10-27 15:20:20 星期二  :tw-1f4aa:</p><p><em>接下来的是阅读过程中的一些笔记</em></p><a id="more"></a><hr><h3 id="内核调试"><a href="#内核调试" class="headerlink" title="内核调试"></a>内核调试</h3><p>终端中输入 <code>bcdedit -debug on</code><br>开启内核调试模式</p><h3 id="WINDBG"><a href="#WINDBG" class="headerlink" title="WINDBG"></a>WINDBG</h3><pre><code>lkd&gt; u nt!ZwCreateFile L50</code></pre><p>查看createfile 代码<br>u 反汇编 u L10显示10行命令</p><p>db命令<br>d-display</p><hr><h3 id="删除ASLR功能"><a href="#删除ASLR功能" class="headerlink" title="删除ASLR功能"></a>删除ASLR功能</h3><p>将选择头中的DLL Characteristics中DYNAMIC_BASE标志删除即可</p><hr><h3 id="TLS回调函数"><a href="#TLS回调函数" class="headerlink" title="TLS回调函数"></a>TLS回调函数</h3><p>长用于反调试<br>类似于linux <code>ptrace()</code>函数</p><p>每当创建/终止进程的线程时会自动调用执行的函数。创建进程的主线程会先于EP代码，调用回调函数</p><p>在选择头中有TLS表地址，里面是tls结构体的地址，可能有多个结构体，<code>address of callbacks</code>成员指向tls函数地址</p><hr><h3 id="isDebuggerPersent"><a href="#isDebuggerPersent" class="headerlink" title="isDebuggerPersent()"></a>isDebuggerPersent()</h3><p>检查<code>peb.deingdebugged</code>值，<code>+02</code>处<br>判断是否处于调试</p><p><code>getmodulehandle()</code><br>获取进程imagebase</p><hr><h3 id="windbg-配置符号表"><a href="#windbg-配置符号表" class="headerlink" title="windbg 配置符号表"></a>windbg 配置符号表</h3><p>srv*<a href="https://msdl.microsoft.com/download/symbols" target="_blank" rel="noopener">https://msdl.microsoft.com/download/symbols</a><br>通知 WinDbg 进行符号文件的初始查找和加载：<br>.reload<br>Lm 查看已加载模块</p><p><code>dt</code><br>displays information about a local variable, global variable or data type</p><p>dt _teb<br>dt _peb<br>dt _peb_ldr_data</p><hr><h3 id="PEB"><a href="#PEB" class="headerlink" title="PEB"></a>PEB</h3><p>模块=dll加载后，通过PEB.ldr 直接获取该模块的加载基地址</p><p><code>FS:[0]</code> TEB起始地址</p><p><code>FS:[30]</code> PEB起始地址</p><hr><h3 id="利用SEH机制的反调试技术"><a href="#利用SEH机制的反调试技术" class="headerlink" title="利用SEH机制的反调试技术"></a>利用SEH机制的反调试技术</h3><p>程序在正常运行和调试运行时表现出的行为动作是不同的<br>正常：程序自己处理<br>调试时：抛给调试器处理</p><p>通过<code>TEB.NtTib.ExceptionList</code>找到SEH链</p><pre><code>TEB.NtTib.ExceptionList =FS：[0]</code></pre><hr><p>结构体 构成链</p><pre><code>* next_seh* handler</code></pre><p>esp+c 即指向 pContext<br>seh函数参数第三个为<code>指向pContext的指针</code>，保存<code>线程寄存器值</code>，执行其他进程就会保存寄存器值。<br><code>*pContext+B8</code>(32位下）为EIP值， <code>修改EIP</code>，改变执行流程<br>一样，通过<code>PEB.isdebuggerpersent()</code>API 取得beingDebugged值判断</p><hr><h3 id="保护器，压缩器"><a href="#保护器，压缩器" class="headerlink" title="保护器，压缩器"></a>保护器，压缩器</h3><p> 反调试–一个更简单，更好的方法：判断当前系统是否是为逆向分析专用系统</p><pre><code>findWindow() , createTOOLhelp32SnapsHOT(), GETcomputerName()</code></pre><h3 id="OllyDBG-view-seh-chain"><a href="#OllyDBG-view-seh-chain" class="headerlink" title="OllyDBG view-seh chain"></a>OllyDBG view-seh chain</h3><p><code>PEB.ImageBase</code> 保存进程的实际映射地址</p><h3 id="debug-blocker"><a href="#debug-blocker" class="headerlink" title="debug blocker"></a>debug blocker</h3><ol><li><p>被调试进程不能被其他进程调试</p></li><li><p>调试器操作被调试者的代码</p></li><li><p>调试器处理被调试进程中发生的异常</p></li></ol><h3 id="clbp"><a href="#clbp" class="headerlink" title="clbp"></a>clbp</h3><p>ollydgb的<code>条件记录断点</code><br>ctrl+G 将光标移到4011f0地址后，按shift+f4，打开设置CLBP对话框（条件断点）</p><p>detach 分离</p><pre><code>EB FE 无限循环</code></pre><p><code>DebugActiveProcessStop()</code><br>将被调试者从调试器中分离出来</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;lt-逆向工程-核心原理-gt-终结&quot;&gt;&lt;a href=&quot;#lt-逆向工程-核心原理-gt-终结&quot; class=&quot;headerlink&quot; title=&quot;&amp;lt;逆向工程-核心原理&amp;gt;终结&quot;&gt;&lt;/a&gt;&amp;lt;逆向工程-核心原理&amp;gt;终结&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;看了两三年，终于看完了，&lt;/strong&gt;&lt;code&gt;nice try&lt;/code&gt;2020-10-27 15:20:20 星期二  :tw-1f4aa:&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;接下来的是阅读过程中的一些笔记&lt;/em&gt;&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="RCE" scheme="http://finsenty54.github.io/tags/RCE/"/>
+    
+  </entry>
   
   <entry>
     <title>ELF_x64_Nanomites_Introduction</title>
@@ -407,29 +428,6 @@
       &lt;h4 id=&quot;wechall-register-globals&quot;&gt;&lt;a href=&quot;#wechall-register-globals&quot; class=&quot;headerlink&quot; title=&quot;wechall register_globals&quot;&gt;&lt;/a&gt;wechall register_globals&lt;/h4&gt;&lt;p&gt;register_globals 在php 5.4.0 后被移除 其会自动生成各种变量 如html请求变量&lt;br&gt;&lt;a href=&quot;http://1.1.1.1/report.asp?id=123&amp;amp;kehu=222&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;http://1.1.1.1/report.asp?id=123&amp;amp;kehu=222&lt;/a&gt;&lt;br&gt;login[0]=admin 直接login=admin 只取第一第二个字符&lt;/p&gt;
 &lt;hr&gt;
 &lt;h4 id=&quot;hackthebox&quot;&gt;&lt;a href=&quot;#hackthebox&quot; class=&quot;headerlink&quot; title=&quot;hackthebox&quot;&gt;&lt;/a&gt;hackthebox&lt;/h4&gt;&lt;p&gt;invite challenge 浏览器console 下运行函数 加（）&lt;br&gt;curl -X POST https://…&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="CTF" scheme="http://finsenty54.github.io/tags/CTF/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>CTF入门 WECALL2-正则</title>
-    <link href="http://finsenty54.github.io/2020/07/06/CTF%E5%85%A5%E9%97%A8%20WECALL2/"/>
-    <id>http://finsenty54.github.io/2020/07/06/CTF入门 WECALL2/</id>
-    <published>2020-07-06T05:54:43.000Z</published>
-    <updated>2020-07-06T06:01:18.207Z</updated>
-    
-    <content type="html"><![CDATA[<p>python3<br>list()   一个字符字符分</p><hr><p>child[a],child[b] = child[b],child[a]</p><h5 id="交换位置"><a href="#交换位置" class="headerlink" title="交换位置"></a>交换位置</h5><a id="more"></a><hr><p>spilt() 按空格分<br>int()</p><hr><h3 id="Training-Crypto-Substitution-I"><a href="#Training-Crypto-Substitution-I" class="headerlink" title="Training: Crypto - Substitution I"></a>Training: Crypto - Substitution I</h3><p><a href="http://practicalcryptography.com/cryptanalysis/text-characterisation/quadgrams/" target="_blank" rel="noopener">http://practicalcryptography.com/cryptanalysis/text-characterisation/quadgrams/</a></p><h3 id="Training-Crypto-Caesar-II"><a href="#Training-Crypto-Caesar-II" class="headerlink" title="Training: Crypto - Caesar II"></a>Training: Crypto - Caesar II</h3><p>import sys<br>sys.stdout = open(‘/root/Documents/CTF_WECALL/results.py’, mode = ‘w’,encoding=’utf-8’)</p><p>打印到文件中</p><p>line breaks. 换行符</p><p>vscode python 整段右移 选中tab</p><hr><h3 id="python-2-转到-3"><a href="#python-2-转到-3" class="headerlink" title="python 2 转到 3"></a>python 2 转到 3</h3><p>2to3.py</p><hr><h3 id="正则30分钟学习"><a href="#正则30分钟学习" class="headerlink" title="正则30分钟学习"></a>正则30分钟学习</h3><p><a href="https://deerchao.cn/tutorials/regex/regex.htm" target="_blank" rel="noopener">https://deerchao.cn/tutorials/regex/regex.htm</a></p><h3 id="wechall-mysql-2"><a href="#wechall-mysql-2" class="headerlink" title="wechall mysql 2"></a>wechall mysql 2</h3><p>‘ union select 1,’admin’ ,md5(‘1’)  from users where username =’admin’#</p><p><code>？？可以随便选择</code></p><h3 id="wechall-WWW-Basics"><a href="#wechall-WWW-Basics" class="headerlink" title="wechall WWW-Basics"></a>wechall WWW-Basics</h3><p>lsof -i:端口号 用于查看某一端口的占用情况，比如查看8000端口使用情况，lsof -i:8000</p><p>nginx -s quit<br>ps -ax | grep nginx<br>lsof -i:80<br>ip add</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;python3&lt;br&gt;list()   一个字符字符分&lt;/p&gt;
-&lt;hr&gt;
-&lt;p&gt;child[a],child[b] = child[b],child[a]&lt;/p&gt;
-&lt;h5 id=&quot;交换位置&quot;&gt;&lt;a href=&quot;#交换位置&quot; class=&quot;headerlink&quot; title=&quot;交换位置&quot;&gt;&lt;/a&gt;交换位置&lt;/h5&gt;
     
     </summary>
     
