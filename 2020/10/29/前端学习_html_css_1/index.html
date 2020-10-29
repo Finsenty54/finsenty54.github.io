@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"finsenty54.github.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","width":320,"display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"disqus","storage":true,"lazyload":false,"nav":null,"activeClass":"disqus"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="前端学习html小知识连接 80 端口需要管理员权限（非管理员用户只能监听大于 1024 的端口 流（stream）代表一个客户端和服务端之间打开的连接。 ？闭包作为参数？">
+<meta name="keywords" content="FRONT-END">
+<meta property="og:type" content="article">
+<meta property="og:title" content="前端学习_html_css_1">
+<meta property="og:url" content="http://finsenty54.github.io/2020/10/29/前端学习_html_css_1/index.html">
+<meta property="og:site_name" content="FINSENTY54">
+<meta property="og:description" content="前端学习html小知识连接 80 端口需要管理员权限（非管理员用户只能监听大于 1024 的端口 流（stream）代表一个客户端和服务端之间打开的连接。 ？闭包作为参数？">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://s1.ax1x.com/2020/10/29/BJ5qkq.jpg">
+<meta property="og:updated_time" content="2020-10-29T13:10:56.944Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="前端学习_html_css_1">
+<meta name="twitter:description" content="前端学习html小知识连接 80 端口需要管理员权限（非管理员用户只能监听大于 1024 的端口 流（stream）代表一个客户端和服务端之间打开的连接。 ？闭包作为参数？">
+<meta name="twitter:image" content="https://s1.ax1x.com/2020/10/29/BJ5qkq.jpg">
+
+<link rel="canonical" href="http://finsenty54.github.io/2020/10/29/前端学习_html_css_1/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>前端学习_html_css_1 | FINSENTY54</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-135283153-1"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-135283153-1');
+      }
+    </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">FINSENTY54</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">几处早莺争暖树，谁家新燕啄春泥。</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container"></div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="algolia-results">
+  <div id="algolia-stats"></div>
+  <div id="algolia-hits"></div>
+  <div id="algolia-pagination" class="algolia-pagination"></div>
+</div>
+
+      
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://finsenty54.github.io/2020/10/29/前端学习_html_css_1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="finsenty54">
+      <meta itemprop="description" content="blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="FINSENTY54">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          前端学习_html_css_1
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-10-29 21:10:00 / 修改时间：21:10:56" itemprop="dateCreated datePublished" datetime="2020-10-29T21:10:00+08:00">2020-10-29</time>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2020/10/29/前端学习_html_css_1/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/10/29/前端学习_html_css_1/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="前端学习"><a href="#前端学习" class="headerlink" title="前端学习"></a>前端学习</h2><h3 id="html"><a href="#html" class="headerlink" title="html"></a>html</h3><h4 id="小知识"><a href="#小知识" class="headerlink" title="小知识"></a>小知识</h4><p><em>连接 80 端口需要管理员权限（非管理员用户只能监听大于 1024 的端口</em></p>
+<p><em>流（stream）代表一个客户端和服务端之间打开的连接。</em></p>
+<p>？闭包作为参数？</p>
+<a id="more"></a>
+<hr>
+<h4 id="lt-DOCTYPE-html-gt"><a href="#lt-DOCTYPE-html-gt" class="headerlink" title="&lt;!DOCTYPE html&gt;"></a>&lt;!DOCTYPE html&gt;</h4><p>— 文档类型。混沌初分，HTML 尚在襁褓（大约是 1991/92 年）之时，DOCTYPE 用来链接一些 HTML 编写守则，比如自动查错之类。DOCTYPE 在当今作用有限，仅用于保证文档正常读取。现在知道这些就足够了。</p>
+<h4 id="html-1"><a href="#html-1" class="headerlink" title="html"></a>html</h4><p><code>&lt;html&gt;</code> 元素。<br>该元素包含整个页面的内容，也称作根元素。</p>
+<h4 id="head"><a href="#head" class="headerlink" title="head"></a>head</h4><p><code>&lt;head&gt;</code>元素。该元素的内容对用户不可见，其中包含例如面向搜索引擎的搜索关键字（keywords）、页面描述、CSS 样式表和字符编码声明等。</p>
+<p><code>&lt;meta charset=&quot;utf-8&quot;&gt;</code><br>该元素指定文档使用 UTF-8 字符编码 ，UTF-8 包括绝大多数人类已知语言的字符。基本上 UTF-8 可以处理任何文本内容，还可以避免以后出现某些问题，没有理由再选用其他编码。</p>
+<p><code>&lt;title&gt;</code>元素。该元素设置页面的标题，显示在浏览器标签页上，也作为收藏网页的描述文字。</p>
+<h4 id="body"><a href="#body" class="headerlink" title="body"></a>body</h4><p><code>&lt;body&gt;</code>元素。该元素包含期望让用户在访问页面时看到的内容，包括文本、图像、视频、游戏、可播放的音轨或其他内容。</p>
+<h4 id="img"><a href="#img" class="headerlink" title="img"></a>img</h4><pre><code>&lt;img src=&quot;images/firefox-icon.png&quot; alt=&quot;测试图片&quot;&gt;
+</code></pre><p><code>alt</code>，是图像的描述内容 属性<br><code>src</code>也是属性，资源</p>
+<h4 id="列表list"><a href="#列表list" class="headerlink" title="列表list"></a>列表list</h4><p>ul无序<br>ol有序<br>列表的每个项目用一个列表项目（List Item）元素 <code>&lt;li&gt;</code> 包围</p>
+<pre><code>&lt;ul&gt;  无序列表
+  &lt;li&gt;技术人员&lt;/li&gt;
+  &lt;li&gt;思考者&lt;/li&gt;
+  &lt;li&gt;建造者&lt;/li&gt;
+&lt;/ul&gt;
+</code></pre><hr>
+<p>####a<br>链接非常重要 — 它们赋予 Web 网络属性。要植入一个链接，我们需要使用一个简单的元素 — <code>&lt;a&gt;</code> — a 是 “anchor” （锚）的缩写</p>
+<pre><code>&lt;a href=&quot;https://www.mozilla.org/zh-CN/about/manifesto/&quot;&gt;Mozilla 宣言&lt;/a&gt;
+</code></pre><p>href是属性</p>
+<h4 id="测试本地文件"><a href="#测试本地文件" class="headerlink" title="测试本地文件"></a>测试本地文件</h4><p>它们具有服务端代码。 服务器端语言（如 PHP 或 Python）需要一个特殊的服务器来解释代码并提供结果。</p>
+<p>层叠样式表（Cascading Style Sheet，简称：CSS）是为网页添加样式的代码<br>要选择一个 HTML 页面里所有的段落元素，然后将其中的文本改成红色，可以这样写 CSS<br>p {<br>  color: red;<br>}<br>再将该 CSS 文件连接至 HTML 文档，否则 CSS 代码不会对 HTML 文档在浏览器里的显示效果有任何影响</p>
+<p>JavaScript（缩写：JS）是一门完备的 动态编程语言</p>
+<p>对象：JavaScript 里一切皆对象，一切皆可储存在变量里。</p>
+<p>例如disabled 属性，他们可以标记表单输入使之变为不可用(变灰色)，</p>
+<p>实体引用： 在HTML中包含特殊字符</p>
+<pre><code>&lt;    &amp;lt;
+&gt;    &amp;gt;
+&quot;    &amp;quot;
+&apos;    &amp;apos;
+&amp;    &amp;amp;
+</code></pre><h4 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h4><p>HTML中的内容置为注释，你需要将其用特殊的记号<code>&lt;!--</code>和<code>--&gt;</code>包括起来</p>
+<h4 id="meta"><a href="#meta" class="headerlink" title="meta"></a>meta</h4><p>许多<code>&lt;meta&gt;</code>元素包含了name 和 content 特性：</p>
+<p>name 指定了meta 元素的类型； 说明该元素包含了什么类型的信息。<br>content 指定了实际的元数据内容。</p>
+<hr>
+<h4 id="span"><a href="#span" class="headerlink" title="span"></a>span</h4><p>在你的站点增加自定义图标<br>这是一个 <code>&lt;span&gt;</code>元素，它<code>没有语义</code>。当您想要对它用CSS（或者JS）时，您可以用它包裹内容，且不需要附加任何额外的意义</p>
+<hr>
+<h4 id="文字样式"><a href="#文字样式" class="headerlink" title="文字样式"></a>文字样式</h4><p>无序<code>&lt;ul&gt;</code><br>有序 Ordered<br><code>&lt;ol&gt;</code> 元素<br>将一个列表嵌入到另一个列表是完全可以的<br>用<code>&lt;em&gt;</code>（emphasis）元素来标记斜体<br><code>&lt;strong&gt;</code>加粗<br><code>&lt;i&gt;</code>被用来传达传统上用斜体表达的意义：外国文字，分类名称，技术术语，一种思想……<br><code>&lt;b&gt;</code> 被用来传达传统上用粗体表达的意义：关键字，产品名称，引导句……<br><code>&lt;u&gt;</code> 被用来传达传统上用下划线表达的意义：专有名词，拼写错误……<br>不要用</p>
+<h4 id="超链接"><a href="#超链接" class="headerlink" title="超链接"></a>超链接</h4><pre><code>&lt;a href=&quot;https://www.mozilla.org/zh-CN/&quot;&gt;Mozilla 主页&lt;/a&gt;
+</code></pre><p>alt属性添加支持信息</p>
+<pre><code>&lt;a href=&quot;https://www.mozilla.org/zh-CN/&quot;&gt;
+  &lt;img src=&quot;mozilla-image.png&quot; alt=&quot;链接至 Mozilla 主页的 Mozilla 标志&quot;&gt;
+&lt;/a&gt;
+</code></pre><p>可以有两个index.html文件，前提是他们在不同的目录下</p>
+<p>指向上级目录： 如果你想在projects/index.html中包含一个指向pdfs/project-brief.pdf的超链接，你必须先返回上级目录，然后再回到pdf目录。“返回上一个目录级”使用两个英文点号表示 — <code>..</code> — 所以你应该使用的URL是<code>../pdfs/project-brief.pdf</code></p>
+<p>超链接除了可以链接到文档外，也可以链接到HTML文档的特定部分（被称为文档片段）。必须首先给要链接到的元素分配一个id属性</p>
+<pre><code>&lt;a href=&quot;contacts.html#Mailing_address&quot;&gt;我们的地址&lt;/a&gt;
+&lt;a href=&quot;#Mailing_address&quot;&gt;
+</code></pre><p>当链接到同一网站的其他位置时，你应该使用相对链接（当链接到另一个网站时，你需要使用绝对链接<br>使用绝对URL时，浏览器首先通过DNS（见万维网是如何工作的）查找服务器的真实位置</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"https://download.mozilla.org/?product=firefox-latest-ssl&amp;os=win64&amp;lang=zh-CN"</span></span></span><br><span class="line"><span class="tag">   <span class="attr">download</span>=<span class="string">"firefox-latest-64bit-installer.exe"</span>&gt;</span>  默认保存文件名</span><br></pre></td></tr></table></figure>
+<hr>
+<h4 id="网站结构"><a href="#网站结构" class="headerlink" title="网站结构"></a>网站结构</h4><p>创建网站的一种常见方式——每一页都使用相同的页面结构，包括相同的导航菜单</p>
+<pre><code>&lt;a href=&quot;mailto:nowhere@mozilla.org&quot;&gt;向 nowhere 发邮件&lt;/a&gt;
+</code></pre><p>使用上标和下标。 <code>&lt;sup&gt;</code> 和<code>&lt;sub&gt;</code>元素可</p>
+<pre><code>&lt;p&gt;如果 x&lt;sup&gt;2&lt;/sup&gt; 的值为 9，那么 x 的值必为 3 或 -3。&lt;/p&gt;
+</code></pre><p>为了实现语义化标记，HTML 提供了明确这些区段的专用标签，例如：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">header</span>&gt;</span>：页眉。</span><br><span class="line"><span class="tag">&lt;<span class="name">nav</span>&gt;</span>：导航栏。</span><br><span class="line"><span class="tag">&lt;<span class="name">main</span>&gt;</span>：主内容。主内容中还可以有各种子内容区段，可用<span class="tag">&lt;<span class="name">article</span>&gt;</span>、<span class="tag">&lt;<span class="name">section</span>&gt;</span> 和 <span class="tag">&lt;<span class="name">div</span>&gt;</span> 等元素表示。</span><br><span class="line"><span class="tag">&lt;<span class="name">aside</span>&gt;</span>：侧边栏，经常嵌套在 <span class="tag">&lt;<span class="name">main</span>&gt;</span> 中。</span><br><span class="line"><span class="tag">&lt;<span class="name">footer</span>&gt;</span>：页脚。</span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">span</span>&gt;</span> 是一个内联的（inline）无语义元素，使用 class 属性提供一些标签，使这些元素能易于查询</span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span> 是一个块级无语义元素，应仅用于找不到更好的块级元素时，或者不想增加特定的意义时</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">br</span>&gt;</span> 可在段落中进行换行</span><br><span class="line"><span class="tag">&lt;<span class="name">hr</span>&gt;</span> 元素在文档中生成一条水平分割线</span><br></pre></td></tr></table></figure>
+<p><code>&lt;iframe&gt;</code><br>元素旨在允许您将其他Web文档嵌入到当前文档中</p>
+<h3 id="CSS"><a href="#CSS" class="headerlink" title="CSS"></a>CSS</h3><p>给 HTML 元素加个类名（class），在 CSS 中再选中那个类名<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"special"</span>&gt;</span></span><br><span class="line">css中</span><br><span class="line">.special &#123;</span><br><span class="line">  color: orange;</span><br><span class="line">  font-weight: bold;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<hr>
+<h4 id="选择器"><a href="#选择器" class="headerlink" title="选择器"></a>选择器</h4><p>重要：：选择嵌套在<code>&lt;li&gt;</code> 元素内的<code>&lt;em&gt;</code>我们可以使用一个称为包含选择符的选择器，它只是单纯地在两个选择器之间加上一个空格</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">li</span> <span class="selector-tag">em</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: rebeccapurple;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>设置直接出现在标题后面并且与标题具有相同层级的段落样式，为此需在两个选择器之间添加一个 + 号 (成为 相邻选择符)</p>
+<p>根据状态确定样式</p>
+<pre><code>a:link
+a:hover
+
+article p span { ... }
+h1 + ul + p { ... }
+</code></pre><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">body</span> <span class="selector-tag">h1</span> + <span class="selector-tag">p</span> <span class="selector-class">.special</span> &#123;</span><br><span class="line">在&lt;body&gt;之内，紧接在&lt;h1&gt;后面的&lt;p&gt;元素的内部，类名为special。</span><br></pre></td></tr></table></figure>
+<hr>
+<h4 id="css属性"><a href="#css属性" class="headerlink" title="css属性"></a>css属性</h4><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">font-size</span></span><br><span class="line"><span class="selector-tag">width</span></span><br><span class="line"><span class="selector-tag">background-color</span></span><br><span class="line"><span class="selector-tag">color</span></span><br><span class="line"><span class="selector-tag">border</span></span><br></pre></td></tr></table></figure>
+<p><code>calc()</code>函数 进行简单计算<br><code>rotate()</code></p>
+<hr>
+<h4 id="额外样式表"><a href="#额外样式表" class="headerlink" title="额外样式表"></a>额外样式表</h4><p>将额外的样式表导入主CSS样式表，可以使用@import:<br><code>@import &#39;styles2.css&#39;;</code></p>
+<h4 id="规则"><a href="#规则" class="headerlink" title="规则"></a>规则</h4><p>应用两条<code>同级别</code>的规则（相同规则）<br><code>理解为后面的规则覆盖前面的规则</code></p>
+<p>有不同选择器对应相同的元素的时候需要使用哪个规则<br><code>一个元素选择器比类选择器的优先级更低会被其覆盖</code></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">千位： 如果声明在 <span class="selector-tag">style</span> 的属性（内联样式）则该位得一分。这样的声明没有选择器，所以它得分总是1000。</span><br><span class="line">百位： 选择器中包含<span class="selector-tag">ID</span>选择器则该位得一分。</span><br><span class="line">十位： 选择器中包含类选择器、属性选择器或者伪类则该位得一分。</span><br><span class="line">个位：选择器中包含元素、伪元素选择器则该位得一分。</span><br></pre></td></tr></table></figure>
+<h4 id="class-id"><a href="#class-id" class="headerlink" title="class id"></a>class id</h4><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id="outer" class="container"&gt;</span><br><span class="line"><span class="selector-id">#outer</span> <span class="selector-tag">a</span> &#123;</span><br><span class="line">    <span class="attribute">background-color</span>: red;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>id 对应<code>#outer</code><br>class对应<code>.container</code></p>
+<h4 id="盒子"><a href="#盒子" class="headerlink" title="盒子"></a>盒子</h4><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">标题(&lt;<span class="selector-tag">h1</span>&gt;等)和段落(&lt;<span class="selector-tag">p</span>&gt;)默认情况下都是块级的盒子</span><br><span class="line">做链接的 &lt;<span class="selector-tag">a</span>&gt; 元素、 &lt;<span class="selector-tag">span</span>&gt;、 &lt;<span class="selector-tag">em</span>&gt; 以及 &lt;<span class="selector-tag">strong</span>&gt; 都是默认处于 <span class="selector-tag">inline</span> 状态的</span><br><span class="line">＜<span class="selector-tag">div</span>＞块级元素</span><br><span class="line">盒子<span class="selector-tag">display</span> 属性的设置，比如 <span class="selector-tag">inline</span> 或者 <span class="selector-tag">block</span> ，来控制盒子的外部显示类型</span><br><span class="line">在标准模型中，如果你给盒设置 <span class="selector-tag">width</span> 和 <span class="selector-tag">height</span>，实际设置的是 <span class="selector-tag">content</span> <span class="selector-tag">box</span></span><br></pre></td></tr></table></figure>
+<p><a href="https://imgchr.com/i/BJ5qkq" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2020/10/29/BJ5qkq.jpg" alt="BJ5qkq.jpg"></a><br>替代盒模型，width就是盒的宽度，而不是content的宽度<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">html</span> &#123;</span><br><span class="line">  <span class="attribute">box-sizing</span>: border-box;</span><br><span class="line">&#125;</span><br><span class="line">*, *<span class="selector-pseudo">::before</span>, *<span class="selector-pseudo">::after</span> &#123;</span><br><span class="line">  <span class="attribute">box-sizing</span>: inherit;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>有两个外边距相接的元素，这些外边距将合并为一个外边距，即最大的单个外边距的大小</p>
+<hr>
+<h4 id="inline-block"><a href="#inline-block" class="headerlink" title="inline-block"></a>inline-block</h4><p>元素使用 display: inline-block，实现我们需要的块级的部分效果：</p>
+<p>设置width 和height 属性会生效。<br>padding, margin, 以及border 会推开其他元素。</p>
+<hr>
+<h4 id="背景图像"><a href="#背景图像" class="headerlink" title="背景图像"></a>背景图像</h4><p>默认情况下，大图不会缩小以适应方框，因此我们只能看到它的一个小角，而小图则是平铺以填充方框</p>
+<p><code>background-repeat</code>属性用于控制图像的平铺行为</p>
+<p><code>background-size</code>属性，它可以设置长度或百分比值，来调整图像的大小以适应背景</p>
+<p>背景是指定他们如何滚动时，内容滚动。这是由<code>background-attachment</code>属性控制的</p>
+<p><code>border-radius</code>属性和与方框的每个角相关的长边来实现方框的圆角</p>
+<p><code>background-color:rgba(0,0,0,.5);</code><br>RGBA颜色　第四个值表示颜色的alpha通道，它控制<code>不透明度</code>。如果将这个值设置为0，它将使颜色完全透明<br>半透明的黑色背景颜色</p>
+<h4 id="溢出"><a href="#溢出" class="headerlink" title="溢出"></a>溢出</h4><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">overflow</span>属性</span><br><span class="line"><span class="selector-tag">overflow</span>: <span class="selector-tag">hidden</span>　隐藏掉溢出</span><br><span class="line"><span class="selector-tag">overflow</span>: <span class="selector-tag">scroll</span>　你的浏览器总会显示滚动条</span><br><span class="line"><span class="selector-tag">overflow-x</span>　　　－ｙ</span><br><span class="line"><span class="selector-tag">overflow</span>: <span class="selector-tag">auto</span></span><br></pre></td></tr></table></figure>
+<h4 id="绝对长度单位"><a href="#绝对长度单位" class="headerlink" title="绝对长度单位"></a>绝对长度单位</h4><p><code>px    像素　＝1/96ｃｍ</code></p>
+<h4 id="相对长度单位"><a href="#相对长度单位" class="headerlink" title="相对长度单位"></a>相对长度单位</h4><p><code>em</code>    在 font-size 中使用是相对于父元素的字体大小，在其他属性中使用是相对于自身的字体大小，如 width</p>
+<p>总是想让它至少有个确定的高度，你应该给它设置一个min-height属性</p>
+<h4 id="图片溢出"><a href="#图片溢出" class="headerlink" title="图片溢出"></a>图片溢出</h4><p>一张图片的max-width设为100%。<br><code>max－width:100%</code>指的是父容器宽度的百分数<br>技术是用来让图片可响应的，所以在更小的设备上浏览的时候，它们会合适地缩放，但会先加载大的图像，在缩放</p>
+<p>主页cargo-generate</p>
+
+    </div>
+
+    
+    
+    
+        
+
+  <div class="followme">
+    <p>欢迎关注我的其它发布渠道</p>
+
+    <div class="social-list">
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+        </div>
+    </div>
+  </div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/FRONT-END/" rel="tag"><i class="fa fa-tag"></i> FRONT-END</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/10/27/nice_try/" rel="prev" title="nice try">
+      <i class="fa fa-chevron-left"></i> nice try
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前端学习"><span class="nav-number">1.</span> <span class="nav-text">前端学习</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#html"><span class="nav-number">1.1.</span> <span class="nav-text">html</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#小知识"><span class="nav-number">1.1.1.</span> <span class="nav-text">小知识</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#lt-DOCTYPE-html-gt"><span class="nav-number">1.1.2.</span> <span class="nav-text">&lt;!DOCTYPE html&gt;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#html-1"><span class="nav-number">1.1.3.</span> <span class="nav-text">html</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#head"><span class="nav-number">1.1.4.</span> <span class="nav-text">head</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#body"><span class="nav-number">1.1.5.</span> <span class="nav-text">body</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#img"><span class="nav-number">1.1.6.</span> <span class="nav-text">img</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#列表list"><span class="nav-number">1.1.7.</span> <span class="nav-text">列表list</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#测试本地文件"><span class="nav-number">1.1.8.</span> <span class="nav-text">测试本地文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#注释"><span class="nav-number">1.1.9.</span> <span class="nav-text">注释</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#meta"><span class="nav-number">1.1.10.</span> <span class="nav-text">meta</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#span"><span class="nav-number">1.1.11.</span> <span class="nav-text">span</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#文字样式"><span class="nav-number">1.1.12.</span> <span class="nav-text">文字样式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#超链接"><span class="nav-number">1.1.13.</span> <span class="nav-text">超链接</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#网站结构"><span class="nav-number">1.1.14.</span> <span class="nav-text">网站结构</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CSS"><span class="nav-number">1.2.</span> <span class="nav-text">CSS</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#选择器"><span class="nav-number">1.2.1.</span> <span class="nav-text">选择器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#css属性"><span class="nav-number">1.2.2.</span> <span class="nav-text">css属性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#额外样式表"><span class="nav-number">1.2.3.</span> <span class="nav-text">额外样式表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#规则"><span class="nav-number">1.2.4.</span> <span class="nav-text">规则</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#class-id"><span class="nav-number">1.2.5.</span> <span class="nav-text">class id</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#盒子"><span class="nav-number">1.2.6.</span> <span class="nav-text">盒子</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#inline-block"><span class="nav-number">1.2.7.</span> <span class="nav-text">inline-block</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#背景图像"><span class="nav-number">1.2.8.</span> <span class="nav-text">背景图像</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#溢出"><span class="nav-number">1.2.9.</span> <span class="nav-text">溢出</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#绝对长度单位"><span class="nav-number">1.2.10.</span> <span class="nav-text">绝对长度单位</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#相对长度单位"><span class="nav-number">1.2.11.</span> <span class="nav-text">相对长度单位</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#图片溢出"><span class="nav-number">1.2.12.</span> <span class="nav-text">图片溢出</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">finsenty54</p>
+  <div class="site-description" itemprop="description">blog</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">54</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Finsenty54" title="GitHub → https://github.com/Finsenty54" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:finsenty54@qq.com" title="E-Mail → mailto:finsenty54@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">finsenty54</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+  
+<script src="//cdn.jsdelivr.net/npm/algoliasearch@4/dist/algoliasearch-lite.umd.js"></script>
+<script src="//cdn.jsdelivr.net/npm/instantsearch.js@4/dist/instantsearch.production.min.js"></script><script src="/js/algolia-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://finsenty54.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "http://finsenty54.github.io/2020/10/29/前端学习_html_css_1/";
+    this.page.identifier = "2020/10/29/前端学习_html_css_1/";
+    this.page.title = "前端学习_html_css_1";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://finsenty54.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>
