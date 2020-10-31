@@ -4,30 +4,33 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 3.9.0">
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
-  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#222">
+  <link rel="manifest" href="/images/site.webmanifest">
+  <meta name="msapplication-config" content="/images/browserconfig.xml">
 
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-<script id="hexo-configurations">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.14.0/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"finsenty54.github.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","width":320,"display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"disqus","storage":true,"lazyload":false,"nav":null,"activeClass":"disqus"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"finsenty54.github.io","root":"/","scheme":"Gemini","version":"8.0.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}};
   </script>
 
-  <meta name="description" content="damCTF- rev/schlage (beginner) __WP 先用file命令查看可以看到是64位的ELF文件,debug信息还在  接着使用radare2反汇编   使用VV命令进入视图模式">
-<meta name="keywords" content="RCE">
+  <meta name="description" content="damCTF- rev&#x2F;schlage (beginner) __WP 先用file命令查看  可以看到是64位的ELF文件,debug信息还在  接着使用radare2反汇编     使用VV命令进入视图模式">
 <meta property="og:type" content="article">
 <meta property="og:title" content="damCTF- rev&#x2F;schlage (beginner) __WP">
-<meta property="og:url" content="http://finsenty54.github.io/2020/10/12/schlage (beginner) __WP/index.html">
+<meta property="og:url" content="http://finsenty54.github.io/2020/10/12/schlage%20(beginner)%20__WP/index.html">
 <meta property="og:site_name" content="FINSENTY54">
-<meta property="og:description" content="damCTF- rev/schlage (beginner) __WP 先用file命令查看可以看到是64位的ELF文件,debug信息还在  接着使用radare2反汇编   使用VV命令进入视图模式">
-<meta property="og:locale" content="zh-CN">
+<meta property="og:description" content="damCTF- rev&#x2F;schlage (beginner) __WP 先用file命令查看  可以看到是64位的ELF文件,debug信息还在  接着使用radare2反汇编     使用VV命令进入视图模式">
+<meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://s1.ax1x.com/2020/10/12/0Rkyfe.jpg">
 <meta property="og:image" content="https://s1.ax1x.com/2020/10/12/0RE8xJ.jpg">
 <meta property="og:image" content="https://s1.ax1x.com/2020/10/12/0RVJfS.jpg">
@@ -37,16 +40,18 @@
 <meta property="og:image" content="https://s1.ax1x.com/2020/10/12/0RuadA.jpg">
 <meta property="og:image" content="https://s1.ax1x.com/2020/10/12/0RKg1K.jpg">
 <meta property="og:image" content="https://s1.ax1x.com/2020/10/12/0Rlsts.jpg">
-<meta property="og:updated_time" content="2020-10-12T08:08:47.094Z">
+<meta property="article:published_time" content="2020-10-12T08:02:16.000Z">
+<meta property="article:modified_time" content="2020-10-31T08:53:12.116Z">
+<meta property="article:author" content="finsenty54">
+<meta property="article:tag" content="RCE">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="damCTF- rev&#x2F;schlage (beginner) __WP">
-<meta name="twitter:description" content="damCTF- rev/schlage (beginner) __WP 先用file命令查看可以看到是64位的ELF文件,debug信息还在  接着使用radare2反汇编   使用VV命令进入视图模式">
 <meta name="twitter:image" content="https://s1.ax1x.com/2020/10/12/0Rkyfe.jpg">
 
-<link rel="canonical" href="http://finsenty54.github.io/2020/10/12/schlage (beginner) __WP/">
+
+<link rel="canonical" href="http://finsenty54.github.io/2020/10/12/schlage%20(beginner)%20__WP/">
 
 
-<script id="page-configurations">
+<script class="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
@@ -75,65 +80,76 @@
 
   <noscript>
   <style>
-  .use-motion .brand,
+  body { margin-top: 2rem; }
+
   .use-motion .menu-item,
-  .sidebar-inner,
+  .use-motion .sidebar,
   .use-motion .post-block,
   .use-motion .pagination,
   .use-motion .comments,
   .use-motion .post-header,
   .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
 
   .use-motion .site-title,
-  .use-motion .site-subtitle {
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
     opacity: initial;
     top: initial;
   }
 
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
   </style>
 </noscript>
 
+<link rel="alternate" href="/atom.xml" title="FINSENTY54" type="application/atom+xml">
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
-    <div class="headband"></div>
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
 
+  <main class="main">
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
     <div class="toggle" aria-label="切换导航栏">
-      <span class="toggle-line toggle-line-first"></span>
-      <span class="toggle-line toggle-line-middle"></span>
-      <span class="toggle-line toggle-line-last"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
     </div>
   </div>
 
   <div class="site-meta">
 
     <a href="/" class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
+      <i class="logo-line"></i>
       <h1 class="site-title">FINSENTY54</h1>
-      <span class="logo-line-after"><i></i></span>
+      <i class="logo-line"></i>
     </a>
       <p class="site-subtitle" itemprop="description">几处早莺争暖树，谁家新燕啄春泥。</p>
   </div>
 
   <div class="site-nav-right">
     <div class="toggle popup-trigger">
-        <i class="fa fa-search fa-fw fa-lg"></i>
     </div>
   </div>
 </div>
 
 
 
-
 <nav class="site-nav">
-  <ul id="menu" class="main-menu menu">
+  <ul class="main-menu menu">
         <li class="menu-item menu-item-home">
 
     <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
@@ -146,17 +162,17 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">15</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">0</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">55</span></a>
 
   </li>
         <li class="menu-item menu-item-sitemap">
@@ -164,258 +180,25 @@
     <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a>
 
   </li>
-      <li class="menu-item menu-item-search">
-        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
-        </a>
-      </li>
   </ul>
 </nav>
 
 
 
-  <div class="search-pop-overlay">
-    <div class="popup search-popup">
-        <div class="search-header">
-  <span class="search-icon">
-    <i class="fa fa-search"></i>
-  </span>
-  <div class="search-input-container"></div>
-  <span class="popup-btn-close">
-    <i class="fa fa-times-circle"></i>
-  </span>
-</div>
-<div class="algolia-results">
-  <div id="algolia-stats"></div>
-  <div id="algolia-hits"></div>
-  <div id="algolia-pagination" class="algolia-pagination"></div>
-</div>
-
-      
-    </div>
-  </div>
 
 </div>
-    </header>
-
-    
-  <div class="back-to-top">
-    <i class="fa fa-arrow-up"></i>
-    <span>0%</span>
-  </div>
-  <div class="reading-progress-bar"></div>
-
-
-    <main class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
-
-          <div class="content post posts-expand">
-            
-
-    
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://finsenty54.github.io/2020/10/12/schlage (beginner) __WP/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="finsenty54">
-      <meta itemprop="description" content="blog">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="FINSENTY54">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          damCTF- rev/schlage (beginner) __WP
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-10-12 16:02:16 / 修改时间：16:08:47" itemprop="dateCreated datePublished" datetime="2020-10-12T16:02:16+08:00">2020-10-12</time>
-            </span>
-
-          
-            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span id="busuanzi_value_page_pv"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2020/10/12/schlage (beginner) __WP/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/10/12/schlage (beginner) __WP/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-        <h2 id="damCTF-rev-schlage-beginner-WP"><a href="#damCTF-rev-schlage-beginner-WP" class="headerlink" title="damCTF- rev/schlage (beginner) __WP"></a>damCTF- rev/schlage (beginner) __WP</h2><ol>
-<li><p>先用<code>file</code>命令查看<br><img src="https://s1.ax1x.com/2020/10/12/0Rkyfe.jpg" alt="0Rkyfe.jpg" border="0"><br>可以看到是64位的ELF文件,debug信息还在</p>
-</li>
-<li><p>接着使用radare2反汇编<br><img src="https://s1.ax1x.com/2020/10/12/0RE8xJ.jpg" alt="0RE8xJ.jpg" border="0"></p>
-</li>
-</ol>
-<p>使用<code>VV</code>命令进入视图模式</p>
-<a id="more"></a>
-<hr>
-<p>我们的任务是解锁，这里又5把锁<br><img src="https://s1.ax1x.com/2020/10/12/0RVJfS.jpg" alt="0RVJfS.jpg" border="0"></p>
-<hr>
-<p>关键的代码是这5个函数<br><img src="https://s1.ax1x.com/2020/10/12/0RVIk6.jpg" alt="0RVIk6.jpg" border="0"></p>
-<hr>
-<h3 id="Pin1"><a href="#Pin1" class="headerlink" title="Pin1"></a>Pin1</h3><p>第三把锁比较简单，来看第一把锁<br><img src="https://s1.ax1x.com/2020/10/12/0RZxKJ.jpg" alt="0RZxKJ.jpg" border="0"></p>
-<p>也可以在视图模式按<code>o</code>再输入函数旁边的字母<br><img src="https://s1.ax1x.com/2020/10/12/0Rnph6.jpg" alt="0Rnph6.jpg" border="0"></p>
-<p>这是一个循环操作，共五次，每一次将两个数字异或，最后和<code>0xee</code>比较，相同则成功<br><code>rbp+rax-0x0e</code>即指向开头移入地址的5个数</p>
-<p><code>0x3e xor 0x57 xor 0x81 xor 0xd3 xor 0x 25 xor 0x 93 xor 0xee</code> 结果为0<code>x99</code></p>
-<h4 id="jle："><a href="#jle：" class="headerlink" title="jle："></a>jle：</h4><p>JNB al, bl  ；al里的内容不等于bl时跳转<br>JBE al, bl ；al里的内容小于或等于bl时跳转</p>
-<p>；同理，JGB是大于或等于，<code>JLE是小于或等于</code><br>；A（above）大于，B（below）小于，E（equal）等于，用于比较无符号数<br>；G（great）大于，L（less than）小于， E（equal）等于，用于比较带符号数</p>
-<hr>
-<h3 id="pin5"><a href="#pin5" class="headerlink" title="pin5"></a>pin5</h3><p><img src="https://s1.ax1x.com/2020/10/12/0RuadA.jpg" alt="0RuadA.jpg" border="0"></p>
-<h4 id="srand"><a href="#srand" class="headerlink" title="srand()"></a>srand()</h4><p>第5把锁用到了<code>srand()</code>和<code>rand()</code>两个函数。</p>
-<p>根据种子产生随机数<br>1) 给srand()提供一个种子，它是一个unsigned int类型；<br>2) 调用rand()，它会根据提供给srand()的种子值返回一个随机数(在0到RAND_MAX之间)；</p>
-<p>也就是，一个种子，它所产生的随机数是固定的。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">unsigned</span> <span class="keyword">int</span> a=<span class="number">1111638594</span>； <span class="comment">//0x42424242</span></span><br><span class="line">srand(a); </span><br><span class="line"><span class="built_in">cout</span>&lt;&lt;rand()&lt;&lt;<span class="built_in">endl</span>;</span><br></pre></td></tr></table></figure></p>
-<p>输入<code>rand()</code>生成的随机数即可，即为<code>1413036362</code></p>
-<h4 id="lea"><a href="#lea" class="headerlink" title="lea"></a>lea</h4><p>lea是“load effective address”的缩写，简单的说，lea指令可以用来将一个内存地址<code>直接</code>赋给目的操作数，例如：lea eax,[ebx+8]就是将ebx+8这个值直接赋给eax，而不是把ebx+8处的<code>内存地址里</code>的<code>数据</code>赋给eax。而mov指令则恰恰相反，例如：mov eax,[ebx+8]则是把内存地址为ebx+8处的数据赋给eax。</p>
-<hr>
-<h3 id="pin2"><a href="#pin2" class="headerlink" title="pin2"></a>pin2</h3><p><img src="https://s1.ax1x.com/2020/10/12/0RKg1K.jpg" alt="0RKg1K.jpg" border="0"><br>查看汇编代码可以知道，pin2根据实际输出了一个种子，根据种子调用<code>rand()</code>即可。</p>
-<p>这个种子下一把锁还要用到，再一次调用<code>rand()</code>，获得的是第二个随机数。</p>
-<hr>
-<h3 id="pin4"><a href="#pin4" class="headerlink" title="pin4"></a>pin4</h3><p>我认为这是最难得了，主要是编程。<br>直接看r2 太复杂，所以我用IDA PRO，然后F5反编译。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">puts</span>(<span class="string">"What's your favorite sentence?"</span>);</span><br><span class="line">   fgets(s, <span class="number">32</span>, <span class="built_in">stdin</span>);</span><br><span class="line">   s[<span class="built_in">strcspn</span>(s, <span class="string">"\n"</span>)] = <span class="number">0</span>;         <span class="comment">//换行符变为0x00</span></span><br><span class="line">   v3 = rand() % <span class="number">10</span> + <span class="number">65</span>;</span><br><span class="line">   v1 = <span class="number">0</span>;</span><br><span class="line">   v4 = <span class="built_in">strlen</span>(s);                             <span class="comment">// strlen 遇到/0结束</span></span><br><span class="line">   <span class="keyword">for</span> ( i = <span class="number">0</span>; i &lt; v4; ++i )</span><br><span class="line">     v1 += v3 ^ s[i];        <span class="comment">//将随机值与字符异或，结果相加要为291</span></span><br><span class="line">   <span class="keyword">if</span> ( v1 == <span class="number">291</span> )</span><br><span class="line">   &#123;</span><br><span class="line">     <span class="built_in">puts</span>(<span class="string">"Such a cool sentence!"</span>);</span><br><span class="line">     byte_20203C = <span class="number">1</span>;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">else</span></span><br><span class="line">   &#123;</span><br><span class="line">     <span class="built_in">puts</span>(<span class="string">"Not a big fan of that sentence"</span>);</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></p>
-<p>注释已经写在代码中，接下来，就是编程破解得到符合的字符串。</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>; </span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123; </span><br><span class="line">        <span class="comment">/*FILE *pe=NULL;</span></span><br><span class="line"><span class="comment">        char s[1]=&#123;'1'&#125;;</span></span><br><span class="line"><span class="comment">        pe=popen("nc chals.damctf.xyz 31932","rw");</span></span><br><span class="line"><span class="comment">        if(pe==NULL)</span></span><br><span class="line"><span class="comment">                cout&lt;&lt;"connect failed"&lt;&lt;endl;</span></span><br><span class="line"><span class="comment">        while (1)</span></span><br><span class="line"><span class="comment">        &#123;</span></span><br><span class="line"><span class="comment">                fwrite(s,sizeof(s),1,pe);</span></span><br><span class="line"><span class="comment">                fgets(s,20,pe);</span></span><br><span class="line"><span class="comment">                cout&lt;&lt;s;</span></span><br><span class="line"><span class="comment">                break;</span></span><br><span class="line"><span class="comment">        &#125;</span></span><br><span class="line"><span class="comment">        pclose(pe);*/</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">unsigned</span> <span class="keyword">int</span> a=<span class="number">1602480388</span>;<span class="comment">//1111638594</span></span><br><span class="line">        srand(a); </span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;rand()&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">        </span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> v3 = rand() % <span class="number">10</span> + <span class="number">65</span>;</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;<span class="string">"v3="</span>&lt;&lt;v3&lt;&lt;<span class="built_in">endl</span>; <span class="comment">//=74</span></span><br><span class="line">        <span class="keyword">int</span> remain=<span class="number">291</span>; <span class="comment">//291下搜索</span></span><br><span class="line">        <span class="keyword">int</span> qu=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> resu;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">32</span>;i++)&#123;  <span class="comment">//最大允许输入31个字符</span></span><br><span class="line">                <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;<span class="number">58</span>;j++)&#123; <span class="comment">//从A开始搜索</span></span><br><span class="line">                        resu=v3^<span class="keyword">int</span>(<span class="string">'A'</span>+j);</span><br><span class="line">                        <span class="keyword">if</span>(resu==<span class="number">0</span>) <span class="comment">//==0没有用</span></span><br><span class="line">                                &#123;<span class="keyword">continue</span>;&#125;</span><br><span class="line">                        <span class="keyword">else</span> <span class="keyword">if</span> ( resu&lt;remain || remain%resu==<span class="number">0</span>)&#123; <span class="comment">//实际上感觉不用加后面的条件</span></span><br><span class="line">                                qu+=remain/resu; <span class="comment">//累计得到的字符数</span></span><br><span class="line">                                <span class="keyword">if</span>(qu&gt;<span class="number">31</span>)&#123; <span class="comment">//不能大于31</span></span><br><span class="line">                                        qu-=remain/resu;</span><br><span class="line">                                        <span class="keyword">continue</span>;</span><br><span class="line">                                &#125;</span><br><span class="line">                                <span class="keyword">for</span>(<span class="keyword">int</span> k=<span class="number">0</span>;k&lt;remain/resu;k++) <span class="comment">//输出成功的字符</span></span><br><span class="line">                                        <span class="built_in">cout</span>&lt;&lt;<span class="keyword">char</span>(<span class="string">'A'</span>+j);</span><br><span class="line">                                <span class="built_in">cout</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">                                remain=remain%resu; <span class="comment">//更新余下值</span></span><br><span class="line">                                <span class="built_in">cout</span>&lt;&lt;<span class="string">"i=  "</span>&lt;&lt;i&lt;&lt;<span class="string">"   "</span>&lt;&lt;<span class="string">"resu="</span>&lt;&lt;resu&lt;&lt;<span class="string">"qu= "</span>&lt;&lt;qu&lt;&lt;<span class="string">"remain="</span>&lt;&lt;remain&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">                                i=qu<span class="number">-1</span>; <span class="comment">//更新i</span></span><br><span class="line">                                <span class="built_in">cout</span>&lt;&lt;<span class="string">"after i= "</span>&lt;&lt;i&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">                                <span class="keyword">break</span>;</span><br><span class="line">                        &#125;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> (remain==<span class="number">0</span>) <span class="comment">//填满291 成功</span></span><br><span class="line">                &#123;</span><br><span class="line">                        <span class="built_in">cout</span>&lt;&lt;<span class="string">"find"</span>&lt;&lt;<span class="string">"i="</span>&lt;&lt;i&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span>(i&gt;=<span class="number">31</span>) <span class="comment">//最后都没有搜索到，失败</span></span><br><span class="line">                &#123;</span><br><span class="line">                        <span class="built_in">cout</span>&lt;&lt;<span class="built_in">endl</span>&lt;&lt;<span class="string">"don't find"</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">                        <span class="built_in">cout</span>&lt;&lt;<span class="string">"remainder= "</span>&lt;&lt;remain&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>输入字符，成功解锁。</p>
-<p><img src="https://s1.ax1x.com/2020/10/12/0Rlsts.jpg" alt="0Rlsts.jpg" border="0"></p>
-<p>最后flag文件在远程服务器，但链接时间很短，可能需要脚本自动化发送，有点小难😢</p>
-<hr>
-<h4 id="fgets"><a href="#fgets" class="headerlink" title="fgets()"></a>fgets()</h4><p>C 库函数 char <em>fgets(char </em>str, int n, FILE *stream) 从指定的流 stream 读取一行，并把它存储在 str 所指向的字符串内。当读取 (n-1) 个字符时，或者读取到换行符时，或者到达文件末尾时，它会停止，具体视情况而定。</p>
-<h4 id="strlen"><a href="#strlen" class="headerlink" title="strlen()"></a>strlen()</h4><p>C 库函数 size_t strlen(const char *str) 计算字符串 str 的长度，直到空结束字符，但不包括空结束字符。</p>
-<h3 id="结束语"><a href="#结束语" class="headerlink" title="结束语"></a>结束语</h3><p>不愧是新手题，只是最后编程花了我不少时间。</p>
-
-    </div>
-
-    
-    
-    
         
-
-  <div class="followme">
-    <p>欢迎关注我的其它发布渠道</p>
-
-    <div class="social-list">
-
-        <div class="social-item">
-          <a target="_blank" class="social-link" href="/atom.xml">
-            <span class="icon">
-              <i class="fa fa-rss"></i>
-            </span>
-
-            <span class="label">RSS</span>
-          </a>
-        </div>
-    </div>
-  </div>
-
-
-      <footer class="post-footer">
-          
-          <div class="post-tags">
-              <a href="/tags/RCE/" rel="tag"><i class="fa fa-tag"></i> RCE</a>
-          </div>
-
-        
-
-
-        
-    <div class="post-nav">
-      <div class="post-nav-item">
-    <a href="/2020/10/08/逆向_root_me_3/" rel="prev" title="逆向_root_me_3">
-      <i class="fa fa-chevron-left"></i> 逆向_root_me_3
-    </a></div>
-      <div class="post-nav-item">
-    <a href="/2020/10/13/root_me_PE_x86_SEHVEH_WP/" rel="next" title="root_me_PE_x86_SEHVEH_WP">
-      root_me_PE_x86_SEHVEH_WP <i class="fa fa-chevron-right"></i>
-    </a></div>
-    </div>
-      </footer>
-    
-  </article>
-  
-  
-  
-
-
-
-          </div>
-          
-    
-  <div class="comments">
-    <div id="disqus_thread">
-      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
-    </div>
-  </div>
-  
-
-<script>
-  window.addEventListener('tabs:register', () => {
-    let { activeClass } = CONFIG.comments;
-    if (CONFIG.comments.storage) {
-      activeClass = localStorage.getItem('comments_active') || activeClass;
-    }
-    if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
-      if (activeTab) {
-        activeTab.click();
-      }
-    }
-  });
-  if (CONFIG.comments.storage) {
-    window.addEventListener('tabs:click', event => {
-      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
-      localStorage.setItem('comments_active', commentClass);
-    });
-  }
-</script>
-
-        </div>
-          
   
   <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
   </div>
 
   <aside class="sidebar">
-    <div class="sidebar-inner">
 
-      <ul class="sidebar-nav motion-element">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
         </li>
@@ -425,17 +208,17 @@
       </ul>
 
       <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#damCTF-rev-schlage-beginner-WP"><span class="nav-number">1.</span> <span class="nav-text">damCTF- rev/schlage (beginner) __WP</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Pin1"><span class="nav-number">1.1.</span> <span class="nav-text">Pin1</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#jle："><span class="nav-number">1.1.1.</span> <span class="nav-text">jle：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pin5"><span class="nav-number">1.2.</span> <span class="nav-text">pin5</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#srand"><span class="nav-number">1.2.1.</span> <span class="nav-text">srand()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#lea"><span class="nav-number">1.2.2.</span> <span class="nav-text">lea</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pin2"><span class="nav-number">1.3.</span> <span class="nav-text">pin2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pin4"><span class="nav-number">1.4.</span> <span class="nav-text">pin4</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#fgets"><span class="nav-number">1.4.1.</span> <span class="nav-text">fgets()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#strlen"><span class="nav-number">1.4.2.</span> <span class="nav-text">strlen()</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结束语"><span class="nav-number">1.5.</span> <span class="nav-text">结束语</span></a></li></ol></li></ol></div>
-      </div>
+      <section class="post-toc-wrap sidebar-panel">
+          <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#damCTF-rev-schlage-beginner-WP"><span class="nav-number">1.</span> <span class="nav-text">damCTF- rev&#x2F;schlage (beginner) __WP</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Pin1"><span class="nav-number">1.1.</span> <span class="nav-text">Pin1</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#jle%EF%BC%9A"><span class="nav-number">1.1.1.</span> <span class="nav-text">jle：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pin5"><span class="nav-number">1.2.</span> <span class="nav-text">pin5</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#lea"><span class="nav-number">1.2.1.</span> <span class="nav-text">lea</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pin2"><span class="nav-number">1.3.</span> <span class="nav-text">pin2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pin4"><span class="nav-number">1.4.</span> <span class="nav-text">pin4</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#fgets"><span class="nav-number">1.4.1.</span> <span class="nav-text">fgets()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#strlen"><span class="nav-number">1.4.2.</span> <span class="nav-text">strlen()</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%93%E6%9D%9F%E8%AF%AD"><span class="nav-number">1.5.</span> <span class="nav-text">结束语</span></a></li></ol></li></ol></div>
+      </section>
       <!--/noindex-->
 
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
   <p class="site-author-name" itemprop="name">finsenty54</p>
   <div class="site-description" itemprop="description">blog</div>
 </div>
-<div class="site-state-wrap motion-element">
+<div class="site-state-wrap animated">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
@@ -452,32 +235,275 @@
       </div>
   </nav>
 </div>
-  <div class="links-of-author motion-element">
+  <div class="links-of-author animated">
       <span class="links-of-author-item">
-        <a href="https://github.com/Finsenty54" title="GitHub → https://github.com/Finsenty54" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+        <a href="https://github.com/Finsenty54" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Finsenty54" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
       </span>
       <span class="links-of-author-item">
-        <a href="mailto:finsenty54@qq.com" title="E-Mail → mailto:finsenty54@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+        <a href="mailto:fin12138@gmail.com" title="E-Mail → mailto:fin12138@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
       </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
   </div>
 
 
 
-      </div>
-
+      </section>
     </div>
   </aside>
-  <div id="sidebar-dimmer"></div>
+  <div class="sidebar-dimmer"></div>
 
 
-      </div>
-    </main>
+    </header>
 
-    <footer class="footer">
-      <div class="footer-inner">
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+      
+
+      
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://finsenty54.github.io/2020/10/12/schlage%20(beginner)%20__WP/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="finsenty54">
+      <meta itemprop="description" content="blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="FINSENTY54">
+    </span>
+
+    
+    
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          damCTF- rev/schlage (beginner) __WP
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-10-12 16:02:16" itemprop="dateCreated datePublished" datetime="2020-10-12T16:02:16+08:00">2020-10-12</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2020-10-31 16:53:12" itemprop="dateModified" datetime="2020-10-31T16:53:12+08:00">2020-10-31</time>
+      </span>
+
+  
+    <span id="/2020/10/12/schlage%20(beginner)%20__WP/" class="post-meta-item leancloud_visitors" data-flag-title="damCTF- rev/schlage (beginner) __WP" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/10/12/schlage%20(beginner)%20__WP/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/10/12/schlage%20(beginner)%20__WP/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="damCTF-rev-schlage-beginner-WP"><a href="#damCTF-rev-schlage-beginner-WP" class="headerlink" title="damCTF- rev/schlage (beginner) __WP"></a>damCTF- rev/schlage (beginner) __WP</h2><ol>
+<li><p>先用<code>file</code>命令查看</p>
+<img src="https://s1.ax1x.com/2020/10/12/0Rkyfe.jpg" alt="0Rkyfe.jpg" border="0" />
+可以看到是64位的ELF文件,debug信息还在
+</li>
+<li><p>接着使用radare2反汇编</p>
+<img src="https://s1.ax1x.com/2020/10/12/0RE8xJ.jpg" alt="0RE8xJ.jpg" border="0" />
+
+</li>
+</ol>
+<p>使用<code>VV</code>命令进入视图模式</p>
+<a id="more"></a>
+<hr>
+<p>我们的任务是解锁，这里又5把锁<br><img src="https://s1.ax1x.com/2020/10/12/0RVJfS.jpg" alt="0RVJfS.jpg" border="0" /></p>
+<hr>
+<p>关键的代码是这5个函数<br><img src="https://s1.ax1x.com/2020/10/12/0RVIk6.jpg" alt="0RVIk6.jpg" border="0" /></p>
+<hr>
+<h3 id="Pin1"><a href="#Pin1" class="headerlink" title="Pin1"></a>Pin1</h3><p>第三把锁比较简单，来看第一把锁<br><img src="https://s1.ax1x.com/2020/10/12/0RZxKJ.jpg" alt="0RZxKJ.jpg" border="0" /></p>
+<p>也可以在视图模式按<code>o</code>再输入函数旁边的字母<br><img src="https://s1.ax1x.com/2020/10/12/0Rnph6.jpg" alt="0Rnph6.jpg" border="0" /></p>
+<p>这是一个循环操作，共五次，每一次将两个数字异或，最后和<code>0xee</code>比较，相同则成功<br><code>rbp+rax-0x0e</code>即指向开头移入地址的5个数</p>
+<p><code>0x3e xor 0x57 xor 0x81 xor 0xd3 xor 0x 25 xor 0x 93 xor 0xee</code> 结果为0<code>x99</code></p>
+<h4 id="jle："><a href="#jle：" class="headerlink" title="jle："></a>jle：</h4><p>JNB al, bl  ；al里的内容不等于bl时跳转<br>JBE al, bl ；al里的内容小于或等于bl时跳转</p>
+<p>；同理，JGB是大于或等于，<code>JLE是小于或等于</code><br>；A（above）大于，B（below）小于，E（equal）等于，用于比较无符号数<br>；G（great）大于，L（less than）小于， E（equal）等于，用于比较带符号数</p>
+<hr>
+<h3 id="pin5"><a href="#pin5" class="headerlink" title="pin5"></a>pin5</h3><img src="https://s1.ax1x.com/2020/10/12/0RuadA.jpg" alt="0RuadA.jpg" border="0" />
+#### srand()
+第5把锁用到了`srand()`和`rand()`两个函数。
+
+<p>根据种子产生随机数</p>
+<ol>
+<li>给srand()提供一个种子，它是一个unsigned int类型；</li>
+<li>调用rand()，它会根据提供给srand()的种子值返回一个随机数(在0到RAND_MAX之间)；</li>
+</ol>
+<p>也就是，一个种子，它所产生的随机数是固定的。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">unsigned</span> <span class="keyword">int</span> a=<span class="number">1111638594</span>； <span class="comment">//0x42424242</span></span><br><span class="line">srand(a); </span><br><span class="line"><span class="built_in">cout</span>&lt;&lt;rand()&lt;&lt;<span class="built_in">endl</span>;</span><br></pre></td></tr></table></figure>
+<p>输入<code>rand()</code>生成的随机数即可，即为<code>1413036362</code></p>
+<h4 id="lea"><a href="#lea" class="headerlink" title="lea"></a>lea</h4><p>lea是“load effective address”的缩写，简单的说，lea指令可以用来将一个内存地址<code>直接</code>赋给目的操作数，例如：lea eax,[ebx+8]就是将ebx+8这个值直接赋给eax，而不是把ebx+8处的<code>内存地址里</code>的<code>数据</code>赋给eax。而mov指令则恰恰相反，例如：mov eax,[ebx+8]则是把内存地址为ebx+8处的数据赋给eax。</p>
+<hr>
+<h3 id="pin2"><a href="#pin2" class="headerlink" title="pin2"></a>pin2</h3><img src="https://s1.ax1x.com/2020/10/12/0RKg1K.jpg" alt="0RKg1K.jpg" border="0" />
+查看汇编代码可以知道，pin2根据实际输出了一个种子，根据种子调用`rand() `即可。
+
+<p>这个种子下一把锁还要用到，再一次调用<code>rand()</code>，获得的是第二个随机数。</p>
+<hr>
+<h3 id="pin4"><a href="#pin4" class="headerlink" title="pin4"></a>pin4</h3><p>我认为这是最难得了，主要是编程。<br>直接看r2 太复杂，所以我用IDA PRO，然后F5反编译。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">puts</span>(<span class="string">&quot;What&#x27;s your favorite sentence?&quot;</span>);</span><br><span class="line">   fgets(s, <span class="number">32</span>, <span class="built_in">stdin</span>);</span><br><span class="line">   s[<span class="built_in">strcspn</span>(s, <span class="string">&quot;\n&quot;</span>)] = <span class="number">0</span>;         <span class="comment">//换行符变为0x00</span></span><br><span class="line">   v3 = rand() % <span class="number">10</span> + <span class="number">65</span>;</span><br><span class="line">   v1 = <span class="number">0</span>;</span><br><span class="line">   v4 = <span class="built_in">strlen</span>(s);                             <span class="comment">// strlen 遇到/0结束</span></span><br><span class="line">   <span class="keyword">for</span> ( i = <span class="number">0</span>; i &lt; v4; ++i )</span><br><span class="line">     v1 += v3 ^ s[i];        <span class="comment">//将随机值与字符异或，结果相加要为291</span></span><br><span class="line">   <span class="keyword">if</span> ( v1 == <span class="number">291</span> )</span><br><span class="line">   &#123;</span><br><span class="line">     <span class="built_in">puts</span>(<span class="string">&quot;Such a cool sentence!&quot;</span>);</span><br><span class="line">     byte_20203C = <span class="number">1</span>;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">else</span></span><br><span class="line">   &#123;</span><br><span class="line">     <span class="built_in">puts</span>(<span class="string">&quot;Not a big fan of that sentence&quot;</span>);</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<p>注释已经写在代码中，接下来，就是编程破解得到符合的字符串。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>; </span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123; </span><br><span class="line">        <span class="comment">/*FILE *pe=NULL;</span></span><br><span class="line"><span class="comment">        char s[1]=&#123;&#x27;1&#x27;&#125;;</span></span><br><span class="line"><span class="comment">        pe=popen(&quot;nc chals.damctf.xyz 31932&quot;,&quot;rw&quot;);</span></span><br><span class="line"><span class="comment">        if(pe==NULL)</span></span><br><span class="line"><span class="comment">                cout&lt;&lt;&quot;connect failed&quot;&lt;&lt;endl;</span></span><br><span class="line"><span class="comment">        while (1)</span></span><br><span class="line"><span class="comment">        &#123;</span></span><br><span class="line"><span class="comment">                fwrite(s,sizeof(s),1,pe);</span></span><br><span class="line"><span class="comment">                fgets(s,20,pe);</span></span><br><span class="line"><span class="comment">                cout&lt;&lt;s;</span></span><br><span class="line"><span class="comment">                break;</span></span><br><span class="line"><span class="comment">        &#125;</span></span><br><span class="line"><span class="comment">        pclose(pe);*/</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">unsigned</span> <span class="keyword">int</span> a=<span class="number">1602480388</span>;<span class="comment">//1111638594</span></span><br><span class="line">        srand(a); </span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;rand()&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">        </span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> v3 = rand() % <span class="number">10</span> + <span class="number">65</span>;</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;<span class="string">&quot;v3=&quot;</span>&lt;&lt;v3&lt;&lt;<span class="built_in">endl</span>; <span class="comment">//=74</span></span><br><span class="line">        <span class="keyword">int</span> remain=<span class="number">291</span>; <span class="comment">//291下搜索</span></span><br><span class="line">        <span class="keyword">int</span> qu=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> resu;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">32</span>;i++)&#123;  <span class="comment">//最大允许输入31个字符</span></span><br><span class="line">                <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;<span class="number">58</span>;j++)&#123; <span class="comment">//从A开始搜索</span></span><br><span class="line">                        resu=v3^<span class="keyword">int</span>(<span class="string">&#x27;A&#x27;</span>+j);</span><br><span class="line">                        <span class="keyword">if</span>(resu==<span class="number">0</span>) <span class="comment">//==0没有用</span></span><br><span class="line">                                &#123;<span class="keyword">continue</span>;&#125;</span><br><span class="line">                        <span class="keyword">else</span> <span class="keyword">if</span> ( resu&lt;remain || remain%resu==<span class="number">0</span>)&#123; <span class="comment">//实际上感觉不用加后面的条件</span></span><br><span class="line">                                qu+=remain/resu; <span class="comment">//累计得到的字符数</span></span><br><span class="line">                                <span class="keyword">if</span>(qu&gt;<span class="number">31</span>)&#123; <span class="comment">//不能大于31</span></span><br><span class="line">                                        qu-=remain/resu;</span><br><span class="line">                                        <span class="keyword">continue</span>;</span><br><span class="line">                                &#125;</span><br><span class="line">                                <span class="keyword">for</span>(<span class="keyword">int</span> k=<span class="number">0</span>;k&lt;remain/resu;k++) <span class="comment">//输出成功的字符</span></span><br><span class="line">                                        <span class="built_in">cout</span>&lt;&lt;<span class="keyword">char</span>(<span class="string">&#x27;A&#x27;</span>+j);</span><br><span class="line">                                <span class="built_in">cout</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">                                remain=remain%resu; <span class="comment">//更新余下值</span></span><br><span class="line">                                <span class="built_in">cout</span>&lt;&lt;<span class="string">&quot;i=  &quot;</span>&lt;&lt;i&lt;&lt;<span class="string">&quot;   &quot;</span>&lt;&lt;<span class="string">&quot;resu=&quot;</span>&lt;&lt;resu&lt;&lt;<span class="string">&quot;qu= &quot;</span>&lt;&lt;qu&lt;&lt;<span class="string">&quot;remain=&quot;</span>&lt;&lt;remain&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">                                i=qu<span class="number">-1</span>; <span class="comment">//更新i</span></span><br><span class="line">                                <span class="built_in">cout</span>&lt;&lt;<span class="string">&quot;after i= &quot;</span>&lt;&lt;i&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">                                <span class="keyword">break</span>;</span><br><span class="line">                        &#125;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> (remain==<span class="number">0</span>) <span class="comment">//填满291 成功</span></span><br><span class="line">                &#123;</span><br><span class="line">                        <span class="built_in">cout</span>&lt;&lt;<span class="string">&quot;find&quot;</span>&lt;&lt;<span class="string">&quot;i=&quot;</span>&lt;&lt;i&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span>(i&gt;=<span class="number">31</span>) <span class="comment">//最后都没有搜索到，失败</span></span><br><span class="line">                &#123;</span><br><span class="line">                        <span class="built_in">cout</span>&lt;&lt;<span class="built_in">endl</span>&lt;&lt;<span class="string">&quot;don&#x27;t find&quot;</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">                        <span class="built_in">cout</span>&lt;&lt;<span class="string">&quot;remainder= &quot;</span>&lt;&lt;remain&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>输入字符，成功解锁。</p>
+<img src="https://s1.ax1x.com/2020/10/12/0Rlsts.jpg" alt="0Rlsts.jpg" border="0" />
+
+<p>最后flag文件在远程服务器，但链接时间很短，可能需要脚本自动化发送，有点小难😢</p>
+<hr>
+<h4 id="fgets"><a href="#fgets" class="headerlink" title="fgets()"></a>fgets()</h4><p>C 库函数 char *fgets(char *str, int n, FILE *stream) 从指定的流 stream 读取一行，并把它存储在 str 所指向的字符串内。当读取 (n-1) 个字符时，或者读取到换行符时，或者到达文件末尾时，它会停止，具体视情况而定。</p>
+<h4 id="strlen"><a href="#strlen" class="headerlink" title="strlen()"></a>strlen()</h4><p>C 库函数 size_t strlen(const char *str) 计算字符串 str 的长度，直到空结束字符，但不包括空结束字符。</p>
+<h3 id="结束语"><a href="#结束语" class="headerlink" title="结束语"></a>结束语</h3><p>不愧是新手题，只是最后编程花了我不少时间。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>finsenty54
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://finsenty54.github.io/2020/10/12/schlage%20(beginner)%20__WP/" title="damCTF- rev&#x2F;schlage (beginner) __WP">http://finsenty54.github.io/2020/10/12/schlage (beginner) __WP/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          
+
+  <div class="followme">
+    <span>欢迎关注我的其它发布渠道</span>
+
+    <div class="social-list">
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+        </div>
+    </div>
+  </div>
+
+          <div class="post-tags">
+              <a href="/tags/RCE/" rel="tag"># RCE</a>
+          </div>
+
         
 
-        
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/10/08/%E9%80%86%E5%90%91_root_me_3/" rel="prev" title="逆向_root_me_3">
+                  <i class="fa fa-chevron-left"></i> 逆向_root_me_3
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/10/13/root_me_PE_x86_SEHVEH_WP/" rel="next" title="root_me_PE_x86_SEHVEH_WP">
+                  root_me_PE_x86_SEHVEH_WP <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+  
+  
+  
+
+
+
+      
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      
+
+      
 
 <div class="copyright">
   
@@ -488,12 +514,7 @@
   </span>
   <span class="author" itemprop="copyrightHolder">finsenty54</span>
 </div>
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
-  </div>
-
-        
 <div class="busuanzi-count">
-  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
     <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
       <span class="post-meta-item-icon">
         <i class="fa fa-user"></i>
@@ -502,7 +523,6 @@
         <span id="busuanzi_value_site_uv"></span>
       </span>
     </span>
-    <span class="post-meta-divider">|</span>
     <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
       <span class="post-meta-item-icon">
         <i class="fa fa-eye"></i>
@@ -512,36 +532,19 @@
       </span>
     </span>
 </div>
-
-
-
-
-
-
-
-
-      </div>
-    </footer>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
 
+    </div>
+  </footer>
+
   
-  <script src="/lib/anime.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
-<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
-<script src="/js/schemes/muse.js"></script>
-<script src="/js/next-boot.js"></script>
-
-
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.2.0/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
 
   
 
 
-
-
-  
-<script src="//cdn.jsdelivr.net/npm/algoliasearch@4/dist/algoliasearch-lite.umd.js"></script>
-<script src="//cdn.jsdelivr.net/npm/instantsearch.js@4/dist/instantsearch.production.min.js"></script><script src="/js/algolia-search.js"></script>
 
 
 
@@ -556,38 +559,28 @@
 
 
   
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+
+
 
   
 
+  
 <script>
-  function loadCount() {
-    var d = document, s = d.createElement('script');
-    s.src = 'https://finsenty54.disqus.com/count.js';
-    s.id = 'dsq-count-scr';
-    (d.head || d.body).appendChild(s);
-  }
-  // defer loading until the whole page loading is completed
-  window.addEventListener('load', loadCount, false);
-</script>
-<script>
-  var disqus_config = function() {
-    this.page.url = "http://finsenty54.github.io/2020/10/12/schlage (beginner) __WP/";
-    this.page.identifier = "2020/10/12/schlage (beginner) __WP/";
-    this.page.title = "damCTF- rev/schlage (beginner) __WP";
-    };
-  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
-    if (window.DISQUS) {
-      DISQUS.reset({
-        reload: true,
-        config: disqus_config
-      });
-    } else {
-      var d = document, s = d.createElement('script');
-      s.src = 'https://finsenty54.disqus.com/embed.js';
-      s.setAttribute('data-timestamp', '' + +new Date());
-      (d.head || d.body).appendChild(s);
-    }
-  });
+NexT.utils.loadComments('#valine-comments', () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', () => {
+    new Valine(Object.assign({
+      el  : '#valine-comments',
+      path: "/2020/10/12/schlage%20(beginner)%20__WP/",
+    }, {"enable":true,"appId":"3uGsbMNvxiG0LkbyciDSaxmY-MdYXbMMI","appKey":"1dU1y3SudPaV6pdTET96j5M2","placeholder":"欢迎交流讨论...","avatar":"mm","meta":["nick","mail","link"],"pageSize":10,"lang":"zh-cn","visitor":true,"comment_count":true,"recordIP":false,"serverURLs":null,"enableQQ":false,"requiredFields":[]}
+    ));
+  }, window.Valine);
+});
 </script>
 
 </body>

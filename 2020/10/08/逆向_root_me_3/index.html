@@ -4,39 +4,44 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 3.9.0">
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
-  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#222">
+  <link rel="manifest" href="/images/site.webmanifest">
+  <meta name="msapplication-config" content="/images/browserconfig.xml">
 
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-<script id="hexo-configurations">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.14.0/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"finsenty54.github.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","width":320,"display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"disqus","storage":true,"lazyload":false,"nav":null,"activeClass":"disqus"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"finsenty54.github.io","root":"/","scheme":"Gemini","version":"8.0.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}};
   </script>
 
   <meta name="description" content="ELF x86 - No software breakpoints看反汇编，大致了解过程这是众所周知的反调试技术，它不能在应用程序本身中放置任何软件断点。因为当我们在用户模式应用程序中遇到断点时，代码中将放入0xCC（int3），因此计算将是错误的，并将生成错误的校验和.">
-<meta name="keywords" content="RCE">
 <meta property="og:type" content="article">
 <meta property="og:title" content="逆向_root_me_3">
-<meta property="og:url" content="http://finsenty54.github.io/2020/10/08/逆向_root_me_3/index.html">
+<meta property="og:url" content="http://finsenty54.github.io/2020/10/08/%E9%80%86%E5%90%91_root_me_3/index.html">
 <meta property="og:site_name" content="FINSENTY54">
 <meta property="og:description" content="ELF x86 - No software breakpoints看反汇编，大致了解过程这是众所周知的反调试技术，它不能在应用程序本身中放置任何软件断点。因为当我们在用户模式应用程序中遇到断点时，代码中将放入0xCC（int3），因此计算将是错误的，并将生成错误的校验和.">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-10-08T12:22:25.176Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-10-08T12:21:43.000Z">
+<meta property="article:modified_time" content="2020-10-31T08:53:12.096Z">
+<meta property="article:author" content="finsenty54">
+<meta property="article:tag" content="RCE">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="逆向_root_me_3">
-<meta name="twitter:description" content="ELF x86 - No software breakpoints看反汇编，大致了解过程这是众所周知的反调试技术，它不能在应用程序本身中放置任何软件断点。因为当我们在用户模式应用程序中遇到断点时，代码中将放入0xCC（int3），因此计算将是错误的，并将生成错误的校验和.">
-
-<link rel="canonical" href="http://finsenty54.github.io/2020/10/08/逆向_root_me_3/">
 
 
-<script id="page-configurations">
+<link rel="canonical" href="http://finsenty54.github.io/2020/10/08/%E9%80%86%E5%90%91_root_me_3/">
+
+
+<script class="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
@@ -65,65 +70,76 @@
 
   <noscript>
   <style>
-  .use-motion .brand,
+  body { margin-top: 2rem; }
+
   .use-motion .menu-item,
-  .sidebar-inner,
+  .use-motion .sidebar,
   .use-motion .post-block,
   .use-motion .pagination,
   .use-motion .comments,
   .use-motion .post-header,
   .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
 
   .use-motion .site-title,
-  .use-motion .site-subtitle {
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
     opacity: initial;
     top: initial;
   }
 
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
   </style>
 </noscript>
 
+<link rel="alternate" href="/atom.xml" title="FINSENTY54" type="application/atom+xml">
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
-    <div class="headband"></div>
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
 
+  <main class="main">
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
     <div class="toggle" aria-label="切换导航栏">
-      <span class="toggle-line toggle-line-first"></span>
-      <span class="toggle-line toggle-line-middle"></span>
-      <span class="toggle-line toggle-line-last"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
     </div>
   </div>
 
   <div class="site-meta">
 
     <a href="/" class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
+      <i class="logo-line"></i>
       <h1 class="site-title">FINSENTY54</h1>
-      <span class="logo-line-after"><i></i></span>
+      <i class="logo-line"></i>
     </a>
       <p class="site-subtitle" itemprop="description">几处早莺争暖树，谁家新燕啄春泥。</p>
   </div>
 
   <div class="site-nav-right">
     <div class="toggle popup-trigger">
-        <i class="fa fa-search fa-fw fa-lg"></i>
     </div>
   </div>
 </div>
 
 
 
-
 <nav class="site-nav">
-  <ul id="menu" class="main-menu menu">
+  <ul class="main-menu menu">
         <li class="menu-item menu-item-home">
 
     <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
@@ -136,17 +152,17 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">15</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">0</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">55</span></a>
 
   </li>
         <li class="menu-item menu-item-sitemap">
@@ -154,37 +170,81 @@
     <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a>
 
   </li>
-      <li class="menu-item menu-item-search">
-        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
-        </a>
-      </li>
   </ul>
 </nav>
 
 
 
-  <div class="search-pop-overlay">
-    <div class="popup search-popup">
-        <div class="search-header">
-  <span class="search-icon">
-    <i class="fa fa-search"></i>
-  </span>
-  <div class="search-input-container"></div>
-  <span class="popup-btn-close">
-    <i class="fa fa-times-circle"></i>
-  </span>
-</div>
-<div class="algolia-results">
-  <div id="algolia-stats"></div>
-  <div id="algolia-hits"></div>
-  <div id="algolia-pagination" class="algolia-pagination"></div>
-</div>
 
-      
-    </div>
+</div>
+        
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
   </div>
 
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <section class="post-toc-wrap sidebar-panel">
+          <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#ELF-x86-No-software-breakpoints"><span class="nav-number">1.</span> <span class="nav-text">ELF x86 - No software breakpoints</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9C%8B%E5%8F%8D%E6%B1%87%E7%BC%96%EF%BC%8C%E5%A4%A7%E8%87%B4%E4%BA%86%E8%A7%A3%E8%BF%87%E7%A8%8B"><span class="nav-number">1.1.</span> <span class="nav-text">看反汇编，大致了解过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A7%BB%E4%BD%8D%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">1.2.</span> <span class="nav-text">移位运算符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#g"><span class="nav-number">1.3.</span> <span class="nav-text">g++</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A7%BB%E4%BD%8D"><span class="nav-number">1.4.</span> <span class="nav-text">移位</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%91%BD%E5%90%8D%E7%A9%BA%E9%97%B4"><span class="nav-number">1.5.</span> <span class="nav-text">命名空间</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ELF-x86-CrackPass"><span class="nav-number">2.</span> <span class="nav-text">ELF x86 - CrackPass</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#r2-%E5%9B%BE%E5%BD%A2%E6%A8%A1%E5%BC%8F%E4%B8%8B%EF%BC%8C%E5%A6%82%E4%BD%95%E8%B7%B3%E8%BD%AC%E5%92%8C%E8%BF%94%E5%9B%9E%E5%87%BD%E6%95%B0"><span class="nav-number">2.1.</span> <span class="nav-text">r2 图形模式下，如何跳转和返回函数</span></a></li></ol></li></ol></div>
+      </section>
+      <!--/noindex-->
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">finsenty54</p>
+  <div class="site-description" itemprop="description">blog</div>
 </div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">55</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Finsenty54" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Finsenty54" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:fin12138@gmail.com" title="E-Mail → mailto:fin12138@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </section>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
     </header>
 
     
@@ -194,20 +254,21 @@
   </div>
   <div class="reading-progress-bar"></div>
 
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
 
-    <main class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
 
-          <div class="content post posts-expand">
-            
+    <div class="main-inner post posts-expand">
+      
+
+      
 
     
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://finsenty54.github.io/2020/10/08/逆向_root_me_3/">
+    <link itemprop="mainEntityOfPage" href="http://finsenty54.github.io/2020/10/08/%E9%80%86%E5%90%91_root_me_3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -218,44 +279,55 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="FINSENTY54">
     </span>
+
+    
+    
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           逆向_root_me_3
         </h1>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2020-10-08 20:21:43 / 修改时间：20:22:25" itemprop="dateCreated datePublished" datetime="2020-10-08T20:21:43+08:00">2020-10-08</time>
-            </span>
+      <time title="创建时间：2020-10-08 20:21:43" itemprop="dateCreated datePublished" datetime="2020-10-08T20:21:43+08:00">2020-10-08</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2020-10-31 16:53:12" itemprop="dateModified" datetime="2020-10-31T16:53:12+08:00">2020-10-31</time>
+      </span>
 
-          
-            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span id="busuanzi_value_page_pv"></span>
-            </span>
+  
+    <span id="/2020/10/08/%E9%80%86%E5%90%91_root_me_3/" class="post-meta-item leancloud_visitors" data-flag-title="逆向_root_me_3" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
   
   <span class="post-meta-item">
     
       <span class="post-meta-item-icon">
         <i class="far fa-comment"></i>
       </span>
-      <span class="post-meta-item-text">Disqus：</span>
+      <span class="post-meta-item-text">Valine：</span>
     
-    <a title="disqus" href="/2020/10/08/逆向_root_me_3/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/10/08/逆向_root_me_3/" itemprop="commentCount"></span>
+    <a title="valine" href="/2020/10/08/%E9%80%86%E5%90%91_root_me_3/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/10/08/%E9%80%86%E5%90%91_root_me_3/" itemprop="commentCount"></span>
     </a>
   </span>
   
   
+</div>
 
         </div>
       </header>
@@ -264,17 +336,17 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
-        <h2 id="ELF-x86-No-software-breakpoints"><a href="#ELF-x86-No-software-breakpoints" class="headerlink" title="ELF x86 - No software breakpoints"></a>ELF x86 - No software breakpoints</h2><h3 id="看反汇编，大致了解过程"><a href="#看反汇编，大致了解过程" class="headerlink" title="看反汇编，大致了解过程"></a>看反汇编，大致了解过程</h3><p>这是众所周知的<code>反调试</code>技术，它不能在应用程序本身中<code>放置任何软件断点</code>。因为当我们在<code>用户模式</code>应用程序中遇到<code>断点</code>时，代码中将放入<code>0xCC（int3）</code>，因此计算将是错误的，并将生成错误的<code>校验和</code>.<br><a id="more"></a><br>这是在ecx中计算一种散列值，它基于入口点的整个代码。如果我们对函数进行任何更改，值将不再相同，从而阻止我们编辑二进制文件.</p>
+        <h2 id="ELF-x86-No-software-breakpoints"><a href="#ELF-x86-No-software-breakpoints" class="headerlink" title="ELF x86 - No software breakpoints"></a>ELF x86 - No software breakpoints</h2><h3 id="看反汇编，大致了解过程"><a href="#看反汇编，大致了解过程" class="headerlink" title="看反汇编，大致了解过程"></a>看反汇编，大致了解过程</h3><p>这是众所周知的<code>反调试</code>技术，它不能在应用程序本身中<code>放置任何软件断点</code>。因为当我们在<code>用户模式</code>应用程序中遇到<code>断点</code>时，代码中将放入<code>0xCC（int3）</code>，因此计算将是错误的，并将生成错误的<code>校验和</code>.</p>
+<a id="more"></a>
+<p>这是在ecx中计算一种散列值，它基于入口点的整个代码。如果我们对函数进行任何更改，值将不再相同，从而阻止我们编辑二进制文件.</p>
 <p>计算整个<code>text 指令的和</code>，所以放入<code>0xCC</code>会 报错，也就是改变的指令。</p>
 <hr>
 <h3 id="移位运算符"><a href="#移位运算符" class="headerlink" title="移位运算符"></a>移位运算符</h3><p>a&lt;&lt;3<br><code>a的内容不改变</code></p>
 <p><code>edx &amp; 0xff</code><br>取最后8位</p>
 <hr>
 <h3 id="g"><a href="#g" class="headerlink" title="g++"></a>g++</h3><pre><code>g++主要用来编译c++文件，g++编译c++文件是会连接libc++。
-gcc主要用来编译c文件，也可编译c++，但gcc编译c++文件默认不连接libc++。
-</code></pre><hr>
+gcc主要用来编译c文件，也可编译c++，但gcc编译c++文件默认不连接libc++。</code></pre>
+<hr>
 <h3 id="移位"><a href="#移位" class="headerlink" title="移位"></a>移位</h3><p>移位时，移出的位数全部丢弃，移出的空位补入的数与左移还是右移有关。如果是<code>左移</code>，则规定补入的数全部是<code>0</code>；如果是<code>右移</code>，还与被移位的数据是否带<code>符号</code>有关。若是<code>不带符号数</code>，则补入的数全部为<code>0</code>；若是<code>带符号数</code>，则补入的数全部等于原数的最左端位上的原数(即<code>原符号位</code>)</p>
 <hr>
 <h3 id="命名空间"><a href="#命名空间" class="headerlink" title="命名空间"></a>命名空间</h3><p>引入了命名空间这个概念，它可作为<code>附加信息来区分</code>不同库中相同名称的函数、类、变量等。使用了命名空间即定义了上下文。本质上，命名空间就是定义了<code>一个范围</code>。</p>
@@ -285,8 +357,8 @@ gcc主要用来编译c文件，也可编译c++，但gcc编译c++文件默认不�
 <p><code>gdb-peda$ print/t $ebx</code><br>二进制打印寄存器</p>
 <hr>
 <pre><code>set $ZF = 6
-set $eflags |= (1 &lt;&lt; $ZF)
-</code></pre><p>设定ZF值为1</p>
+set $eflags |= (1 &lt;&lt; $ZF)</code></pre>
+<p>设定ZF值为1</p>
 <hr>
 <p><code>show</code></p>
 <hr>
@@ -306,10 +378,29 @@ set $eflags |= (1 &lt;&lt; $ZF)
     
     
     
-        
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>finsenty54
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://finsenty54.github.io/2020/10/08/%E9%80%86%E5%90%91_root_me_3/" title="逆向_root_me_3">http://finsenty54.github.io/2020/10/08/逆向_root_me_3/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          
 
   <div class="followme">
-    <p>欢迎关注我的其它发布渠道</p>
+    <span>欢迎关注我的其它发布渠道</span>
 
     <div class="social-list">
 
@@ -325,29 +416,25 @@ set $eflags |= (1 &lt;&lt; $ZF)
     </div>
   </div>
 
-
-      <footer class="post-footer">
-          
           <div class="post-tags">
-              <a href="/tags/RCE/" rel="tag"><i class="fa fa-tag"></i> RCE</a>
+              <a href="/tags/RCE/" rel="tag"># RCE</a>
           </div>
 
         
 
-
-        
-    <div class="post-nav">
-      <div class="post-nav-item">
-    <a href="/2020/10/07/逆向_root_me_2/" rel="prev" title="逆向_root_me_2">
-      <i class="fa fa-chevron-left"></i> 逆向_root_me_2
-    </a></div>
-      <div class="post-nav-item">
-    <a href="/2020/10/12/schlage (beginner) __WP/" rel="next" title="damCTF- rev/schlage (beginner) __WP">
-      damCTF- rev/schlage (beginner) __WP <i class="fa fa-chevron-right"></i>
-    </a></div>
-    </div>
-      </footer>
-    
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/10/07/%E9%80%86%E5%90%91_root_me_2/" rel="prev" title="逆向_root_me_2">
+                  <i class="fa fa-chevron-left"></i> 逆向_root_me_2
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/10/12/schlage%20(beginner)%20__WP/" rel="next" title="damCTF- rev/schlage (beginner) __WP">
+                  damCTF- rev/schlage (beginner) __WP <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
   </article>
   
   
@@ -355,15 +442,8 @@ set $eflags |= (1 &lt;&lt; $ZF)
 
 
 
-          </div>
-          
-    
-  <div class="comments">
-    <div id="disqus_thread">
-      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
-    </div>
-  </div>
-  
+      
+    <div class="comments" id="valine-comments"></div>
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -372,7 +452,7 @@ set $eflags |= (1 &lt;&lt; $ZF)
       activeClass = localStorage.getItem('comments_active') || activeClass;
     }
     if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
       if (activeTab) {
         activeTab.click();
       }
@@ -381,87 +461,20 @@ set $eflags |= (1 &lt;&lt; $ZF)
   if (CONFIG.comments.storage) {
     window.addEventListener('tabs:click', event => {
       if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
+      const commentClass = event.target.classList[1];
       localStorage.setItem('comments_active', commentClass);
     });
   }
 </script>
 
-        </div>
-          
-  
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
-  </div>
-
-  <aside class="sidebar">
-    <div class="sidebar-inner">
-
-      <ul class="sidebar-nav motion-element">
-        <li class="sidebar-nav-toc">
-          文章目录
-        </li>
-        <li class="sidebar-nav-overview">
-          站点概览
-        </li>
-      </ul>
-
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#ELF-x86-No-software-breakpoints"><span class="nav-number">1.</span> <span class="nav-text">ELF x86 - No software breakpoints</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#看反汇编，大致了解过程"><span class="nav-number">1.1.</span> <span class="nav-text">看反汇编，大致了解过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#移位运算符"><span class="nav-number">1.2.</span> <span class="nav-text">移位运算符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#g"><span class="nav-number">1.3.</span> <span class="nav-text">g++</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#移位"><span class="nav-number">1.4.</span> <span class="nav-text">移位</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#命名空间"><span class="nav-number">1.5.</span> <span class="nav-text">命名空间</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ELF-x86-CrackPass"><span class="nav-number">2.</span> <span class="nav-text">ELF x86 - CrackPass</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#r2-图形模式下，如何跳转和返回函数"><span class="nav-number">2.1.</span> <span class="nav-text">r2 图形模式下，如何跳转和返回函数</span></a></li></ol></li></ol></div>
-      </div>
-      <!--/noindex-->
-
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-  <p class="site-author-name" itemprop="name">finsenty54</p>
-  <div class="site-description" itemprop="description">blog</div>
-</div>
-<div class="site-state-wrap motion-element">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-          <a href="/archives/">
-        
-          <span class="site-state-item-count">55</span>
-          <span class="site-state-item-name">日志</span>
-        </a>
-      </div>
-      <div class="site-state-item site-state-tags">
-            <a href="/tags/">
-          
-        <span class="site-state-item-count">15</span>
-        <span class="site-state-item-name">标签</span></a>
-      </div>
-  </nav>
-</div>
-  <div class="links-of-author motion-element">
-      <span class="links-of-author-item">
-        <a href="https://github.com/Finsenty54" title="GitHub → https://github.com/Finsenty54" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
-      </span>
-      <span class="links-of-author-item">
-        <a href="mailto:finsenty54@qq.com" title="E-Mail → mailto:finsenty54@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
-      </span>
-  </div>
-
-
-
-      </div>
-
     </div>
-  </aside>
-  <div id="sidebar-dimmer"></div>
+  </main>
 
+  <footer class="footer">
+    <div class="footer-inner">
+      
 
-      </div>
-    </main>
-
-    <footer class="footer">
-      <div class="footer-inner">
-        
-
-        
+      
 
 <div class="copyright">
   
@@ -472,12 +485,7 @@ set $eflags |= (1 &lt;&lt; $ZF)
   </span>
   <span class="author" itemprop="copyrightHolder">finsenty54</span>
 </div>
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
-  </div>
-
-        
 <div class="busuanzi-count">
-  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
     <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
       <span class="post-meta-item-icon">
         <i class="fa fa-user"></i>
@@ -486,7 +494,6 @@ set $eflags |= (1 &lt;&lt; $ZF)
         <span id="busuanzi_value_site_uv"></span>
       </span>
     </span>
-    <span class="post-meta-divider">|</span>
     <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
       <span class="post-meta-item-icon">
         <i class="fa fa-eye"></i>
@@ -496,36 +503,19 @@ set $eflags |= (1 &lt;&lt; $ZF)
       </span>
     </span>
 </div>
-
-
-
-
-
-
-
-
-      </div>
-    </footer>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
 
+    </div>
+  </footer>
+
   
-  <script src="/lib/anime.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
-<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
-<script src="/js/schemes/muse.js"></script>
-<script src="/js/next-boot.js"></script>
-
-
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.2.0/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
 
   
 
 
-
-
-  
-<script src="//cdn.jsdelivr.net/npm/algoliasearch@4/dist/algoliasearch-lite.umd.js"></script>
-<script src="//cdn.jsdelivr.net/npm/instantsearch.js@4/dist/instantsearch.production.min.js"></script><script src="/js/algolia-search.js"></script>
 
 
 
@@ -540,38 +530,28 @@ set $eflags |= (1 &lt;&lt; $ZF)
 
 
   
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+
+
 
   
 
+  
 <script>
-  function loadCount() {
-    var d = document, s = d.createElement('script');
-    s.src = 'https://finsenty54.disqus.com/count.js';
-    s.id = 'dsq-count-scr';
-    (d.head || d.body).appendChild(s);
-  }
-  // defer loading until the whole page loading is completed
-  window.addEventListener('load', loadCount, false);
-</script>
-<script>
-  var disqus_config = function() {
-    this.page.url = "http://finsenty54.github.io/2020/10/08/逆向_root_me_3/";
-    this.page.identifier = "2020/10/08/逆向_root_me_3/";
-    this.page.title = "逆向_root_me_3";
-    };
-  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
-    if (window.DISQUS) {
-      DISQUS.reset({
-        reload: true,
-        config: disqus_config
-      });
-    } else {
-      var d = document, s = d.createElement('script');
-      s.src = 'https://finsenty54.disqus.com/embed.js';
-      s.setAttribute('data-timestamp', '' + +new Date());
-      (d.head || d.body).appendChild(s);
-    }
-  });
+NexT.utils.loadComments('#valine-comments', () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', () => {
+    new Valine(Object.assign({
+      el  : '#valine-comments',
+      path: "/2020/10/08/%E9%80%86%E5%90%91_root_me_3/",
+    }, {"enable":true,"appId":"3uGsbMNvxiG0LkbyciDSaxmY-MdYXbMMI","appKey":"1dU1y3SudPaV6pdTET96j5M2","placeholder":"欢迎交流讨论...","avatar":"mm","meta":["nick","mail","link"],"pageSize":10,"lang":"zh-cn","visitor":true,"comment_count":true,"recordIP":false,"serverURLs":null,"enableQQ":false,"requiredFields":[]}
+    ));
+  }, window.Valine);
+});
 </script>
 
 </body>

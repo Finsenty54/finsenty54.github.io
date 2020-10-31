@@ -4,39 +4,44 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 3.9.0">
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
-  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#222">
+  <link rel="manifest" href="/images/site.webmanifest">
+  <meta name="msapplication-config" content="/images/browserconfig.xml">
 
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-<script id="hexo-configurations">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.14.0/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"finsenty54.github.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","width":320,"display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"disqus","storage":true,"lazyload":false,"nav":null,"activeClass":"disqus"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"finsenty54.github.io","root":"/","scheme":"Gemini","version":"8.0.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}};
   </script>
 
   <meta name="description" content="什么是PHP文件？PHP文件可以包含文本，HTML，CSS，JavaScript和PHP代码PHP代码在服务器上执行，结果以纯HTML格式返回到浏览器PHP文件的扩展名为“ .php”">
-<meta name="keywords" content="CTF">
 <meta property="og:type" content="article">
 <meta property="og:title" content="CTF入门 WECALL 2">
-<meta property="og:url" content="http://finsenty54.github.io/2020/05/19/CTF入门 WECALL1/index.html">
+<meta property="og:url" content="http://finsenty54.github.io/2020/05/19/CTF%E5%85%A5%E9%97%A8%20WECALL1/index.html">
 <meta property="og:site_name" content="FINSENTY54">
 <meta property="og:description" content="什么是PHP文件？PHP文件可以包含文本，HTML，CSS，JavaScript和PHP代码PHP代码在服务器上执行，结果以纯HTML格式返回到浏览器PHP文件的扩展名为“ .php”">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-05-19T12:07:49.772Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-05-19T12:03:39.000Z">
+<meta property="article:modified_time" content="2020-10-31T08:53:12.100Z">
+<meta property="article:author" content="finsenty54">
+<meta property="article:tag" content="CTF">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="CTF入门 WECALL 2">
-<meta name="twitter:description" content="什么是PHP文件？PHP文件可以包含文本，HTML，CSS，JavaScript和PHP代码PHP代码在服务器上执行，结果以纯HTML格式返回到浏览器PHP文件的扩展名为“ .php”">
-
-<link rel="canonical" href="http://finsenty54.github.io/2020/05/19/CTF入门 WECALL1/">
 
 
-<script id="page-configurations">
+<link rel="canonical" href="http://finsenty54.github.io/2020/05/19/CTF%E5%85%A5%E9%97%A8%20WECALL1/">
+
+
+<script class="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
@@ -65,65 +70,76 @@
 
   <noscript>
   <style>
-  .use-motion .brand,
+  body { margin-top: 2rem; }
+
   .use-motion .menu-item,
-  .sidebar-inner,
+  .use-motion .sidebar,
   .use-motion .post-block,
   .use-motion .pagination,
   .use-motion .comments,
   .use-motion .post-header,
   .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
 
   .use-motion .site-title,
-  .use-motion .site-subtitle {
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
     opacity: initial;
     top: initial;
   }
 
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
   </style>
 </noscript>
 
+<link rel="alternate" href="/atom.xml" title="FINSENTY54" type="application/atom+xml">
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
-    <div class="headband"></div>
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
 
+  <main class="main">
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
     <div class="toggle" aria-label="切换导航栏">
-      <span class="toggle-line toggle-line-first"></span>
-      <span class="toggle-line toggle-line-middle"></span>
-      <span class="toggle-line toggle-line-last"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
     </div>
   </div>
 
   <div class="site-meta">
 
     <a href="/" class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
+      <i class="logo-line"></i>
       <h1 class="site-title">FINSENTY54</h1>
-      <span class="logo-line-after"><i></i></span>
+      <i class="logo-line"></i>
     </a>
       <p class="site-subtitle" itemprop="description">几处早莺争暖树，谁家新燕啄春泥。</p>
   </div>
 
   <div class="site-nav-right">
     <div class="toggle popup-trigger">
-        <i class="fa fa-search fa-fw fa-lg"></i>
     </div>
   </div>
 </div>
 
 
 
-
 <nav class="site-nav">
-  <ul id="menu" class="main-menu menu">
+  <ul class="main-menu menu">
         <li class="menu-item menu-item-home">
 
     <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
@@ -136,17 +152,17 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">15</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">0</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">55</span></a>
 
   </li>
         <li class="menu-item menu-item-sitemap">
@@ -154,275 +170,25 @@
     <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a>
 
   </li>
-      <li class="menu-item menu-item-search">
-        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
-        </a>
-      </li>
   </ul>
 </nav>
 
 
 
-  <div class="search-pop-overlay">
-    <div class="popup search-popup">
-        <div class="search-header">
-  <span class="search-icon">
-    <i class="fa fa-search"></i>
-  </span>
-  <div class="search-input-container"></div>
-  <span class="popup-btn-close">
-    <i class="fa fa-times-circle"></i>
-  </span>
-</div>
-<div class="algolia-results">
-  <div id="algolia-stats"></div>
-  <div id="algolia-hits"></div>
-  <div id="algolia-pagination" class="algolia-pagination"></div>
-</div>
-
-      
-    </div>
-  </div>
 
 </div>
-    </header>
-
-    
-  <div class="back-to-top">
-    <i class="fa fa-arrow-up"></i>
-    <span>0%</span>
-  </div>
-  <div class="reading-progress-bar"></div>
-
-
-    <main class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
-
-          <div class="content post posts-expand">
-            
-
-    
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://finsenty54.github.io/2020/05/19/CTF入门 WECALL1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="finsenty54">
-      <meta itemprop="description" content="blog">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="FINSENTY54">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          CTF入门 WECALL 2
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-05-19 20:03:39 / 修改时间：20:07:49" itemprop="dateCreated datePublished" datetime="2020-05-19T20:03:39+08:00">2020-05-19</time>
-            </span>
-
-          
-            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span id="busuanzi_value_page_pv"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2020/05/19/CTF入门 WECALL1/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/05/19/CTF入门 WECALL1/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-        <h3 id="什么是PHP文件？"><a href="#什么是PHP文件？" class="headerlink" title="什么是PHP文件？"></a>什么是PHP文件？</h3><p>PHP文件可以包含文本，HTML，CSS，JavaScript和PHP代码<br>PHP代码在服务器上执行，结果以纯HTML格式返回到浏览器<br>PHP文件的扩展名为“ .php”</p>
-<a id="more"></a>
-<h3 id="PHP可以做什么？"><a href="#PHP可以做什么？" class="headerlink" title="PHP可以做什么？"></a>PHP可以做什么？</h3><p>PHP可以生成动态页面内容<br>PHP可以在服务器上创建，打开，读取，写入，删除和关闭文件<br>PHP可以收集表单数据<br>PHP可以发送和接收Cookie<br>PHP可以添加，删除，修改数据库中的数据<br>PHP可用于控制用户访问<br>PHP可以加密数据<br>使用PHP，您不仅可以输出HTML。您可以输出图像，PDF文件甚至Flash电影。您还可以输出任何文本，例如XHTML和XML。</p>
-<p>PHP脚本可以放在文档中的任何位置。<br>PHP脚本的开头<code>&lt;?php</code>和结尾是<code>?&gt;</code>：<br>&lt;?php<br>// PHP code goes here<br>?&gt;<br>PHP文件的默认文件扩展名是“ .php”。<br>一个PHP文件通常包含HTML标记和一些PHP脚本代码。</p>
-<p> PHP语句以分号（<code>;</code>）结尾。</p>
-<p>在PHP中，关键字（例如if， else，while， echo等），类，函数，和用户定义的函数<code>是不区分大小写。</code></p>
-<p>所有<code>变量名称均区分大小写</code>！</p>
-<p>comment<br>//<br>#<br>/<em>        </em>/</p>
-<p>在PHP中，变量以$符号开头，后跟变量名称</p>
-<p>与其他编程语言不同，PHP没有用于声明变量的命令。它是在您首次为其分配值时创建的。</p>
-<p>&lt;?php<br>$txt = “W3Schools.com”;<br>echo “I love $txt!”;<br>?&gt;</p>
-<p>&lt;?php<br>$txt = “W3Schools.com”;<br>echo “I love “ . $txt . “!”;<br>?&gt;</p>
-<p>&lt;?php<br>$x = 5;<br>$y = 4;<br>echo $x + $y;<br>?&gt;</p>
-<h5 id="在函数外部声明的变量具有全局范围，并且只能在函数外部访问"><a href="#在函数外部声明的变量具有全局范围，并且只能在函数外部访问" class="headerlink" title="在函数外部声明的变量具有全局范围，并且只能在函数外部访问"></a>在函数外部声明的变量具有全局范围，并且只能在函数外部访问</h5><h5 id="在函数内声明的变量具有局部范围，只能在该函数内访问"><a href="#在函数内声明的变量具有局部范围，只能在该函数内访问" class="headerlink" title="在函数内声明的变量具有局部范围，只能在该函数内访问"></a>在函数内声明的变量具有局部范围，只能在该函数内访问</h5><h5 id="global关键字用于在函数内部访问一个全局变量。"><a href="#global关键字用于在函数内部访问一个全局变量。" class="headerlink" title="global关键字用于在函数内部访问一个全局变量。"></a>global关键字用于在函数内部访问一个全局变量。</h5><p>为此，请global在变量之前（在函数内部）使用关键字<br>&lt;?php<br>$x = 5;<br>$y = 10;<br>function myTest() {<br>  global $x, $y;<br>  $y = $x + $y;<br>}<br>myTest();<br>echo $y; // outputs 15<br>?&gt;</p>
-<p>PHP also stores all global variables in an array called $GLOBALS[index]. The index holds the name of the variable. This array is also accessible from within functions and can be used to update global variables directly.</p>
-<p>&lt;?php<br>$x = 5;<br>$y = 10;<br>function myTest() {<br>  $GLOBALS[‘y’] = $GLOBALS[‘x’] + $GLOBALS[‘y’];<br>}<br>myTest();<br>echo $y; // outputs 15<br>?&gt;</p>
-<p>通常，当一个函数完成/执行时，它的所有变量都会被删除。但是，有时我们希望不删除局部变量。我们需要它来做进一步的工作。<br>为此，请static在首次声明变量时使用关键字<br>然后，每次调用该函数时，该变量仍将具有自上次调用该函数以来所包含的信息。<br>注意：该变量仍然是函数的局部变量。</p>
-<p>差异很小：echo没有返回值，而print返回值为1，因此可以在表达式中使用。echo可以采用多个参数（尽管这种用法很少见），而print可以采用一个参数。echo比快一点print。</p>
-<p>&lt;?php<br>echo “</p><h2>PHP is Fun!</h2>“;<br>echo “Hello world!<br>“;<br>echo “I’m about to learn PHP!<br>“;<br>echo “This “, “string “, “was “, “made “, “with multiple parameters.”;<br>?&gt;<p></p>
-<h5 id="字符串可以是引号内的任何文本。可以使用单引号或双引号"><a href="#字符串可以是引号内的任何文本。可以使用单引号或双引号" class="headerlink" title="字符串可以是引号内的任何文本。可以使用单引号或双引号"></a>字符串可以是引号内的任何文本。可以使用单引号或双引号</h5><p>整数数据类型是-2,147,483,648和2,147,483,647之间的非十进制数。<br>PHP var_dump（）函数返回数据类型和值</p>
-<p>&lt;?php<br>$cars = array(“Volvo”,”BMW”,”Toyota”);<br>var_dump($cars);<br>?&gt;</p>
-<p>首先，我们必须声明一个对象类。为此，我们使用class关键字。类是可以包含属性和方法的结构：<br>&lt;?php<br>class Car {<br>  function Car() {<br>    $this-&gt;model = “VW”;<br>  }<br>}<br>// create an object<br>$herbie = new Car();<br>// show object properties<br>echo $herbie-&gt;model;<br>?&gt;</p>
-<p>如果创建的变量没有值，则会自动为其分配值NULL。<br>也可以通过将值设置为NULL来清空变量：</p>
-<p>关于PHP的注意事项之一是它提供了自动数据类型转换。<br>因此，如果将整数值分配给变量，则该变量的类型将自动为整数。然后，如果将字符串分配给相同的变量，则类型将更改为字符串。</p>
-<p>整数可以以三种格式指定：十进制（基于10的），十六进制（基于16的-带有0x前缀）或八进制（基于8的-带有0前缀）</p>
-<p>（int），（integer）或intval（）函数通常用于将值转换为整数。</p>
-<p>有效的常量名称以字母或下划线开头（常量名称前没有$符号）。</p>
-<p>注意：与变量不同，常量在整个脚本中自动为全局变量。<br>define(name, value, case-insensitive)<br>在PHP7中，您可以使用define()函数创建一个Array常量。</p>
-<p>.    Concatenation    $txt1 . $txt2    Concatenation of $txt1 and $txt2<br>.=    Concatenation assignment    $txt1 .= $txt2    Appends $txt2 to $txt1</p>
-<p>&lt;?php<br>$t = date(“H”);</p>
-<p>if ($t &lt; “20”) {<br>  echo “Have a good day!”;<br>}<br>?&gt;</p>
-<h4 id="该foreach循环仅适用于数组，用于循环遍历数组中的每个键-值对。"><a href="#该foreach循环仅适用于数组，用于循环遍历数组中的每个键-值对。" class="headerlink" title="该foreach循环仅适用于数组，用于循环遍历数组中的每个键/值对。"></a>该foreach循环仅适用于数组，用于循环遍历数组中的每个键/值对。</h4><p>句法<br>foreach ($array as $value) {<br>  code to be executed;<br>}<br>对于每次循环迭代，当前数组元素的值都分配给$ value，并且数组指针移动一个，直到到达最后一个数组元素。</p>
-<p>要指定，strict我们需要设置declare(strict_types=1);。这必须在PHP文件的第一行。<br>这为我们提供了一个在声明函数时指定所需数据类型的选项，并且通过添加strict 声明，如果数据类型不匹配，它将抛出“致命错误”。</p>
-<p>&lt;?php declare(strict_types=1); // strict requirement<br>function addNumbers(float $a, float $b) : float {<br>  return $a + $b;<br>}<br>echo addNumbers(1.2, 5.2);<br>?&gt;</p>
-<p>&lt;?php declare(strict_types=1); // strict requirement<br>function addNumbers(float $a, float $b) : int {<br>  return (int)($a + $b);<br>}<br>echo addNumbers(1.2, 5.2);<br>?&gt;</p>
-<p>&lt;?php<br>$cars = array(“Volvo”, “BMW”, “Toyota”);<br>echo “I like “ . $cars[0] . “, “ . $cars[1] . “ and “ . $cars[2] . “.”;<br>?&gt;</p>
-<p>关联数组是使用分配给它们的命名键的数组。<br>有两种创建关联数组的方法：<br>$age = array(“Peter”=&gt;”35”, “Ben”=&gt;”37”, “Joe”=&gt;”43”);<br>要么：<br>$age[‘Peter’] = “35”;<br>$age[‘Ben’] = “37”;<br>$age[‘Joe’] = “43”;<br>然后可以在脚本中使用命名的键：</p>
-<p>$cars = array (<br>  array(“Volvo”,22,18),<br>  array(“BMW”,15,13),<br>  array(“Saab”,5,2),<br>  array(“Land Rover”,17,15)<br>);<br>&lt;?php<br>echo $cars[0][0].”: In stock: “.$cars[0][1].”, sold: “.$cars[0][2].”.<br>“;<br>echo $cars[1][0].”: In stock: “.$cars[1][1].”, sold: “.$cars[1][2].”.<br>“;<br>echo $cars[2][0].”: In stock: “.$cars[2][1].”, sold: “.$cars[2][2].”.<br>“;<br>echo $cars[3][0].”: In stock: “.$cars[3][1].”, sold: “.$cars[3][2].”.<br>“;<br>?&gt;</p>
-<p>sort() -以升序排列数组<br>rsort() -以降序排列数组<br>asort() -根据值以升序对关联数组进行排序<br>ksort() -根据键以升序对关联数组进行排序<br>arsort() -根据值以降序对关联数组进行排序<br>krsort() -根据键以降序对关联数组进行排序</p>
-<h4 id="用于在使用method-“-post”提交HTML表单后收集表单数据。-POST也广泛用于传递变量。"><a href="#用于在使用method-“-post”提交HTML表单后收集表单数据。-POST也广泛用于传递变量。" class="headerlink" title="用于在使用method =“ post”提交HTML表单后收集表单数据。$ _POST也广泛用于传递变量。"></a>用于在使用method =“ post”提交HTML表单后收集表单数据。$ _POST也广泛用于传递变量。</h4><h5 id="SERVER-‘PHP-SELF’-Returns-the-filename-of-the-currently-executing-script"><a href="#SERVER-‘PHP-SELF’-Returns-the-filename-of-the-currently-executing-script" class="headerlink" title="$_SERVER[‘PHP_SELF’]    Returns the filename of the currently executing script"></a>$_SERVER[‘PHP_SELF’]    Returns the filename of the currently executing script</h5><h5 id="SERVER-‘REQUEST-METHOD’-Returns-the-request-method-used-to-access-the-page-such-as-POST"><a href="#SERVER-‘REQUEST-METHOD’-Returns-the-request-method-used-to-access-the-page-such-as-POST" class="headerlink" title="$_SERVER[‘REQUEST_METHOD’]    Returns the request method used to access the page (such as POST)"></a>$_SERVER[‘REQUEST_METHOD’]    Returns the request method used to access the page (such as POST)</h5><h4 id="PHP-GET是一个PHP超级全局变量，用于在使用method-“-get”提交HTML表单后收集表单数据。"><a href="#PHP-GET是一个PHP超级全局变量，用于在使用method-“-get”提交HTML表单后收集表单数据。" class="headerlink" title="PHP $ _GET是一个PHP超级全局变量，用于在使用method =“ get”提交HTML表单后收集表单数据。"></a>PHP $ _GET是一个PHP超级全局变量，用于在使用method =“ get”提交HTML表单后收集表单数据。</h4><h5 id="GET还可以收集在URL中发送的数据。"><a href="#GET还可以收集在URL中发送的数据。" class="headerlink" title="$ _GET还可以收集在URL中发送的数据。"></a>$ _GET还可以收集在URL中发送的数据。</h5><h4 id="使用GET方法从表单发送的信息对所有人都是可见的（所有变量名和值都显示在URL中）。GET对发送的信息量也有限制。限制约为2000个字符。但是，由于变量显示在URL中，因此可以为页面添加书签。在某些情况下这可能很有用。"><a href="#使用GET方法从表单发送的信息对所有人都是可见的（所有变量名和值都显示在URL中）。GET对发送的信息量也有限制。限制约为2000个字符。但是，由于变量显示在URL中，因此可以为页面添加书签。在某些情况下这可能很有用。" class="headerlink" title="使用GET方法从表单发送的信息对所有人都是可见的（所有变量名和值都显示在URL中）。GET对发送的信息量也有限制。限制约为2000个字符。但是，由于变量显示在URL中，因此可以为页面添加书签。在某些情况下这可能很有用。"></a>使用GET方法从表单发送的信息对所有人都是可见的（所有变量名和值都显示在URL中）。GET对发送的信息量也有限制。限制约为2000个字符。但是，由于变量显示在URL中，因此可以为页面添加书签。在某些情况下这可能很有用。</h4><p>GET可以用于发送非敏感数据。<br>注意：绝对不要将GET用于发送密码或其他敏感信息！</p>
-<h5 id="使用POST方法从表单发送的信息对于其他人是不可见的-（所有名称-值都嵌入在HTTP请求的正文中），并且对要发送的信息量没有限制。"><a href="#使用POST方法从表单发送的信息对于其他人是不可见的-（所有名称-值都嵌入在HTTP请求的正文中），并且对要发送的信息量没有限制。" class="headerlink" title="使用POST方法从表单发送的信息对于其他人是不可见的 （所有名称/值都嵌入在HTTP请求的正文中），并且对要发送的信息量没有限制。"></a>使用POST方法从表单发送的信息对于其他人是不可见的 （所有名称/值都嵌入在HTTP请求的正文中），并且对要发送的信息量没有限制。</h5><p>此外，POST支持高级功能，例如在将文件上传到服务器时支持多部分二进制输入。<br>但是，由于变量未显示在URL中，因此无法为页面添加书签。</p>
-<h5 id="SERVER-“-PHP-SELF”-将提交的表单数据发送到页面本身，而不是跳转到另一个页面。这样，用户将在与表单相同的页面上收到错误消息。"><a href="#SERVER-“-PHP-SELF”-将提交的表单数据发送到页面本身，而不是跳转到另一个页面。这样，用户将在与表单相同的页面上收到错误消息。" class="headerlink" title="$ _ SERVER [“ PHP_SELF”]将提交的表单数据发送到页面本身，而不是跳转到另一个页面。这样，用户将在与表单相同的页面上收到错误消息。"></a>$ _ SERVER [“ PHP_SELF”]将提交的表单数据发送到页面本身，而不是跳转到另一个页面。这样，用户将在与表单相同的页面上收到错误消息。</h5><p>htmlspecialchars（）函数将特殊字符转换为HTML实体。这意味着它将用＆lt;替换&lt;和&gt;之类的HTML字符。和＆gt;。这样可以防止攻击者通过以表格形式注入HTML或Javascript代码（跨站点脚本攻击）来利用代码。</p>
-<h5 id="从用户输入数据中删除不必要的字符（多余的空格，制表符，换行符）（使用PHP-trim（）函数）"><a href="#从用户输入数据中删除不必要的字符（多余的空格，制表符，换行符）（使用PHP-trim（）函数）" class="headerlink" title="从用户输入数据中删除不必要的字符（多余的空格，制表符，换行符）（使用PHP trim（）函数）"></a>从用户输入数据中删除不必要的字符（多余的空格，制表符，换行符）（使用PHP trim（）函数）</h5><h5 id="从用户输入数据中删除反斜杠（-）（使用PHP-stripslashes（）函数）"><a href="#从用户输入数据中删除反斜杠（-）（使用PHP-stripslashes（）函数）" class="headerlink" title="从用户输入数据中删除反斜杠（\）（使用PHP stripslashes（）函数）"></a>从用户输入数据中删除反斜杠（\）（使用PHP stripslashes（）函数）</h5><p>使用PHP empty() 函数</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;form method=<span class="string">"post"</span> action=<span class="string">"&lt;?php echo htmlspecialchars($_SERVER["</span>PHP_SELF<span class="string">"]);?&gt;"</span>&gt;</span><br><span class="line">Name: &lt;input type=<span class="string">"text"</span> name=<span class="string">"name"</span>&gt;</span><br><span class="line">&lt;span class="error"&gt;* &lt;?php echo $nameErr;?&gt;&lt;/span&gt;</span><br><span class="line">&lt;br&gt;&lt;br&gt;</span><br><span class="line">E-mail:</span><br><span class="line">&lt;input type=<span class="string">"text"</span> name=<span class="string">"email"</span>&gt;</span><br><span class="line">&lt;span class="error"&gt;* &lt;?php echo $emailErr;?&gt;&lt;/span&gt;</span><br><span class="line">&lt;br&gt;&lt;br&gt;</span><br><span class="line">Website:</span><br><span class="line">&lt;input type=<span class="string">"text"</span> name=<span class="string">"website"</span>&gt;</span><br><span class="line">&lt;span class="error"&gt;&lt;?php echo $websiteErr;?&gt;&lt;/span&gt;</span><br><span class="line">&lt;br&gt;&lt;br&gt;</span><br><span class="line">Comment: &lt;textarea name=<span class="string">"comment"</span> rows=<span class="string">"5"</span> cols=<span class="string">"40"</span>&gt;</span><br></pre></td></tr></table></figure>
-<p>preg_match（）函数在字符串中搜索模式，如果存在模式，则返回true，否则返回false。<br>正则表达式</p>
-<p>include和require语句相同，但失败时除外：<br>require 将产生致命错误（E_COMPILE_ERROR）并停止脚本</p>
-<h5 id="include-只会产生警告（E-WARNING）并且脚本将继续"><a href="#include-只会产生警告（E-WARNING）并且脚本将继续" class="headerlink" title="include 只会产生警告（E_WARNING）并且脚本将继续"></a>include 只会产生警告（E_WARNING）并且脚本将继续</h5><p>该readfile()函数读取文件并将其写入输出缓冲区。</p>
-<p>&lt;?php<br>$myfile = fopen(“webdictionary.txt”, “r”) or die(“Unable to open file!”);<br>echo fread($myfile,filesize(“webdictionary.txt”));<br>fclose($myfile);<br>?&gt;</p>
-<p>该fclose()功能用于关闭打开的文件。<br>结束所有文件后，关闭所有文件是一种良好的编程习惯。您不希望在服务器上到处运行打开的文件占用资源！</p>
-<p>该feof()功能检查是否已达到“文件结尾”（EOF）。</p>
-<p>该fopen()函数还用于创建文件。可能有些混乱，但是在PHP中，使用与打开文件相同的功能创建文件。</p>
-<p>$filename = ‘pages/‘.(isset($_GET[“file”])$_GET[“file”]:”welcome”).’.html’;</p>
-<p>？ ：</p>
-<h5 id="isset（）函数检查是否设置了变量，这意味着必须声明该变量并且该变量不能为NULL。"><a href="#isset（）函数检查是否设置了变量，这意味着必须声明该变量并且该变量不能为NULL。" class="headerlink" title="isset（）函数检查是否设置了变量，这意味着必须声明该变量并且该变量不能为NULL。"></a>isset（）函数检查是否设置了变量，这意味着必须声明该变量并且该变量不能为NULL。</h5><p>die（）函数是exit（）函数的别名。</p>
-<h5 id="eval（）函数将字符串评估为PHP代码。"><a href="#eval（）函数将字符串评估为PHP代码。" class="headerlink" title="eval（）函数将字符串评估为PHP代码。"></a>eval（）函数将字符串评估为PHP代码。</h5><h5 id="dirname（）函数返回父目录的路径。"><a href="#dirname（）函数返回父目录的路径。" class="headerlink" title="dirname（）函数返回父目录的路径。"></a>dirname（）函数返回父目录的路径。</h5><h5 id="in-array（）函数在数组中搜索特定值。"><a href="#in-array（）函数在数组中搜索特定值。" class="headerlink" title="in_array（）函数在数组中搜索特定值。"></a>in_array（）函数在数组中搜索特定值。</h5><p>注意：如果搜索参数是字符串，并且类型参数设置为TRUE，则搜索区分大小写。</p>
-<h3 id="WECHALL-LFI"><a href="#WECHALL-LFI" class="headerlink" title="WECHALL LFI"></a>WECHALL LFI</h3><p>?file=page/jhkd.html<br>?file=../../solution.php%00<br>%00 后的字符不算，已经更改<br>../ 遍历目录</p>
-<p>switch ($which)<br>        {<br>        case 0:<br>        case 1:<br>        case 2:<br>                require_once $which.’.php’;<br>                break;<br>        default:<br>                echo GWF_HTML::error(‘PHP-0817’, ‘Hacker NoNoNo!’, false);<br>                break;<br>        }<br>which=0,1,2 都执行require_once</p>
-
-    </div>
-
-    
-    
-    
         
-
-  <div class="followme">
-    <p>欢迎关注我的其它发布渠道</p>
-
-    <div class="social-list">
-
-        <div class="social-item">
-          <a target="_blank" class="social-link" href="/atom.xml">
-            <span class="icon">
-              <i class="fa fa-rss"></i>
-            </span>
-
-            <span class="label">RSS</span>
-          </a>
-        </div>
-    </div>
-  </div>
-
-
-      <footer class="post-footer">
-          
-          <div class="post-tags">
-              <a href="/tags/CTF/" rel="tag"><i class="fa fa-tag"></i> CTF</a>
-          </div>
-
-        
-
-
-        
-    <div class="post-nav">
-      <div class="post-nav-item">
-    <a href="/2020/05/15/CTF入门 WECALL/" rel="prev" title="CTF入门 WECALL">
-      <i class="fa fa-chevron-left"></i> CTF入门 WECALL
-    </a></div>
-      <div class="post-nav-item">
-    <a href="/2020/07/06/CTF入门 WECALL2/" rel="next" title="CTF入门 WECALL2-正则">
-      CTF入门 WECALL2-正则 <i class="fa fa-chevron-right"></i>
-    </a></div>
-    </div>
-      </footer>
-    
-  </article>
-  
-  
-  
-
-
-
-          </div>
-          
-    
-  <div class="comments">
-    <div id="disqus_thread">
-      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
-    </div>
-  </div>
-  
-
-<script>
-  window.addEventListener('tabs:register', () => {
-    let { activeClass } = CONFIG.comments;
-    if (CONFIG.comments.storage) {
-      activeClass = localStorage.getItem('comments_active') || activeClass;
-    }
-    if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
-      if (activeTab) {
-        activeTab.click();
-      }
-    }
-  });
-  if (CONFIG.comments.storage) {
-    window.addEventListener('tabs:click', event => {
-      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
-      localStorage.setItem('comments_active', commentClass);
-    });
-  }
-</script>
-
-        </div>
-          
   
   <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
   </div>
 
   <aside class="sidebar">
-    <div class="sidebar-inner">
 
-      <ul class="sidebar-nav motion-element">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
         </li>
@@ -432,17 +198,17 @@
       </ul>
 
       <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是PHP文件？"><span class="nav-number">1.</span> <span class="nav-text">什么是PHP文件？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PHP可以做什么？"><span class="nav-number">2.</span> <span class="nav-text">PHP可以做什么？</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#在函数外部声明的变量具有全局范围，并且只能在函数外部访问"><span class="nav-number">2.0.1.</span> <span class="nav-text">在函数外部声明的变量具有全局范围，并且只能在函数外部访问</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#在函数内声明的变量具有局部范围，只能在该函数内访问"><span class="nav-number">2.0.2.</span> <span class="nav-text">在函数内声明的变量具有局部范围，只能在该函数内访问</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#global关键字用于在函数内部访问一个全局变量。"><span class="nav-number">2.0.3.</span> <span class="nav-text">global关键字用于在函数内部访问一个全局变量。</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#null"><span class="nav-number"></span> <span class="nav-text">PHP is Fun!</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#字符串可以是引号内的任何文本。可以使用单引号或双引号"><span class="nav-number">0.0.1.</span> <span class="nav-text">字符串可以是引号内的任何文本。可以使用单引号或双引号</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#该foreach循环仅适用于数组，用于循环遍历数组中的每个键-值对。"><span class="nav-number">0.1.</span> <span class="nav-text">该foreach循环仅适用于数组，用于循环遍历数组中的每个键/值对。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#用于在使用method-“-post”提交HTML表单后收集表单数据。-POST也广泛用于传递变量。"><span class="nav-number">0.2.</span> <span class="nav-text">用于在使用method =“ post”提交HTML表单后收集表单数据。$ _POST也广泛用于传递变量。</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#SERVER-‘PHP-SELF’-Returns-the-filename-of-the-currently-executing-script"><span class="nav-number">0.2.1.</span> <span class="nav-text">$_SERVER[‘PHP_SELF’]    Returns the filename of the currently executing script</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#SERVER-‘REQUEST-METHOD’-Returns-the-request-method-used-to-access-the-page-such-as-POST"><span class="nav-number">0.2.2.</span> <span class="nav-text">$_SERVER[‘REQUEST_METHOD’]    Returns the request method used to access the page (such as POST)</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#PHP-GET是一个PHP超级全局变量，用于在使用method-“-get”提交HTML表单后收集表单数据。"><span class="nav-number">0.3.</span> <span class="nav-text">PHP $ _GET是一个PHP超级全局变量，用于在使用method =“ get”提交HTML表单后收集表单数据。</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#GET还可以收集在URL中发送的数据。"><span class="nav-number">0.3.1.</span> <span class="nav-text">$ _GET还可以收集在URL中发送的数据。</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用GET方法从表单发送的信息对所有人都是可见的（所有变量名和值都显示在URL中）。GET对发送的信息量也有限制。限制约为2000个字符。但是，由于变量显示在URL中，因此可以为页面添加书签。在某些情况下这可能很有用。"><span class="nav-number">0.4.</span> <span class="nav-text">使用GET方法从表单发送的信息对所有人都是可见的（所有变量名和值都显示在URL中）。GET对发送的信息量也有限制。限制约为2000个字符。但是，由于变量显示在URL中，因此可以为页面添加书签。在某些情况下这可能很有用。</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#使用POST方法从表单发送的信息对于其他人是不可见的-（所有名称-值都嵌入在HTTP请求的正文中），并且对要发送的信息量没有限制。"><span class="nav-number">0.4.1.</span> <span class="nav-text">使用POST方法从表单发送的信息对于其他人是不可见的 （所有名称/值都嵌入在HTTP请求的正文中），并且对要发送的信息量没有限制。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#SERVER-“-PHP-SELF”-将提交的表单数据发送到页面本身，而不是跳转到另一个页面。这样，用户将在与表单相同的页面上收到错误消息。"><span class="nav-number">0.4.2.</span> <span class="nav-text">$ _ SERVER [“ PHP_SELF”]将提交的表单数据发送到页面本身，而不是跳转到另一个页面。这样，用户将在与表单相同的页面上收到错误消息。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#从用户输入数据中删除不必要的字符（多余的空格，制表符，换行符）（使用PHP-trim（）函数）"><span class="nav-number">0.4.3.</span> <span class="nav-text">从用户输入数据中删除不必要的字符（多余的空格，制表符，换行符）（使用PHP trim（）函数）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#从用户输入数据中删除反斜杠（-）（使用PHP-stripslashes（）函数）"><span class="nav-number">0.4.4.</span> <span class="nav-text">从用户输入数据中删除反斜杠（\）（使用PHP stripslashes（）函数）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#include-只会产生警告（E-WARNING）并且脚本将继续"><span class="nav-number">0.4.5.</span> <span class="nav-text">include 只会产生警告（E_WARNING）并且脚本将继续</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#isset（）函数检查是否设置了变量，这意味着必须声明该变量并且该变量不能为NULL。"><span class="nav-number">0.4.6.</span> <span class="nav-text">isset（）函数检查是否设置了变量，这意味着必须声明该变量并且该变量不能为NULL。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#eval（）函数将字符串评估为PHP代码。"><span class="nav-number">0.4.7.</span> <span class="nav-text">eval（）函数将字符串评估为PHP代码。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#dirname（）函数返回父目录的路径。"><span class="nav-number">0.4.8.</span> <span class="nav-text">dirname（）函数返回父目录的路径。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#in-array（）函数在数组中搜索特定值。"><span class="nav-number">0.4.9.</span> <span class="nav-text">in_array（）函数在数组中搜索特定值。</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#WECHALL-LFI"><span class="nav-number">1.</span> <span class="nav-text">WECHALL LFI</span></a></li></ol></div>
-      </div>
+      <section class="post-toc-wrap sidebar-panel">
+          <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFPHP%E6%96%87%E4%BB%B6%EF%BC%9F"><span class="nav-number">1.</span> <span class="nav-text">什么是PHP文件？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PHP%E5%8F%AF%E4%BB%A5%E5%81%9A%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-number">2.</span> <span class="nav-text">PHP可以做什么？</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9C%A8%E5%87%BD%E6%95%B0%E5%A4%96%E9%83%A8%E5%A3%B0%E6%98%8E%E7%9A%84%E5%8F%98%E9%87%8F%E5%85%B7%E6%9C%89%E5%85%A8%E5%B1%80%E8%8C%83%E5%9B%B4%EF%BC%8C%E5%B9%B6%E4%B8%94%E5%8F%AA%E8%83%BD%E5%9C%A8%E5%87%BD%E6%95%B0%E5%A4%96%E9%83%A8%E8%AE%BF%E9%97%AE"><span class="nav-number">2.0.1.</span> <span class="nav-text">在函数外部声明的变量具有全局范围，并且只能在函数外部访问</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9C%A8%E5%87%BD%E6%95%B0%E5%86%85%E5%A3%B0%E6%98%8E%E7%9A%84%E5%8F%98%E9%87%8F%E5%85%B7%E6%9C%89%E5%B1%80%E9%83%A8%E8%8C%83%E5%9B%B4%EF%BC%8C%E5%8F%AA%E8%83%BD%E5%9C%A8%E8%AF%A5%E5%87%BD%E6%95%B0%E5%86%85%E8%AE%BF%E9%97%AE"><span class="nav-number">2.0.2.</span> <span class="nav-text">在函数内声明的变量具有局部范围，只能在该函数内访问</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#global%E5%85%B3%E9%94%AE%E5%AD%97%E7%94%A8%E4%BA%8E%E5%9C%A8%E5%87%BD%E6%95%B0%E5%86%85%E9%83%A8%E8%AE%BF%E9%97%AE%E4%B8%80%E4%B8%AA%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F%E3%80%82"><span class="nav-number">2.0.3.</span> <span class="nav-text">global关键字用于在函数内部访问一个全局变量。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8F%AF%E4%BB%A5%E6%98%AF%E5%BC%95%E5%8F%B7%E5%86%85%E7%9A%84%E4%BB%BB%E4%BD%95%E6%96%87%E6%9C%AC%E3%80%82%E5%8F%AF%E4%BB%A5%E4%BD%BF%E7%94%A8%E5%8D%95%E5%BC%95%E5%8F%B7%E6%88%96%E5%8F%8C%E5%BC%95%E5%8F%B7"><span class="nav-number">2.0.4.</span> <span class="nav-text">字符串可以是引号内的任何文本。可以使用单引号或双引号</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AF%A5foreach%E5%BE%AA%E7%8E%AF%E4%BB%85%E9%80%82%E7%94%A8%E4%BA%8E%E6%95%B0%E7%BB%84%EF%BC%8C%E7%94%A8%E4%BA%8E%E5%BE%AA%E7%8E%AF%E9%81%8D%E5%8E%86%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E6%AF%8F%E4%B8%AA%E9%94%AE-%E5%80%BC%E5%AF%B9%E3%80%82"><span class="nav-number">2.1.</span> <span class="nav-text">该foreach循环仅适用于数组，用于循环遍历数组中的每个键&#x2F;值对。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%94%A8%E4%BA%8E%E5%9C%A8%E4%BD%BF%E7%94%A8method-%E2%80%9C-post%E2%80%9D%E6%8F%90%E4%BA%A4HTML%E8%A1%A8%E5%8D%95%E5%90%8E%E6%94%B6%E9%9B%86%E8%A1%A8%E5%8D%95%E6%95%B0%E6%8D%AE%E3%80%82-POST%E4%B9%9F%E5%B9%BF%E6%B3%9B%E7%94%A8%E4%BA%8E%E4%BC%A0%E9%80%92%E5%8F%98%E9%87%8F%E3%80%82"><span class="nav-number">2.2.</span> <span class="nav-text">用于在使用method &#x3D;“ post”提交HTML表单后收集表单数据。$ _POST也广泛用于传递变量。</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#SERVER-%E2%80%98PHP-SELF%E2%80%99-Returns-the-filename-of-the-currently-executing-script"><span class="nav-number">2.2.1.</span> <span class="nav-text">$_SERVER[‘PHP_SELF’]    Returns the filename of the currently executing script</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#SERVER-%E2%80%98REQUEST-METHOD%E2%80%99-Returns-the-request-method-used-to-access-the-page-such-as-POST"><span class="nav-number">2.2.2.</span> <span class="nav-text">$_SERVER[‘REQUEST_METHOD’]    Returns the request method used to access the page (such as POST)</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#PHP-GET%E6%98%AF%E4%B8%80%E4%B8%AAPHP%E8%B6%85%E7%BA%A7%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F%EF%BC%8C%E7%94%A8%E4%BA%8E%E5%9C%A8%E4%BD%BF%E7%94%A8method-%E2%80%9C-get%E2%80%9D%E6%8F%90%E4%BA%A4HTML%E8%A1%A8%E5%8D%95%E5%90%8E%E6%94%B6%E9%9B%86%E8%A1%A8%E5%8D%95%E6%95%B0%E6%8D%AE%E3%80%82"><span class="nav-number">2.3.</span> <span class="nav-text">PHP $ _GET是一个PHP超级全局变量，用于在使用method &#x3D;“ get”提交HTML表单后收集表单数据。</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#GET%E8%BF%98%E5%8F%AF%E4%BB%A5%E6%94%B6%E9%9B%86%E5%9C%A8URL%E4%B8%AD%E5%8F%91%E9%80%81%E7%9A%84%E6%95%B0%E6%8D%AE%E3%80%82"><span class="nav-number">2.3.1.</span> <span class="nav-text">$ _GET还可以收集在URL中发送的数据。</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8GET%E6%96%B9%E6%B3%95%E4%BB%8E%E8%A1%A8%E5%8D%95%E5%8F%91%E9%80%81%E7%9A%84%E4%BF%A1%E6%81%AF%E5%AF%B9%E6%89%80%E6%9C%89%E4%BA%BA%E9%83%BD%E6%98%AF%E5%8F%AF%E8%A7%81%E7%9A%84%EF%BC%88%E6%89%80%E6%9C%89%E5%8F%98%E9%87%8F%E5%90%8D%E5%92%8C%E5%80%BC%E9%83%BD%E6%98%BE%E7%A4%BA%E5%9C%A8URL%E4%B8%AD%EF%BC%89%E3%80%82GET%E5%AF%B9%E5%8F%91%E9%80%81%E7%9A%84%E4%BF%A1%E6%81%AF%E9%87%8F%E4%B9%9F%E6%9C%89%E9%99%90%E5%88%B6%E3%80%82%E9%99%90%E5%88%B6%E7%BA%A6%E4%B8%BA2000%E4%B8%AA%E5%AD%97%E7%AC%A6%E3%80%82%E4%BD%86%E6%98%AF%EF%BC%8C%E7%94%B1%E4%BA%8E%E5%8F%98%E9%87%8F%E6%98%BE%E7%A4%BA%E5%9C%A8URL%E4%B8%AD%EF%BC%8C%E5%9B%A0%E6%AD%A4%E5%8F%AF%E4%BB%A5%E4%B8%BA%E9%A1%B5%E9%9D%A2%E6%B7%BB%E5%8A%A0%E4%B9%A6%E7%AD%BE%E3%80%82%E5%9C%A8%E6%9F%90%E4%BA%9B%E6%83%85%E5%86%B5%E4%B8%8B%E8%BF%99%E5%8F%AF%E8%83%BD%E5%BE%88%E6%9C%89%E7%94%A8%E3%80%82"><span class="nav-number">2.4.</span> <span class="nav-text">使用GET方法从表单发送的信息对所有人都是可见的（所有变量名和值都显示在URL中）。GET对发送的信息量也有限制。限制约为2000个字符。但是，由于变量显示在URL中，因此可以为页面添加书签。在某些情况下这可能很有用。</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8POST%E6%96%B9%E6%B3%95%E4%BB%8E%E8%A1%A8%E5%8D%95%E5%8F%91%E9%80%81%E7%9A%84%E4%BF%A1%E6%81%AF%E5%AF%B9%E4%BA%8E%E5%85%B6%E4%BB%96%E4%BA%BA%E6%98%AF%E4%B8%8D%E5%8F%AF%E8%A7%81%E7%9A%84-%EF%BC%88%E6%89%80%E6%9C%89%E5%90%8D%E7%A7%B0-%E5%80%BC%E9%83%BD%E5%B5%8C%E5%85%A5%E5%9C%A8HTTP%E8%AF%B7%E6%B1%82%E7%9A%84%E6%AD%A3%E6%96%87%E4%B8%AD%EF%BC%89%EF%BC%8C%E5%B9%B6%E4%B8%94%E5%AF%B9%E8%A6%81%E5%8F%91%E9%80%81%E7%9A%84%E4%BF%A1%E6%81%AF%E9%87%8F%E6%B2%A1%E6%9C%89%E9%99%90%E5%88%B6%E3%80%82"><span class="nav-number">2.4.1.</span> <span class="nav-text">使用POST方法从表单发送的信息对于其他人是不可见的 （所有名称&#x2F;值都嵌入在HTTP请求的正文中），并且对要发送的信息量没有限制。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#SERVER-%E2%80%9C-PHP-SELF%E2%80%9D-%E5%B0%86%E6%8F%90%E4%BA%A4%E7%9A%84%E8%A1%A8%E5%8D%95%E6%95%B0%E6%8D%AE%E5%8F%91%E9%80%81%E5%88%B0%E9%A1%B5%E9%9D%A2%E6%9C%AC%E8%BA%AB%EF%BC%8C%E8%80%8C%E4%B8%8D%E6%98%AF%E8%B7%B3%E8%BD%AC%E5%88%B0%E5%8F%A6%E4%B8%80%E4%B8%AA%E9%A1%B5%E9%9D%A2%E3%80%82%E8%BF%99%E6%A0%B7%EF%BC%8C%E7%94%A8%E6%88%B7%E5%B0%86%E5%9C%A8%E4%B8%8E%E8%A1%A8%E5%8D%95%E7%9B%B8%E5%90%8C%E7%9A%84%E9%A1%B5%E9%9D%A2%E4%B8%8A%E6%94%B6%E5%88%B0%E9%94%99%E8%AF%AF%E6%B6%88%E6%81%AF%E3%80%82"><span class="nav-number">2.4.2.</span> <span class="nav-text">$ _ SERVER [“ PHP_SELF”]将提交的表单数据发送到页面本身，而不是跳转到另一个页面。这样，用户将在与表单相同的页面上收到错误消息。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BB%8E%E7%94%A8%E6%88%B7%E8%BE%93%E5%85%A5%E6%95%B0%E6%8D%AE%E4%B8%AD%E5%88%A0%E9%99%A4%E4%B8%8D%E5%BF%85%E8%A6%81%E7%9A%84%E5%AD%97%E7%AC%A6%EF%BC%88%E5%A4%9A%E4%BD%99%E7%9A%84%E7%A9%BA%E6%A0%BC%EF%BC%8C%E5%88%B6%E8%A1%A8%E7%AC%A6%EF%BC%8C%E6%8D%A2%E8%A1%8C%E7%AC%A6%EF%BC%89%EF%BC%88%E4%BD%BF%E7%94%A8PHP-trim%EF%BC%88%EF%BC%89%E5%87%BD%E6%95%B0%EF%BC%89"><span class="nav-number">2.4.3.</span> <span class="nav-text">从用户输入数据中删除不必要的字符（多余的空格，制表符，换行符）（使用PHP trim（）函数）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BB%8E%E7%94%A8%E6%88%B7%E8%BE%93%E5%85%A5%E6%95%B0%E6%8D%AE%E4%B8%AD%E5%88%A0%E9%99%A4%E5%8F%8D%E6%96%9C%E6%9D%A0%EF%BC%88-%EF%BC%89%EF%BC%88%E4%BD%BF%E7%94%A8PHP-stripslashes%EF%BC%88%EF%BC%89%E5%87%BD%E6%95%B0%EF%BC%89"><span class="nav-number">2.4.4.</span> <span class="nav-text">从用户输入数据中删除反斜杠（\）（使用PHP stripslashes（）函数）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#include-%E5%8F%AA%E4%BC%9A%E4%BA%A7%E7%94%9F%E8%AD%A6%E5%91%8A%EF%BC%88E-WARNING%EF%BC%89%E5%B9%B6%E4%B8%94%E8%84%9A%E6%9C%AC%E5%B0%86%E7%BB%A7%E7%BB%AD"><span class="nav-number">2.4.5.</span> <span class="nav-text">include 只会产生警告（E_WARNING）并且脚本将继续</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#isset%EF%BC%88%EF%BC%89%E5%87%BD%E6%95%B0%E6%A3%80%E6%9F%A5%E6%98%AF%E5%90%A6%E8%AE%BE%E7%BD%AE%E4%BA%86%E5%8F%98%E9%87%8F%EF%BC%8C%E8%BF%99%E6%84%8F%E5%91%B3%E7%9D%80%E5%BF%85%E9%A1%BB%E5%A3%B0%E6%98%8E%E8%AF%A5%E5%8F%98%E9%87%8F%E5%B9%B6%E4%B8%94%E8%AF%A5%E5%8F%98%E9%87%8F%E4%B8%8D%E8%83%BD%E4%B8%BANULL%E3%80%82"><span class="nav-number">2.4.6.</span> <span class="nav-text">isset（）函数检查是否设置了变量，这意味着必须声明该变量并且该变量不能为NULL。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#eval%EF%BC%88%EF%BC%89%E5%87%BD%E6%95%B0%E5%B0%86%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%AF%84%E4%BC%B0%E4%B8%BAPHP%E4%BB%A3%E7%A0%81%E3%80%82"><span class="nav-number">2.4.7.</span> <span class="nav-text">eval（）函数将字符串评估为PHP代码。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#dirname%EF%BC%88%EF%BC%89%E5%87%BD%E6%95%B0%E8%BF%94%E5%9B%9E%E7%88%B6%E7%9B%AE%E5%BD%95%E7%9A%84%E8%B7%AF%E5%BE%84%E3%80%82"><span class="nav-number">2.4.8.</span> <span class="nav-text">dirname（）函数返回父目录的路径。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#in-array%EF%BC%88%EF%BC%89%E5%87%BD%E6%95%B0%E5%9C%A8%E6%95%B0%E7%BB%84%E4%B8%AD%E6%90%9C%E7%B4%A2%E7%89%B9%E5%AE%9A%E5%80%BC%E3%80%82"><span class="nav-number">2.4.9.</span> <span class="nav-text">in_array（）函数在数组中搜索特定值。</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#WECHALL-LFI"><span class="nav-number">3.</span> <span class="nav-text">WECHALL LFI</span></a></li></ol></div>
+      </section>
       <!--/noindex-->
 
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
   <p class="site-author-name" itemprop="name">finsenty54</p>
   <div class="site-description" itemprop="description">blog</div>
 </div>
-<div class="site-state-wrap motion-element">
+<div class="site-state-wrap animated">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
@@ -459,32 +225,363 @@
       </div>
   </nav>
 </div>
-  <div class="links-of-author motion-element">
+  <div class="links-of-author animated">
       <span class="links-of-author-item">
-        <a href="https://github.com/Finsenty54" title="GitHub → https://github.com/Finsenty54" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+        <a href="https://github.com/Finsenty54" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Finsenty54" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
       </span>
       <span class="links-of-author-item">
-        <a href="mailto:finsenty54@qq.com" title="E-Mail → mailto:finsenty54@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+        <a href="mailto:fin12138@gmail.com" title="E-Mail → mailto:fin12138@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
       </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
   </div>
 
 
 
-      </div>
-
+      </section>
     </div>
   </aside>
-  <div id="sidebar-dimmer"></div>
+  <div class="sidebar-dimmer"></div>
 
 
-      </div>
-    </main>
+    </header>
 
-    <footer class="footer">
-      <div class="footer-inner">
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+      
+
+      
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://finsenty54.github.io/2020/05/19/CTF%E5%85%A5%E9%97%A8%20WECALL1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="finsenty54">
+      <meta itemprop="description" content="blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="FINSENTY54">
+    </span>
+
+    
+    
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          CTF入门 WECALL 2
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-05-19 20:03:39" itemprop="dateCreated datePublished" datetime="2020-05-19T20:03:39+08:00">2020-05-19</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2020-10-31 16:53:12" itemprop="dateModified" datetime="2020-10-31T16:53:12+08:00">2020-10-31</time>
+      </span>
+
+  
+    <span id="/2020/05/19/CTF%E5%85%A5%E9%97%A8%20WECALL1/" class="post-meta-item leancloud_visitors" data-flag-title="CTF入门 WECALL 2" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/05/19/CTF%E5%85%A5%E9%97%A8%20WECALL1/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/05/19/CTF%E5%85%A5%E9%97%A8%20WECALL1/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h3 id="什么是PHP文件？"><a href="#什么是PHP文件？" class="headerlink" title="什么是PHP文件？"></a>什么是PHP文件？</h3><p>PHP文件可以包含文本，HTML，CSS，JavaScript和PHP代码<br>PHP代码在服务器上执行，结果以纯HTML格式返回到浏览器<br>PHP文件的扩展名为“ .php”</p>
+<a id="more"></a>
+<h3 id="PHP可以做什么？"><a href="#PHP可以做什么？" class="headerlink" title="PHP可以做什么？"></a>PHP可以做什么？</h3><p>PHP可以生成动态页面内容<br>PHP可以在服务器上创建，打开，读取，写入，删除和关闭文件<br>PHP可以收集表单数据<br>PHP可以发送和接收Cookie<br>PHP可以添加，删除，修改数据库中的数据<br>PHP可用于控制用户访问<br>PHP可以加密数据<br>使用PHP，您不仅可以输出HTML。您可以输出图像，PDF文件甚至Flash电影。您还可以输出任何文本，例如XHTML和XML。</p>
+<p>PHP脚本可以放在文档中的任何位置。<br>PHP脚本的开头<code>&lt;?php</code>和结尾是<code> ?&gt;</code>：<br><?php
+// PHP code goes here
+?><br>PHP文件的默认文件扩展名是“ .php”。<br>一个PHP文件通常包含HTML标记和一些PHP脚本代码。</p>
+<p> PHP语句以分号（<code>;</code>）结尾。</p>
+<p>在PHP中，关键字（例如if， else，while， echo等），类，函数，和用户定义的函数<code>是不区分大小写。</code></p>
+<p>所有<code>变量名称均区分大小写</code>！</p>
+<p>comment<br>//<br>#<br>/*        */</p>
+<p>在PHP中，变量以$符号开头，后跟变量名称</p>
+<p>与其他编程语言不同，PHP没有用于声明变量的命令。它是在您首次为其分配值时创建的。</p>
+<?php
+$txt = "W3Schools.com";
+echo "I love $txt!";
+?>
+
+<?php
+$txt = "W3Schools.com";
+echo "I love " . $txt . "!";
+?>
+
+<?php
+$x = 5;
+$y = 4;
+echo $x + $y;
+?>
+
+<h5 id="在函数外部声明的变量具有全局范围，并且只能在函数外部访问"><a href="#在函数外部声明的变量具有全局范围，并且只能在函数外部访问" class="headerlink" title="在函数外部声明的变量具有全局范围，并且只能在函数外部访问"></a>在函数外部声明的变量具有全局范围，并且只能在函数外部访问</h5><h5 id="在函数内声明的变量具有局部范围，只能在该函数内访问"><a href="#在函数内声明的变量具有局部范围，只能在该函数内访问" class="headerlink" title="在函数内声明的变量具有局部范围，只能在该函数内访问"></a>在函数内声明的变量具有局部范围，只能在该函数内访问</h5><h5 id="global关键字用于在函数内部访问一个全局变量。"><a href="#global关键字用于在函数内部访问一个全局变量。" class="headerlink" title="global关键字用于在函数内部访问一个全局变量。"></a>global关键字用于在函数内部访问一个全局变量。</h5><p>为此，请global在变量之前（在函数内部）使用关键字<br><?php
+$x = 5;
+$y = 10;
+function myTest() {
+  global $x, $y;
+  $y = $x + $y;
+}
+myTest();
+echo $y; // outputs 15
+?></p>
+<p>PHP also stores all global variables in an array called $GLOBALS[index]. The index holds the name of the variable. This array is also accessible from within functions and can be used to update global variables directly.</p>
+<?php
+$x = 5;
+$y = 10;
+function myTest() {
+  $GLOBALS['y'] = $GLOBALS['x'] + $GLOBALS['y'];
+}
+myTest();
+echo $y; // outputs 15
+?>
+
+<p>通常，当一个函数完成/执行时，它的所有变量都会被删除。但是，有时我们希望不删除局部变量。我们需要它来做进一步的工作。<br>为此，请static在首次声明变量时使用关键字<br>然后，每次调用该函数时，该变量仍将具有自上次调用该函数以来所包含的信息。<br>注意：该变量仍然是函数的局部变量。</p>
+<p>差异很小：echo没有返回值，而print返回值为1，因此可以在表达式中使用。echo可以采用多个参数（尽管这种用法很少见），而print可以采用一个参数。echo比快一点print。</p>
+<?php
+echo "<h2>PHP is Fun!</h2>";
+echo "Hello world!<br>";
+echo "I'm about to learn PHP!<br>";
+echo "This ", "string ", "was ", "made ", "with multiple parameters.";
+?>
+
+<h5 id="字符串可以是引号内的任何文本。可以使用单引号或双引号"><a href="#字符串可以是引号内的任何文本。可以使用单引号或双引号" class="headerlink" title="字符串可以是引号内的任何文本。可以使用单引号或双引号"></a>字符串可以是引号内的任何文本。可以使用单引号或双引号</h5><p>整数数据类型是-2,147,483,648和2,147,483,647之间的非十进制数。<br>PHP var_dump（）函数返回数据类型和值</p>
+<?php
+$cars = array("Volvo","BMW","Toyota");
+var_dump($cars);
+?>
+
+<p>首先，我们必须声明一个对象类。为此，我们使用class关键字。类是可以包含属性和方法的结构：<br><?php
+class Car {
+  function Car() {
+    $this->model = "VW";
+  }
+}
+// create an object
+$herbie = new Car();
+// show object properties
+echo $herbie->model;
+?></p>
+<p>如果创建的变量没有值，则会自动为其分配值NULL。<br>也可以通过将值设置为NULL来清空变量：</p>
+<p>关于PHP的注意事项之一是它提供了自动数据类型转换。<br>因此，如果将整数值分配给变量，则该变量的类型将自动为整数。然后，如果将字符串分配给相同的变量，则类型将更改为字符串。</p>
+<p>整数可以以三种格式指定：十进制（基于10的），十六进制（基于16的-带有0x前缀）或八进制（基于8的-带有0前缀）</p>
+<p>（int），（integer）或intval（）函数通常用于将值转换为整数。</p>
+<p>有效的常量名称以字母或下划线开头（常量名称前没有$符号）。</p>
+<p>注意：与变量不同，常量在整个脚本中自动为全局变量。<br>define(name, value, case-insensitive)<br>在PHP7中，您可以使用define()函数创建一个Array常量。</p>
+<p>.    Concatenation    $txt1 . $txt2    Concatenation of $txt1 and $txt2<br>.=    Concatenation assignment    $txt1 .= $txt2    Appends $txt2 to $txt1</p>
+<?php
+$t = date("H");
+
+if ($t < "20") {
+  echo "Have a good day!";
+}
+?>
+
+<h4 id="该foreach循环仅适用于数组，用于循环遍历数组中的每个键-值对。"><a href="#该foreach循环仅适用于数组，用于循环遍历数组中的每个键-值对。" class="headerlink" title="该foreach循环仅适用于数组，用于循环遍历数组中的每个键/值对。"></a>该foreach循环仅适用于数组，用于循环遍历数组中的每个键/值对。</h4><p>句法<br>foreach ($array as $value) {<br>  code to be executed;<br>}<br>对于每次循环迭代，当前数组元素的值都分配给$ value，并且数组指针移动一个，直到到达最后一个数组元素。</p>
+<p>要指定，strict我们需要设置declare(strict_types=1);。这必须在PHP文件的第一行。<br>这为我们提供了一个在声明函数时指定所需数据类型的选项，并且通过添加strict 声明，如果数据类型不匹配，它将抛出“致命错误”。</p>
+<?php declare(strict_types=1); // strict requirement
+function addNumbers(float $a, float $b) : float {
+  return $a + $b;
+}
+echo addNumbers(1.2, 5.2);
+?>
+
+<?php declare(strict_types=1); // strict requirement
+function addNumbers(float $a, float $b) : int {
+  return (int)($a + $b);
+}
+echo addNumbers(1.2, 5.2);
+?>
+
+<?php
+$cars = array("Volvo", "BMW", "Toyota");
+echo "I like " . $cars[0] . ", " . $cars[1] . " and " . $cars[2] . ".";
+?>
+
+<p>关联数组是使用分配给它们的命名键的数组。<br>有两种创建关联数组的方法：<br>$age = array(“Peter”=&gt;”35”, “Ben”=&gt;”37”, “Joe”=&gt;”43”);<br>要么：<br>$age[‘Peter’] = “35”;<br>$age[‘Ben’] = “37”;<br>$age[‘Joe’] = “43”;<br>然后可以在脚本中使用命名的键：</p>
+<p>$cars = array (<br>  array(“Volvo”,22,18),<br>  array(“BMW”,15,13),<br>  array(“Saab”,5,2),<br>  array(“Land Rover”,17,15)<br>);<br><?php
+echo $cars[0][0].": In stock: ".$cars[0][1].", sold: ".$cars[0][2].".<br>";
+echo $cars[1][0].": In stock: ".$cars[1][1].", sold: ".$cars[1][2].".<br>";
+echo $cars[2][0].": In stock: ".$cars[2][1].", sold: ".$cars[2][2].".<br>";
+echo $cars[3][0].": In stock: ".$cars[3][1].", sold: ".$cars[3][2].".<br>";
+?></p>
+<p>sort() -以升序排列数组<br>rsort() -以降序排列数组<br>asort() -根据值以升序对关联数组进行排序<br>ksort() -根据键以升序对关联数组进行排序<br>arsort() -根据值以降序对关联数组进行排序<br>krsort() -根据键以降序对关联数组进行排序</p>
+<h4 id="用于在使用method-“-post”提交HTML表单后收集表单数据。-POST也广泛用于传递变量。"><a href="#用于在使用method-“-post”提交HTML表单后收集表单数据。-POST也广泛用于传递变量。" class="headerlink" title="用于在使用method =“ post”提交HTML表单后收集表单数据。$ _POST也广泛用于传递变量。"></a>用于在使用method =“ post”提交HTML表单后收集表单数据。$ _POST也广泛用于传递变量。</h4><h5 id="SERVER-‘PHP-SELF’-Returns-the-filename-of-the-currently-executing-script"><a href="#SERVER-‘PHP-SELF’-Returns-the-filename-of-the-currently-executing-script" class="headerlink" title="$_SERVER[‘PHP_SELF’]    Returns the filename of the currently executing script"></a>$_SERVER[‘PHP_SELF’]    Returns the filename of the currently executing script</h5><h5 id="SERVER-‘REQUEST-METHOD’-Returns-the-request-method-used-to-access-the-page-such-as-POST"><a href="#SERVER-‘REQUEST-METHOD’-Returns-the-request-method-used-to-access-the-page-such-as-POST" class="headerlink" title="$_SERVER[‘REQUEST_METHOD’]    Returns the request method used to access the page (such as POST)"></a>$_SERVER[‘REQUEST_METHOD’]    Returns the request method used to access the page (such as POST)</h5><h4 id="PHP-GET是一个PHP超级全局变量，用于在使用method-“-get”提交HTML表单后收集表单数据。"><a href="#PHP-GET是一个PHP超级全局变量，用于在使用method-“-get”提交HTML表单后收集表单数据。" class="headerlink" title="PHP $ _GET是一个PHP超级全局变量，用于在使用method =“ get”提交HTML表单后收集表单数据。"></a>PHP $ _GET是一个PHP超级全局变量，用于在使用method =“ get”提交HTML表单后收集表单数据。</h4><h5 id="GET还可以收集在URL中发送的数据。"><a href="#GET还可以收集在URL中发送的数据。" class="headerlink" title="$ _GET还可以收集在URL中发送的数据。"></a>$ _GET还可以收集在URL中发送的数据。</h5><h4 id="使用GET方法从表单发送的信息对所有人都是可见的（所有变量名和值都显示在URL中）。GET对发送的信息量也有限制。限制约为2000个字符。但是，由于变量显示在URL中，因此可以为页面添加书签。在某些情况下这可能很有用。"><a href="#使用GET方法从表单发送的信息对所有人都是可见的（所有变量名和值都显示在URL中）。GET对发送的信息量也有限制。限制约为2000个字符。但是，由于变量显示在URL中，因此可以为页面添加书签。在某些情况下这可能很有用。" class="headerlink" title="使用GET方法从表单发送的信息对所有人都是可见的（所有变量名和值都显示在URL中）。GET对发送的信息量也有限制。限制约为2000个字符。但是，由于变量显示在URL中，因此可以为页面添加书签。在某些情况下这可能很有用。"></a>使用GET方法从表单发送的信息对所有人都是可见的（所有变量名和值都显示在URL中）。GET对发送的信息量也有限制。限制约为2000个字符。但是，由于变量显示在URL中，因此可以为页面添加书签。在某些情况下这可能很有用。</h4><p>GET可以用于发送非敏感数据。<br>注意：绝对不要将GET用于发送密码或其他敏感信息！</p>
+<h5 id="使用POST方法从表单发送的信息对于其他人是不可见的-（所有名称-值都嵌入在HTTP请求的正文中），并且对要发送的信息量没有限制。"><a href="#使用POST方法从表单发送的信息对于其他人是不可见的-（所有名称-值都嵌入在HTTP请求的正文中），并且对要发送的信息量没有限制。" class="headerlink" title="使用POST方法从表单发送的信息对于其他人是不可见的 （所有名称/值都嵌入在HTTP请求的正文中），并且对要发送的信息量没有限制。"></a>使用POST方法从表单发送的信息对于其他人是不可见的 （所有名称/值都嵌入在HTTP请求的正文中），并且对要发送的信息量没有限制。</h5><p>此外，POST支持高级功能，例如在将文件上传到服务器时支持多部分二进制输入。<br>但是，由于变量未显示在URL中，因此无法为页面添加书签。</p>
+<h5 id="SERVER-“-PHP-SELF”-将提交的表单数据发送到页面本身，而不是跳转到另一个页面。这样，用户将在与表单相同的页面上收到错误消息。"><a href="#SERVER-“-PHP-SELF”-将提交的表单数据发送到页面本身，而不是跳转到另一个页面。这样，用户将在与表单相同的页面上收到错误消息。" class="headerlink" title="$ _ SERVER [“ PHP_SELF”]将提交的表单数据发送到页面本身，而不是跳转到另一个页面。这样，用户将在与表单相同的页面上收到错误消息。"></a>$ _ SERVER [“ PHP_SELF”]将提交的表单数据发送到页面本身，而不是跳转到另一个页面。这样，用户将在与表单相同的页面上收到错误消息。</h5><p>htmlspecialchars（）函数将特殊字符转换为HTML实体。这意味着它将用＆lt;替换&lt;和&gt;之类的HTML字符。和＆gt;。这样可以防止攻击者通过以表格形式注入HTML或Javascript代码（跨站点脚本攻击）来利用代码。</p>
+<h5 id="从用户输入数据中删除不必要的字符（多余的空格，制表符，换行符）（使用PHP-trim（）函数）"><a href="#从用户输入数据中删除不必要的字符（多余的空格，制表符，换行符）（使用PHP-trim（）函数）" class="headerlink" title="从用户输入数据中删除不必要的字符（多余的空格，制表符，换行符）（使用PHP trim（）函数）"></a>从用户输入数据中删除不必要的字符（多余的空格，制表符，换行符）（使用PHP trim（）函数）</h5><h5 id="从用户输入数据中删除反斜杠（-）（使用PHP-stripslashes（）函数）"><a href="#从用户输入数据中删除反斜杠（-）（使用PHP-stripslashes（）函数）" class="headerlink" title="从用户输入数据中删除反斜杠（\）（使用PHP stripslashes（）函数）"></a>从用户输入数据中删除反斜杠（\）（使用PHP stripslashes（）函数）</h5><p>使用PHP empty() 函数</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;form method=<span class="string">&quot;post&quot;</span> action=<span class="string">&quot;&lt;?php echo htmlspecialchars(<span class="subst">$_SERVER</span>[&quot;</span>PHP_SELF<span class="string">&quot;]);?&gt;&quot;</span>&gt;</span><br><span class="line">Name: &lt;input type=<span class="string">&quot;text&quot;</span> name=<span class="string">&quot;name&quot;</span>&gt;</span><br><span class="line">&lt;span class=&quot;error&quot;&gt;* &lt;?php echo $nameErr;?&gt;&lt;/span&gt;</span><br><span class="line">&lt;br&gt;&lt;br&gt;</span><br><span class="line">E-mail:</span><br><span class="line">&lt;input type=<span class="string">&quot;text&quot;</span> name=<span class="string">&quot;email&quot;</span>&gt;</span><br><span class="line">&lt;span class=&quot;error&quot;&gt;* &lt;?php echo $emailErr;?&gt;&lt;/span&gt;</span><br><span class="line">&lt;br&gt;&lt;br&gt;</span><br><span class="line">Website:</span><br><span class="line">&lt;input type=<span class="string">&quot;text&quot;</span> name=<span class="string">&quot;website&quot;</span>&gt;</span><br><span class="line">&lt;span class=&quot;error&quot;&gt;&lt;?php echo $websiteErr;?&gt;&lt;/span&gt;</span><br><span class="line">&lt;br&gt;&lt;br&gt;</span><br><span class="line">Comment: &lt;textarea name=<span class="string">&quot;comment&quot;</span> rows=<span class="string">&quot;5&quot;</span> cols=<span class="string">&quot;40&quot;</span>&gt;</span><br></pre></td></tr></table></figure>
+
+<p>preg_match（）函数在字符串中搜索模式，如果存在模式，则返回true，否则返回false。<br>正则表达式</p>
+<p>include和require语句相同，但失败时除外：<br>require 将产生致命错误（E_COMPILE_ERROR）并停止脚本</p>
+<h5 id="include-只会产生警告（E-WARNING）并且脚本将继续"><a href="#include-只会产生警告（E-WARNING）并且脚本将继续" class="headerlink" title="include 只会产生警告（E_WARNING）并且脚本将继续"></a>include 只会产生警告（E_WARNING）并且脚本将继续</h5><p>该readfile()函数读取文件并将其写入输出缓冲区。</p>
+<?php
+$myfile = fopen("webdictionary.txt", "r") or die("Unable to open file!");
+echo fread($myfile,filesize("webdictionary.txt"));
+fclose($myfile);
+?>
+
+<p>该fclose()功能用于关闭打开的文件。<br>结束所有文件后，关闭所有文件是一种良好的编程习惯。您不希望在服务器上到处运行打开的文件占用资源！</p>
+<p>该feof()功能检查是否已达到“文件结尾”（EOF）。</p>
+<p>该fopen()函数还用于创建文件。可能有些混乱，但是在PHP中，使用与打开文件相同的功能创建文件。</p>
+<p>$filename = ‘pages/‘.(isset($_GET[“file”])$_GET[“file”]:”welcome”).’.html’;</p>
+<p>？ ：</p>
+<h5 id="isset（）函数检查是否设置了变量，这意味着必须声明该变量并且该变量不能为NULL。"><a href="#isset（）函数检查是否设置了变量，这意味着必须声明该变量并且该变量不能为NULL。" class="headerlink" title="isset（）函数检查是否设置了变量，这意味着必须声明该变量并且该变量不能为NULL。"></a>isset（）函数检查是否设置了变量，这意味着必须声明该变量并且该变量不能为NULL。</h5><p>die（）函数是exit（）函数的别名。</p>
+<h5 id="eval（）函数将字符串评估为PHP代码。"><a href="#eval（）函数将字符串评估为PHP代码。" class="headerlink" title="eval（）函数将字符串评估为PHP代码。"></a>eval（）函数将字符串评估为PHP代码。</h5><h5 id="dirname（）函数返回父目录的路径。"><a href="#dirname（）函数返回父目录的路径。" class="headerlink" title="dirname（）函数返回父目录的路径。"></a>dirname（）函数返回父目录的路径。</h5><h5 id="in-array（）函数在数组中搜索特定值。"><a href="#in-array（）函数在数组中搜索特定值。" class="headerlink" title="in_array（）函数在数组中搜索特定值。"></a>in_array（）函数在数组中搜索特定值。</h5><p>注意：如果搜索参数是字符串，并且类型参数设置为TRUE，则搜索区分大小写。</p>
+<h3 id="WECHALL-LFI"><a href="#WECHALL-LFI" class="headerlink" title="WECHALL LFI"></a>WECHALL LFI</h3><p>?file=page/jhkd.html<br>?file=../../solution.php%00<br>%00 后的字符不算，已经更改<br>../ 遍历目录</p>
+<p>switch ($which)<br>        {<br>        case 0:<br>        case 1:<br>        case 2:<br>                require_once $which.’.php’;<br>                break;<br>        default:<br>                echo GWF_HTML::error(‘PHP-0817’, ‘Hacker NoNoNo!’, false);<br>                break;<br>        }<br>which=0,1,2 都执行require_once</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>finsenty54
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://finsenty54.github.io/2020/05/19/CTF%E5%85%A5%E9%97%A8%20WECALL1/" title="CTF入门 WECALL 2">http://finsenty54.github.io/2020/05/19/CTF入门 WECALL1/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          
+
+  <div class="followme">
+    <span>欢迎关注我的其它发布渠道</span>
+
+    <div class="social-list">
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+        </div>
+    </div>
+  </div>
+
+          <div class="post-tags">
+              <a href="/tags/CTF/" rel="tag"># CTF</a>
+          </div>
+
         
 
-        
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/05/15/CTF%E5%85%A5%E9%97%A8%20WECALL/" rel="prev" title="CTF入门 WECALL">
+                  <i class="fa fa-chevron-left"></i> CTF入门 WECALL
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/07/06/CTF%E5%85%A5%E9%97%A8%20WECALL2/" rel="next" title="CTF入门 WECALL2-正则">
+                  CTF入门 WECALL2-正则 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+  
+  
+  
+
+
+
+      
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      
+
+      
 
 <div class="copyright">
   
@@ -495,12 +592,7 @@
   </span>
   <span class="author" itemprop="copyrightHolder">finsenty54</span>
 </div>
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
-  </div>
-
-        
 <div class="busuanzi-count">
-  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
     <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
       <span class="post-meta-item-icon">
         <i class="fa fa-user"></i>
@@ -509,7 +601,6 @@
         <span id="busuanzi_value_site_uv"></span>
       </span>
     </span>
-    <span class="post-meta-divider">|</span>
     <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
       <span class="post-meta-item-icon">
         <i class="fa fa-eye"></i>
@@ -519,36 +610,19 @@
       </span>
     </span>
 </div>
-
-
-
-
-
-
-
-
-      </div>
-    </footer>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
 
+    </div>
+  </footer>
+
   
-  <script src="/lib/anime.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
-<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
-<script src="/js/schemes/muse.js"></script>
-<script src="/js/next-boot.js"></script>
-
-
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.2.0/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
 
   
 
 
-
-
-  
-<script src="//cdn.jsdelivr.net/npm/algoliasearch@4/dist/algoliasearch-lite.umd.js"></script>
-<script src="//cdn.jsdelivr.net/npm/instantsearch.js@4/dist/instantsearch.production.min.js"></script><script src="/js/algolia-search.js"></script>
 
 
 
@@ -563,38 +637,28 @@
 
 
   
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+
+
 
   
 
+  
 <script>
-  function loadCount() {
-    var d = document, s = d.createElement('script');
-    s.src = 'https://finsenty54.disqus.com/count.js';
-    s.id = 'dsq-count-scr';
-    (d.head || d.body).appendChild(s);
-  }
-  // defer loading until the whole page loading is completed
-  window.addEventListener('load', loadCount, false);
-</script>
-<script>
-  var disqus_config = function() {
-    this.page.url = "http://finsenty54.github.io/2020/05/19/CTF入门 WECALL1/";
-    this.page.identifier = "2020/05/19/CTF入门 WECALL1/";
-    this.page.title = "CTF入门 WECALL 2";
-    };
-  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
-    if (window.DISQUS) {
-      DISQUS.reset({
-        reload: true,
-        config: disqus_config
-      });
-    } else {
-      var d = document, s = d.createElement('script');
-      s.src = 'https://finsenty54.disqus.com/embed.js';
-      s.setAttribute('data-timestamp', '' + +new Date());
-      (d.head || d.body).appendChild(s);
-    }
-  });
+NexT.utils.loadComments('#valine-comments', () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', () => {
+    new Valine(Object.assign({
+      el  : '#valine-comments',
+      path: "/2020/05/19/CTF%E5%85%A5%E9%97%A8%20WECALL1/",
+    }, {"enable":true,"appId":"3uGsbMNvxiG0LkbyciDSaxmY-MdYXbMMI","appKey":"1dU1y3SudPaV6pdTET96j5M2","placeholder":"欢迎交流讨论...","avatar":"mm","meta":["nick","mail","link"],"pageSize":10,"lang":"zh-cn","visitor":true,"comment_count":true,"recordIP":false,"serverURLs":null,"enableQQ":false,"requiredFields":[]}
+    ));
+  }, window.Valine);
+});
 </script>
 
 </body>

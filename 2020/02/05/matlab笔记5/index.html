@@ -4,39 +4,44 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 3.9.0">
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
-  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#222">
+  <link rel="manifest" href="/images/site.webmanifest">
+  <meta name="msapplication-config" content="/images/browserconfig.xml">
 
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-<script id="hexo-configurations">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.14.0/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"finsenty54.github.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","width":320,"display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"disqus","storage":true,"lazyload":false,"nav":null,"activeClass":"disqus"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"finsenty54.github.io","root":"/","scheme":"Gemini","version":"8.0.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}};
   </script>
 
-  <meta name="description" content="使用基于帕斯卡三角形的项创建一个对称矩阵：A = pascal(3) randi 的第一个输入描述整数可能值的范围，后面两个输入描述行和列的数量。C = randi(10,3,2) 有一个专门的点积函数，称为 dot。">
-<meta name="keywords" content="matlab">
+  <meta name="description" content="使用基于帕斯卡三角形的项创建一个对称矩阵：A &#x3D; pascal(3) randi 的第一个输入描述整数可能值的范围，后面两个输入描述行和列的数量。C &#x3D; randi(10,3,2) 有一个专门的点积函数，称为 dot。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="matlab笔记5 image">
-<meta property="og:url" content="http://finsenty54.github.io/2020/02/05/matlab笔记5/index.html">
+<meta property="og:url" content="http://finsenty54.github.io/2020/02/05/matlab%E7%AC%94%E8%AE%B05/index.html">
 <meta property="og:site_name" content="FINSENTY54">
-<meta property="og:description" content="使用基于帕斯卡三角形的项创建一个对称矩阵：A = pascal(3) randi 的第一个输入描述整数可能值的范围，后面两个输入描述行和列的数量。C = randi(10,3,2) 有一个专门的点积函数，称为 dot。">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-02-05T05:42:28.598Z">
+<meta property="og:description" content="使用基于帕斯卡三角形的项创建一个对称矩阵：A &#x3D; pascal(3) randi 的第一个输入描述整数可能值的范围，后面两个输入描述行和列的数量。C &#x3D; randi(10,3,2) 有一个专门的点积函数，称为 dot。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-02-05T05:41:19.000Z">
+<meta property="article:modified_time" content="2020-10-31T08:53:12.112Z">
+<meta property="article:author" content="finsenty54">
+<meta property="article:tag" content="matlab">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="matlab笔记5 image">
-<meta name="twitter:description" content="使用基于帕斯卡三角形的项创建一个对称矩阵：A = pascal(3) randi 的第一个输入描述整数可能值的范围，后面两个输入描述行和列的数量。C = randi(10,3,2) 有一个专门的点积函数，称为 dot。">
-
-<link rel="canonical" href="http://finsenty54.github.io/2020/02/05/matlab笔记5/">
 
 
-<script id="page-configurations">
+<link rel="canonical" href="http://finsenty54.github.io/2020/02/05/matlab%E7%AC%94%E8%AE%B05/">
+
+
+<script class="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
@@ -65,65 +70,76 @@
 
   <noscript>
   <style>
-  .use-motion .brand,
+  body { margin-top: 2rem; }
+
   .use-motion .menu-item,
-  .sidebar-inner,
+  .use-motion .sidebar,
   .use-motion .post-block,
   .use-motion .pagination,
   .use-motion .comments,
   .use-motion .post-header,
   .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
 
   .use-motion .site-title,
-  .use-motion .site-subtitle {
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
     opacity: initial;
     top: initial;
   }
 
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
   </style>
 </noscript>
 
+<link rel="alternate" href="/atom.xml" title="FINSENTY54" type="application/atom+xml">
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
-    <div class="headband"></div>
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
 
+  <main class="main">
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
     <div class="toggle" aria-label="切换导航栏">
-      <span class="toggle-line toggle-line-first"></span>
-      <span class="toggle-line toggle-line-middle"></span>
-      <span class="toggle-line toggle-line-last"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
     </div>
   </div>
 
   <div class="site-meta">
 
     <a href="/" class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
+      <i class="logo-line"></i>
       <h1 class="site-title">FINSENTY54</h1>
-      <span class="logo-line-after"><i></i></span>
+      <i class="logo-line"></i>
     </a>
       <p class="site-subtitle" itemprop="description">几处早莺争暖树，谁家新燕啄春泥。</p>
   </div>
 
   <div class="site-nav-right">
     <div class="toggle popup-trigger">
-        <i class="fa fa-search fa-fw fa-lg"></i>
     </div>
   </div>
 </div>
 
 
 
-
 <nav class="site-nav">
-  <ul id="menu" class="main-menu menu">
+  <ul class="main-menu menu">
         <li class="menu-item menu-item-home">
 
     <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
@@ -136,17 +152,17 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">15</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">0</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">55</span></a>
 
   </li>
         <li class="menu-item menu-item-sitemap">
@@ -154,37 +170,81 @@
     <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a>
 
   </li>
-      <li class="menu-item menu-item-search">
-        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
-        </a>
-      </li>
   </ul>
 </nav>
 
 
 
-  <div class="search-pop-overlay">
-    <div class="popup search-popup">
-        <div class="search-header">
-  <span class="search-icon">
-    <i class="fa fa-search"></i>
-  </span>
-  <div class="search-input-container"></div>
-  <span class="popup-btn-close">
-    <i class="fa fa-times-circle"></i>
-  </span>
-</div>
-<div class="algolia-results">
-  <div id="algolia-stats"></div>
-  <div id="algolia-hits"></div>
-  <div id="algolia-pagination" class="algolia-pagination"></div>
-</div>
 
-      
-    </div>
+</div>
+        
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
   </div>
 
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <section class="post-toc-wrap sidebar-panel">
+          <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9B%BE%E5%83%8F"><span class="nav-number">1.</span> <span class="nav-text">图像</span></a></li></ol></div>
+      </section>
+      <!--/noindex-->
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">finsenty54</p>
+  <div class="site-description" itemprop="description">blog</div>
 </div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">55</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Finsenty54" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Finsenty54" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:fin12138@gmail.com" title="E-Mail → mailto:fin12138@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </section>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
     </header>
 
     
@@ -194,20 +254,21 @@
   </div>
   <div class="reading-progress-bar"></div>
 
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
 
-    <main class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
 
-          <div class="content post posts-expand">
-            
+    <div class="main-inner post posts-expand">
+      
+
+      
 
     
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://finsenty54.github.io/2020/02/05/matlab笔记5/">
+    <link itemprop="mainEntityOfPage" href="http://finsenty54.github.io/2020/02/05/matlab%E7%AC%94%E8%AE%B05/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -218,44 +279,55 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="FINSENTY54">
     </span>
+
+    
+    
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           matlab笔记5 image
         </h1>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2020-02-05 13:41:19 / 修改时间：13:42:28" itemprop="dateCreated datePublished" datetime="2020-02-05T13:41:19+08:00">2020-02-05</time>
-            </span>
+      <time title="创建时间：2020-02-05 13:41:19" itemprop="dateCreated datePublished" datetime="2020-02-05T13:41:19+08:00">2020-02-05</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2020-10-31 16:53:12" itemprop="dateModified" datetime="2020-10-31T16:53:12+08:00">2020-10-31</time>
+      </span>
 
-          
-            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span id="busuanzi_value_page_pv"></span>
-            </span>
+  
+    <span id="/2020/02/05/matlab%E7%AC%94%E8%AE%B05/" class="post-meta-item leancloud_visitors" data-flag-title="matlab笔记5 image" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
   
   <span class="post-meta-item">
     
       <span class="post-meta-item-icon">
         <i class="far fa-comment"></i>
       </span>
-      <span class="post-meta-item-text">Disqus：</span>
+      <span class="post-meta-item-text">Valine：</span>
     
-    <a title="disqus" href="/2020/02/05/matlab笔记5/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/02/05/matlab笔记5/" itemprop="commentCount"></span>
+    <a title="valine" href="/2020/02/05/matlab%E7%AC%94%E8%AE%B05/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/05/matlab%E7%AC%94%E8%AE%B05/" itemprop="commentCount"></span>
     </a>
   </span>
   
   
+</div>
 
         </div>
       </header>
@@ -264,11 +336,11 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
         <p>使用基于帕斯卡三角形的项创建一个对称矩阵：<br><code>A = pascal(3)</code></p>
 <p>randi 的第一个输入描述整数可能值的范围，后面两个输入描述行和列的数量。<br><code>C = randi(10,3,2)</code></p>
-<p>有一个专门的点积函数，称为 <code>dot</code>。<br><a id="more"></a><br>非共轭复数转置（其中每个元素的复数部分保留其符号）表示为<code>z.&#39;</code></p>
+<p>有一个专门的点积函数，称为 <code>dot</code>。</p>
+<a id="more"></a>
+<p>非共轭复数转置（其中每个元素的复数部分保留其符号）表示为<code> z.&#39;</code></p>
 <p><code>eye(m,n)</code><br>返回 m×n 矩形单位矩阵，eye(n) 返回 n×n 单位方阵。</p>
 <p>向量 x 的 p-范数，<br><code>norm(x,p)</code> 进行计算，此运算是为 p &gt; 1 的任意值定义的，但最常见的 p 值为 1、2 和 ∞。默认值为 p = 2，</p>
 <p><code>x = b/A</code><br>表示使用 mrdivide 获得的矩阵方程 xA = b 的解。<br><code>x = A\b</code><br>表示使用 mldivide 获得的矩阵方程 Ax = b 的解。</p>
@@ -277,7 +349,7 @@
 <p><code>eig</code><br>特征值和特征向量</p>
 <p>提供的数据分析函数的列表，请键入<br><code>help datafun</code></p>
 <hr>
-<h1 id="图像"><a href="#图像" class="headerlink" title="图像"></a>图像</h1><p>要显示图像，请使用 imshow 函数：<br><code>imshow(X,map)</code><br>使用<code>imread</code> 函数可以读取标准图像文件（TIFF、JPEG、PNG 等）。imread 返回的数据类型取决于读取的图像类型。<br>使用<code>imwrite</code> 函数可以将 MATLAB 数据写入到各种标准图像格式。<br>大多数图像表示为二维数组（矩阵），其中矩阵的每个元素对应所显示图像的一个像素。例如，由 200 行和 300 列不同颜色的点组成的图像保存为一个 200×300 的矩阵。有些图像，如 RGB，需要三维数组，其中三个维度的第一个平面表示红色像素强度，第二个平面表示绿色像素强度，第三个平面表示蓝色像素强度。<br>MATLAB 数学支持三种不同的数值类用于图像显示：<br>双精度浮点数（double）<br>16 位无符号整数（uint16）<br>8 位无符号整数（uint8）</p>
+<h1 id="图像"><a href="#图像" class="headerlink" title="图像"></a>图像</h1><p>要显示图像，请使用 imshow 函数：<br><code>imshow(X,map)</code><br>使用<code> imread</code> 函数可以读取标准图像文件（TIFF、JPEG、PNG 等）。imread 返回的数据类型取决于读取的图像类型。<br>使用<code> imwrite</code> 函数可以将 MATLAB 数据写入到各种标准图像格式。<br>大多数图像表示为二维数组（矩阵），其中矩阵的每个元素对应所显示图像的一个像素。例如，由 200 行和 300 列不同颜色的点组成的图像保存为一个 200×300 的矩阵。有些图像，如 RGB，需要三维数组，其中三个维度的第一个平面表示红色像素强度，第二个平面表示绿色像素强度，第三个平面表示蓝色像素强度。<br>MATLAB 数学支持三种不同的数值类用于图像显示：<br>双精度浮点数（double）<br>16 位无符号整数（uint16）<br>8 位无符号整数（uint8）</p>
 <pre><code>imshow    显示图像
 image    从数组显示图像
 imagesc    显示使用经过标度映射的颜色的图像
@@ -296,8 +368,8 @@ rgb2ind    将 RGB 图像转换为索引图像
 imapprox    通过减少颜色数量来近似处理索引图像
 dither    转换图像，通过抖动提高表观颜色分辨率
 cmpermute    重新排列颜色图中的颜色
-cmunique    消除颜色图中的重复颜色；将灰度或真彩色图像转换为索引图像
-</code></pre><p><code>A = imread(&#39;ngc6543a.jpg&#39;);</code></p>
+cmunique    消除颜色图中的重复颜色；将灰度或真彩色图像转换为索引图像</code></pre>
+<p><code>A = imread(&#39;ngc6543a.jpg&#39;);</code></p>
 <hr>
 <p>索引图像由数据矩阵 X 和颜色图矩阵 map 组成。map 是一个 double 类的 m×3 数组，由 [0, 1] 范围内的浮点值组成。map 的每一行指定单一颜色的红、绿和蓝分量。索引图像使用像素值到颜色图值的“直接映射”。每个图像像素的颜色是以 X 中的对应值为索引求得的 map 中的值。<strong>因此 X 值必须是整数。值 1 指向 map 中第一行，值 2 指向第二行，以此类推。使用以下语句显示索引图像。</strong><br><code>image(X); colormap(map)</code><br>图像矩阵和颜色图中值的关系取决于图像矩阵的类。如果图像矩阵是 double 类，那么值 1 指向颜色图中的第一行，值 2 指向第二行，以此类推。如果图像矩阵是 uint8 或 uint16 类，那么有个偏移 - 值 0 指向颜色图中的第一行，值 1 指向第二行，以此类推。在图形文件格式中使用偏移是为了使可支持的颜色数目达到最大。在上面的图像中，图像矩阵是 double 类。</p>
 <hr>
@@ -310,17 +382,36 @@ cmunique    消除颜色图中的重复颜色；将灰度或真彩色图像转�
 <p>基于 NTSC 标准合并 RGB 值，以此方式来计算单色亮度，这会将与眼睛敏感度相关的系数应用到 RGB 颜色：</p>
 <pre><code>I = .2989*rgb_img(:,:,1)...
     +.5870*rgb_img(:,:,2)...
-    +.1140*rgb_img(:,:,3);
-</code></pre>
+    +.1140*rgb_img(:,:,3);</code></pre>
+
     </div>
 
     
     
     
-        
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>finsenty54
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://finsenty54.github.io/2020/02/05/matlab%E7%AC%94%E8%AE%B05/" title="matlab笔记5 image">http://finsenty54.github.io/2020/02/05/matlab笔记5/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          
 
   <div class="followme">
-    <p>欢迎关注我的其它发布渠道</p>
+    <span>欢迎关注我的其它发布渠道</span>
 
     <div class="social-list">
 
@@ -336,29 +427,25 @@ cmunique    消除颜色图中的重复颜色；将灰度或真彩色图像转�
     </div>
   </div>
 
-
-      <footer class="post-footer">
-          
           <div class="post-tags">
-              <a href="/tags/matlab/" rel="tag"><i class="fa fa-tag"></i> matlab</a>
+              <a href="/tags/matlab/" rel="tag"># matlab</a>
           </div>
 
         
 
-
-        
-    <div class="post-nav">
-      <div class="post-nav-item">
-    <a href="/2020/02/03/matlab笔记4/" rel="prev" title="matlab笔记4">
-      <i class="fa fa-chevron-left"></i> matlab笔记4
-    </a></div>
-      <div class="post-nav-item">
-    <a href="/2020/02/06/matlab图像示例笔记1/" rel="next" title="matlab图像示例笔记1">
-      matlab图像示例笔记1 <i class="fa fa-chevron-right"></i>
-    </a></div>
-    </div>
-      </footer>
-    
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/02/03/matlab%E7%AC%94%E8%AE%B04/" rel="prev" title="matlab笔记4">
+                  <i class="fa fa-chevron-left"></i> matlab笔记4
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/02/06/matlab%E5%9B%BE%E5%83%8F%E7%A4%BA%E4%BE%8B%E7%AC%94%E8%AE%B01/" rel="next" title="matlab图像示例笔记1">
+                  matlab图像示例笔记1 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
   </article>
   
   
@@ -366,15 +453,8 @@ cmunique    消除颜色图中的重复颜色；将灰度或真彩色图像转�
 
 
 
-          </div>
-          
-    
-  <div class="comments">
-    <div id="disqus_thread">
-      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
-    </div>
-  </div>
-  
+      
+    <div class="comments" id="valine-comments"></div>
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -383,7 +463,7 @@ cmunique    消除颜色图中的重复颜色；将灰度或真彩色图像转�
       activeClass = localStorage.getItem('comments_active') || activeClass;
     }
     if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
       if (activeTab) {
         activeTab.click();
       }
@@ -392,87 +472,20 @@ cmunique    消除颜色图中的重复颜色；将灰度或真彩色图像转�
   if (CONFIG.comments.storage) {
     window.addEventListener('tabs:click', event => {
       if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
+      const commentClass = event.target.classList[1];
       localStorage.setItem('comments_active', commentClass);
     });
   }
 </script>
 
-        </div>
-          
-  
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
-  </div>
-
-  <aside class="sidebar">
-    <div class="sidebar-inner">
-
-      <ul class="sidebar-nav motion-element">
-        <li class="sidebar-nav-toc">
-          文章目录
-        </li>
-        <li class="sidebar-nav-overview">
-          站点概览
-        </li>
-      </ul>
-
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#图像"><span class="nav-number">1.</span> <span class="nav-text">图像</span></a></li></ol></div>
-      </div>
-      <!--/noindex-->
-
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-  <p class="site-author-name" itemprop="name">finsenty54</p>
-  <div class="site-description" itemprop="description">blog</div>
-</div>
-<div class="site-state-wrap motion-element">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-          <a href="/archives/">
-        
-          <span class="site-state-item-count">55</span>
-          <span class="site-state-item-name">日志</span>
-        </a>
-      </div>
-      <div class="site-state-item site-state-tags">
-            <a href="/tags/">
-          
-        <span class="site-state-item-count">15</span>
-        <span class="site-state-item-name">标签</span></a>
-      </div>
-  </nav>
-</div>
-  <div class="links-of-author motion-element">
-      <span class="links-of-author-item">
-        <a href="https://github.com/Finsenty54" title="GitHub → https://github.com/Finsenty54" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
-      </span>
-      <span class="links-of-author-item">
-        <a href="mailto:finsenty54@qq.com" title="E-Mail → mailto:finsenty54@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
-      </span>
-  </div>
-
-
-
-      </div>
-
     </div>
-  </aside>
-  <div id="sidebar-dimmer"></div>
+  </main>
 
+  <footer class="footer">
+    <div class="footer-inner">
+      
 
-      </div>
-    </main>
-
-    <footer class="footer">
-      <div class="footer-inner">
-        
-
-        
+      
 
 <div class="copyright">
   
@@ -483,12 +496,7 @@ cmunique    消除颜色图中的重复颜色；将灰度或真彩色图像转�
   </span>
   <span class="author" itemprop="copyrightHolder">finsenty54</span>
 </div>
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
-  </div>
-
-        
 <div class="busuanzi-count">
-  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
     <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
       <span class="post-meta-item-icon">
         <i class="fa fa-user"></i>
@@ -497,7 +505,6 @@ cmunique    消除颜色图中的重复颜色；将灰度或真彩色图像转�
         <span id="busuanzi_value_site_uv"></span>
       </span>
     </span>
-    <span class="post-meta-divider">|</span>
     <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
       <span class="post-meta-item-icon">
         <i class="fa fa-eye"></i>
@@ -507,36 +514,19 @@ cmunique    消除颜色图中的重复颜色；将灰度或真彩色图像转�
       </span>
     </span>
 </div>
-
-
-
-
-
-
-
-
-      </div>
-    </footer>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
 
+    </div>
+  </footer>
+
   
-  <script src="/lib/anime.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
-<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
-<script src="/js/schemes/muse.js"></script>
-<script src="/js/next-boot.js"></script>
-
-
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.2.0/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
 
   
 
 
-
-
-  
-<script src="//cdn.jsdelivr.net/npm/algoliasearch@4/dist/algoliasearch-lite.umd.js"></script>
-<script src="//cdn.jsdelivr.net/npm/instantsearch.js@4/dist/instantsearch.production.min.js"></script><script src="/js/algolia-search.js"></script>
 
 
 
@@ -551,38 +541,28 @@ cmunique    消除颜色图中的重复颜色；将灰度或真彩色图像转�
 
 
   
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+
+
 
   
 
+  
 <script>
-  function loadCount() {
-    var d = document, s = d.createElement('script');
-    s.src = 'https://finsenty54.disqus.com/count.js';
-    s.id = 'dsq-count-scr';
-    (d.head || d.body).appendChild(s);
-  }
-  // defer loading until the whole page loading is completed
-  window.addEventListener('load', loadCount, false);
-</script>
-<script>
-  var disqus_config = function() {
-    this.page.url = "http://finsenty54.github.io/2020/02/05/matlab笔记5/";
-    this.page.identifier = "2020/02/05/matlab笔记5/";
-    this.page.title = "matlab笔记5 image";
-    };
-  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
-    if (window.DISQUS) {
-      DISQUS.reset({
-        reload: true,
-        config: disqus_config
-      });
-    } else {
-      var d = document, s = d.createElement('script');
-      s.src = 'https://finsenty54.disqus.com/embed.js';
-      s.setAttribute('data-timestamp', '' + +new Date());
-      (d.head || d.body).appendChild(s);
-    }
-  });
+NexT.utils.loadComments('#valine-comments', () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', () => {
+    new Valine(Object.assign({
+      el  : '#valine-comments',
+      path: "/2020/02/05/matlab%E7%AC%94%E8%AE%B05/",
+    }, {"enable":true,"appId":"3uGsbMNvxiG0LkbyciDSaxmY-MdYXbMMI","appKey":"1dU1y3SudPaV6pdTET96j5M2","placeholder":"欢迎交流讨论...","avatar":"mm","meta":["nick","mail","link"],"pageSize":10,"lang":"zh-cn","visitor":true,"comment_count":true,"recordIP":false,"serverURLs":null,"enableQQ":false,"requiredFields":[]}
+    ));
+  }, window.Valine);
+});
 </script>
 
 </body>

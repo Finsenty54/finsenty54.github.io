@@ -4,39 +4,44 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 3.9.0">
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
-  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#222">
+  <link rel="manifest" href="/images/site.webmanifest">
+  <meta name="msapplication-config" content="/images/browserconfig.xml">
 
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-<script id="hexo-configurations">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.14.0/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"finsenty54.github.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","width":320,"display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"disqus","storage":true,"lazyload":false,"nav":null,"activeClass":"disqus"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"finsenty54.github.io","root":"/","scheme":"Gemini","version":"8.0.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}};
   </script>
 
   <meta name="description" content="老师布置的一项任务，deploy丰富博客  渗透测试报告目录执行总结    3结论总结    3攻击记叙    3远程系统调查    3管理员网络服务器界面攻击    5命令解析器到管理服务器    7提权    9JAVA客户机攻击    9升级为本地管理员    11深包检测规避    12">
-<meta name="keywords" content="penetation test">
 <meta property="og:type" content="article">
 <meta property="og:title" content="penetration test report interpretation">
 <meta property="og:url" content="http://finsenty54.github.io/2019/03/28/penetration-test-report-interpretation/index.html">
 <meta property="og:site_name" content="FINSENTY54">
 <meta property="og:description" content="老师布置的一项任务，deploy丰富博客  渗透测试报告目录执行总结    3结论总结    3攻击记叙    3远程系统调查    3管理员网络服务器界面攻击    5命令解析器到管理服务器    7提权    9JAVA客户机攻击    9升级为本地管理员    11深包检测规避    12">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-04-26T07:52:02.000Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-03-28T08:45:25.000Z">
+<meta property="article:modified_time" content="2020-10-31T08:53:12.112Z">
+<meta property="article:author" content="finsenty54">
+<meta property="article:tag" content="penetation test">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="penetration test report interpretation">
-<meta name="twitter:description" content="老师布置的一项任务，deploy丰富博客  渗透测试报告目录执行总结    3结论总结    3攻击记叙    3远程系统调查    3管理员网络服务器界面攻击    5命令解析器到管理服务器    7提权    9JAVA客户机攻击    9升级为本地管理员    11深包检测规避    12">
+
 
 <link rel="canonical" href="http://finsenty54.github.io/2019/03/28/penetration-test-report-interpretation/">
 
 
-<script id="page-configurations">
+<script class="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
@@ -65,65 +70,76 @@
 
   <noscript>
   <style>
-  .use-motion .brand,
+  body { margin-top: 2rem; }
+
   .use-motion .menu-item,
-  .sidebar-inner,
+  .use-motion .sidebar,
   .use-motion .post-block,
   .use-motion .pagination,
   .use-motion .comments,
   .use-motion .post-header,
   .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
 
   .use-motion .site-title,
-  .use-motion .site-subtitle {
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
     opacity: initial;
     top: initial;
   }
 
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
   </style>
 </noscript>
 
+<link rel="alternate" href="/atom.xml" title="FINSENTY54" type="application/atom+xml">
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
-    <div class="headband"></div>
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
 
+  <main class="main">
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
     <div class="toggle" aria-label="切换导航栏">
-      <span class="toggle-line toggle-line-first"></span>
-      <span class="toggle-line toggle-line-middle"></span>
-      <span class="toggle-line toggle-line-last"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
     </div>
   </div>
 
   <div class="site-meta">
 
     <a href="/" class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
+      <i class="logo-line"></i>
       <h1 class="site-title">FINSENTY54</h1>
-      <span class="logo-line-after"><i></i></span>
+      <i class="logo-line"></i>
     </a>
       <p class="site-subtitle" itemprop="description">几处早莺争暖树，谁家新燕啄春泥。</p>
   </div>
 
   <div class="site-nav-right">
     <div class="toggle popup-trigger">
-        <i class="fa fa-search fa-fw fa-lg"></i>
     </div>
   </div>
 </div>
 
 
 
-
 <nav class="site-nav">
-  <ul id="menu" class="main-menu menu">
+  <ul class="main-menu menu">
         <li class="menu-item menu-item-home">
 
     <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
@@ -136,17 +152,17 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">15</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">0</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">55</span></a>
 
   </li>
         <li class="menu-item menu-item-sitemap">
@@ -154,37 +170,81 @@
     <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a>
 
   </li>
-      <li class="menu-item menu-item-search">
-        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
-        </a>
-      </li>
   </ul>
 </nav>
 
 
 
-  <div class="search-pop-overlay">
-    <div class="popup search-popup">
-        <div class="search-header">
-  <span class="search-icon">
-    <i class="fa fa-search"></i>
-  </span>
-  <div class="search-input-container"></div>
-  <span class="popup-btn-close">
-    <i class="fa fa-times-circle"></i>
-  </span>
-</div>
-<div class="algolia-results">
-  <div id="algolia-stats"></div>
-  <div id="algolia-hits"></div>
-  <div id="algolia-pagination" class="algolia-pagination"></div>
-</div>
 
-      
-    </div>
+</div>
+        
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
   </div>
 
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <section class="post-toc-wrap sidebar-panel">
+          <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E6%8A%A5%E5%91%8A"><span class="nav-number">1.</span> <span class="nav-text">渗透测试报告</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C%E6%80%BB%E7%BB%93"><span class="nav-number">2.</span> <span class="nav-text">执行总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%93%E8%AE%BA%E6%80%BB%E7%BB%93"><span class="nav-number">3.</span> <span class="nav-text">结论总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%94%BB%E5%87%BB%E8%AE%B0%E5%8F%99"><span class="nav-number">4.</span> <span class="nav-text">攻击记叙</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9C%E7%A8%8B%E7%B3%BB%E7%BB%9F%E8%B0%83%E6%9F%A5"><span class="nav-number">4.1.</span> <span class="nav-text">远程系统调查</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4%E8%A7%A3%E6%9E%90%E5%99%A8%E5%88%B0%E7%AE%A1%E7%90%86%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="nav-number">4.2.</span> <span class="nav-text">命令解析器到管理服务器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8F%90%E6%9D%83"><span class="nav-number">4.3.</span> <span class="nav-text">提权</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JAVA%E5%AE%A2%E6%88%B7%E6%9C%BA%E6%94%BB%E5%87%BB"><span class="nav-number">4.4.</span> <span class="nav-text">JAVA客户机攻击</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%87%E7%BA%A7%E4%B8%BA%E6%9C%AC%E5%9C%B0%E7%AE%A1%E7%90%86%E5%91%98"><span class="nav-number">4.5.</span> <span class="nav-text">升级为本地管理员</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%B1%E5%8C%85%E6%A3%80%E6%B5%8B%E8%A7%84%E9%81%BF"><span class="nav-number">4.6.</span> <span class="nav-text">深包检测规避</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Citrix%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E6%BC%8F%E6%B4%9E"><span class="nav-number">4.7.</span> <span class="nav-text">Citrix环境下的漏洞</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%87%E7%BA%A7%E4%B8%BA%E5%9F%9F%E7%AE%A1%E7%90%86%E5%91%98"><span class="nav-number">4.8.</span> <span class="nav-text">升级为域管理员</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E8%AE%BA"><span class="nav-number">5.</span> <span class="nav-text">总论</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BB%BA%E8%AE%AE"><span class="nav-number">6.</span> <span class="nav-text">建议</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A3%8E%E9%99%A9%E7%AD%89%E7%BA%A7"><span class="nav-number">6.1.</span> <span class="nav-text">风险等级</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%99%84%E5%BD%95A%EF%BC%9A%E6%BC%8F%E6%B4%9E%E7%BB%86%E8%8A%82%E5%8F%8A%E5%87%8F%E8%BD%BB%E5%8D%B1%E5%AE%B3"><span class="nav-number">7.</span> <span class="nav-text">附录A：漏洞细节及减轻危害</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A3%8E%E9%99%A9%E7%AD%89%E7%BA%A7%E8%8C%83%E5%9B%B4"><span class="nav-number">7.1.</span> <span class="nav-text">风险等级范围</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%86%E7%A0%81%E9%87%8D%E7%94%A8"><span class="nav-number">7.2.</span> <span class="nav-text">密码重用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B1%E4%BA%AB%E6%9C%AC%E5%9C%B0%E7%AE%A1%E7%90%86%E5%91%98%E5%AF%86%E7%A0%81"><span class="nav-number">7.3.</span> <span class="nav-text">共享本地管理员密码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A1%A5%E4%B8%81%E7%AE%A1%E7%90%86"><span class="nav-number">7.4.</span> <span class="nav-text">补丁管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DNS%E5%8C%BA%E5%9F%9F%E4%BC%A0%E9%80%81"><span class="nav-number">7.5.</span> <span class="nav-text">DNS区域传送</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%BB%98%E8%AE%A4APACHE%E6%96%87%E4%BB%B6%E7%9B%AE%E5%BD%95"><span class="nav-number">7.6.</span> <span class="nav-text">默认APACHE文件目录</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%99%84%E5%BD%95B-%E5%85%B3%E4%BA%8EOffensive-Security"><span class="nav-number">8.</span> <span class="nav-text">附录B:关于Offensive Security</span></a></li></ol></div>
+      </section>
+      <!--/noindex-->
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">finsenty54</p>
+  <div class="site-description" itemprop="description">blog</div>
 </div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">55</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Finsenty54" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Finsenty54" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:fin12138@gmail.com" title="E-Mail → mailto:fin12138@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </section>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
     </header>
 
     
@@ -194,14 +254,15 @@
   </div>
   <div class="reading-progress-bar"></div>
 
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
 
-    <main class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
 
-          <div class="content post posts-expand">
-            
+    <div class="main-inner post posts-expand">
+      
+
+      
 
     
   
@@ -218,50 +279,55 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="FINSENTY54">
     </span>
+
+    
+    
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           penetration test report interpretation
         </h1>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2019-03-28 16:45:25" itemprop="dateCreated datePublished" datetime="2019-03-28T16:45:25+08:00">2019-03-28</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-04-26 15:52:02" itemprop="dateModified" datetime="2019-04-26T15:52:02+08:00">2019-04-26</time>
-              </span>
+      <time title="创建时间：2019-03-28 16:45:25" itemprop="dateCreated datePublished" datetime="2019-03-28T16:45:25+08:00">2019-03-28</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2020-10-31 16:53:12" itemprop="dateModified" datetime="2020-10-31T16:53:12+08:00">2020-10-31</time>
+      </span>
 
-          
-            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span id="busuanzi_value_page_pv"></span>
-            </span>
+  
+    <span id="/2019/03/28/penetration-test-report-interpretation/" class="post-meta-item leancloud_visitors" data-flag-title="penetration test report interpretation" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
   
   <span class="post-meta-item">
     
       <span class="post-meta-item-icon">
         <i class="far fa-comment"></i>
       </span>
-      <span class="post-meta-item-text">Disqus：</span>
+      <span class="post-meta-item-text">Valine：</span>
     
-    <a title="disqus" href="/2019/03/28/penetration-test-report-interpretation/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/03/28/penetration-test-report-interpretation/" itemprop="commentCount"></span>
+    <a title="valine" href="/2019/03/28/penetration-test-report-interpretation/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/03/28/penetration-test-report-interpretation/" itemprop="commentCount"></span>
     </a>
   </span>
   
   
+</div>
 
         </div>
       </header>
@@ -270,11 +336,11 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
         <p><em>老师布置的一项任务，deploy丰富博客</em></p>
 <hr>
-<h2 id="渗透测试报告"><a href="#渗透测试报告" class="headerlink" title="渗透测试报告"></a>渗透测试报告</h2><p>目录<br>执行总结    3<br>结论总结    3<br>攻击记叙    3<br>远程系统调查    3<br>管理员网络服务器界面攻击    5<br>命令解析器到管理服务器    7<br>提权    9<br>JAVA客户机攻击    9<br>升级为本地管理员    11<br>深包检测规避    12<br><a id="more"></a><br>Citrix环境下的漏洞    14<br>升级为域管理员    17<br>总论    19<br>建议    20<br>风险等级    20<br>附录A：漏洞细节及减轻危害    21<br>风险等级范围    21<br>默认的或弱的凭证    21<br>密码重用    21<br>共享本地管理员密码    21<br>补丁管理    21<br>DNS区域传送    22<br>默认APACHE文件目录    22<br>附录B:关于Offensive Security    22</p>
+<h2 id="渗透测试报告"><a href="#渗透测试报告" class="headerlink" title="渗透测试报告"></a>渗透测试报告</h2><p>目录<br>执行总结    3<br>结论总结    3<br>攻击记叙    3<br>远程系统调查    3<br>管理员网络服务器界面攻击    5<br>命令解析器到管理服务器    7<br>提权    9<br>JAVA客户机攻击    9<br>升级为本地管理员    11<br>深包检测规避    12</p>
+<a id="more"></a>
+<p>Citrix环境下的漏洞    14<br>升级为域管理员    17<br>总论    19<br>建议    20<br>风险等级    20<br>附录A：漏洞细节及减轻危害    21<br>风险等级范围    21<br>默认的或弱的凭证    21<br>密码重用    21<br>共享本地管理员密码    21<br>补丁管理    21<br>DNS区域传送    22<br>默认APACHE文件目录    22<br>附录B:关于Offensive Security    22</p>
 <h2 id="执行总结"><a href="#执行总结" class="headerlink" title="执行总结"></a>执行总结</h2><p>为了检测经过一次蓄意攻击中后会出现什么问题，MegaCory One授权Offensive Security进行了这一次的渗透测试。我们有一个准则，就是为了模拟一个蓄意的攻击者，这个攻击者热衷于攻击MegaCory One的系统，并且我们要达到下列目的：</p>
 <p>    确认远程攻击者能否破坏MegaCory One的防御系统<br>    确认攻击所带来的影响:<br>    公司重要数据是否泄露<br>    MegaCory One信息系统内部结构是否泄露以及是否可用</p>
 <p>我们的工作主要是在确认和利用系统漏洞上，远程攻击者可以通过这些漏洞以未授权的方式获得一些重要数据。这些攻击方式可能一个只会上网的人也可以用。评估是按照NIST SP 800-115 中的标准下进行的，并且所有的测试都是可控的。</p>
@@ -297,21 +363,21 @@
 <p>我们定作了一个基于该网站内容的字典文件，为了暴力破解密码。最初的字典包括了331个特意字符串，通过几轮置换，形成了有16201个字符串的字典文件。用admin的用户名和这个字典来暴力破解。</p>
 <p>Figure 6-使用字典攻击来获得管理员密码</p>
 <p>暴力攻击找到了admin用户的密码”nanotechnology1”。利用这个账户就能一未授权的方式得到网站受保护部分的内容。（Figure 6）详细请看附录A，怎么利用这个漏洞。</p>
-<p>这里面有一个SQLite Manager服务界面，无需任何凭证就可以访问。利用这个界面，发现支持phpSQLiteCMS实例的数据库。<a href="http://phpsqlitecms.net/" target="_blank" rel="noopener">http://phpsqlitecms.net/</a></p>
+<p>这里面有一个SQLite Manager服务界面，无需任何凭证就可以访问。利用这个界面，发现支持phpSQLiteCMS实例的数据库。<a target="_blank" rel="noopener" href="http://phpsqlitecms.net/">http://phpsqlitecms.net/</a></p>
 <p>Figure 7-网站运行着SQLite数据库<br> <br>通过这个界面就可以获得数据，比如用户名，以及相关的密码哈希值。（Figure 8）</p>
 <p>Figure 8-缺少额外的设置，攻击者可以很方便地获得数据，从”userdata”这个数据库</p>
 <p>表中的密码hash值不符合任何标准的格式。使用一个叫”phpselitecms”的软件，查看源代码以确定hash值是怎么产生的。可以看到这个函数的功能是hash账户的密码。</p>
 <p>Figure 9-查看源码发现密码hash生成算法</p>
 <p>知道了密码hash的格式，还有随意生成的十个字符的salt值，可以将这些hash值转变成等价的加了salt的SHA1值，进行暴力攻击。</p>
 <p>得到了两个明文密码，尽管不是立马就有用，但可能在组织里其他的系统中可以用到。</p>
-<h3 id="命令解析器到管理服务器"><a href="#命令解析器到管理服务器" class="headerlink" title="命令解析器到管理服务器"></a>命令解析器到管理服务器</h3><p>先前发现的SQLite Manager有一个著名的代码注入漏洞。(<a href="https://www.exploit-db.com/exploits/24320)利用这个漏洞可以获得shell，进入网站服务器用户使用的系统。使用一个改良过的公共漏洞利用库，可以得到admin.megacorpone.com服务器上有限的交互权。详细请看附录A" target="_blank" rel="noopener">https://www.exploit-db.com/exploits/24320)利用这个漏洞可以获得shell，进入网站服务器用户使用的系统。使用一个改良过的公共漏洞利用库，可以得到admin.megacorpone.com服务器上有限的交互权。详细请看附录A</a>.</p>
+<h3 id="命令解析器到管理服务器"><a href="#命令解析器到管理服务器" class="headerlink" title="命令解析器到管理服务器"></a>命令解析器到管理服务器</h3><p>先前发现的SQLite Manager有一个著名的代码注入漏洞。(<a target="_blank" rel="noopener" href="https://www.exploit-db.com/exploits/24320)%E5%88%A9%E7%94%A8%E8%BF%99%E4%B8%AA%E6%BC%8F%E6%B4%9E%E5%8F%AF%E4%BB%A5%E8%8E%B7%E5%BE%97shell%EF%BC%8C%E8%BF%9B%E5%85%A5%E7%BD%91%E7%AB%99%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%94%A8%E6%88%B7%E4%BD%BF%E7%94%A8%E7%9A%84%E7%B3%BB%E7%BB%9F%E3%80%82%E4%BD%BF%E7%94%A8%E4%B8%80%E4%B8%AA%E6%94%B9%E8%89%AF%E8%BF%87%E7%9A%84%E5%85%AC%E5%85%B1%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E5%BA%93%EF%BC%8C%E5%8F%AF%E4%BB%A5%E5%BE%97%E5%88%B0admin.megacorpone.com%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E6%9C%89%E9%99%90%E7%9A%84%E4%BA%A4%E4%BA%92%E6%9D%83%E3%80%82%E8%AF%A6%E7%BB%86%E8%AF%B7%E7%9C%8B%E9%99%84%E5%BD%95A">https://www.exploit-db.com/exploits/24320)利用这个漏洞可以获得shell，进入网站服务器用户使用的系统。使用一个改良过的公共漏洞利用库，可以得到admin.megacorpone.com服务器上有限的交互权。详细请看附录A</a>.</p>
 <p>Figure 10-利用一个公开的可用的SQLite漏洞，就能以未授权的方式进入系统</p>
 <p>Figure 11-只能取得www-data这个用户的权限</p>
 <p>MegaCorp One使用的SQLite Manager的版本和该存在该漏洞的版本有一些不同。尽管使用的版本也同样存在相同的底层问题，但在没有修正的情况下，这个漏洞不能发挥作用。所以我们添加了功能，让它支持HTTP认证，适合于新版本的SQLite Manager。这个新的漏洞随后会发布出去。</p>
 <p>在图12中可以看到方案的内容。</p>
 <p>Figure 12-网络服务器的攻击方案
  </p>
-<h3 id="提权"><a href="#提权" class="headerlink" title="提权"></a>提权</h3><p>当得到了底层系统的交互权后，我们继续寻找可以提升权限的方法。随后，找到了一个可以可以利用的提权的漏洞。(<a href="http://www.exploit-db.com/exploits/18411/)详细信息请看附录A。" target="_blank" rel="noopener">http://www.exploit-db.com/exploits/18411/)详细信息请看附录A。</a></p>
+<h3 id="提权"><a href="#提权" class="headerlink" title="提权"></a>提权</h3><p>当得到了底层系统的交互权后，我们继续寻找可以提升权限的方法。随后，找到了一个可以可以利用的提权的漏洞。(<a target="_blank" rel="noopener" href="http://www.exploit-db.com/exploits/18411/)%E8%AF%A6%E7%BB%86%E4%BF%A1%E6%81%AF%E8%AF%B7%E7%9C%8B%E9%99%84%E5%BD%95A%E3%80%82">http://www.exploit-db.com/exploits/18411/)详细信息请看附录A。</a></p>
 <p>Figure 13-使用一个提权的漏洞，该主机没有打补丁，所以可以用</p>
 <p>因为上传了漏洞利用工具，所以让利用该漏洞有一定的可行性。如果没有这些工具，还是由可能成功提权的，尽管这么做工作量会大大增加。</p>
 <p>服务器有许多漏洞，可以给攻击者很多机会，如果不补救的话。有了管理员的权限，攻击者可以做很多的事，既可以攻击MegaCorp One自己，也可以攻击它的用户。当然，很大的可能是同时做这两件事情。</p>
@@ -324,7 +390,7 @@
 <p>在适当的地方实施该方案，可以得到管理员网络的系统权限，见图16。</p>
 <p>Figure 16-Java小程序成功攻击</p>
 <h3 id="升级为本地管理员"><a href="#升级为本地管理员" class="headerlink" title="升级为本地管理员"></a>升级为本地管理员</h3><p>Java小程序的攻击只能提供一般用户的权限。为了能做更多的事，需要逐步提升权限，成为域管理员。首先，要获得本地管理权限。要达成这一目的，先检查系统看看有什么漏洞。</p>
-<p>发现一个组策略首选项文件，其允许用户解密本地管理员密码。(<a href="http://msdn.microsoft.com/en-us/library/cc422924.aspx,http://blogs.technet.com/b/grouppolicy/archive/2009/04/22/passwords-in-group-policy-preferences-updated.aspx)详情请看附录A。" target="_blank" rel="noopener">http://msdn.microsoft.com/en-us/library/cc422924.aspx,http://blogs.technet.com/b/grouppolicy/archive/2009/04/22/passwords-in-group-policy-preferences-updated.aspx)详情请看附录A。</a></p>
+<p>发现一个组策略首选项文件，其允许用户解密本地管理员密码。(<a target="_blank" rel="noopener" href="http://msdn.microsoft.com/en-us/library/cc422924.aspx,http://blogs.technet.com/b/grouppolicy/archive/2009/04/22/passwords-in-group-policy-preferences-updated.aspx)%E8%AF%A6%E6%83%85%E8%AF%B7%E7%9C%8B%E9%99%84%E5%BD%95A%E3%80%82">http://msdn.microsoft.com/en-us/library/cc422924.aspx,http://blogs.technet.com/b/grouppolicy/archive/2009/04/22/passwords-in-group-policy-preferences-updated.aspx)详情请看附录A。</a></p>
 <p>Figure 17-利用这个漏洞，可以获得域控制器的Groups.xml文件</p>
 <p>Figure 18-在Groups.xml中包含加密的本地管理员密码</p>
 <p>Figure 19-使用Microsoft发布的加密密钥，这个加密密码很容易解密</p>
@@ -335,7 +401,7 @@
 <p>Figure 21-通过最初的meterpreter会话建立端口转发， 可以直接访问受损主机</p>
 <p>Figure 22-用这个新建立的连接来获得主机的shell</p>
 <p>Figure 23-在10.7.0.22上用本地管理员权限建立一个meterpreter shell</p>
-<p>有了这个meterpreter shell，就可以利用HTTP-Tunnel，这是一个开源程序，（<a href="http://http-tunnel.sourceforge.net/）去封装HTTP负载内的任意流量。比如封装攻击者和主机的远程桌面连接数据。这之后，我们就可以得到完整的访问方式，而不仅仅是命令行。远程桌面连接是用“mike“这个用户的密码创建的，”mike“的密码就是之前从SQLite" target="_blank" rel="noopener">http://http-tunnel.sourceforge.net/）去封装HTTP负载内的任意流量。比如封装攻击者和主机的远程桌面连接数据。这之后，我们就可以得到完整的访问方式，而不仅仅是命令行。远程桌面连接是用“mike“这个用户的密码创建的，”mike“的密码就是之前从SQLite</a> Manager发现的。详情请看附录A。</p>
+<p>有了这个meterpreter shell，就可以利用HTTP-Tunnel，这是一个开源程序，（<a target="_blank" rel="noopener" href="http://http-tunnel.sourceforge.net/%EF%BC%89%E5%8E%BB%E5%B0%81%E8%A3%85HTTP%E8%B4%9F%E8%BD%BD%E5%86%85%E7%9A%84%E4%BB%BB%E6%84%8F%E6%B5%81%E9%87%8F%E3%80%82%E6%AF%94%E5%A6%82%E5%B0%81%E8%A3%85%E6%94%BB%E5%87%BB%E8%80%85%E5%92%8C%E4%B8%BB%E6%9C%BA%E7%9A%84%E8%BF%9C%E7%A8%8B%E6%A1%8C%E9%9D%A2%E8%BF%9E%E6%8E%A5%E6%95%B0%E6%8D%AE%E3%80%82%E8%BF%99%E4%B9%8B%E5%90%8E%EF%BC%8C%E6%88%91%E4%BB%AC%E5%B0%B1%E5%8F%AF%E4%BB%A5%E5%BE%97%E5%88%B0%E5%AE%8C%E6%95%B4%E7%9A%84%E8%AE%BF%E9%97%AE%E6%96%B9%E5%BC%8F%EF%BC%8C%E8%80%8C%E4%B8%8D%E4%BB%85%E4%BB%85%E6%98%AF%E5%91%BD%E4%BB%A4%E8%A1%8C%E3%80%82%E8%BF%9C%E7%A8%8B%E6%A1%8C%E9%9D%A2%E8%BF%9E%E6%8E%A5%E6%98%AF%E7%94%A8%E2%80%9Cmike%E2%80%9C%E8%BF%99%E4%B8%AA%E7%94%A8%E6%88%B7%E7%9A%84%E5%AF%86%E7%A0%81%E5%88%9B%E5%BB%BA%E7%9A%84%EF%BC%8C%E2%80%9Dmike%E2%80%9C%E7%9A%84%E5%AF%86%E7%A0%81%E5%B0%B1%E6%98%AF%E4%B9%8B%E5%89%8D%E4%BB%8ESQLite">http://http-tunnel.sourceforge.net/）去封装HTTP负载内的任意流量。比如封装攻击者和主机的远程桌面连接数据。这之后，我们就可以得到完整的访问方式，而不仅仅是命令行。远程桌面连接是用“mike“这个用户的密码创建的，”mike“的密码就是之前从SQLite</a> Manager发现的。详情请看附录A。</p>
 <p>Figure 24-通过http隧道屏蔽过滤协议，建立远程桌面连接</p>
 <p>此时，MefaCorp One的网络已被完全攻陷，如图25所示。我们能够以控制台的权限访问一台Megacorp One信任的电脑。只是访问受限，因为是靠一个无特权的域用户，和一个本地管理员账户。</p>
 <p>Figure 25-到达管理员子网</p>
@@ -365,11 +431,11 @@
 <h2 id="建议"><a href="#建议" class="headerlink" title="建议"></a>建议</h2><p>因为这次渗透暴露了整个系统架构，所以合适的资源分配可以确保修补工作可在短时间内完成。虽然需要修复的漏洞的完整表单不会提供，但一些高危漏洞需要说明。</p>
 <p>安全建议如下：</p>
 <ol>
-<li>确保组织的任何地方都使用了强凭证。在系统的不同安全层级上使用弱密码和相同的密码，会使攻击更加容易。可以参考NIST SP 800-11（<a href="http://csrc.nist.gov/publications/drafts/800-118/draft-sp800-118.pdf）来制定企业的密码条款。虽然这个问题存在不广，但仍然是个问题，需要解决。" target="_blank" rel="noopener">http://csrc.nist.gov/publications/drafts/800-118/draft-sp800-118.pdf）来制定企业的密码条款。虽然这个问题存在不广，但仍然是个问题，需要解决。</a></li>
-<li>建立信任带。在内网中合适的地方建立信任逻辑边界。每个逻辑信任部分应相互联合，不能轻易破坏而连上其他部分。所以要使用不同的管理员账号，这样某一部分受损了，但不会影响到其他部分。</li>
-<li>在所有系统中实行变更控制：在不同的系统中都发现了配置错误和上传漏洞。通过变更控制可减轻这些漏洞带来的风险。</li>
-<li>实施补丁管理程序：按照NIST SP 800-40（<a href="http://csrc.nist.gov/publications/nistpubs/800-40-Ver2/SP800-40v2.pdf）来创建一个补丁管理程序，这对可持续的安全环境来说是一个重要组件。这将有助于限制由于未修补而导致的攻击。" target="_blank" rel="noopener">http://csrc.nist.gov/publications/nistpubs/800-40-Ver2/SP800-40v2.pdf）来创建一个补丁管理程序，这对可持续的安全环境来说是一个重要组件。这将有助于限制由于未修补而导致的攻击。</a></li>
-<li>施行常规漏洞评估。作为有效组织风险管理策略的一部分，漏洞评估要在常规部分执行。这有助于组织确定安全控制是否正确配置，操作是否如预期般执行，是否生成了想要的结果。参照NIST SP 800-30（<a href="http://csrc.nist.gov/publications/PubsDrafts.html#SP-800-30-Rev.%201）建立高效的风险管理系统。" target="_blank" rel="noopener">http://csrc.nist.gov/publications/PubsDrafts.html#SP-800-30-Rev.%201）建立高效的风险管理系统。</a><h3 id="风险等级"><a href="#风险等级" class="headerlink" title="风险等级"></a>风险等级</h3>对MegaCorp One风险评定的结果为高。外部攻击者可以获得整个系统的控制权。有理由相信一个恶意的组织能够施行有效的目标攻击。</li>
+<li>   确保组织的任何地方都使用了强凭证。在系统的不同安全层级上使用弱密码和相同的密码，会使攻击更加容易。可以参考NIST SP 800-11（<a target="_blank" rel="noopener" href="http://csrc.nist.gov/publications/drafts/800-118/draft-sp800-118.pdf%EF%BC%89%E6%9D%A5%E5%88%B6%E5%AE%9A%E4%BC%81%E4%B8%9A%E7%9A%84%E5%AF%86%E7%A0%81%E6%9D%A1%E6%AC%BE%E3%80%82%E8%99%BD%E7%84%B6%E8%BF%99%E4%B8%AA%E9%97%AE%E9%A2%98%E5%AD%98%E5%9C%A8%E4%B8%8D%E5%B9%BF%EF%BC%8C%E4%BD%86%E4%BB%8D%E7%84%B6%E6%98%AF%E4%B8%AA%E9%97%AE%E9%A2%98%EF%BC%8C%E9%9C%80%E8%A6%81%E8%A7%A3%E5%86%B3%E3%80%82">http://csrc.nist.gov/publications/drafts/800-118/draft-sp800-118.pdf）来制定企业的密码条款。虽然这个问题存在不广，但仍然是个问题，需要解决。</a></li>
+<li>   建立信任带。在内网中合适的地方建立信任逻辑边界。每个逻辑信任部分应相互联合，不能轻易破坏而连上其他部分。所以要使用不同的管理员账号，这样某一部分受损了，但不会影响到其他部分。</li>
+<li>   在所有系统中实行变更控制：在不同的系统中都发现了配置错误和上传漏洞。通过变更控制可减轻这些漏洞带来的风险。</li>
+<li>   实施补丁管理程序：按照NIST SP 800-40（<a target="_blank" rel="noopener" href="http://csrc.nist.gov/publications/nistpubs/800-40-Ver2/SP800-40v2.pdf%EF%BC%89%E6%9D%A5%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E8%A1%A5%E4%B8%81%E7%AE%A1%E7%90%86%E7%A8%8B%E5%BA%8F%EF%BC%8C%E8%BF%99%E5%AF%B9%E5%8F%AF%E6%8C%81%E7%BB%AD%E7%9A%84%E5%AE%89%E5%85%A8%E7%8E%AF%E5%A2%83%E6%9D%A5%E8%AF%B4%E6%98%AF%E4%B8%80%E4%B8%AA%E9%87%8D%E8%A6%81%E7%BB%84%E4%BB%B6%E3%80%82%E8%BF%99%E5%B0%86%E6%9C%89%E5%8A%A9%E4%BA%8E%E9%99%90%E5%88%B6%E7%94%B1%E4%BA%8E%E6%9C%AA%E4%BF%AE%E8%A1%A5%E8%80%8C%E5%AF%BC%E8%87%B4%E7%9A%84%E6%94%BB%E5%87%BB%E3%80%82">http://csrc.nist.gov/publications/nistpubs/800-40-Ver2/SP800-40v2.pdf）来创建一个补丁管理程序，这对可持续的安全环境来说是一个重要组件。这将有助于限制由于未修补而导致的攻击。</a></li>
+<li>   施行常规漏洞评估。作为有效组织风险管理策略的一部分，漏洞评估要在常规部分执行。这有助于组织确定安全控制是否正确配置，操作是否如预期般执行，是否生成了想要的结果。参照NIST SP 800-30（<a target="_blank" rel="noopener" href="http://csrc.nist.gov/publications/PubsDrafts.html#SP-800-30-Rev.%201%EF%BC%89%E5%BB%BA%E7%AB%8B%E9%AB%98%E6%95%88%E7%9A%84%E9%A3%8E%E9%99%A9%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F%E3%80%82">http://csrc.nist.gov/publications/PubsDrafts.html#SP-800-30-Rev.%201）建立高效的风险管理系统。</a><h3 id="风险等级"><a href="#风险等级" class="headerlink" title="风险等级"></a>风险等级</h3>对MegaCorp One风险评定的结果为高。外部攻击者可以获得整个系统的控制权。有理由相信一个恶意的组织能够施行有效的目标攻击。</li>
 </ol>
 <p> </p>
 <h2 id="附录A：漏洞细节及减轻危害"><a href="#附录A：漏洞细节及减轻危害" class="headerlink" title="附录A：漏洞细节及减轻危害"></a>附录A：漏洞细节及减轻危害</h2><h3 id="风险等级范围"><a href="#风险等级范围" class="headerlink" title="风险等级范围"></a>风险等级范围</h3><p>鉴于NIST SP 800-30，漏洞按照相似性及影响排列。<br>默认的或弱的凭证<br>级别：高<br>描述：一个公共管理界面仅靠一个弱密钥保护。<br>影响：仅靠暴力破解，就可能爆出SQLite Manager服务的管理员密码。因为缺少额外的授权凭证，这也可能爆出所有用户密码哈希值。如果密码会重用，那么爆出明文密码可以进一步攻击目标系统。<br>修复：确保所有的管理界面受强密码或口令保护。避免使用普通的或和业务相关的密码，因为可以很容易通过字典生成。</p>
@@ -378,17 +444,36 @@
 <h3 id="补丁管理"><a href="#补丁管理" class="headerlink" title="补丁管理"></a>补丁管理</h3><p>级别：高<br>描述：MegaCorp One内外部环境中有许多未打补丁的系统和程序。<br>影响：弱授权机制和未打补丁的主机，都包含可以用爆破的漏洞，这会使得攻击者以未授权的方式得到大量的公司资产。特别地，例如SQLiite Manager包含远程执行代码的漏洞，底层主机也有一个本地提权的漏洞，这些可以使对外开放的主机轻易地被攻陷。表明了补丁管理策略以及强制执行的不足。<br>修复：所有的公司资产都要及时打上供应商提供的补丁。要完成这些可以使用供应商官方工具或者第三方程序，这些都能检查出未应用的补丁。在许多例子中，第三方工具也可以用来在一个混乱的环境中进行补丁部署。</p>
 <h3 id="DNS区域传送"><a href="#DNS区域传送" class="headerlink" title="DNS区域传送"></a>DNS区域传送</h3><p>级别：低<br>描述：一个错误配置的DNS服务器允许无限制的区域传送。<br>影响：一个配置成可与任何DNS服务器传输数据的DNS服务器，会泄露关于公司资产和网络布局等敏感信息。<br>修复：DNS区域传送需仅对已证明的服务器开放。</p>
 <h3 id="默认APACHE文件目录"><a href="#默认APACHE文件目录" class="headerlink" title="默认APACHE文件目录"></a>默认APACHE文件目录</h3><p>级别：低<br>描述：在admin.megacorpone.com主机上发现了默认的Apache文件目录。<br>影响：攻击者通过检查默认文件夹可能猜出Apache服务器的版本。敏感信息也可能泄露。<br>修复：移除公开网站的所有默认文件。</p>
-<h2 id="附录B-关于Offensive-Security"><a href="#附录B-关于Offensive-Security" class="headerlink" title="附录B:关于Offensive Security"></a>附录B:关于Offensive Security</h2><p>Offensive Security提倡黑盒渗透测试而反对白盒渗透测试。白盒渗透测试近几年来很火，因为在仅要实现常规需求的地方，简化了评估方法。其作为漏洞扫描方法，会有选择的确认发现的问题。这让服务供应商有能力扩大工作量，因为使用了自动化的工具，并且通过证书维持产品间的联动。<br>黑盒是在受控环境下的攻击模拟形式，非常接近现实环境，组织会时不时的面临攻击。黑盒测试是基于目标的评估方法，不仅仅是发现一个简单的漏洞，而是提供一个漏洞真正的商业影响。黑盒测试会找到那些修复后能带来最高商业回报的区域。<br>黑盒测试通常需要很高的专业知识。正如报告中显示的那样，Offensive Security坚信当进行黑盒测试时输出正确有效的结果是检验合格的唯一方式，因为我们专业的安全团队运用了很高专业知识。Offensive Security会集中力量进行渗透测试或着其他参与的项目。这意味着无论什么都参与到提供服务中，例如标准工具Kali Linux，畅销书的作者，O-day漏洞的发现者，或是如Exploit-DB的维护者。<br>Offensive Security提供的产品与市场需求不配对。然而，我们不会适合任一工作。Offensive Security特别提供咨询服务，底容量和高质量的比例使得员工能更接近的模拟现实世界的攻击。这也允许在保持成本合理的同时，客户可以更多地获得行业认可的专业知识。例如，大批量/快速周转服务通常不适合我们。Offensive Security专注与领导高质量，高影响的评估活动，积极地寻求其他供应商无法提供服务的客户。<br>请通过<a href="mailto:info@offsec.com" target="_blank" rel="noopener">info@offsec.com</a>联系我们。</p>
+<h2 id="附录B-关于Offensive-Security"><a href="#附录B-关于Offensive-Security" class="headerlink" title="附录B:关于Offensive Security"></a>附录B:关于Offensive Security</h2><p>Offensive Security提倡黑盒渗透测试而反对白盒渗透测试。白盒渗透测试近几年来很火，因为在仅要实现常规需求的地方，简化了评估方法。其作为漏洞扫描方法，会有选择的确认发现的问题。这让服务供应商有能力扩大工作量，因为使用了自动化的工具，并且通过证书维持产品间的联动。<br>黑盒是在受控环境下的攻击模拟形式，非常接近现实环境，组织会时不时的面临攻击。黑盒测试是基于目标的评估方法，不仅仅是发现一个简单的漏洞，而是提供一个漏洞真正的商业影响。黑盒测试会找到那些修复后能带来最高商业回报的区域。<br>黑盒测试通常需要很高的专业知识。正如报告中显示的那样，Offensive Security坚信当进行黑盒测试时输出正确有效的结果是检验合格的唯一方式，因为我们专业的安全团队运用了很高专业知识。Offensive Security会集中力量进行渗透测试或着其他参与的项目。这意味着无论什么都参与到提供服务中，例如标准工具Kali Linux，畅销书的作者，O-day漏洞的发现者，或是如Exploit-DB的维护者。<br>Offensive Security提供的产品与市场需求不配对。然而，我们不会适合任一工作。Offensive Security特别提供咨询服务，底容量和高质量的比例使得员工能更接近的模拟现实世界的攻击。这也允许在保持成本合理的同时，客户可以更多地获得行业认可的专业知识。例如，大批量/快速周转服务通常不适合我们。Offensive Security专注与领导高质量，高影响的评估活动，积极地寻求其他供应商无法提供服务的客户。<br>请通过<a href="mailto:&#x69;&#x6e;&#x66;&#x6f;&#x40;&#x6f;&#102;&#102;&#x73;&#101;&#x63;&#46;&#x63;&#111;&#x6d;">&#x69;&#x6e;&#x66;&#x6f;&#x40;&#x6f;&#102;&#102;&#x73;&#101;&#x63;&#46;&#x63;&#111;&#x6d;</a>联系我们。</p>
 
     </div>
 
     
     
     
-        
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>finsenty54
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://finsenty54.github.io/2019/03/28/penetration-test-report-interpretation/" title="penetration test report interpretation">http://finsenty54.github.io/2019/03/28/penetration-test-report-interpretation/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          
 
   <div class="followme">
-    <p>欢迎关注我的其它发布渠道</p>
+    <span>欢迎关注我的其它发布渠道</span>
 
     <div class="social-list">
 
@@ -404,29 +489,25 @@
     </div>
   </div>
 
-
-      <footer class="post-footer">
-          
           <div class="post-tags">
-              <a href="/tags/penetation-test/" rel="tag"><i class="fa fa-tag"></i> penetation test</a>
+              <a href="/tags/penetation-test/" rel="tag"># penetation test</a>
           </div>
 
         
 
-
-        
-    <div class="post-nav">
-      <div class="post-nav-item">
-    <a href="/2019/03/15/Docker学习笔记/" rel="prev" title="Docker学习笔记">
-      <i class="fa fa-chevron-left"></i> Docker学习笔记
-    </a></div>
-      <div class="post-nav-item">
-    <a href="/2019/04/16/pegasus分析/" rel="next" title="pegasus分析">
-      pegasus分析 <i class="fa fa-chevron-right"></i>
-    </a></div>
-    </div>
-      </footer>
-    
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2019/03/15/Docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="prev" title="Docker学习笔记">
+                  <i class="fa fa-chevron-left"></i> Docker学习笔记
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2019/04/16/pegasus%E5%88%86%E6%9E%90/" rel="next" title="pegasus分析">
+                  pegasus分析 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
   </article>
   
   
@@ -434,15 +515,8 @@
 
 
 
-          </div>
-          
-    
-  <div class="comments">
-    <div id="disqus_thread">
-      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
-    </div>
-  </div>
-  
+      
+    <div class="comments" id="valine-comments"></div>
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -451,7 +525,7 @@
       activeClass = localStorage.getItem('comments_active') || activeClass;
     }
     if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
       if (activeTab) {
         activeTab.click();
       }
@@ -460,87 +534,20 @@
   if (CONFIG.comments.storage) {
     window.addEventListener('tabs:click', event => {
       if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
+      const commentClass = event.target.classList[1];
       localStorage.setItem('comments_active', commentClass);
     });
   }
 </script>
 
-        </div>
-          
-  
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
-  </div>
-
-  <aside class="sidebar">
-    <div class="sidebar-inner">
-
-      <ul class="sidebar-nav motion-element">
-        <li class="sidebar-nav-toc">
-          文章目录
-        </li>
-        <li class="sidebar-nav-overview">
-          站点概览
-        </li>
-      </ul>
-
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#渗透测试报告"><span class="nav-number">1.</span> <span class="nav-text">渗透测试报告</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#执行总结"><span class="nav-number">2.</span> <span class="nav-text">执行总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结论总结"><span class="nav-number">3.</span> <span class="nav-text">结论总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#攻击记叙"><span class="nav-number">4.</span> <span class="nav-text">攻击记叙</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#远程系统调查"><span class="nav-number">4.1.</span> <span class="nav-text">远程系统调查</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#命令解析器到管理服务器"><span class="nav-number">4.2.</span> <span class="nav-text">命令解析器到管理服务器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#提权"><span class="nav-number">4.3.</span> <span class="nav-text">提权</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JAVA客户机攻击"><span class="nav-number">4.4.</span> <span class="nav-text">JAVA客户机攻击</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#升级为本地管理员"><span class="nav-number">4.5.</span> <span class="nav-text">升级为本地管理员</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#深包检测规避"><span class="nav-number">4.6.</span> <span class="nav-text">深包检测规避</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Citrix环境下的漏洞"><span class="nav-number">4.7.</span> <span class="nav-text">Citrix环境下的漏洞</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#升级为域管理员"><span class="nav-number">4.8.</span> <span class="nav-text">升级为域管理员</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总论"><span class="nav-number">5.</span> <span class="nav-text">总论</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#建议"><span class="nav-number">6.</span> <span class="nav-text">建议</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#风险等级"><span class="nav-number">6.1.</span> <span class="nav-text">风险等级</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#附录A：漏洞细节及减轻危害"><span class="nav-number">7.</span> <span class="nav-text">附录A：漏洞细节及减轻危害</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#风险等级范围"><span class="nav-number">7.1.</span> <span class="nav-text">风险等级范围</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#密码重用"><span class="nav-number">7.2.</span> <span class="nav-text">密码重用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#共享本地管理员密码"><span class="nav-number">7.3.</span> <span class="nav-text">共享本地管理员密码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#补丁管理"><span class="nav-number">7.4.</span> <span class="nav-text">补丁管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DNS区域传送"><span class="nav-number">7.5.</span> <span class="nav-text">DNS区域传送</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#默认APACHE文件目录"><span class="nav-number">7.6.</span> <span class="nav-text">默认APACHE文件目录</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#附录B-关于Offensive-Security"><span class="nav-number">8.</span> <span class="nav-text">附录B:关于Offensive Security</span></a></li></ol></div>
-      </div>
-      <!--/noindex-->
-
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-  <p class="site-author-name" itemprop="name">finsenty54</p>
-  <div class="site-description" itemprop="description">blog</div>
-</div>
-<div class="site-state-wrap motion-element">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-          <a href="/archives/">
-        
-          <span class="site-state-item-count">55</span>
-          <span class="site-state-item-name">日志</span>
-        </a>
-      </div>
-      <div class="site-state-item site-state-tags">
-            <a href="/tags/">
-          
-        <span class="site-state-item-count">15</span>
-        <span class="site-state-item-name">标签</span></a>
-      </div>
-  </nav>
-</div>
-  <div class="links-of-author motion-element">
-      <span class="links-of-author-item">
-        <a href="https://github.com/Finsenty54" title="GitHub → https://github.com/Finsenty54" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
-      </span>
-      <span class="links-of-author-item">
-        <a href="mailto:finsenty54@qq.com" title="E-Mail → mailto:finsenty54@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
-      </span>
-  </div>
-
-
-
-      </div>
-
     </div>
-  </aside>
-  <div id="sidebar-dimmer"></div>
+  </main>
 
+  <footer class="footer">
+    <div class="footer-inner">
+      
 
-      </div>
-    </main>
-
-    <footer class="footer">
-      <div class="footer-inner">
-        
-
-        
+      
 
 <div class="copyright">
   
@@ -551,12 +558,7 @@
   </span>
   <span class="author" itemprop="copyrightHolder">finsenty54</span>
 </div>
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
-  </div>
-
-        
 <div class="busuanzi-count">
-  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
     <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
       <span class="post-meta-item-icon">
         <i class="fa fa-user"></i>
@@ -565,7 +567,6 @@
         <span id="busuanzi_value_site_uv"></span>
       </span>
     </span>
-    <span class="post-meta-divider">|</span>
     <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
       <span class="post-meta-item-icon">
         <i class="fa fa-eye"></i>
@@ -575,36 +576,19 @@
       </span>
     </span>
 </div>
-
-
-
-
-
-
-
-
-      </div>
-    </footer>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
 
+    </div>
+  </footer>
+
   
-  <script src="/lib/anime.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
-<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
-<script src="/js/schemes/muse.js"></script>
-<script src="/js/next-boot.js"></script>
-
-
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.2.0/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
 
   
 
 
-
-
-  
-<script src="//cdn.jsdelivr.net/npm/algoliasearch@4/dist/algoliasearch-lite.umd.js"></script>
-<script src="//cdn.jsdelivr.net/npm/instantsearch.js@4/dist/instantsearch.production.min.js"></script><script src="/js/algolia-search.js"></script>
 
 
 
@@ -619,38 +603,28 @@
 
 
   
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+
+
 
   
 
+  
 <script>
-  function loadCount() {
-    var d = document, s = d.createElement('script');
-    s.src = 'https://finsenty54.disqus.com/count.js';
-    s.id = 'dsq-count-scr';
-    (d.head || d.body).appendChild(s);
-  }
-  // defer loading until the whole page loading is completed
-  window.addEventListener('load', loadCount, false);
-</script>
-<script>
-  var disqus_config = function() {
-    this.page.url = "http://finsenty54.github.io/2019/03/28/penetration-test-report-interpretation/";
-    this.page.identifier = "2019/03/28/penetration-test-report-interpretation/";
-    this.page.title = "penetration test report interpretation";
-    };
-  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
-    if (window.DISQUS) {
-      DISQUS.reset({
-        reload: true,
-        config: disqus_config
-      });
-    } else {
-      var d = document, s = d.createElement('script');
-      s.src = 'https://finsenty54.disqus.com/embed.js';
-      s.setAttribute('data-timestamp', '' + +new Date());
-      (d.head || d.body).appendChild(s);
-    }
-  });
+NexT.utils.loadComments('#valine-comments', () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', () => {
+    new Valine(Object.assign({
+      el  : '#valine-comments',
+      path: "/2019/03/28/penetration-test-report-interpretation/",
+    }, {"enable":true,"appId":"3uGsbMNvxiG0LkbyciDSaxmY-MdYXbMMI","appKey":"1dU1y3SudPaV6pdTET96j5M2","placeholder":"欢迎交流讨论...","avatar":"mm","meta":["nick","mail","link"],"pageSize":10,"lang":"zh-cn","visitor":true,"comment_count":true,"recordIP":false,"serverURLs":null,"enableQQ":false,"requiredFields":[]}
+    ));
+  }, window.Valine);
+});
 </script>
 
 </body>
