@@ -23,7 +23,7 @@
 
 <script class="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"finsenty54.github.io","root":"/","scheme":"Mist","version":"8.0.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}};
+    var CONFIG = {"hostname":"finsenty54.github.io","root":"/","scheme":"Mist","version":"8.0.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
   </script>
 
   <meta name="description" content="blog">
@@ -132,6 +132,7 @@
 
   <div class="site-nav-right">
     <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
     </div>
   </div>
 </div>
@@ -157,7 +158,7 @@
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">0</span></a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">1</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
@@ -170,11 +171,38 @@
     <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a>
 
   </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
   </ul>
 </nav>
 
 
 
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
 
 </div>
         
@@ -204,6 +232,8 @@
 
       <section class="site-overview-wrap sidebar-panel">
         <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="finsenty54"
+      src="https://media.giphy.com/media/5xtDarHBDofiI04yE4U/giphy.gif">
   <p class="site-author-name" itemprop="name">finsenty54</p>
   <div class="site-description" itemprop="description">blog</div>
 </div>
@@ -215,6 +245,12 @@
           <span class="site-state-item-count">56</span>
           <span class="site-state-item-name">日志</span>
         </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
@@ -269,7 +305,7 @@
     <link itemprop="mainEntityOfPage" href="http://finsenty54.github.io/2020/10/07/%E9%80%86%E5%90%91_root_me_2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="https://media.giphy.com/media/5xtDarHBDofiI04yE4U/giphy.gif">
       <meta itemprop="name" content="finsenty54">
       <meta itemprop="description" content="blog">
     </span>
@@ -367,7 +403,7 @@
     <link itemprop="mainEntityOfPage" href="http://finsenty54.github.io/2020/10/06/%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86_little_summary/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="https://media.giphy.com/media/5xtDarHBDofiI04yE4U/giphy.gif">
       <meta itemprop="name" content="finsenty54">
       <meta itemprop="description" content="blog">
     </span>
@@ -467,7 +503,7 @@
     <link itemprop="mainEntityOfPage" href="http://finsenty54.github.io/2020/10/05/ch25bin/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="https://media.giphy.com/media/5xtDarHBDofiI04yE4U/giphy.gif">
       <meta itemprop="name" content="finsenty54">
       <meta itemprop="description" content="blog">
     </span>
@@ -565,7 +601,7 @@
     <link itemprop="mainEntityOfPage" href="http://finsenty54.github.io/2020/09/27/%E9%80%86%E5%90%91%E5%AD%A6%E4%B9%A0r2part2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="https://media.giphy.com/media/5xtDarHBDofiI04yE4U/giphy.gif">
       <meta itemprop="name" content="finsenty54">
       <meta itemprop="description" content="blog">
     </span>
@@ -665,7 +701,7 @@
     <link itemprop="mainEntityOfPage" href="http://finsenty54.github.io/2020/09/24/%E5%AD%A6%E4%B9%A0r2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="https://media.giphy.com/media/5xtDarHBDofiI04yE4U/giphy.gif">
       <meta itemprop="name" content="finsenty54">
       <meta itemprop="description" content="blog">
     </span>
@@ -764,7 +800,7 @@
     <link itemprop="mainEntityOfPage" href="http://finsenty54.github.io/2020/09/24/ARM%E5%86%85%E8%81%94%E6%B1%87%E7%BC%96/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="https://media.giphy.com/media/5xtDarHBDofiI04yE4U/giphy.gif">
       <meta itemprop="name" content="finsenty54">
       <meta itemprop="description" content="blog">
     </span>
@@ -863,7 +899,7 @@
     <link itemprop="mainEntityOfPage" href="http://finsenty54.github.io/2020/09/21/SEH/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="https://media.giphy.com/media/5xtDarHBDofiI04yE4U/giphy.gif">
       <meta itemprop="name" content="finsenty54">
       <meta itemprop="description" content="blog">
     </span>
@@ -961,7 +997,7 @@
     <link itemprop="mainEntityOfPage" href="http://finsenty54.github.io/2020/08/18/RCE%20%E5%88%9D%E6%8E%A2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="https://media.giphy.com/media/5xtDarHBDofiI04yE4U/giphy.gif">
       <meta itemprop="name" content="finsenty54">
       <meta itemprop="description" content="blog">
     </span>
@@ -1059,7 +1095,7 @@
     <link itemprop="mainEntityOfPage" href="http://finsenty54.github.io/2020/08/14/RUST%E5%AD%A6%E4%B9%A04/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="https://media.giphy.com/media/5xtDarHBDofiI04yE4U/giphy.gif">
       <meta itemprop="name" content="finsenty54">
       <meta itemprop="description" content="blog">
     </span>
@@ -1158,7 +1194,7 @@
     <link itemprop="mainEntityOfPage" href="http://finsenty54.github.io/2020/08/03/RUST%E5%AD%A6%E4%B9%A03/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="https://media.giphy.com/media/5xtDarHBDofiI04yE4U/giphy.gif">
       <meta itemprop="name" content="finsenty54">
       <meta itemprop="description" content="blog">
     </span>
@@ -1324,7 +1360,6 @@
   </footer>
 
   
-  <script size="300" alpha="0.8" zIndex="-1" src="//cdn.jsdelivr.net/npm/ribbon.js@1.0.2/dist/ribbon.min.js"></script>
   <script src="//cdn.jsdelivr.net/npm/animejs@3.2.0/lib/anime.min.js"></script>
 <script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
 
@@ -1332,6 +1367,8 @@
 
 
 
+
+  <script src="/js/local-search.js"></script>
 
 
 

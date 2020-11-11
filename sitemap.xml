@@ -4,7 +4,7 @@
   <url>
     <loc>http://finsenty54.github.io/2020/11/10/PWN_keep_going/</loc>
     
-    <lastmod>2020-11-10</lastmod>
+    <lastmod>2020-11-11</lastmod>
     
   </url>
   
@@ -543,5 +543,12 @@
   </url>
   
 
+  
+  <url>
+    <loc>http://finsenty54.github.io/categories/APP-system-in-root-me/</loc>
+    <lastmod>2020-11-11</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
   
 </urlset>
