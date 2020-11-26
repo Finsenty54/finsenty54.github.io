@@ -6,7 +6,7 @@
   <link href="http://finsenty54.github.io/atom.xml" rel="self"/>
   
   <link href="http://finsenty54.github.io/"/>
-  <updated>2020-11-24T13:31:11.316Z</updated>
+  <updated>2020-11-26T08:36:40.246Z</updated>
   <id>http://finsenty54.github.io/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>leetcode 1 two sum</title>
+    <link href="http://finsenty54.github.io/2020/11/26/leetcode-1-two-sum/"/>
+    <id>http://finsenty54.github.io/2020/11/26/leetcode-1-two-sum/</id>
+    <published>2020-11-26T08:35:52.000Z</published>
+    <updated>2020-11-26T08:36:40.246Z</updated>
+    
+    <content type="html"><![CDATA[<p>leetcode 1 two sum</p><h3 id="学到的东西"><a href="#学到的东西" class="headerlink" title="学到的东西"></a>学到的东西</h3><h4 id="hash-table-哈希表"><a href="#hash-table-哈希表" class="headerlink" title="hash-table 哈希表"></a>hash-table 哈希表</h4><p>散列表<br>是根据键（Key）而直接访问在内存储存位置的数据结构</p><p>若关键字为k，则其值存放在f(k)的存储位置上。由此，不需比较便可直接取得所查记录。称这个对应关系f为散列函数，按这个思想建立的表为散列表。</p><a id="more"></a><p>例如知道值为3 ， 可以直接知道地址为2<br>地址index=H（key）</p><hr><h4 id="c-模板"><a href="#c-模板" class="headerlink" title="c++模板"></a>c++模板</h4><h4 id="Vector"><a href="#Vector" class="headerlink" title="Vector"></a>Vector</h4><p>向量（Vector）是一个封装了动态大小数组的顺序容器（Sequence Container）。</p><p>可以简单的认为，向量是一个能够存放任意类型的动态数组。</p><h4 id="unordered-map"><a href="#unordered-map" class="headerlink" title="unordered_map"></a>unordered_map</h4><p><a href="https://blog.csdn.net/qq_21997625/article/details/84672775">https://blog.csdn.net/qq_21997625/article/details/84672775</a></p><p><code>mymap.insert(make_pair(nums[i],i));</code><br>小技巧</p><h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><p><a href="https://github.com/Finsenty54/my_leetcode_cplusplus/blob/main/two_num_hash_map.cpp">https://github.com/Finsenty54/my_leetcode_cplusplus/blob/main/two_num_hash_map.cpp</a></p>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;leetcode 1 two sum&lt;/p&gt;
+&lt;h3 id=&quot;学到的东西&quot;&gt;&lt;a href=&quot;#学到的东西&quot; class=&quot;headerlink&quot; title=&quot;学到的东西&quot;&gt;&lt;/a&gt;学到的东西&lt;/h3&gt;&lt;h4 id=&quot;hash-table-哈希表&quot;&gt;&lt;a href=&quot;#hash-table-哈希表&quot; class=&quot;headerlink&quot; title=&quot;hash-table 哈希表&quot;&gt;&lt;/a&gt;hash-table 哈希表&lt;/h4&gt;&lt;p&gt;散列表&lt;br&gt;是根据键（Key）而直接访问在内存储存位置的数据结构&lt;/p&gt;
+&lt;p&gt;若关键字为k，则其值存放在f(k)的存储位置上。由此，不需比较便可直接取得所查记录。称这个对应关系f为散列函数，按这个思想建立的表为散列表。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="leetcode" scheme="http://finsenty54.github.io/categories/leetcode/"/>
+    
+    
+    <category term="c++" scheme="http://finsenty54.github.io/tags/c/"/>
+    
+  </entry>
   
   <entry>
     <title>Stack buffer overflow - basic</title>
@@ -421,26 +444,6 @@ call    _strlen&lt;/code&gt;&lt;/pre&gt;</summary>
     
     
     <category term="RCE" scheme="http://finsenty54.github.io/tags/RCE/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>ARM内联汇编</title>
-    <link href="http://finsenty54.github.io/2020/09/24/ARM%E5%86%85%E8%81%94%E6%B1%87%E7%BC%96/"/>
-    <id>http://finsenty54.github.io/2020/09/24/ARM%E5%86%85%E8%81%94%E6%B1%87%E7%BC%96/</id>
-    <published>2020-09-24T00:34:38.000Z</published>
-    <updated>2020-10-31T08:53:12.100Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="gcc-ARM内联汇编-与-预处理"><a href="#gcc-ARM内联汇编-与-预处理" class="headerlink" title="gcc ARM内联汇编 与 预处理"></a>gcc ARM内联汇编 与 预处理</h2><h3 id="预处理"><a href="#预处理" class="headerlink" title="预处理"></a>预处理</h3><p>define 编译<code>预处理</code>时，对程序中所有出现的“宏名”，都用宏定义中的字符串去代换</p><p><code>#</code>开头都是预编译指令</p><a id="more"></a><pre><code>#ifndef HEADER_FILE#define HEADER_FILEthe entire header file file#endif</code></pre><p>这种结构就是通常所说的<code>包装器 #ifndef</code>。当再次引用头文件时，<code>条件为假</code>，因为 HEADER_FILE 已定义。此时，预处理器会<code>跳过</code>文件的整个内容，编译器会忽略它。</p><hr><p>您可以使用 typedef 为一个已有的类型取一个新的名字。下面是使用 typedef 定义一个新类型的语法：</p><pre><code>typedef struct config *config_t; //将config* 重新定为 config_ttypedef type newname; </code></pre><hr><h3 id="ARM内联汇编"><a href="#ARM内联汇编" class="headerlink" title="ARM内联汇编"></a>ARM内联汇编</h3><p>GCC编译器支持直接在C或者C++代码中，嵌入ARM汇编代码。其基本格式非常简单，大致如下：</p><pre><code>__asm__ [__volatile__] ( assembler template            : [output operand list]                  /* optional */           : [input operand list]                   /* optional */           : [clobbered register list]              /* optional */           );</code></pre><p>每一个操作数由下列组成</p><pre><code>[name]&quot;[modifier]constraint&quot;(C expression)</code></pre><p><code>name</code> 表示别名</p><p><code>限定符</code>constraint</p><pre><code>   &quot;a”将输入变量放入eax   &quot;b”将输入变量放入ebx “c”将输入变量放入ecx “d”将输入变量放入edx “s”将输入变量放入esi “d”将输入变量放入edi</code></pre><p>GCC中定义了三个<code>修改符</code>modifier，分别是：<br>修改符    含义</p><pre><code>=    只写操作数，通常用于输出操作数中+    可读且可写操作数，必须要列在输出操作数中&amp;    寄存器只能用于输出</code></pre><p>编译器并不会分析你的汇编代码，找出这种被你修改过，需要恢复的寄存器，因此你必须显式的告诉编译器，被你修改过的寄存器有哪些。这就是<code>修改寄存器列表</code>所起到的作用。<br><code>clobbered register list</code></p><h3 id="示例-flush-and-reload"><a href="#示例-flush-and-reload" class="headerlink" title="示例__flush and reload"></a>示例__flush and reload</h3><pre><code>/*SFENCE——串行化发生在SFENCE指令之前的写操作但是不影响读操作。    LFENCE——串行化发生在SFENCE指令之前的读操作但是不影响写操作。    MFENCE——串行化发生在MFENCE指令之前的读写操作。sfence:在sfence指令前的写操作当必须在sfence指令后的写操作前完成。lfence：在lfence指令前的读操作当必须在lfence指令后的读操作前完成。 no instruction fol-lowing it executes before thelfenceinstructionmfence：在mfence指令前的读写操作当必须在mfence指令后的读写操作前完成。*/</code></pre><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">unsigned</span> <span class="keyword">long</span> <span class="title">gettime</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="keyword">volatile</span> <span class="keyword">unsigned</span> <span class="keyword">long</span> tl;</span><br><span class="line">  <span class="keyword">asm</span> __volatile__(<span class="string">&quot;lfence\nrdtsc&quot;</span> : <span class="string">&quot;=a&quot;</span> (tl): : <span class="string">&quot;%edx&quot;</span>); <span class="comment">//“__volatile__”关键字，这个是可选的，</span></span><br><span class="line">  <span class="comment">//其作用是禁止编译器对后面编写的汇编指令再进行优化</span></span><br><span class="line">  <span class="keyword">return</span> tl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">probe</span><span class="params">(<span class="keyword">char</span> *adrs)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">volatile</span> <span class="keyword">unsigned</span> <span class="keyword">long</span> time;</span><br><span class="line">    <span class="comment">//gcc arm</span></span><br><span class="line">  <span class="keyword">asm</span> __volatile__ (</span><br><span class="line">    <span class="string">&quot;  mfence             \n&quot;</span> <span class="comment">//cpuid (intel) 虚拟机会模拟该指令，导致时间增加</span></span><br><span class="line">    <span class="string">&quot;  lfence             \n&quot;</span></span><br><span class="line">    <span class="string">&quot;  rdtsc              \n&quot;</span></span><br><span class="line">    <span class="string">&quot;  lfence             \n&quot;</span> <span class="comment">//reads  the  64-bitcounter, returning the low 32 bits of the counter in%eax and the high 32 bits in%edx</span></span><br><span class="line">    <span class="string">&quot;  movl %%eax, %%esi  \n&quot;</span> <span class="comment">//把rdtsc返回的时间传入ESI保存</span></span><br><span class="line">    <span class="string">&quot;  movl (%1), %%eax   \n&quot;</span> <span class="comment">//%1表示adrs  reads  4  bytes  from  the  memory  address  in%ecx</span></span><br><span class="line">    <span class="string">&quot;  lfence             \n&quot;</span> <span class="comment">//（）表示指针</span></span><br><span class="line">    <span class="string">&quot;  rdtsc              \n&quot;</span></span><br><span class="line">    <span class="string">&quot;  subl %%esi, %%eax  \n&quot;</span> <span class="comment">//rdtsc返回值保存在eax.相减，结果保存在eax</span></span><br><span class="line">    <span class="string">&quot;  clflush 0(%1)      \n&quot;</span> <span class="comment">//()剔除缓存中的值</span></span><br><span class="line">    : <span class="string">&quot;=a&quot;</span> (time)</span><br><span class="line">    : <span class="string">&quot;c&quot;</span> (adrs)   <span class="comment">//c infer edc</span></span><br><span class="line">    :  <span class="string">&quot;%esi&quot;</span>, <span class="string">&quot;%edx&quot;</span>);</span><br><span class="line">  <span class="keyword">return</span> time;  <span class="comment">/*Loads shorter than the threshold are presumed tobe served from the cache, </span></span><br><span class="line"><span class="comment">                 indicating that another processhas accessed the memory line since it was last flushed5 from the cache*/</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-    
-    
-    <summary type="html">&lt;h2 id=&quot;gcc-ARM内联汇编-与-预处理&quot;&gt;&lt;a href=&quot;#gcc-ARM内联汇编-与-预处理&quot; class=&quot;headerlink&quot; title=&quot;gcc ARM内联汇编 与 预处理&quot;&gt;&lt;/a&gt;gcc ARM内联汇编 与 预处理&lt;/h2&gt;&lt;h3 id=&quot;预处理&quot;&gt;&lt;a href=&quot;#预处理&quot; class=&quot;headerlink&quot; title=&quot;预处理&quot;&gt;&lt;/a&gt;预处理&lt;/h3&gt;&lt;p&gt;define 编译&lt;code&gt;预处理&lt;/code&gt;时，对程序中所有出现的“宏名”，都用宏定义中的字符串去代换&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;#&lt;/code&gt;开头都是预编译指令&lt;/p&gt;</summary>
-    
-    
-    
-    
-    <category term="C++" scheme="http://finsenty54.github.io/tags/C/"/>
     
   </entry>
   

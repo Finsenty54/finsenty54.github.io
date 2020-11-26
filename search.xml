@@ -3370,4 +3370,26 @@ else
         <tag>ios</tag>
       </tags>
   </entry>
+  <entry>
+    <title>leetcode 1 two sum</title>
+    <url>/2020/11/26/leetcode-1-two-sum/</url>
+    <content><![CDATA[<p>leetcode 1 two sum</p>
+<h3 id="学到的东西"><a href="#学到的东西" class="headerlink" title="学到的东西"></a>学到的东西</h3><h4 id="hash-table-哈希表"><a href="#hash-table-哈希表" class="headerlink" title="hash-table 哈希表"></a>hash-table 哈希表</h4><p>散列表<br>是根据键（Key）而直接访问在内存储存位置的数据结构</p>
+<p>若关键字为k，则其值存放在f(k)的存储位置上。由此，不需比较便可直接取得所查记录。称这个对应关系f为散列函数，按这个思想建立的表为散列表。</p>
+<a id="more"></a>
+<p>例如知道值为3 ， 可以直接知道地址为2<br>地址index=H（key）</p>
+<hr>
+<h4 id="c-模板"><a href="#c-模板" class="headerlink" title="c++模板"></a>c++模板</h4><h4 id="Vector"><a href="#Vector" class="headerlink" title="Vector"></a>Vector</h4><p>向量（Vector）是一个封装了动态大小数组的顺序容器（Sequence Container）。</p>
+<p>可以简单的认为，向量是一个能够存放任意类型的动态数组。</p>
+<h4 id="unordered-map"><a href="#unordered-map" class="headerlink" title="unordered_map"></a>unordered_map</h4><p><a href="https://blog.csdn.net/qq_21997625/article/details/84672775">https://blog.csdn.net/qq_21997625/article/details/84672775</a></p>
+<p><code>mymap.insert(make_pair(nums[i],i));</code><br>小技巧</p>
+<h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><p><a href="https://github.com/Finsenty54/my_leetcode_cplusplus/blob/main/two_num_hash_map.cpp">https://github.com/Finsenty54/my_leetcode_cplusplus/blob/main/two_num_hash_map.cpp</a></p>
+]]></content>
+      <categories>
+        <category>leetcode</category>
+      </categories>
+      <tags>
+        <tag>c++</tag>
+      </tags>
+  </entry>
 </search>
