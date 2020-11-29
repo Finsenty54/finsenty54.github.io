@@ -6,7 +6,7 @@
   <link href="http://finsenty54.github.io/atom.xml" rel="self"/>
   
   <link href="http://finsenty54.github.io/"/>
-  <updated>2020-11-26T08:36:40.246Z</updated>
+  <updated>2020-11-29T08:20:32.262Z</updated>
   <id>http://finsenty54.github.io/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>leetcode add two numbers</title>
+    <link href="http://finsenty54.github.io/2020/11/29/leetcode-add-two-numbers/"/>
+    <id>http://finsenty54.github.io/2020/11/29/leetcode-add-two-numbers/</id>
+    <published>2020-11-29T08:18:58.000Z</published>
+    <updated>2020-11-29T08:20:32.262Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="leetcode-add-two-numbers"><a href="#leetcode-add-two-numbers" class="headerlink" title="leetcode add two numbers"></a>leetcode add two numbers</h2><p>本题关于singly-linked list 单链表<br>链表是怎么链接在一起的？？怎么存储的？？</p><a id="more"></a><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">ListNode *<span class="title">Solution::addTwoNumbers</span><span class="params">(ListNode *l1, ListNode *l2)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    ListNode *answer = <span class="literal">nullptr</span>;</span><br><span class="line">    ListNode **curr = &amp;answer; <span class="comment">//指向指针的指针,一种间接寻址方式</span></span><br><span class="line">                               <span class="comment">//将answer的地址赋给curr,（64位）</span></span><br><span class="line">    ListNode *addr1 = l1;</span><br><span class="line">    ListNode *addr2 = l2;</span><br><span class="line">    <span class="keyword">int</span> carry = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (addr1 != <span class="literal">nullptr</span> || addr2 != <span class="literal">nullptr</span> ||carry&gt;<span class="number">0</span>) <span class="comment">//do not use for()</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (addr1!=<span class="literal">nullptr</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            sum+=addr1-&gt;val;</span><br><span class="line">            addr1=addr1-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (addr2!=<span class="literal">nullptr</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            sum+=addr2-&gt;val;</span><br><span class="line">            addr2=addr2-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        sum+=carry;</span><br><span class="line">        carry = sum / <span class="number">10</span>;</span><br><span class="line">        (*curr) = <span class="keyword">new</span> ListNode(sum % <span class="number">10</span>); <span class="comment">//每次新建一个node,不用取名</span></span><br><span class="line">        <span class="comment">//*curr 取得是curr地址中的64位内容，**curr 就要取两次地址中的内容</span></span><br><span class="line">        <span class="comment">//这是变量，这是把新建node的地址赋给answer,填满64位</span></span><br><span class="line">        <span class="comment">//https://www.runoob.com/cplusplus/cpp-pointer-to-pointer.html</span></span><br><span class="line">        curr = &amp;((*curr)-&gt;next); <span class="comment">//把next本身的地址赋给curr</span></span><br><span class="line">        <span class="comment">//-&gt; 相当于 *，跳转 取内容</span></span><br><span class="line">        sum=<span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> answer;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>解决方法：每次新建一个，匿名新建</p><hr><pre><code>ListNode *curr = nullptr; //指向指针的指针,一种间接寻址方式ListNode *answer = curr;</code></pre><p>这样赋值后，answer得到是nullptr</p><pre><code>ListNode *answer = nullptr;ListNode **curr = &amp;answer; //指向指针的指针,一种间接寻址方式</code></pre><p>这样赋值后，curr得到是answer本身的地址，而不是内容</p>]]></content>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;leetcode-add-two-numbers&quot;&gt;&lt;a href=&quot;#leetcode-add-two-numbers&quot; class=&quot;headerlink&quot; title=&quot;leetcode add two numbers&quot;&gt;&lt;/a&gt;leetcode add two numbers&lt;/h2&gt;&lt;p&gt;本题关于singly-linked list 单链表&lt;br&gt;链表是怎么链接在一起的？？怎么存储的？？&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="leetcode" scheme="http://finsenty54.github.io/categories/leetcode/"/>
+    
+    
+    <category term="c++" scheme="http://finsenty54.github.io/tags/c/"/>
+    
+  </entry>
   
   <entry>
     <title>leetcode 1 two sum</title>
@@ -419,26 +440,6 @@ call    _strlen&lt;/code&gt;&lt;/pre&gt;</summary>
     <summary type="html">&lt;h2 id=&quot;逆向-学习r2-part2&quot;&gt;&lt;a href=&quot;#逆向-学习r2-part2&quot; class=&quot;headerlink&quot; title=&quot;逆向 学习r2 part2&quot;&gt;&lt;/a&gt;逆向 学习r2 part2&lt;/h2&gt;&lt;p&gt;&lt;a href=&quot;https://www.megabeets.net/a-journey-into-radare-2-part-2/&quot;&gt;https://www.megabeets.net/a-journey-into-radare-2-part-2/&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;在NX和ASLR的保护下&lt;/p&gt;
 &lt;hr&gt;</summary>
-    
-    
-    
-    
-    <category term="RCE" scheme="http://finsenty54.github.io/tags/RCE/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>学习r2</title>
-    <link href="http://finsenty54.github.io/2020/09/24/%E5%AD%A6%E4%B9%A0r2/"/>
-    <id>http://finsenty54.github.io/2020/09/24/%E5%AD%A6%E4%B9%A0r2/</id>
-    <published>2020-09-24T08:29:04.000Z</published>
-    <updated>2020-10-31T08:53:12.100Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="逆向-学习r2"><a href="#逆向-学习r2" class="headerlink" title="逆向 学习r2"></a>逆向 学习r2</h2><h3 id="RABIN2-—-Binary-program-info-extractor"><a href="#RABIN2-—-Binary-program-info-extractor" class="headerlink" title="RABIN2 — Binary program info extractor"></a>RABIN2 — Binary program info extractor</h3><pre><code>$ rabin2 -I megabeets_0x1</code></pre><p><code>stripped false</code><br>没有剥离符号表<br><code>static   false</code> //所以是动态链接</p><a id="more"></a><h3 id="r2-radare2"><a href="#r2-radare2" class="headerlink" title="r2 //radare2"></a>r2 //radare2</h3><h4 id="ie"><a href="#ie" class="headerlink" title="ie"></a>ie</h4><pre><code>[0x08048370]&gt; ie</code></pre><p>ie 命令可以打印出程序的入口点</p><hr><h4 id=""><a href="#" class="headerlink" title="?"></a>?</h4><p>在任何一个命令后面添加 ? 来获得更多的子命令信息：<br>    [0x08048370]&gt; i?</p><hr><h4 id="aa"><a href="#aa" class="headerlink" title="aa"></a>aa</h4><p>使用 ‘aa’ 命令来分析文件</p><pre><code>[0x08048370]&gt; a?</code></pre><p>aa?<br>aaa[?]              autoname functions after aa (see afna)</p><hr><h4 id="flag"><a href="#flag" class="headerlink" title="flag"></a>flag</h4><p>flag 是所有类似特征的集合，展示所有的 flag ，用 ‘fs’ 命令<br>    [0x08048370]&gt; fs</p><h4 id="f"><a href="#f" class="headerlink" title="f"></a>f</h4><p> f         list flags (will only list flags from selected flagspaces<br>    [0x08048370]&gt; fs imports; f</p><hr><h4 id="iz"><a href="#iz" class="headerlink" title="iz"></a>iz</h4><p>iz – 列出数据段里的字符串</p><hr><h4 id="axt"><a href="#axt" class="headerlink" title="axt"></a>axt</h4><pre><code>[0x08048370]&gt; axt @@ str.*</code></pre><p> axt [addr]      find data/code references to this address</p><p><code>@@                   # foreach iterator command:</code></p><hr><h4 id="x"><a href="#x" class="headerlink" title="x"></a>x</h4><p>| x @@ sym.*          run ‘x’ over all flags matching ‘sym.’ in current flagspace</p><hr><h4 id="s"><a href="#s" class="headerlink" title="s"></a>s</h4><p>s    # Help for the seek commands. See ?$? to see all variables</p><hr><h4 id="afl"><a href="#afl" class="headerlink" title="afl"></a>afl</h4><p>af?<br>用 ‘afl’ 指令，这个指令代表着分析函数列表（Analyze Functions List）.</p><hr><h4 id="pdf"><a href="#pdf" class="headerlink" title="pdf"></a>pdf</h4><p>s main<br>用 ‘pdf’（输出反汇编代码）</p><hr><h4 id="m"><a href="#m" class="headerlink" title="m"></a>m</h4><p>m<key> 可以用来标记特定的偏移地址，之后输入对应的key就可以跳转到你设置的地方.</p><hr><h4 id="V"><a href="#V" class="headerlink" title="V"></a>V</h4><p>V 视图模式<br>shell 里输入 VV来进入图形模式</p><hr><p>f sym.<tab> 来定位出 sym.beet 函数<br>pdf @ sym.beet 命令，‘@’ 表示临时查找<br>可视视图界面直接跳转到 beet 函数<br>上面说过的方框中的数字吗？这里直接按 3 就可以了<br> gd 命令，d 就是每一个跳转或者调用代码旁边的 字母</p><hr><h4 id="ahi"><a href="#ahi" class="headerlink" title="ahi"></a>ahi</h4><p>:&gt; ahi s @@=0x080485a3 0x080485ad 0x080485b7<br>ahi s       set base to string (1)<br>ahi s 是用来设置字符串特定的偏移地址<br>@@是一个迭代器，可以用来接受后面输入的多个参数,执行完这条命令后</p><hr><h4 id="r"><a href="#r" class="headerlink" title="r"></a>r</h4><p>r 图形模式刷新</p><hr><h3 id="rahash2"><a href="#rahash2" class="headerlink" title="rahash2"></a>rahash2</h3><p>rahash2 包含很多种算法来求证一个文件或者字符串的校验值,具体的用法请使用 ‘man rahash2 ‘.</p><hr><h4 id="00"><a href="#00" class="headerlink" title="00"></a>00</h4><p>oo           reopen current file<br>ood [args]      # reopen in debug mode (with args)</p><hr><h4 id="dc"><a href="#dc" class="headerlink" title="dc"></a>dc</h4><p>dc   Execution continuation commands<br>| dc                           Continue execution of all children</p>]]></content>
-    
-    
-    <summary type="html">&lt;h2 id=&quot;逆向-学习r2&quot;&gt;&lt;a href=&quot;#逆向-学习r2&quot; class=&quot;headerlink&quot; title=&quot;逆向 学习r2&quot;&gt;&lt;/a&gt;逆向 学习r2&lt;/h2&gt;&lt;h3 id=&quot;RABIN2-—-Binary-program-info-extractor&quot;&gt;&lt;a href=&quot;#RABIN2-—-Binary-program-info-extractor&quot; class=&quot;headerlink&quot; title=&quot;RABIN2 — Binary program info extractor&quot;&gt;&lt;/a&gt;RABIN2 — Binary program info extractor&lt;/h3&gt;&lt;pre&gt;&lt;code&gt;$ rabin2 -I megabeets_0x1&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;code&gt;stripped false&lt;/code&gt;&lt;br&gt;没有剥离符号表&lt;br&gt;&lt;code&gt;static   false&lt;/code&gt; //所以是动态链接&lt;/p&gt;</summary>
     
     
     

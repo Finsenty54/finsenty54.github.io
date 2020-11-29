@@ -3392,4 +3392,27 @@ else
         <tag>c++</tag>
       </tags>
   </entry>
+  <entry>
+    <title>leetcode add two numbers</title>
+    <url>/2020/11/29/leetcode-add-two-numbers/</url>
+    <content><![CDATA[<h2 id="leetcode-add-two-numbers"><a href="#leetcode-add-two-numbers" class="headerlink" title="leetcode add two numbers"></a>leetcode add two numbers</h2><p>本题关于singly-linked list 单链表<br>链表是怎么链接在一起的？？怎么存储的？？</p>
+<a id="more"></a>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function">ListNode *<span class="title">Solution::addTwoNumbers</span><span class="params">(ListNode *l1, ListNode *l2)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    ListNode *answer = <span class="literal">nullptr</span>;</span><br><span class="line">    ListNode **curr = &amp;answer; <span class="comment">//指向指针的指针,一种间接寻址方式</span></span><br><span class="line">                               <span class="comment">//将answer的地址赋给curr,（64位）</span></span><br><span class="line">    ListNode *addr1 = l1;</span><br><span class="line">    ListNode *addr2 = l2;</span><br><span class="line">    <span class="keyword">int</span> carry = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (addr1 != <span class="literal">nullptr</span> || addr2 != <span class="literal">nullptr</span> ||carry&gt;<span class="number">0</span>) <span class="comment">//do not use for()</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (addr1!=<span class="literal">nullptr</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            sum+=addr1-&gt;val;</span><br><span class="line">            addr1=addr1-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (addr2!=<span class="literal">nullptr</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            sum+=addr2-&gt;val;</span><br><span class="line">            addr2=addr2-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        sum+=carry;</span><br><span class="line">        carry = sum / <span class="number">10</span>;</span><br><span class="line">        (*curr) = <span class="keyword">new</span> ListNode(sum % <span class="number">10</span>); <span class="comment">//每次新建一个node,不用取名</span></span><br><span class="line">        <span class="comment">//*curr 取得是curr地址中的64位内容，**curr 就要取两次地址中的内容</span></span><br><span class="line">        <span class="comment">//这是变量，这是把新建node的地址赋给answer,填满64位</span></span><br><span class="line">        <span class="comment">//https://www.runoob.com/cplusplus/cpp-pointer-to-pointer.html</span></span><br><span class="line">        curr = &amp;((*curr)-&gt;next); <span class="comment">//把next本身的地址赋给curr</span></span><br><span class="line">        <span class="comment">//-&gt; 相当于 *，跳转 取内容</span></span><br><span class="line">        sum=<span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> answer;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>解决方法：每次新建一个，匿名新建</p>
+<hr>
+<pre><code>ListNode *curr = nullptr; //指向指针的指针,一种间接寻址方式
+ListNode *answer = curr;</code></pre>
+<p>这样赋值后，answer得到是nullptr</p>
+<pre><code>ListNode *answer = nullptr;
+ListNode **curr = &amp;answer; //指向指针的指针,一种间接寻址方式</code></pre>
+<p>这样赋值后，curr得到是answer本身的地址，而不是内容</p>
+]]></content>
+      <categories>
+        <category>leetcode</category>
+      </categories>
+      <tags>
+        <tag>c++</tag>
+      </tags>
+  </entry>
 </search>
