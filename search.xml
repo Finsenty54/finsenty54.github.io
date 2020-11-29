@@ -3547,8 +3547,11 @@ check=0xdeadbeef
 Yeah dude ! You win !
 app-systeme-ch14-cracked@challenge02:~$ cat .passwd</code></pre>
 ]]></content>
+      <categories>
+        <category>APP system in root_me</category>
+      </categories>
       <tags>
-        <tag>APP system in root_me</tag>
+        <tag>PWN</tag>
       </tags>
   </entry>
 </search>
