@@ -6,7 +6,7 @@
   <link href="http://finsenty54.github.io/atom.xml" rel="self"/>
   
   <link href="http://finsenty54.github.io/"/>
-  <updated>2020-12-11T07:23:47.261Z</updated>
+  <updated>2020-12-11T08:51:36.726Z</updated>
   <id>http://finsenty54.github.io/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>leetcode longest_substring_without_repeating_characters</title>
+    <link href="http://finsenty54.github.io/2020/12/11/LEETCODE-longest_substring_without_repeating_characters/"/>
+    <id>http://finsenty54.github.io/2020/12/11/LEETCODE-longest_substring_without_repeating_characters/</id>
+    <published>2020-12-11T08:49:29.000Z</published>
+    <updated>2020-12-11T08:51:36.726Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="longest-substring-without-repeating-characters"><a href="#longest-substring-without-repeating-characters" class="headerlink" title="longest_substring_without_repeating_characters"></a>longest_substring_without_repeating_characters</h2><p>这题用到了哈希表 和 滑动窗口</p><p>滑动窗口：<br>就是有两个变量分别指示 窗口的 头和尾，就可以任意改变这两个变量</p><p>哈希表：<br>哈希表存着目前最长子组的值-地址对</p><a id="more"></a><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;unordered_map&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="comment">/* data */</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">   <span class="function"><span class="keyword">int</span> <span class="title">lengthOfLongestSubstring</span><span class="params">(<span class="built_in">string</span> s)</span></span>;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Solution::lengthOfLongestSubstring</span><span class="params">(<span class="built_in">string</span> s)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int32_t</span> begin=<span class="number">0</span>,end=<span class="number">0</span>,begin_new=<span class="number">0</span>;</span><br><span class="line">    <span class="built_in">unordered_map</span>&lt;<span class="keyword">char</span>,<span class="keyword">int</span>&gt; windows;</span><br><span class="line">    <span class="keyword">int</span> count=<span class="number">0</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">size_t</span> i = <span class="number">0</span>; i &lt; s.size(); i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">//windows.insert(make_pair(s[i],i));</span></span><br><span class="line">        <span class="keyword">if</span>(windows.count(s[end])==<span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            windows.insert(<span class="built_in">make_pair</span>(s[end],end));</span><br><span class="line">            end++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">//有重复值，那么获得目前的最大值</span></span><br><span class="line">            <span class="keyword">if</span> (end-begin&gt;count || count==<span class="number">0</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                count=end-begin;</span><br><span class="line">            &#125;</span><br><span class="line">            begin_new=windows[s[end]]+<span class="number">1</span>;</span><br><span class="line">            <span class="comment">//delete </span></span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">size_t</span> i = begin; i &lt; begin_new; i++)</span><br><span class="line">            &#123;</span><br><span class="line">                windows.erase(s[i]);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">//插入新的重复值</span></span><br><span class="line">            windows.insert(<span class="built_in">make_pair</span>(s[end],end));</span><br><span class="line">            end++;</span><br><span class="line">            begin=begin_new;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (end-begin&gt;count)</span><br><span class="line">    &#123;</span><br><span class="line">        count=end-begin;</span><br><span class="line">    &#125;    </span><br><span class="line">    <span class="keyword">return</span> count;  </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure><p><a href="https://imgchr.com/i/rAyOUO"><img src="https://s3.ax1x.com/2020/12/11/rAyOUO.jpg" alt="rAyOUO.jpg"></a></p>]]></content>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;longest-substring-without-repeating-characters&quot;&gt;&lt;a href=&quot;#longest-substring-without-repeating-characters&quot; class=&quot;headerlink&quot; title=&quot;longest_substring_without_repeating_characters&quot;&gt;&lt;/a&gt;longest_substring_without_repeating_characters&lt;/h2&gt;&lt;p&gt;这题用到了哈希表 和 滑动窗口&lt;/p&gt;
+&lt;p&gt;滑动窗口：&lt;br&gt;就是有两个变量分别指示 窗口的 头和尾，就可以任意改变这两个变量&lt;/p&gt;
+&lt;p&gt;哈希表：&lt;br&gt;哈希表存着目前最长子组的值-地址对&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="leetcode" scheme="http://finsenty54.github.io/categories/leetcode/"/>
+    
+    
+    <category term="C++" scheme="http://finsenty54.github.io/tags/C/"/>
+    
+  </entry>
   
   <entry>
     <title>Stack buffer overflow basic 3</title>
@@ -64,7 +87,7 @@
     <link href="http://finsenty54.github.io/2020/11/29/leetcode-add-two-numbers/"/>
     <id>http://finsenty54.github.io/2020/11/29/leetcode-add-two-numbers/</id>
     <published>2020-11-29T08:18:58.000Z</published>
-    <updated>2020-11-29T08:20:32.262Z</updated>
+    <updated>2020-12-11T08:51:27.366Z</updated>
     
     <content type="html"><![CDATA[<h2 id="leetcode-add-two-numbers"><a href="#leetcode-add-two-numbers" class="headerlink" title="leetcode add two numbers"></a>leetcode add two numbers</h2><p>本题关于singly-linked list 单链表<br>链表是怎么链接在一起的？？怎么存储的？？</p><a id="more"></a><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">ListNode *<span class="title">Solution::addTwoNumbers</span><span class="params">(ListNode *l1, ListNode *l2)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    ListNode *answer = <span class="literal">nullptr</span>;</span><br><span class="line">    ListNode **curr = &amp;answer; <span class="comment">//指向指针的指针,一种间接寻址方式</span></span><br><span class="line">                               <span class="comment">//将answer的地址赋给curr,（64位）</span></span><br><span class="line">    ListNode *addr1 = l1;</span><br><span class="line">    ListNode *addr2 = l2;</span><br><span class="line">    <span class="keyword">int</span> carry = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (addr1 != <span class="literal">nullptr</span> || addr2 != <span class="literal">nullptr</span> ||carry&gt;<span class="number">0</span>) <span class="comment">//do not use for()</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (addr1!=<span class="literal">nullptr</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            sum+=addr1-&gt;val;</span><br><span class="line">            addr1=addr1-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (addr2!=<span class="literal">nullptr</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            sum+=addr2-&gt;val;</span><br><span class="line">            addr2=addr2-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        sum+=carry;</span><br><span class="line">        carry = sum / <span class="number">10</span>;</span><br><span class="line">        (*curr) = <span class="keyword">new</span> ListNode(sum % <span class="number">10</span>); <span class="comment">//每次新建一个node,不用取名</span></span><br><span class="line">        <span class="comment">//*curr 取得是curr地址中的64位内容，**curr 就要取两次地址中的内容</span></span><br><span class="line">        <span class="comment">//这是变量，这是把新建node的地址赋给answer,填满64位</span></span><br><span class="line">        <span class="comment">//https://www.runoob.com/cplusplus/cpp-pointer-to-pointer.html</span></span><br><span class="line">        curr = &amp;((*curr)-&gt;next); <span class="comment">//把next本身的地址赋给curr</span></span><br><span class="line">        <span class="comment">//-&gt; 相当于 *，跳转 取内容</span></span><br><span class="line">        sum=<span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> answer;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>解决方法：每次新建一个，匿名新建</p><hr><pre><code>ListNode *curr = nullptr; //指向指针的指针,一种间接寻址方式ListNode *answer = curr;</code></pre><p>这样赋值后，answer得到是nullptr</p><pre><code>ListNode *answer = nullptr;ListNode **curr = &amp;answer; //指向指针的指针,一种间接寻址方式</code></pre><p>这样赋值后，curr得到是answer本身的地址，而不是内容</p>]]></content>
     
@@ -76,7 +99,7 @@
     <category term="leetcode" scheme="http://finsenty54.github.io/categories/leetcode/"/>
     
     
-    <category term="c++" scheme="http://finsenty54.github.io/tags/c/"/>
+    <category term="C++" scheme="http://finsenty54.github.io/tags/C/"/>
     
   </entry>
   
@@ -85,7 +108,7 @@
     <link href="http://finsenty54.github.io/2020/11/26/leetcode-1-two-sum/"/>
     <id>http://finsenty54.github.io/2020/11/26/leetcode-1-two-sum/</id>
     <published>2020-11-26T08:35:52.000Z</published>
-    <updated>2020-11-26T08:36:40.246Z</updated>
+    <updated>2020-12-11T08:52:00.926Z</updated>
     
     <content type="html"><![CDATA[<p>leetcode 1 two sum</p><h3 id="学到的东西"><a href="#学到的东西" class="headerlink" title="学到的东西"></a>学到的东西</h3><h4 id="hash-table-哈希表"><a href="#hash-table-哈希表" class="headerlink" title="hash-table 哈希表"></a>hash-table 哈希表</h4><p>散列表<br>是根据键（Key）而直接访问在内存储存位置的数据结构</p><p>若关键字为k，则其值存放在f(k)的存储位置上。由此，不需比较便可直接取得所查记录。称这个对应关系f为散列函数，按这个思想建立的表为散列表。</p><a id="more"></a><p>例如知道值为3 ， 可以直接知道地址为2<br>地址index=H（key）</p><hr><h4 id="c-模板"><a href="#c-模板" class="headerlink" title="c++模板"></a>c++模板</h4><h4 id="Vector"><a href="#Vector" class="headerlink" title="Vector"></a>Vector</h4><p>向量（Vector）是一个封装了动态大小数组的顺序容器（Sequence Container）。</p><p>可以简单的认为，向量是一个能够存放任意类型的动态数组。</p><h4 id="unordered-map"><a href="#unordered-map" class="headerlink" title="unordered_map"></a>unordered_map</h4><p><a href="https://blog.csdn.net/qq_21997625/article/details/84672775">https://blog.csdn.net/qq_21997625/article/details/84672775</a></p><p><code>mymap.insert(make_pair(nums[i],i));</code><br>小技巧</p><h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><p><a href="https://github.com/Finsenty54/my_leetcode_cplusplus/blob/main/two_num_hash_map.cpp">https://github.com/Finsenty54/my_leetcode_cplusplus/blob/main/two_num_hash_map.cpp</a></p>]]></content>
     
@@ -99,7 +122,7 @@
     <category term="leetcode" scheme="http://finsenty54.github.io/categories/leetcode/"/>
     
     
-    <category term="c++" scheme="http://finsenty54.github.io/tags/c/"/>
+    <category term="C++" scheme="http://finsenty54.github.io/tags/C/"/>
     
   </entry>
   
@@ -422,27 +445,6 @@ call    _strlen&lt;/code&gt;&lt;/pre&gt;</summary>
     
     
     <summary type="html">&lt;h2 id=&quot;逆向-root-me&quot;&gt;&lt;a href=&quot;#逆向-root-me&quot; class=&quot;headerlink&quot; title=&quot;逆向 root_me&quot;&gt;&lt;/a&gt;逆向 root_me&lt;/h2&gt;&lt;h3 id=&quot;PE-NET&quot;&gt;&lt;a href=&quot;#PE-NET&quot; class=&quot;headerlink&quot; title=&quot;PE .NET&quot;&gt;&lt;/a&gt;PE .NET&lt;/h3&gt;&lt;p&gt;&lt;a href=&quot;https://www.root-me.org/en/Challenges/Cracking/PE-DotNet-0-protection&quot;&gt;https://www.root-me.org/en/Challenges/Cracking/PE-DotNet-0-protection&lt;/a&gt;&lt;/p&gt;</summary>
-    
-    
-    
-    
-    <category term="RCE" scheme="http://finsenty54.github.io/tags/RCE/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>逆向工程核心原理_little_summary</title>
-    <link href="http://finsenty54.github.io/2020/10/06/%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86_little_summary/"/>
-    <id>http://finsenty54.github.io/2020/10/06/%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86_little_summary/</id>
-    <published>2020-10-06T06:18:05.000Z</published>
-    <updated>2020-10-31T08:53:12.096Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="INT-和-IAT"><a href="#INT-和-IAT" class="headerlink" title="INT 和 IAT"></a>INT 和 IAT</h3><p>INT  是rva数组，INT表示数组首地址 数组元素是一个地址 指向由一个2字节ordinall地址和函数名称组成的结构体  第一个值地址指向第一个结构体</p><p>如果IAT存在于 选择头中IAT表明的地址中 相应没有写权限也没事</p><p>INT和IAT指向内容有时相同 表示地址肯定不同 因为保存在不同地址 所指内容相同</p><a id="more"></a><hr><h3 id="进程内存转储"><a href="#进程内存转储" class="headerlink" title="进程内存转储"></a>进程内存转储</h3><p>OLLYGDB插件？？ dump命令<br>是解压缩运行时，将内存转为文件，方便查看</p><hr><h3 id="代码注入"><a href="#代码注入" class="headerlink" title="代码注入"></a>代码注入</h3><p>使用CALL指令将接下来的在代码间的字符串数据地址压入栈，然后直接接下来运行命令</p><p>CALL EAX<br>EAX保存函数地址<br>32位保存返回内容</p><hr><h3 id="top-命令-linux"><a href="#top-命令-linux" class="headerlink" title="top 命令 (linux)"></a>top 命令 (linux)</h3><p>查看 CPU 时间在 User space 与 Kernel Space 之间的分配情况</p><hr><h3 id="SEH链"><a href="#SEH链" class="headerlink" title="SEH链"></a>SEH链</h3><p>ollydbg VIEW-SEH CHAIN</p><hr><h3 id="API钩取"><a href="#API钩取" class="headerlink" title="API钩取"></a>API钩取</h3><p>windows 中内核模式所有代码共用一个虚拟空间地址，用API传<br>e1 = 9Fh =&gt; 0fh*2^7 = 780h</p><p>使用常规系统资源的API会经由kernel32.dll和ntdll.dll不断向下调用，最后经由SYSENTER命令进入内核模式</p><p><img src="https://s1.ax1x.com/2020/10/06/0N35f1.png" alt="0N35f1.png"></p><hr><p><img src="https://s1.ax1x.com/2020/10/06/0N3vtA.png" alt="0N3vtA.png"></p><hr><h3 id="动态方法常用-调试和注入"><a href="#动态方法常用-调试和注入" class="headerlink" title="动态方法常用 调试和注入"></a>动态方法常用 调试和注入</h3><h4 id="方法1：调试"><a href="#方法1：调试" class="headerlink" title="方法1：调试"></a>方法1：调试</h4><p>异常必须处理为EXCEPTION_BREAKPOINT 汇编指令为int 3 IA-32指令为0xCC </p><p>用异常获取API的控制</p><p>线程上下文，（执行完一个线程时间片，执行另一个），也就是各个寄存器信息，保存在CONTEXT结构体中。</p><p>CONTEXT.esp</p><p>api钩取 获取某个API的控制权</p><h4 id="方法2：DLL注入"><a href="#方法2：DLL注入" class="headerlink" title="方法2：DLL注入"></a>方法2：DLL注入</h4><p>setwindowstextA 表示ASCII<br>setwindowstextW 表示宽字符 win中为Unicode码</p><h3 id="IAT钩取"><a href="#IAT钩取" class="headerlink" title="IAT钩取"></a>IAT钩取</h3><p>通过注入DLL，修改IAT中指向某API的地址改为指向自己API的地址，自己的函数再去调用某API，来达到修改的目的</p><hr><h3 id="搜索API"><a href="#搜索API" class="headerlink" title="搜索API"></a>搜索API</h3><p><strong>在用ollydng进行内部模块call 搜索时，先选取对的模块。右键-select moudle</strong><br>在用ollydbg 中<code> search for name</code>命令</p><hr><h3 id="API代码修改"><a href="#API代码修改" class="headerlink" title="API代码修改"></a>API代码修改</h3><p>将API头五个字节 修改 为JMP XXXXXXXX<br>即跳转到注入的函数中</p><p>通过将ntdll.ZwQuerySystemInformation() 函数形成的链表中删除进程信息即可做到隐藏相关进程。</p><h3 id="全局API钩取"><a href="#全局API钩取" class="headerlink" title="全局API钩取"></a>全局API钩取</h3><p>通过修改ntdll.ZwResumeThread() API</p><h3 id="热补丁-hot-patch"><a href="#热补丁-hot-patch" class="headerlink" title="热补丁 hot patch"></a>热补丁 hot patch</h3><p>修改7字节代码<br>1.二次跳转<br>两字节跳到指令上面，用五字节跳到自己的函数地址<br>2.不用脱钩，地址+2字节，就可正常运行</p><p>ia-32 E9 表示far jmp 五字节。<br><code>E9 XXXXXXXX=要跳转的地址-当前指令地址-当前指令长度（5）</code></p><p>EB 表示 short jmp 两字节<br>依托当前EIP 在-128~127范围间跳转<br><code>XX=要跳转的地址-当前指令地址-当前指令长度（2）</code></p>]]></content>
-    
-    
-    <summary type="html">&lt;h3 id=&quot;INT-和-IAT&quot;&gt;&lt;a href=&quot;#INT-和-IAT&quot; class=&quot;headerlink&quot; title=&quot;INT 和 IAT&quot;&gt;&lt;/a&gt;INT 和 IAT&lt;/h3&gt;&lt;p&gt;INT  是rva数组，INT表示数组首地址 数组元素是一个地址 指向由一个2字节ordinall地址和函数名称组成的结构体  第一个值地址指向第一个结构体&lt;/p&gt;
-&lt;p&gt;如果IAT存在于 选择头中IAT表明的地址中 相应没有写权限也没事&lt;/p&gt;
-&lt;p&gt;INT和IAT指向内容有时相同 表示地址肯定不同 因为保存在不同地址 所指内容相同&lt;/p&gt;</summary>
     
     
     

@@ -26,21 +26,23 @@
     var CONFIG = {"hostname":"finsenty54.github.io","root":"/","scheme":"Mist","version":"8.0.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
   </script>
 
-  <meta name="description" content="sudo add-apt-repository    “deb [arch&#x3D;amd64] https:&#x2F;&#x2F;download.docker.com&#x2F;linux&#x2F;ubuntu    $(lsb_release -cs)    stable” https:&#x2F;&#x2F;download.docker.com&#x2F;linux&#x2F;ubuntu&#x2F;dists&#x2F;bionic&#x2F;pool&#x2F;stable&#x2F;amd64&#x2F;">
+  <meta name="description" content="longest_substring_without_repeating_characters这题用到了哈希表 和 滑动窗口 滑动窗口：就是有两个变量分别指示 窗口的 头和尾，就可以任意改变这两个变量 哈希表：哈希表存着目前最长子组的值-地址对">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Docker学习笔记">
-<meta property="og:url" content="http://finsenty54.github.io/2019/03/15/Docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:title" content="leetcode longest_substring_without_repeating_characters">
+<meta property="og:url" content="http://finsenty54.github.io/2020/12/11/LEETCODE-longest_substring_without_repeating_characters/index.html">
 <meta property="og:site_name" content="FINSENTY54">
-<meta property="og:description" content="sudo add-apt-repository    “deb [arch&#x3D;amd64] https:&#x2F;&#x2F;download.docker.com&#x2F;linux&#x2F;ubuntu    $(lsb_release -cs)    stable” https:&#x2F;&#x2F;download.docker.com&#x2F;linux&#x2F;ubuntu&#x2F;dists&#x2F;bionic&#x2F;pool&#x2F;stable&#x2F;amd64&#x2F;">
+<meta property="og:description" content="longest_substring_without_repeating_characters这题用到了哈希表 和 滑动窗口 滑动窗口：就是有两个变量分别指示 窗口的 头和尾，就可以任意改变这两个变量 哈希表：哈希表存着目前最长子组的值-地址对">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2019-03-15T11:36:58.000Z">
-<meta property="article:modified_time" content="2020-10-31T08:53:12.112Z">
+<meta property="og:image" content="https://s3.ax1x.com/2020/12/11/rAyOUO.jpg">
+<meta property="article:published_time" content="2020-12-11T08:49:29.000Z">
+<meta property="article:modified_time" content="2020-12-11T08:51:36.726Z">
 <meta property="article:author" content="finsenty54">
-<meta property="article:tag" content="study">
+<meta property="article:tag" content="C++">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s3.ax1x.com/2020/12/11/rAyOUO.jpg">
 
 
-<link rel="canonical" href="http://finsenty54.github.io/2019/03/15/Docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+<link rel="canonical" href="http://finsenty54.github.io/2020/12/11/LEETCODE-longest_substring_without_repeating_characters/">
 
 
 <script class="page-configurations">
@@ -53,7 +55,7 @@
   };
 </script>
 
-  <title>Docker学习笔记 | FINSENTY54</title>
+  <title>leetcode longest_substring_without_repeating_characters | FINSENTY54</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-135283153-1"></script>
     <script>
@@ -217,7 +219,7 @@
 
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -229,6 +231,7 @@
 
       <!--noindex-->
       <section class="post-toc-wrap sidebar-panel">
+          <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#longest-substring-without-repeating-characters"><span class="nav-number">1.</span> <span class="nav-text">longest_substring_without_repeating_characters</span></a></li></ol></div>
       </section>
       <!--/noindex-->
 
@@ -307,7 +310,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://finsenty54.github.io/2019/03/15/Docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+    <link itemprop="mainEntityOfPage" href="http://finsenty54.github.io/2020/12/11/LEETCODE-longest_substring_without_repeating_characters/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="https://media.giphy.com/media/5xtDarHBDofiI04yE4U/giphy.gif">
@@ -323,7 +326,7 @@
     
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Docker学习笔记
+          leetcode longest_substring_without_repeating_characters
         </h1>
 
         <div class="post-meta-container">
@@ -333,19 +336,22 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
+      
 
-      <time title="创建时间：2019-03-15 19:36:58" itemprop="dateCreated datePublished" datetime="2019-03-15T19:36:58+08:00">2019-03-15</time>
+      <time title="创建时间：2020-12-11 16:49:29 / 修改时间：16:51:36" itemprop="dateCreated datePublished" datetime="2020-12-11T16:49:29+08:00">2020-12-11</time>
     </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2020-10-31 16:53:12" itemprop="dateModified" datetime="2020-10-31T16:53:12+08:00">2020-10-31</time>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
       </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/leetcode/" itemprop="url" rel="index"><span itemprop="name">leetcode</span></a>
+        </span>
+    </span>
 
   
-    <span id="/2019/03/15/Docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="post-meta-item leancloud_visitors" data-flag-title="Docker学习笔记" title="阅读次数">
+    <span id="/2020/12/11/LEETCODE-longest_substring_without_repeating_characters/" class="post-meta-item leancloud_visitors" data-flag-title="leetcode longest_substring_without_repeating_characters" title="阅读次数">
       <span class="post-meta-item-icon">
         <i class="far fa-eye"></i>
       </span>
@@ -360,8 +366,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2019/03/15/Docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/03/15/Docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" itemprop="commentCount"></span>
+    <a title="valine" href="/2020/12/11/LEETCODE-longest_substring_without_repeating_characters/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/12/11/LEETCODE-longest_substring_without_repeating_characters/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -373,7 +379,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>712</span>
+      <span>1k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -391,24 +397,13 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <p>sudo add-apt-repository <br>   “deb [arch=amd64] <a target="_blank" rel="noopener" href="https://download.docker.com/linux/ubuntu">https://download.docker.com/linux/ubuntu</a> <br>   $(lsb_release -cs) <br>   stable”</p>
-<p><a target="_blank" rel="noopener" href="https://download.docker.com/linux/ubuntu/dists/bionic/pool/stable/amd64/">https://download.docker.com/linux/ubuntu/dists/bionic/pool/stable/amd64/</a></p>
+        <h2 id="longest-substring-without-repeating-characters"><a href="#longest-substring-without-repeating-characters" class="headerlink" title="longest_substring_without_repeating_characters"></a>longest_substring_without_repeating_characters</h2><p>这题用到了哈希表 和 滑动窗口</p>
+<p>滑动窗口：<br>就是有两个变量分别指示 窗口的 头和尾，就可以任意改变这两个变量</p>
+<p>哈希表：<br>哈希表存着目前最长子组的值-地址对</p>
 <a id="more"></a>
 
-<p>配置完镜像源后，记得重启</p>
-<p>/bin/sh<br>/bin/bash<br>运行shell</p>
-<p>docker run –name mysql-data -p 3306:3306 -v /home/finsenty/Documents/mysqldata:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=”123456” -d mysql:5.7</p>
-<p>docker run -p 8888:5000 –name myfirstapp YOUR_USERNAME/myfirstapp</p>
-<ul>
-<li>Running on <a target="_blank" rel="noopener" href="http://0.0.0.0:5000/">http://0.0.0.0:5000/</a> (Press CTRL+C to quit)</li>
-</ul>
-<p> docker rm <code>docker ps -a -q</code></p>
-<p> docker rmi <code>docker images -q</code></p>
-<p> docker run -p 4000:80 –name py-http6 –link mariadb:mysql finsenty/http5</p>
-<p> mysql.connecter 查询后面带一个，</p>
-<p> -u “<a target="_blank" rel="noopener" href="http://192.168.160.1/sqltest/post.php&quot;">http://192.168.160.1/sqltest/post.php&quot;</a> –forms</p>
-<p> docker run -d -p 4000:80 –link mysql:mysql –name http6 finsenty/http5</p>
-<p>docker build -t finsenty/http5 .</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;unordered_map&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="comment">/* data */</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">   <span class="function"><span class="keyword">int</span> <span class="title">lengthOfLongestSubstring</span><span class="params">(<span class="built_in">string</span> s)</span></span>;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Solution::lengthOfLongestSubstring</span><span class="params">(<span class="built_in">string</span> s)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int32_t</span> begin=<span class="number">0</span>,end=<span class="number">0</span>,begin_new=<span class="number">0</span>;</span><br><span class="line">    <span class="built_in">unordered_map</span>&lt;<span class="keyword">char</span>,<span class="keyword">int</span>&gt; windows;</span><br><span class="line">    <span class="keyword">int</span> count=<span class="number">0</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">size_t</span> i = <span class="number">0</span>; i &lt; s.size(); i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">//windows.insert(make_pair(s[i],i));</span></span><br><span class="line">        <span class="keyword">if</span>(windows.count(s[end])==<span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            windows.insert(<span class="built_in">make_pair</span>(s[end],end));</span><br><span class="line">            end++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">//有重复值，那么获得目前的最大值</span></span><br><span class="line">            <span class="keyword">if</span> (end-begin&gt;count || count==<span class="number">0</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                count=end-begin;</span><br><span class="line">            &#125;</span><br><span class="line">            begin_new=windows[s[end]]+<span class="number">1</span>;</span><br><span class="line">            <span class="comment">//delete </span></span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">size_t</span> i = begin; i &lt; begin_new; i++)</span><br><span class="line">            &#123;</span><br><span class="line">                windows.erase(s[i]);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">//插入新的重复值</span></span><br><span class="line">            windows.insert(<span class="built_in">make_pair</span>(s[end],end));</span><br><span class="line">            end++;</span><br><span class="line">            begin=begin_new;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (end-begin&gt;count)</span><br><span class="line">    &#123;</span><br><span class="line">        count=end-begin;</span><br><span class="line">    &#125;    </span><br><span class="line">    <span class="keyword">return</span> count;  </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p><a target="_blank" rel="noopener" href="https://imgchr.com/i/rAyOUO"><img src="https://s3.ax1x.com/2020/12/11/rAyOUO.jpg" alt="rAyOUO.jpg"></a></p>
 
     </div>
 
@@ -426,7 +421,7 @@
   </li>
   <li class="post-copyright-link">
       <strong>本文链接：</strong>
-      <a href="http://finsenty54.github.io/2019/03/15/Docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="Docker学习笔记">http://finsenty54.github.io/2019/03/15/Docker学习笔记/</a>
+      <a href="http://finsenty54.github.io/2020/12/11/LEETCODE-longest_substring_without_repeating_characters/" title="leetcode longest_substring_without_repeating_characters">http://finsenty54.github.io/2020/12/11/LEETCODE-longest_substring_without_repeating_characters/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -453,19 +448,19 @@
     </div>
   </div>
 
+          <div class="post-tags">
+              <a href="/tags/C/" rel="tag"># C++</a>
+          </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2019/03/01/xss/" rel="prev" title="XSS 20关挑战">
-                  <i class="fa fa-chevron-left"></i> XSS 20关挑战
+                <a href="/2020/12/11/Stack_buffer_overflow_basic_3/" rel="prev" title="Stack buffer overflow basic 3">
+                  <i class="fa fa-chevron-left"></i> Stack buffer overflow basic 3
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2019/03/28/penetration-test-report-interpretation/" rel="next" title="penetration test report interpretation">
-                  penetration test report interpretation <i class="fa fa-chevron-right"></i>
-                </a>
             </div>
           </div>
     </footer>
@@ -599,7 +594,7 @@ NexT.utils.loadComments('#valine-comments', () => {
   NexT.utils.getScript('//cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', () => {
     new Valine(Object.assign({
       el  : '#valine-comments',
-      path: "/2019/03/15/Docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/",
+      path: "/2020/12/11/LEETCODE-longest_substring_without_repeating_characters/",
     }, {"enable":true,"appId":"3uGsbMNvxiG0LkbyciDSaxmY-MdYXbMMI","appKey":"1dU1y3SudPaV6pdTET96j5M2","placeholder":"欢迎交流讨论...","avatar":"mm","meta":["nick","mail","link"],"pageSize":10,"lang":"zh-cn","visitor":true,"comment_count":true,"recordIP":false,"serverURLs":null,"enableQQ":false,"requiredFields":[]}
     ));
   }, window.Valine);
