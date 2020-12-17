@@ -6,7 +6,7 @@
   <link href="http://finsenty54.github.io/atom.xml" rel="self"/>
   
   <link href="http://finsenty54.github.io/"/>
-  <updated>2020-12-11T08:51:36.726Z</updated>
+  <updated>2020-12-17T11:32:22.614Z</updated>
   <id>http://finsenty54.github.io/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>md5快速碰撞</title>
+    <link href="http://finsenty54.github.io/2020/12/17/md5%E5%BF%AB%E9%80%9F%E7%A2%B0%E6%92%9E/"/>
+    <id>http://finsenty54.github.io/2020/12/17/md5%E5%BF%AB%E9%80%9F%E7%A2%B0%E6%92%9E/</id>
+    <published>2020-12-17T11:31:08.000Z</published>
+    <updated>2020-12-17T11:32:22.614Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="md5快速碰撞"><a href="#md5快速碰撞" class="headerlink" title="md5快速碰撞"></a>md5快速碰撞</h1><p><a href="https://github.com/Finsenty54/fast_collision">https://github.com/Finsenty54/fast_collision</a></p><h2 id="C"><a href="#C" class="headerlink" title="C++"></a>C++</h2><h3 id="头文件"><a href="#头文件" class="headerlink" title="头文件"></a>头文件</h3><p><a href="https://www.runoob.com/w3cnote/cpp-header.html">https://www.runoob.com/w3cnote/cpp-header.html</a><br>C++ 语言支持”分别编译”（separatecompilation）。也就是说，一个程序所有的内容，可以分成不同的部分分别放在不同的 .cpp 文件里。.cpp 文件里的东西都是相对独立的，在编译（compile）时不需要与其他文件互通，只需要在编译成<code>目标文件</code>后再与其他的目标文件做一次<code>链接</code>（link）就行了。</p><h3 id="条件编译"><a href="#条件编译" class="headerlink" title="条件编译"></a>条件编译</h3><h3 id="boost安装"><a href="#boost安装" class="headerlink" title="boost安装"></a>boost安装</h3><p><code>./b2 install </code>后</p><p>执行<code>sudo ldconfig</code><br>运行程序后就能加载共享库</p><p><em>程序运行结果</em></p><pre><code>┌─[zentreisender@parrotos]─[~/Documents/essay!!!!!!!!!!/hash_collision/fast_collision]└──╼ $./first_try Generating first block: ........ 6.637388s wall, 6.620000s user + 0.000000s system = 6.620000s CPU (99.7%)</code></pre><hr><h3 id="查找后缀文件"><a href="#查找后缀文件" class="headerlink" title="查找后缀文件"></a>查找后缀文件</h3><pre><code>find -name &quot;*.txt&quot; | xargs rmxargs --helpUsage: xargs [OPTION]... COMMAND [INITIAL-ARGS]...</code></pre><hr><pre><code>find ./ -regextype posix-extended -regex &quot;.*\.(txt|bin)&quot; </code></pre><h3 id="vscodium调试"><a href="#vscodium调试" class="headerlink" title="vscodium调试"></a>vscodium调试</h3><p>注意在调试时需要在<code>makefile</code>文件中配置好debug（方法参考2.使用命令行调试大型程序部分），否则无法标记断点。</p><p><code>在生成对象文件时加 -g</code></p><h3 id="parrot-os安装中文输入法"><a href="#parrot-os安装中文输入法" class="headerlink" title="parrot os安装中文输入法"></a>parrot os安装中文输入法</h3><p><a href="https://parrotsec-cn.org/t/ibus-rime/3950">https://parrotsec-cn.org/t/ibus-rime/3950</a><br>ibus-rime</p><h3 id="函数常数是数组"><a href="#函数常数是数组" class="headerlink" title="函数常数是数组"></a>函数常数是数组</h3><p>C++ 传数组给一个函数，数组类型自动转换为指针类型，因而传的实际是地址。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;md5快速碰撞&quot;&gt;&lt;a href=&quot;#md5快速碰撞&quot; class=&quot;headerlink&quot; title=&quot;md5快速碰撞&quot;&gt;&lt;/a&gt;md5快速碰撞&lt;/h1&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/Finsenty54/fast_collis</summary>
+      
+    
+    
+    
+    <category term="HASH" scheme="http://finsenty54.github.io/categories/HASH/"/>
+    
+    
+    <category term="C++" scheme="http://finsenty54.github.io/tags/C/"/>
+    
+  </entry>
   
   <entry>
     <title>leetcode longest_substring_without_repeating_characters</title>
@@ -426,25 +450,6 @@ call    _strlen&lt;/code&gt;&lt;/pre&gt;</summary>
     
     
     <summary type="html">&lt;h2 id=&quot;ELF-x86-No-software-breakpoints&quot;&gt;&lt;a href=&quot;#ELF-x86-No-software-breakpoints&quot; class=&quot;headerlink&quot; title=&quot;ELF x86 - No software breakpoints&quot;&gt;&lt;/a&gt;ELF x86 - No software breakpoints&lt;/h2&gt;&lt;h3 id=&quot;看反汇编，大致了解过程&quot;&gt;&lt;a href=&quot;#看反汇编，大致了解过程&quot; class=&quot;headerlink&quot; title=&quot;看反汇编，大致了解过程&quot;&gt;&lt;/a&gt;看反汇编，大致了解过程&lt;/h3&gt;&lt;p&gt;这是众所周知的&lt;code&gt;反调试&lt;/code&gt;技术，它不能在应用程序本身中&lt;code&gt;放置任何软件断点&lt;/code&gt;。因为当我们在&lt;code&gt;用户模式&lt;/code&gt;应用程序中遇到&lt;code&gt;断点&lt;/code&gt;时，代码中将放入&lt;code&gt;0xCC（int3）&lt;/code&gt;，因此计算将是错误的，并将生成错误的&lt;code&gt;校验和&lt;/code&gt;.&lt;/p&gt;</summary>
-    
-    
-    
-    
-    <category term="RCE" scheme="http://finsenty54.github.io/tags/RCE/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>逆向_root_me_2</title>
-    <link href="http://finsenty54.github.io/2020/10/07/%E9%80%86%E5%90%91_root_me_2/"/>
-    <id>http://finsenty54.github.io/2020/10/07/%E9%80%86%E5%90%91_root_me_2/</id>
-    <published>2020-10-07T06:27:22.000Z</published>
-    <updated>2020-10-31T08:53:12.096Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="逆向-root-me"><a href="#逆向-root-me" class="headerlink" title="逆向 root_me"></a>逆向 root_me</h2><h3 id="PE-NET"><a href="#PE-NET" class="headerlink" title="PE .NET"></a>PE .NET</h3><p><a href="https://www.root-me.org/en/Challenges/Cracking/PE-DotNet-0-protection">https://www.root-me.org/en/Challenges/Cracking/PE-DotNet-0-protection</a></p><a id="more"></a><h3 id="MIPS-ELF-MIPS-Basic-Crackme"><a href="#MIPS-ELF-MIPS-Basic-Crackme" class="headerlink" title="MIPS. ELF MIPS - Basic Crackme"></a>MIPS. ELF MIPS - Basic Crackme</h3><p><a href="https://www.root-me.org/en/Challenges/Cracking/ELF-MIPS-Basic-Crackme">https://www.root-me.org/en/Challenges/Cracking/ELF-MIPS-Basic-Crackme</a></p><p>在MIPS架构中，“ $ ra”寄存器保存返回地址，类似于x86指令指针“ EIP”</p><h3 id="ELF-fake-instrucations"><a href="#ELF-fake-instrucations" class="headerlink" title="ELF  fake instrucations"></a>ELF  fake instrucations</h3><p><a href="https://www.root-me.org/en/Challenges/Cracking/ELF-x86-No-software-breakpoints">https://www.root-me.org/en/Challenges/Cracking/ELF-x86-No-software-breakpoints</a></p><pre><code>dis main  gdb-peda$ set disassembly-flavor intel //汇编用intel语言显示gdb-peda$ i r $edx //显示edx值ni //ni/si都是汇编级别的断点定位。si会进入汇编和C函数内部,ni不会//这两个命令（si/ni）所针对的是汇编指令，而s/n针对的是源代码</code></pre><p><code>jz</code> 表示当<code>zf =1 </code>时跳转，即结果为0跳转。<br><code>jnz</code> 即 <code>zf=0 </code>时跳转，即结果不为0 跳转。</p><pre><code>gdb-peda$ i r //全显示gdb-peda$ set $eax=0gdb-peda$ x/s $eax //查看寄存器指向的内容call WPA(&quot;toto&quot;, &quot;toto&quot;) //直接在gdb中运行命令？？</code></pre><h3 id="ELF-ptrace"><a href="#ELF-ptrace" class="headerlink" title="ELF ptrace"></a>ELF ptrace</h3><p><a href="https://www.root-me.org/en/Challenges/Cracking/ELF-x86-Ptrace">https://www.root-me.org/en/Challenges/Cracking/ELF-x86-Ptrace</a></p><p><em>Load the application into <code>IDA pro</code>,search main function,press <code>F5 </code>to disassemble it,get the code below:</em><br><code>IDA 按F5 反编译 生成伪代码</code></p><hr><p><code>r2 -ww ./ch3.bin</code></p><pre><code> -w           open file in write mode ww foobar            write wide string &#39;f\x00o\x00o\x00b\x00a\x00r\x00&#39; wx 9090     write two intel nops</code></pre><p><code>[0x080482f0]&gt; wx eb @ 0x0804841A</code><br>Short Jump（短跳转）机器码 EB</p><p><code>pd N             disassemble N instructions</code></p><pre><code>gdb-peda$ i b set $al=$dl </code></pre>]]></content>
-    
-    
-    <summary type="html">&lt;h2 id=&quot;逆向-root-me&quot;&gt;&lt;a href=&quot;#逆向-root-me&quot; class=&quot;headerlink&quot; title=&quot;逆向 root_me&quot;&gt;&lt;/a&gt;逆向 root_me&lt;/h2&gt;&lt;h3 id=&quot;PE-NET&quot;&gt;&lt;a href=&quot;#PE-NET&quot; class=&quot;headerlink&quot; title=&quot;PE .NET&quot;&gt;&lt;/a&gt;PE .NET&lt;/h3&gt;&lt;p&gt;&lt;a href=&quot;https://www.root-me.org/en/Challenges/Cracking/PE-DotNet-0-protection&quot;&gt;https://www.root-me.org/en/Challenges/Cracking/PE-DotNet-0-protection&lt;/a&gt;&lt;/p&gt;</summary>
     
     
     
