@@ -153,17 +153,17 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">15</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">16</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">4</span></a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">5</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">66</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">67</span></a>
 
   </li>
         <li class="menu-item menu-item-sitemap">
@@ -242,20 +242,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">66</span>
+          <span class="site-state-item-count">67</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-count">5</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-count">16</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -300,6 +300,126 @@
       
 
       
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://finsenty54.github.io/2020/11/13/google_ctf2020_RCE-beginner/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://media.giphy.com/media/5xtDarHBDofiI04yE4U/giphy.gif">
+      <meta itemprop="name" content="finsenty54">
+      <meta itemprop="description" content="blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="FINSENTY54">
+    </span>
+
+    
+    
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/11/13/google_ctf2020_RCE-beginner/" class="post-title-link" itemprop="url">google_ctf2020_RCE-beginner</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2020-11-13 17:03:12 / 修改时间：17:04:49" itemprop="dateCreated datePublished" datetime="2020-11-13T17:03:12+08:00">2020-11-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/google-ctf/" itemprop="url" rel="index"><span itemprop="name">google_ctf</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/2020/11/13/google_ctf2020_RCE-beginner/" class="post-meta-item leancloud_visitors" data-flag-title="google_ctf2020_RCE-beginner" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/11/13/google_ctf2020_RCE-beginner/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/11/13/google_ctf2020_RCE-beginner/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>4.1k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>4 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="google-ctf"><a href="#google-ctf" class="headerlink" title="google_ctf"></a>google_ctf</h2><h3 id="RCE-beginner"><a href="#RCE-beginner" class="headerlink" title="RCE beginner"></a>RCE beginner</h3><p><strong>z3有用的链接：</strong></p>
+<ul>
+<li><a target="_blank" rel="noopener" href="http://z3prover.github.io/api/html/namespacez3py.html#nested-classes" title="z3 API ">z3 API </a></li>
+<li><a target="_blank" rel="noopener" href="https://arabelatso.github.io/2018/06/14/Z3%20API%20in%20Python/" title="z3 英语教程翻译">z3 英语教程翻译</a><br>（好多东西没说）
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/11/13/google_ctf2020_RCE-beginner/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -1348,120 +1468,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://finsenty54.github.io/2020/10/08/%E9%80%86%E5%90%91_root_me_3/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="https://media.giphy.com/media/5xtDarHBDofiI04yE4U/giphy.gif">
-      <meta itemprop="name" content="finsenty54">
-      <meta itemprop="description" content="blog">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="FINSENTY54">
-    </span>
-
-    
-    
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/10/08/%E9%80%86%E5%90%91_root_me_3/" class="post-title-link" itemprop="url">逆向_root_me_3</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2020-10-08 20:21:43" itemprop="dateCreated datePublished" datetime="2020-10-08T20:21:43+08:00">2020-10-08</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2020-10-31 16:53:12" itemprop="dateModified" datetime="2020-10-31T16:53:12+08:00">2020-10-31</time>
-      </span>
-
-  
-    <span id="/2020/10/08/%E9%80%86%E5%90%91_root_me_3/" class="post-meta-item leancloud_visitors" data-flag-title="逆向_root_me_3" title="阅读次数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-eye"></i>
-      </span>
-      <span class="post-meta-item-text">阅读次数：</span>
-      <span class="leancloud-visitors-count"></span>
-    </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2020/10/08/%E9%80%86%E5%90%91_root_me_3/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/10/08/%E9%80%86%E5%90%91_root_me_3/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-      </div>
-      <div class="post-meta">
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>1k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="ELF-x86-No-software-breakpoints"><a href="#ELF-x86-No-software-breakpoints" class="headerlink" title="ELF x86 - No software breakpoints"></a>ELF x86 - No software breakpoints</h2><h3 id="看反汇编，大致了解过程"><a href="#看反汇编，大致了解过程" class="headerlink" title="看反汇编，大致了解过程"></a>看反汇编，大致了解过程</h3><p>这是众所周知的<code>反调试</code>技术，它不能在应用程序本身中<code>放置任何软件断点</code>。因为当我们在<code>用户模式</code>应用程序中遇到<code>断点</code>时，代码中将放入<code>0xCC（int3）</code>，因此计算将是错误的，并将生成错误的<code>校验和</code>.</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/10/08/%E9%80%86%E5%90%91_root_me_3/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1518,14 +1524,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">181k</span>
+    <span title="站点总字数">183k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">2:45</span>
+    <span title="站点阅读时长">2:46</span>
   </span>
 </div>
 <div class="busuanzi-count">

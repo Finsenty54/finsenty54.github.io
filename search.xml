@@ -3597,6 +3597,7 @@ cat .passwd</code></pre>
     <url>/2020/12/17/md5%E5%BF%AB%E9%80%9F%E7%A2%B0%E6%92%9E/</url>
     <content><![CDATA[<h1 id="md5快速碰撞"><a href="#md5快速碰撞" class="headerlink" title="md5快速碰撞"></a>md5快速碰撞</h1><p><a href="https://github.com/Finsenty54/fast_collision">https://github.com/Finsenty54/fast_collision</a></p>
 <h2 id="C"><a href="#C" class="headerlink" title="C++"></a>C++</h2><h3 id="头文件"><a href="#头文件" class="headerlink" title="头文件"></a>头文件</h3><p><a href="https://www.runoob.com/w3cnote/cpp-header.html">https://www.runoob.com/w3cnote/cpp-header.html</a><br>C++ 语言支持”分别编译”（separatecompilation）。也就是说，一个程序所有的内容，可以分成不同的部分分别放在不同的 .cpp 文件里。.cpp 文件里的东西都是相对独立的，在编译（compile）时不需要与其他文件互通，只需要在编译成<code>目标文件</code>后再与其他的目标文件做一次<code>链接</code>（link）就行了。</p>
+<a id="more"></a>
 <h3 id="条件编译"><a href="#条件编译" class="headerlink" title="条件编译"></a>条件编译</h3><h3 id="boost安装"><a href="#boost安装" class="headerlink" title="boost安装"></a>boost安装</h3><p><code>./b2 install </code>后</p>
 <p>执行<code>sudo ldconfig</code><br>运行程序后就能加载共享库</p>
 <p><em>程序运行结果</em></p>
@@ -3619,6 +3620,38 @@ Usage: xargs [OPTION]... COMMAND [INITIAL-ARGS]...</code></pre>
       </categories>
       <tags>
         <tag>C++</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>web-server前四题</title>
+    <url>/2020/12/20/web-server-front-4/</url>
+    <content><![CDATA[<h1 id="Weak-password"><a href="#Weak-password" class="headerlink" title="Weak password"></a>Weak password</h1><h2 id="tNikto"><a href="#tNikto" class="headerlink" title="tNikto"></a>tNikto</h2><p>Nikto是一款开源的（GPL）网页服务器扫描器，它可以对网页服务器进行全面的多种扫描，包含超过3300种有潜在危险的文件／CGIs；超过625种服务器版本；超过230种特定服务器问题。</p>
+<p><code>nikto -host http://challenge01.root-me.org/web-serveur/ch3/</code></p>
+<a id="more"></a>
+<hr>
+<h2 id="nmap"><a href="#nmap" class="headerlink" title="nmap"></a>nmap</h2><p><code>nmap -d -vv -p 80 --script http-brute --script-args http-brute.path=/web-serveur/ch3/ challenge01.root-me.org</code></p>
+<pre><code>-d: Increase debugging level
+-v: Increase verbosity level (use -vv or more for greater effect)
+--script=&lt;Lua scripts&gt;: &lt;Lua scripts&gt; is a comma separated list of directories, script-files or script-categories
+--script-args=&lt;n1=v1,[n2=v2,...]&gt;: provide arguments to scripts</code></pre>
+<hr>
+<h2 id="hydra"><a href="#hydra" class="headerlink" title="hydra"></a>hydra</h2><p><code>hydra -L userList.txt -P passwordsList.txt 212.129.38.224 http-head /web-serveur/ch3/ </code> </p>
+<pre><code>- users list inspired by http://blog.infowebmaster.fr/public/resource/wordpress-brute-force-login-a-eviter.txt
+- passwords list downloaded from http://blog.teckn0.com/wp-content/uploads/brute_force/Liste_mot_%20anglais.7z</code></pre>
+<h1 id="user-agent"><a href="#user-agent" class="headerlink" title="user-agent"></a>user-agent</h1><p><code>curl -L -A &quot;admin&quot; challenge01.root-me.org/web-serveur/ch2</code><br>     -A, –user-agent <name> Send User-Agent <name> to server<br>    -L, –location      Follow redirects</p>
+<hr>
+<h2 id="python"><a href="#python" class="headerlink" title="python"></a>python</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line">resp = requests.get(<span class="string">&#x27;http://challenge01.root-me.org/web-serveur/ch2/&#x27;</span>, headers=&#123;<span class="string">&#x27;User-Agent&#x27;</span>: <span class="string">&#x27;Admin&#x27;</span>&#125;) </span><br><span class="line"><span class="built_in">print</span> resp.text</span><br></pre></td></tr></table></figure>
+
+<h1 id="HTTP-open-redirt"><a href="#HTTP-open-redirt" class="headerlink" title="HTTP open redirt"></a>HTTP open redirt</h1><h2 id="hash-identifier"><a href="#hash-identifier" class="headerlink" title="hash-identifier"></a>hash-identifier</h2><hr>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="number">1.</span> Select a domain to <span class="built_in">hash</span> <span class="keyword">not</span> listed <span class="keyword">in</span> the page, like: https://google.com</span><br><span class="line"><span class="number">2.</span> Hash the string domain here <span class="keyword">or</span> another: http://www.fileformat.info/tool/<span class="built_in">hash</span>.htm</span><br><span class="line">3. Construct the url like this and press enter: http://challenge01.root-me.org/web-serveur/ch52/?url=##DOMAIN##&amp;h=##HASH##</span><br><span class="line"><span class="number">4.</span> When new page <span class="keyword">is</span> loading, you can see the flag, stop the redirection pressing escape <span class="keyword">and</span> copy it.</span><br></pre></td></tr></table></figure>
+
+
+]]></content>
+      <categories>
+        <category>web-server in root me</category>
+      </categories>
+      <tags>
+        <tag>web</tag>
       </tags>
   </entry>
 </search>

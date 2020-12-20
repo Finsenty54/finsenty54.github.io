@@ -6,7 +6,7 @@
   <link href="http://finsenty54.github.io/atom.xml" rel="self"/>
   
   <link href="http://finsenty54.github.io/"/>
-  <updated>2020-12-17T11:32:22.614Z</updated>
+  <updated>2020-12-20T05:43:03.593Z</updated>
   <id>http://finsenty54.github.io/</id>
   
   <author>
@@ -17,19 +17,39 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>web-server前四题</title>
+    <link href="http://finsenty54.github.io/2020/12/20/web-server-front-4/"/>
+    <id>http://finsenty54.github.io/2020/12/20/web-server-front-4/</id>
+    <published>2020-12-20T05:41:40.000Z</published>
+    <updated>2020-12-20T05:43:03.593Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="Weak-password"><a href="#Weak-password" class="headerlink" title="Weak password"></a>Weak password</h1><h2 id="tNikto"><a href="#tNikto" class="headerlink" title="tNikto"></a>tNikto</h2><p>Nikto是一款开源的（GPL）网页服务器扫描器，它可以对网页服务器进行全面的多种扫描，包含超过3300种有潜在危险的文件／CGIs；超过625种服务器版本；超过230种特定服务器问题。</p><p><code>nikto -host http://challenge01.root-me.org/web-serveur/ch3/</code></p><a id="more"></a><hr><h2 id="nmap"><a href="#nmap" class="headerlink" title="nmap"></a>nmap</h2><p><code>nmap -d -vv -p 80 --script http-brute --script-args http-brute.path=/web-serveur/ch3/ challenge01.root-me.org</code></p><pre><code>-d: Increase debugging level-v: Increase verbosity level (use -vv or more for greater effect)--script=&lt;Lua scripts&gt;: &lt;Lua scripts&gt; is a comma separated list of directories, script-files or script-categories--script-args=&lt;n1=v1,[n2=v2,...]&gt;: provide arguments to scripts</code></pre><hr><h2 id="hydra"><a href="#hydra" class="headerlink" title="hydra"></a>hydra</h2><p><code>hydra -L userList.txt -P passwordsList.txt 212.129.38.224 http-head /web-serveur/ch3/ </code> </p><pre><code>- users list inspired by http://blog.infowebmaster.fr/public/resource/wordpress-brute-force-login-a-eviter.txt- passwords list downloaded from http://blog.teckn0.com/wp-content/uploads/brute_force/Liste_mot_%20anglais.7z</code></pre><h1 id="user-agent"><a href="#user-agent" class="headerlink" title="user-agent"></a>user-agent</h1><p><code>curl -L -A &quot;admin&quot; challenge01.root-me.org/web-serveur/ch2</code><br>     -A, –user-agent <name> Send User-Agent <name> to server<br>    -L, –location      Follow redirects</p><hr><h2 id="python"><a href="#python" class="headerlink" title="python"></a>python</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line">resp = requests.get(<span class="string">&#x27;http://challenge01.root-me.org/web-serveur/ch2/&#x27;</span>, headers=&#123;<span class="string">&#x27;User-Agent&#x27;</span>: <span class="string">&#x27;Admin&#x27;</span>&#125;) </span><br><span class="line"><span class="built_in">print</span> resp.text</span><br></pre></td></tr></table></figure><h1 id="HTTP-open-redirt"><a href="#HTTP-open-redirt" class="headerlink" title="HTTP open redirt"></a>HTTP open redirt</h1><h2 id="hash-identifier"><a href="#hash-identifier" class="headerlink" title="hash-identifier"></a>hash-identifier</h2><hr><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span> Select a domain to <span class="built_in">hash</span> <span class="keyword">not</span> listed <span class="keyword">in</span> the page, like: https://google.com</span><br><span class="line"><span class="number">2.</span> Hash the string domain here <span class="keyword">or</span> another: http://www.fileformat.info/tool/<span class="built_in">hash</span>.htm</span><br><span class="line">3. Construct the url like this and press enter: http://challenge01.root-me.org/web-serveur/ch52/?url=##DOMAIN##&amp;h=##HASH##</span><br><span class="line"><span class="number">4.</span> When new page <span class="keyword">is</span> loading, you can see the flag, stop the redirection pressing escape <span class="keyword">and</span> copy it.</span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;Weak-password&quot;&gt;&lt;a href=&quot;#Weak-password&quot; class=&quot;headerlink&quot; title=&quot;Weak password&quot;&gt;&lt;/a&gt;Weak password&lt;/h1&gt;&lt;h2 id=&quot;tNikto&quot;&gt;&lt;a href=&quot;#tNikto&quot; class=&quot;headerlink&quot; title=&quot;tNikto&quot;&gt;&lt;/a&gt;tNikto&lt;/h2&gt;&lt;p&gt;Nikto是一款开源的（GPL）网页服务器扫描器，它可以对网页服务器进行全面的多种扫描，包含超过3300种有潜在危险的文件／CGIs；超过625种服务器版本；超过230种特定服务器问题。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;nikto -host http://challenge01.root-me.org/web-serveur/ch3/&lt;/code&gt;&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="web-server in root me" scheme="http://finsenty54.github.io/categories/web-server-in-root-me/"/>
+    
+    
+    <category term="web" scheme="http://finsenty54.github.io/tags/web/"/>
+    
+  </entry>
+  
+  <entry>
     <title>md5快速碰撞</title>
     <link href="http://finsenty54.github.io/2020/12/17/md5%E5%BF%AB%E9%80%9F%E7%A2%B0%E6%92%9E/"/>
     <id>http://finsenty54.github.io/2020/12/17/md5%E5%BF%AB%E9%80%9F%E7%A2%B0%E6%92%9E/</id>
     <published>2020-12-17T11:31:08.000Z</published>
-    <updated>2020-12-17T11:32:22.614Z</updated>
+    <updated>2020-12-17T11:45:13.030Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="md5快速碰撞"><a href="#md5快速碰撞" class="headerlink" title="md5快速碰撞"></a>md5快速碰撞</h1><p><a href="https://github.com/Finsenty54/fast_collision">https://github.com/Finsenty54/fast_collision</a></p><h2 id="C"><a href="#C" class="headerlink" title="C++"></a>C++</h2><h3 id="头文件"><a href="#头文件" class="headerlink" title="头文件"></a>头文件</h3><p><a href="https://www.runoob.com/w3cnote/cpp-header.html">https://www.runoob.com/w3cnote/cpp-header.html</a><br>C++ 语言支持”分别编译”（separatecompilation）。也就是说，一个程序所有的内容，可以分成不同的部分分别放在不同的 .cpp 文件里。.cpp 文件里的东西都是相对独立的，在编译（compile）时不需要与其他文件互通，只需要在编译成<code>目标文件</code>后再与其他的目标文件做一次<code>链接</code>（link）就行了。</p><h3 id="条件编译"><a href="#条件编译" class="headerlink" title="条件编译"></a>条件编译</h3><h3 id="boost安装"><a href="#boost安装" class="headerlink" title="boost安装"></a>boost安装</h3><p><code>./b2 install </code>后</p><p>执行<code>sudo ldconfig</code><br>运行程序后就能加载共享库</p><p><em>程序运行结果</em></p><pre><code>┌─[zentreisender@parrotos]─[~/Documents/essay!!!!!!!!!!/hash_collision/fast_collision]└──╼ $./first_try Generating first block: ........ 6.637388s wall, 6.620000s user + 0.000000s system = 6.620000s CPU (99.7%)</code></pre><hr><h3 id="查找后缀文件"><a href="#查找后缀文件" class="headerlink" title="查找后缀文件"></a>查找后缀文件</h3><pre><code>find -name &quot;*.txt&quot; | xargs rmxargs --helpUsage: xargs [OPTION]... COMMAND [INITIAL-ARGS]...</code></pre><hr><pre><code>find ./ -regextype posix-extended -regex &quot;.*\.(txt|bin)&quot; </code></pre><h3 id="vscodium调试"><a href="#vscodium调试" class="headerlink" title="vscodium调试"></a>vscodium调试</h3><p>注意在调试时需要在<code>makefile</code>文件中配置好debug（方法参考2.使用命令行调试大型程序部分），否则无法标记断点。</p><p><code>在生成对象文件时加 -g</code></p><h3 id="parrot-os安装中文输入法"><a href="#parrot-os安装中文输入法" class="headerlink" title="parrot os安装中文输入法"></a>parrot os安装中文输入法</h3><p><a href="https://parrotsec-cn.org/t/ibus-rime/3950">https://parrotsec-cn.org/t/ibus-rime/3950</a><br>ibus-rime</p><h3 id="函数常数是数组"><a href="#函数常数是数组" class="headerlink" title="函数常数是数组"></a>函数常数是数组</h3><p>C++ 传数组给一个函数，数组类型自动转换为指针类型，因而传的实际是地址。</p>]]></content>
+    <content type="html"><![CDATA[<h1 id="md5快速碰撞"><a href="#md5快速碰撞" class="headerlink" title="md5快速碰撞"></a>md5快速碰撞</h1><p><a href="https://github.com/Finsenty54/fast_collision">https://github.com/Finsenty54/fast_collision</a></p><h2 id="C"><a href="#C" class="headerlink" title="C++"></a>C++</h2><h3 id="头文件"><a href="#头文件" class="headerlink" title="头文件"></a>头文件</h3><p><a href="https://www.runoob.com/w3cnote/cpp-header.html">https://www.runoob.com/w3cnote/cpp-header.html</a><br>C++ 语言支持”分别编译”（separatecompilation）。也就是说，一个程序所有的内容，可以分成不同的部分分别放在不同的 .cpp 文件里。.cpp 文件里的东西都是相对独立的，在编译（compile）时不需要与其他文件互通，只需要在编译成<code>目标文件</code>后再与其他的目标文件做一次<code>链接</code>（link）就行了。</p><a id="more"></a><h3 id="条件编译"><a href="#条件编译" class="headerlink" title="条件编译"></a>条件编译</h3><h3 id="boost安装"><a href="#boost安装" class="headerlink" title="boost安装"></a>boost安装</h3><p><code>./b2 install </code>后</p><p>执行<code>sudo ldconfig</code><br>运行程序后就能加载共享库</p><p><em>程序运行结果</em></p><pre><code>┌─[zentreisender@parrotos]─[~/Documents/essay!!!!!!!!!!/hash_collision/fast_collision]└──╼ $./first_try Generating first block: ........ 6.637388s wall, 6.620000s user + 0.000000s system = 6.620000s CPU (99.7%)</code></pre><hr><h3 id="查找后缀文件"><a href="#查找后缀文件" class="headerlink" title="查找后缀文件"></a>查找后缀文件</h3><pre><code>find -name &quot;*.txt&quot; | xargs rmxargs --helpUsage: xargs [OPTION]... COMMAND [INITIAL-ARGS]...</code></pre><hr><pre><code>find ./ -regextype posix-extended -regex &quot;.*\.(txt|bin)&quot; </code></pre><h3 id="vscodium调试"><a href="#vscodium调试" class="headerlink" title="vscodium调试"></a>vscodium调试</h3><p>注意在调试时需要在<code>makefile</code>文件中配置好debug（方法参考2.使用命令行调试大型程序部分），否则无法标记断点。</p><p><code>在生成对象文件时加 -g</code></p><h3 id="parrot-os安装中文输入法"><a href="#parrot-os安装中文输入法" class="headerlink" title="parrot os安装中文输入法"></a>parrot os安装中文输入法</h3><p><a href="https://parrotsec-cn.org/t/ibus-rime/3950">https://parrotsec-cn.org/t/ibus-rime/3950</a><br>ibus-rime</p><h3 id="函数常数是数组"><a href="#函数常数是数组" class="headerlink" title="函数常数是数组"></a>函数常数是数组</h3><p>C++ 传数组给一个函数，数组类型自动转换为指针类型，因而传的实际是地址。</p>]]></content>
     
     
-      
-      
-    <summary type="html">&lt;h1 id=&quot;md5快速碰撞&quot;&gt;&lt;a href=&quot;#md5快速碰撞&quot; class=&quot;headerlink&quot; title=&quot;md5快速碰撞&quot;&gt;&lt;/a&gt;md5快速碰撞&lt;/h1&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/Finsenty54/fast_collis</summary>
-      
+    <summary type="html">&lt;h1 id=&quot;md5快速碰撞&quot;&gt;&lt;a href=&quot;#md5快速碰撞&quot; class=&quot;headerlink&quot; title=&quot;md5快速碰撞&quot;&gt;&lt;/a&gt;md5快速碰撞&lt;/h1&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/Finsenty54/fast_collision&quot;&gt;https://github.com/Finsenty54/fast_collision&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;C&quot;&gt;&lt;a href=&quot;#C&quot; class=&quot;headerlink&quot; title=&quot;C++&quot;&gt;&lt;/a&gt;C++&lt;/h2&gt;&lt;h3 id=&quot;头文件&quot;&gt;&lt;a href=&quot;#头文件&quot; class=&quot;headerlink&quot; title=&quot;头文件&quot;&gt;&lt;/a&gt;头文件&lt;/h3&gt;&lt;p&gt;&lt;a href=&quot;https://www.runoob.com/w3cnote/cpp-header.html&quot;&gt;https://www.runoob.com/w3cnote/cpp-header.html&lt;/a&gt;&lt;br&gt;C++ 语言支持”分别编译”（separatecompilation）。也就是说，一个程序所有的内容，可以分成不同的部分分别放在不同的 .cpp 文件里。.cpp 文件里的东西都是相对独立的，在编译（compile）时不需要与其他文件互通，只需要在编译成&lt;code&gt;目标文件&lt;/code&gt;后再与其他的目标文件做一次&lt;code&gt;链接&lt;/code&gt;（link）就行了。&lt;/p&gt;</summary>
     
     
     
@@ -431,25 +451,6 @@ call    _strlen&lt;/code&gt;&lt;/pre&gt;</summary>
 &lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;使用&lt;code&gt;VV&lt;/code&gt;命令进入视图模式&lt;/p&gt;</summary>
-    
-    
-    
-    
-    <category term="RCE" scheme="http://finsenty54.github.io/tags/RCE/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>逆向_root_me_3</title>
-    <link href="http://finsenty54.github.io/2020/10/08/%E9%80%86%E5%90%91_root_me_3/"/>
-    <id>http://finsenty54.github.io/2020/10/08/%E9%80%86%E5%90%91_root_me_3/</id>
-    <published>2020-10-08T12:21:43.000Z</published>
-    <updated>2020-10-31T08:53:12.096Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="ELF-x86-No-software-breakpoints"><a href="#ELF-x86-No-software-breakpoints" class="headerlink" title="ELF x86 - No software breakpoints"></a>ELF x86 - No software breakpoints</h2><h3 id="看反汇编，大致了解过程"><a href="#看反汇编，大致了解过程" class="headerlink" title="看反汇编，大致了解过程"></a>看反汇编，大致了解过程</h3><p>这是众所周知的<code>反调试</code>技术，它不能在应用程序本身中<code>放置任何软件断点</code>。因为当我们在<code>用户模式</code>应用程序中遇到<code>断点</code>时，代码中将放入<code>0xCC（int3）</code>，因此计算将是错误的，并将生成错误的<code>校验和</code>.</p><a id="more"></a><p>这是在ecx中计算一种散列值，它基于入口点的整个代码。如果我们对函数进行任何更改，值将不再相同，从而阻止我们编辑二进制文件.</p><p>计算整个<code>text 指令的和</code>，所以放入<code>0xCC</code>会 报错，也就是改变的指令。</p><hr><h3 id="移位运算符"><a href="#移位运算符" class="headerlink" title="移位运算符"></a>移位运算符</h3><p>a&lt;&lt;3<br><code>a的内容不改变</code></p><p><code>edx &amp; 0xff</code><br>取最后8位</p><hr><h3 id="g"><a href="#g" class="headerlink" title="g++"></a>g++</h3><pre><code>g++主要用来编译c++文件，g++编译c++文件是会连接libc++。gcc主要用来编译c文件，也可编译c++，但gcc编译c++文件默认不连接libc++。</code></pre><hr><h3 id="移位"><a href="#移位" class="headerlink" title="移位"></a>移位</h3><p>移位时，移出的位数全部丢弃，移出的空位补入的数与左移还是右移有关。如果是<code>左移</code>，则规定补入的数全部是<code>0</code>；如果是<code>右移</code>，还与被移位的数据是否带<code>符号</code>有关。若是<code>不带符号数</code>，则补入的数全部为<code>0</code>；若是<code>带符号数</code>，则补入的数全部等于原数的最左端位上的原数(即<code>原符号位</code>)</p><hr><h3 id="命名空间"><a href="#命名空间" class="headerlink" title="命名空间"></a>命名空间</h3><p>引入了命名空间这个概念，它可作为<code>附加信息来区分</code>不同库中相同名称的函数、类、变量等。使用了命名空间即定义了上下文。本质上，命名空间就是定义了<code>一个范围</code>。</p><p>可以使用 <code>using namespace</code> 指令，这样在使用命名空间时就可以<code>不用在前面加上</code>命名空间的名称。这个指令会告诉编译器，后续的代码将使用指定的命名空间中的名称。</p><hr><h2 id="ELF-x86-CrackPass"><a href="#ELF-x86-CrackPass" class="headerlink" title="ELF x86 - CrackPass"></a>ELF x86 - CrackPass</h2><p><code>gdb-peda$ help x</code><br>Examine memory: x/FMT ADDRESS.</p><hr><p><code>gdb-peda$ print/t $ebx</code><br>二进制打印寄存器</p><hr><pre><code>set $ZF = 6set $eflags |= (1 &lt;&lt; $ZF)</code></pre><p>设定ZF值为1</p><hr><p><code>show</code></p><hr><p><code>where</code><br>显示当前位置</p><hr><p><code>MOVZX</code> 指令（进行全零扩展并传送）将源操作数复制到目的操作数，并把目的操作数 扩展到 16 位或 32 位。</p><hr><h3 id="r2-图形模式下，如何跳转和返回函数"><a href="#r2-图形模式下，如何跳转和返回函数" class="headerlink" title="r2 图形模式下，如何跳转和返回函数"></a>r2 图形模式下，如何跳转和返回函数</h3><p>图形模式下，按<code>o</code>进行跳转<br>按<code>u</code>返回上一个函数</p><hr><p>ff07031d6fb052490149f44b1d5e94f1592b6bac93c06ca9</p><p>25260060504_VE_T25_<em>t</em>_</p><hr><p><code>Usage: jump LOCATION</code><br>Give as argument either LINENUM or *ADDR, where ADDR is an express</p>]]></content>
-    
-    
-    <summary type="html">&lt;h2 id=&quot;ELF-x86-No-software-breakpoints&quot;&gt;&lt;a href=&quot;#ELF-x86-No-software-breakpoints&quot; class=&quot;headerlink&quot; title=&quot;ELF x86 - No software breakpoints&quot;&gt;&lt;/a&gt;ELF x86 - No software breakpoints&lt;/h2&gt;&lt;h3 id=&quot;看反汇编，大致了解过程&quot;&gt;&lt;a href=&quot;#看反汇编，大致了解过程&quot; class=&quot;headerlink&quot; title=&quot;看反汇编，大致了解过程&quot;&gt;&lt;/a&gt;看反汇编，大致了解过程&lt;/h3&gt;&lt;p&gt;这是众所周知的&lt;code&gt;反调试&lt;/code&gt;技术，它不能在应用程序本身中&lt;code&gt;放置任何软件断点&lt;/code&gt;。因为当我们在&lt;code&gt;用户模式&lt;/code&gt;应用程序中遇到&lt;code&gt;断点&lt;/code&gt;时，代码中将放入&lt;code&gt;0xCC（int3）&lt;/code&gt;，因此计算将是错误的，并将生成错误的&lt;code&gt;校验和&lt;/code&gt;.&lt;/p&gt;</summary>
     
     
     
