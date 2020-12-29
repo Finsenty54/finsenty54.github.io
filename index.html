@@ -163,7 +163,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">68</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">69</span></a>
 
   </li>
         <li class="menu-item menu-item-sitemap">
@@ -242,7 +242,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">68</span>
+          <span class="site-state-item-count">69</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -300,6 +300,144 @@
       
 
       
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://finsenty54.github.io/2020/12/29/stack_buffer_overflow_basic_4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://media.giphy.com/media/5xtDarHBDofiI04yE4U/giphy.gif">
+      <meta itemprop="name" content="finsenty54">
+      <meta itemprop="description" content="blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="FINSENTY54">
+    </span>
+
+    
+    
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/12/29/stack_buffer_overflow_basic_4/" class="post-title-link" itemprop="url">ELF x86 - stack buffer overflow basic 4</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2020-12-29 21:26:05 / 修改时间：21:27:04" itemprop="dateCreated datePublished" datetime="2020-12-29T21:26:05+08:00">2020-12-29</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/APP-system-in-root-me/" itemprop="url" rel="index"><span itemprop="name">APP system in root_me</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/2020/12/29/stack_buffer_overflow_basic_4/" class="post-meta-item leancloud_visitors" data-flag-title="ELF x86 - stack buffer overflow basic 4" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/12/29/stack_buffer_overflow_basic_4/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/12/29/stack_buffer_overflow_basic_4/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>3.3k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>3 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="ELF-x86-stack-buffer-overflow-basic-4"><a href="#ELF-x86-stack-buffer-overflow-basic-4" class="headerlink" title="ELF x86 - stack buffer overflow basic 4"></a>ELF x86 - stack buffer overflow basic 4</h1><p>参考: </p>
+<ol>
+<li><a target="_blank" rel="noopener" href="https://github.com/s1syphu5/RootMe-Challenges/tree/master/System/ELF%20x86%20-%20Stack%20buffer%20overflow%20basic%204">https://github.com/s1syphu5/RootMe-Challenges/tree/master/System/ELF%20x86%20-%20Stack%20buffer%20overflow%20basic%204</a></li>
+<li><a target="_blank" rel="noopener" href="https://gitlab.com/rsheasby/root-me-app-system/-/blob/master/09.%20ELF%20x86%20-%20Stack%20buffer%20overflow%20basic%204/instructions.md">https://gitlab.com/rsheasby/root-me-app-system/-/blob/master/09.%20ELF%20x86%20-%20Stack%20buffer%20overflow%20basic%204/instructions.md</a></li>
+<li><a target="_blank" rel="noopener" href="http://showlinkroom.me/2017/12/04/Root-me-App-System02/">http://showlinkroom.me/2017/12/04/Root-me-App-System02/</a></li>
+</ol>
+<h2 id="逆向"><a href="#逆向" class="headerlink" title="逆向"></a>逆向</h2><p><code>struct EnvInfo GetEnv(void)&#123;&#125;</code> 中有<code>strcpy()</code>函数，存在溢出点。</p>
+<pre><code>            +----------------------------+
+            |      HOME env variable     |     %ebp - 540
+            +----------------------------+
+            |    USERNAME env variable   |     %ebp - 412
+            +----------------------------+
+            |      SHELL env variable    |     %ebp - 284
+            +----------------------------+
+            |      PATH env variable     |     %ebp - 156
+            +----------------------------+
+            |           saved ebp        |
+            +----------------------------+
+            |        return address      |     %ebp + 4
+            +----------------------------+
+            |   rep movsl dest. address  |     %ebp + 8
+            +----------------------------+  </code></pre>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/12/29/stack_buffer_overflow_basic_4/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -1376,130 +1514,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://finsenty54.github.io/2020/11/17/Format_string_bug_basic%201/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="https://media.giphy.com/media/5xtDarHBDofiI04yE4U/giphy.gif">
-      <meta itemprop="name" content="finsenty54">
-      <meta itemprop="description" content="blog">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="FINSENTY54">
-    </span>
-
-    
-    
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/11/17/Format_string_bug_basic%201/" class="post-title-link" itemprop="url">Format string bug basic 1</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
-
-      <time title="创建时间：2020-11-17 16:00:33 / 修改时间：16:01:53" itemprop="dateCreated datePublished" datetime="2020-11-17T16:00:33+08:00">2020-11-17</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/APP-system-in-root-me/" itemprop="url" rel="index"><span itemprop="name">APP system in root_me</span></a>
-        </span>
-    </span>
-
-  
-    <span id="/2020/11/17/Format_string_bug_basic%201/" class="post-meta-item leancloud_visitors" data-flag-title="Format string bug basic 1" title="阅读次数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-eye"></i>
-      </span>
-      <span class="post-meta-item-text">阅读次数：</span>
-      <span class="leancloud-visitors-count"></span>
-    </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2020/11/17/Format_string_bug_basic%201/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/11/17/Format_string_bug_basic%201/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-      </div>
-      <div class="post-meta">
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>3.3k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>3 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>Z3::  big 表示大端序 即末尾放在高地址处 即顺序保持不变<br>地址：0x804810: – : 0x804820</p>
-<h2 id="Exploit-writing-tutorial-part-1-Stack-Based-Overflows"><a href="#Exploit-writing-tutorial-part-1-Stack-Based-Overflows" class="headerlink" title="Exploit writing tutorial part 1 : Stack Based Overflows"></a><a target="_blank" rel="noopener" href="https://www.corelan.be/index.php/2009/07/19/exploit-writing-tutorial-part-1-stack-based-overflows/" title="Exploit writing tutorial part 1 : Stack Based Overflows">Exploit writing tutorial part 1 : Stack Based Overflows</a></h2><p><code>ax</code> 16位<br><code>al</code> 8位</p>
-<pre><code>mov     rax, [rbp+var_E0] ；rax=0xc8    0xdf    0xff    0xff    0xff    0x7f
-mov     rax, [rax] ; rax=0x7fffffffe2f4
-mov     [rbp+input], rax ;
-mov     rax, [rbp+input] ; rax=0x7fffffffe2f4
-mov     rdi, rax        ; s
-call    _strlen</code></pre>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/11/17/Format_string_bug_basic%201/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1556,14 +1570,14 @@ call    _strlen</code></pre>
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">187k</span>
+    <span title="站点总字数">191k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">2:50</span>
+    <span title="站点阅读时长">2:53</span>
   </span>
 </div>
 <div class="busuanzi-count">

