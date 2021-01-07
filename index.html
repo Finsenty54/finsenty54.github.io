@@ -163,7 +163,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">71</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">72</span></a>
 
   </li>
         <li class="menu-item menu-item-sitemap">
@@ -242,7 +242,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">71</span>
+          <span class="site-state-item-count">72</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -300,6 +300,127 @@
       
 
       
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://finsenty54.github.io/2021/01/07/Stack_buffer_and_integer_overflow/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://media.giphy.com/media/5xtDarHBDofiI04yE4U/giphy.gif">
+      <meta itemprop="name" content="finsenty54">
+      <meta itemprop="description" content="blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="FINSENTY54">
+    </span>
+
+    
+    
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/01/07/Stack_buffer_and_integer_overflow/" class="post-title-link" itemprop="url">Stack buffer and integer overflow</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2021-01-07 16:30:11 / 修改时间：16:31:09" itemprop="dateCreated datePublished" datetime="2021-01-07T16:30:11+08:00">2021-01-07</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/APP-system-in-root-me/" itemprop="url" rel="index"><span itemprop="name">APP system in root_me</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/2021/01/07/Stack_buffer_and_integer_overflow/" class="post-meta-item leancloud_visitors" data-flag-title="Stack buffer and integer overflow" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/01/07/Stack_buffer_and_integer_overflow/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/01/07/Stack_buffer_and_integer_overflow/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>3.3k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>3 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="ELF-x86-Stack-buffer-and-integer-overflow"><a href="#ELF-x86-Stack-buffer-and-integer-overflow" class="headerlink" title="ELF x86 - Stack buffer and integer overflow"></a>ELF x86 - Stack buffer and integer overflow</h1><p>永远的神：：<a target="_blank" rel="noopener" href="https://github.com/s1syphu5/RootMe-Challenges/tree/master/System/ELF%20x86%20-%20Stack%20buffer%20and%20integer%20overflow">https://github.com/s1syphu5/RootMe-Challenges/tree/master/System/ELF%20x86%20-%20Stack%20buffer%20and%20integer%20overflow</a></p>
+<h2 id="ret2reg"><a href="#ret2reg" class="headerlink" title="ret2reg"></a>ret2reg</h2><p>为了让shell更实用<br>覆盖<code>EIP</code>, 使用现有的命令的地址，例如<code>jmp esp</code> ， 跳转buffer ， 后面是shellcode</p>
+<h3 id="查找jmp-call-esp地址"><a href="#查找jmp-call-esp地址" class="headerlink" title="查找jmp/call esp地址"></a>查找jmp/call esp地址</h3><ol>
+<li>可以在共享库中找</li>
+<li>也可以在自身程序找命令
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/01/07/Stack_buffer_and_integer_overflow/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -1382,129 +1503,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://finsenty54.github.io/2020/11/29/leetcode-add-two-numbers/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="https://media.giphy.com/media/5xtDarHBDofiI04yE4U/giphy.gif">
-      <meta itemprop="name" content="finsenty54">
-      <meta itemprop="description" content="blog">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="FINSENTY54">
-    </span>
-
-    
-    
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/11/29/leetcode-add-two-numbers/" class="post-title-link" itemprop="url">leetcode add two numbers</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2020-11-29 16:18:58" itemprop="dateCreated datePublished" datetime="2020-11-29T16:18:58+08:00">2020-11-29</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2020-12-11 16:51:27" itemprop="dateModified" datetime="2020-12-11T16:51:27+08:00">2020-12-11</time>
-      </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/leetcode/" itemprop="url" rel="index"><span itemprop="name">leetcode</span></a>
-        </span>
-    </span>
-
-  
-    <span id="/2020/11/29/leetcode-add-two-numbers/" class="post-meta-item leancloud_visitors" data-flag-title="leetcode add two numbers" title="阅读次数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-eye"></i>
-      </span>
-      <span class="post-meta-item-text">阅读次数：</span>
-      <span class="leancloud-visitors-count"></span>
-    </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2020/11/29/leetcode-add-two-numbers/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/11/29/leetcode-add-two-numbers/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-      </div>
-      <div class="post-meta">
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>1k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="leetcode-add-two-numbers"><a href="#leetcode-add-two-numbers" class="headerlink" title="leetcode add two numbers"></a>leetcode add two numbers</h2><p>本题关于singly-linked list 单链表<br>链表是怎么链接在一起的？？怎么存储的？？</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/11/29/leetcode-add-two-numbers/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1561,14 +1559,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">201k</span>
+    <span title="站点总字数">205k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">3:03</span>
+    <span title="站点阅读时长">3:06</span>
   </span>
 </div>
 <div class="busuanzi-count">
