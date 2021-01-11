@@ -4038,7 +4038,7 @@ bash-4.4$ cat .passwd</code></pre>
       </tags>
   </entry>
   <entry>
-    <title>&lt;&lt;基本ROP</title>
+    <title>&lt;&lt;基本ROP_ropemporium前三题</title>
     <url>/2021/01/11/%E5%9F%BA%E6%9C%ACROP/</url>
     <content><![CDATA[<p>简单的ROP学习，没有开启PIE</p>
 <h2 id="Bypassing-NX-bit-using-chained-return-to-libc"><a href="#Bypassing-NX-bit-using-chained-return-to-libc" class="headerlink" title="Bypassing NX bit using chained return-to-libc"></a>Bypassing NX bit using chained return-to-libc</h2><p><a href="https://sploitfun.wordpress.com/2015/05/08/bypassing-nx-bit-using-chained-return-to-libc/">https://sploitfun.wordpress.com/2015/05/08/bypassing-nx-bit-using-chained-return-to-libc/</a></p>
