@@ -4274,4 +4274,105 @@ AFAA found at offset: 44</code></pre>
         <tag>PWN</tag>
       </tags>
   </entry>
+  <entry>
+    <title>&lt;&lt;基本ROP_ropemporium pivot + ret2csu</title>
+    <url>/2021/03/02/%E5%9F%BA%E6%9C%ACROP_ropemporium_pivot_+_ret2csu/</url>
+    <content><![CDATA[<p>代码：<a href="https://github.com/Finsenty54/attack-code/tree/master/ROPemporium">https://github.com/Finsenty54/attack-code/tree/master/ROPemporium</a></p>
+<h2 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h2><pre><code>objdump -T libpivot32.so 查看所有符号
+rabin2 -E ./libpivot.so 也可以查看
+ -E              globally exportable symbols
+objdump -j .text -d ./ret2csu
+objdump -x ret2csu
+gef➤  search-pattern 0x4004d0 查询含有0x4004d0 的地址</code></pre>
+<a id="more"></a>
+<h2 id="知识点"><a href="#知识点" class="headerlink" title="知识点"></a>知识点</h2><p><a href="https://ctf-wiki.org/pwn/linux/stackoverflow/stack-intro/#_4">https://ctf-wiki.org/pwn/linux/stackoverflow/stack-intro/#_4</a></p>
+<p>需要注意的是，32 位和 64 位程序有以下简单的区别</p>
+<p>x86<br>函数参数在函数返回地址的上方<br>x64<br>System V AMD64 ABI (Linux、FreeBSD、macOS 等采用) 中前六个整型或指针参数依次保存在 RDI, RSI, RDX, RCX, R8 和 R9 寄存器中，如果还有更多的参数的话才会保存在栈上。<br>内存地址不能大于 0x00007FFFFFFFFFFF，6 个字节长度，否则会抛出异常。</p>
+<h2 id="pivot"><a href="#pivot" class="headerlink" title="pivot"></a>pivot</h2><p>stack pivot<br>To “stack pivot” just means to move the stack pointer elsewhere.</p>
+<p>用命令可以发现<br>10   0x0000077d 0x0000077d GLOBAL FUNC   43       foothold_function<br>18   0x00000974 0x00000974 GLOBAL FUNC   164      ret2win<br>偏移量为1F7</p>
+<p>stack smash<br>EBP-0X28<br>可以写入0x38<br>40+4 溢出到返回地址</p>
+<p>0x080487b4      ff7508         push dword [arg_8h]<br>第一次写入的地方是指针，我看错了，以为直接写入arg_8h处，这里放第二段较长的ROP链</p>
+<p>大体思路：先调用一次foothold，将got表项的内容加载进寄存器，而不是表项地址，加上ret2win的偏移，调用</p>
+<h2 id="ret2rsu"><a href="#ret2rsu" class="headerlink" title="ret2rsu"></a>ret2rsu</h2><p>在 64 位程序中，函数的前 6 个参数是通过寄存器传递的，但是大多数时候，我们很难找到每一个寄存器对应的 gadgets。</p>
+<h3 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h3><p>ret2win 的三个参数放在<br>│           ; arg uint32_t arg1 @ rdi<br>│           ; arg uint32_t arg2 @ rsi<br>│           ; arg uint32_t arg3 @ rdx</p>
+<h3 id="查看-libc-csu-init代码"><a href="#查看-libc-csu-init代码" class="headerlink" title="查看__libc_csu_init代码"></a>查看__libc_csu_init代码</h3><p><code>objdump -j .text -d ./ret2csu</code></p>
+<pre><code>0000000000400640 &lt;__libc_csu_init&gt;:
+  400640:    41 57                    push   %r15
+  400642:    41 56                    push   %r14
+  400644:    49 89 d7                 mov    %rdx,%r15
+  400647:    41 55                    push   %r13
+  400649:    41 54                    push   %r12
+  40064b:    4c 8d 25 9e 07 20 00     lea    0x20079e(%rip),%r12        # 600df0 &lt;__frame_dummy_init_array_entry&gt;
+  400652:    55                       push   %rbp
+  400653:    48 8d 2d 9e 07 20 00     lea    0x20079e(%rip),%rbp        # 600df8 &lt;__do_global_dtors_aux_fini_array_entry&gt;
+  40065a:    53                       push   %rbx
+  40065b:    41 89 fd                 mov    %edi,%r13d
+  40065e:    49 89 f6                 mov    %rsi,%r14
+  400661:    4c 29 e5                 sub    %r12,%rbp
+  400664:    48 83 ec 08              sub    $0x8,%rsp
+  400668:    48 c1 fd 03              sar    $0x3,%rbp
+  40066c:    e8 5f fe ff ff           callq  4004d0 &lt;_init&gt;
+  400671:    48 85 ed                 test   %rbp,%rbp
+  400674:    74 20                    je     400696 &lt;__libc_csu_init+0x56&gt;
+  400676:    31 db                    xor    %ebx,%ebx
+  400678:    0f 1f 84 00 00 00 00     nopl   0x0(%rax,%rax,1)
+  40067f:    00 
+  400680:    4c 89 fa                 mov    %r15,%rdx
+  400683:    4c 89 f6                 mov    %r14,%rsi
+  400686:    44 89 ef                 mov    %r13d,%edi
+  400689:    41 ff 14 dc              callq  *(%r12,%rbx,8)
+  40068d:    48 83 c3 01              add    $0x1,%rbx
+  400691:    48 39 dd                 cmp    %rbx,%rbp
+  400694:    75 ea                    jne    400680 &lt;__libc_csu_init+0x40&gt;
+  400696:    48 83 c4 08              add    $0x8,%rsp
+  40069a:    5b                       pop    %rbx
+  40069b:    5d                       pop    %rbp
+  40069c:    41 5c                    pop    %r12
+  40069e:    41 5d                    pop    %r13
+  4006a0:    41 5e                    pop    %r14
+  4006a2:    41 5f                    pop    %r15
+  4006a4:    c3                       retq   
+  4006a5:    90                       nop
+  4006a6:    66 2e 0f 1f 84 00 00     nopw   %cs:0x0(%rax,%rax,1)
+  4006ad:    00 00 00 </code></pre>
+<p>直接用ROPgadget搜有些代码搜不到的</p>
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><p>要使用ret2csu<br>就需要绕过call<br>这是[ ]指针，需要解引用，即调用函数</p>
+<p><code>objdump -x ret2csu </code></p>
+<pre><code> 10 .init         00000017  00000000004004d0  00000000004004d0  000004d0  2**2
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 11 .plt          00000030  00000000004004f0  00000000004004f0  000004f0  2**4
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 12 .text         00000192  0000000000400520  0000000000400520  00000520  2**4
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 13 .fini         00000009  00000000004006b4  00000000004006b4  000006b4  2**2
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE</code></pre>
+<p>可以看到一共有四块代码<br>选择.init</p>
+<pre><code>┌─[zentreisender@parrotos]─[~/Documents/ret2csu]
+└──╼ $objdump -j .init -d ./ret2csu 
+
+./ret2csu:     file format elf64-x86-64
+
+
+Disassembly of section .init:
+
+00000000004004d0 &lt;_init&gt;:
+  4004d0:    48 83 ec 08              sub    $0x8,%rsp
+  4004d4:    48 8b 05 1d 0b 20 00     mov    0x200b1d(%rip),%rax        # 600ff8 &lt;__gmon_start__&gt;
+  4004db:    48 85 c0                 test   %rax,%rax
+  4004de:    74 02                    je     4004e2 &lt;_init+0x12&gt;
+  4004e0:    ff d0                    callq  *%rax
+  4004e2:    48 83 c4 08              add    $0x8,%rsp
+  4004e6:    c3                       retq   </code></pre>
+<p>gdb-ref<br><code>gef➤  search-pattern 0x4004d0</code></p>
+<pre><code>  0x600e38 - 0x600e44  →   &quot;\xd0\x04\x40[...]&quot; </code></pre>
+<p>同时rbx=0 rbp=1</p>
+<p>csu代码片段使用了两次</p>
+]]></content>
+      <categories>
+        <category>rop_emporium</category>
+      </categories>
+      <tags>
+        <tag>PWN</tag>
+      </tags>
+  </entry>
 </search>
