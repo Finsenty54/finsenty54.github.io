@@ -4375,4 +4375,76 @@ Disassembly of section .init:
         <tag>PWN</tag>
       </tags>
   </entry>
+  <entry>
+    <title>heap入门</title>
+    <url>/2021/03/04/heap%E5%85%A5%E9%97%A8/</url>
+    <content><![CDATA[<h1 id="堆利用Heap-Exploitation"><a href="#堆利用Heap-Exploitation" class="headerlink" title="堆利用Heap Exploitation"></a>堆利用Heap Exploitation</h1><p><a href="https://sploitfun.wordpress.com/2015/02/10/understanding-glibc-malloc/">https://sploitfun.wordpress.com/2015/02/10/understanding-glibc-malloc/</a><br><a href="https://ctf-wiki.org/pwn/linux/glibc-heap/introduction/">https://ctf-wiki.org/pwn/linux/glibc-heap/introduction/</a></p>
+<p>基础知识学习ptmalloc</p>
+<h2 id="命令：："><a href="#命令：：" class="headerlink" title="命令：："></a>命令：：</h2><p><code>gef➤  x/32gx &amp;main_arena </code></p>
+<a id="more"></a>
+<h2 id="申请与释放"><a href="#申请与释放" class="headerlink" title="申请与释放"></a>申请与释放</h2><p>malloc()<br>free()</p>
+<h3 id="malloc"><a href="#malloc" class="headerlink" title="malloc()"></a>malloc()</h3><p>malloc() 使用<code>brk() mmap()</code>申请内存</p>
+<h4 id="brk-sbrk"><a href="#brk-sbrk" class="headerlink" title="brk() sbrk()"></a>brk() sbrk()</h4><p>The<code>program break</code>is the<code>address</code>of the first location beyond the current end of the data region.</p>
+<pre><code>#include &lt;unistd.h&gt;
+
+int brk(void* end_data_segment);
+void *sbrk(intptr_t increment);
+
+
+┌─[zentreisender@parrotos]─[~/Documents/heap]
+└──╼ $./brk
+Welcome to sbrk example:178107
+Program Break Location1:0x555db6660000
+a
+Program break Location2:0x555db6661000
+Program Break Location3:0x555db6660000
+a</code></pre>
+<p>代码</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* sbrk and brk example */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">        <span class="keyword">void</span> *curr_brk, *tmp_brk = <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;Welcome to sbrk example:%d\n&quot;</span>, getpid());</span><br><span class="line"></span><br><span class="line">        <span class="comment">/* sbrk(0) gives current program break location */</span></span><br><span class="line">        tmp_brk = curr_brk = sbrk(<span class="number">0</span>);</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;Program Break Location1:%p\n&quot;</span>, curr_brk);</span><br><span class="line">        getchar();</span><br><span class="line"></span><br><span class="line">        <span class="comment">/* brk(addr) increments/decrements program break location */</span></span><br><span class="line">        brk(curr_brk+<span class="number">4096</span>);</span><br><span class="line"></span><br><span class="line">        curr_brk = sbrk(<span class="number">0</span>);</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;Program break Location2:%p\n&quot;</span>, curr_brk);</span><br><span class="line">        getchar();</span><br><span class="line"></span><br><span class="line">        brk(tmp_brk);</span><br><span class="line"></span><br><span class="line">        curr_brk = sbrk(<span class="number">0</span>);</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;Program Break Location3:%p\n&quot;</span>, curr_brk);</span><br><span class="line">        getchar();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>brk 参数是指针，设置break值<br>所以先用sbrk(0)获得当前break值的指向指针<br>再设置brk(sbrk(0)+4096)</p>
+<h4 id="mmap"><a href="#mmap" class="headerlink" title="mmap()"></a>mmap()</h4><p>malloc 会使用 mmap来创建独立的匿名映射段。匿名映射的目的主要是可以申请以0填充的内存，并且这块内存仅被调用进程所使用。</p>
+<pre><code>addr = mmap(NULL, (size_t)132*1024, PROT_READ|PROT_WRITE, MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);</code></pre>
+<p>munmap()</p>
+<pre><code>char* addr
+addr = (char*) malloc(1000);</code></pre>
+<p>虽然只是申请了1000个字节，但是我们却得到了0x0806c000-0x0804b000=0x21000个字节的堆，int(0x21000,10)/1024=132，原来这132KB的堆空间叫做<code>arena</code>，此时因为是主线程分配的，所以这个区域叫做 <code>main arena</code>，（称这一块连续的内存区域为 arena，）申请的内存会一直从这个 arena 中获取，直到空间不足，当 arena 空间不足时，它可以通过增加<code>brk</code>的方式来增加堆的空间。</p>
+<p>this shows heap memory is created by increasing program break location ( ie) using brk syscall</p>
+<h3 id="free"><a href="#free" class="headerlink" title="free()"></a>free()</h3><p>Allocated memory region (of size 1000 bytes) is <code>released only to ‘glibc malloc’ library</code>,‘glibc malloc’ doesnt get new heap memory from kernel, instead it will try to find a free block in bin. And only when no free block exists, it obtains memory from kernel.</p>
+<p>1.清空此堆块的 user data<br>2.将此堆块的指针存储到 main_arena 中了（或是 fast bin 中）</p>
+<p>看出实际真的分配给程序的内存为1M(b7500000-b7600000)。heap memory of size 1 MB ,而且，只有132KB的部分具有可读可写权限，这一块连续的区域成为<code>thread arena</code>。是使用<code>mmap()</code>分配的，而不是sbrk()<br>当用户请求的内存大于128KB时，并且没有任何arena有足够的空间时，那么系统就会执行mmap函数来分配相应的内存空间，而不是sbrk()。这与这个请求来自于主线程还是从线程无关。</p>
+<p> Instead allocated memory region (of size 1000 bytes) is released to ‘glibc malloc’, which adds this freed block to its thread arenas bin.</p>
+<h2 id="chunk结构"><a href="#chunk结构" class="headerlink" title="chunk结构"></a>chunk结构</h2><pre><code>gef➤  x/32gx $rax-0x10
+0x555555559290:    0x0000000000000000    0x0000000000000021
+0x5555555592a0:    0x0000000000000000    0x0000000000000000
+0x5555555592b0:    0x0000000000000000    0x0000000000020d51
+0x5555555592c0:    0x0000000000000000    0x0000000000000000
+0x5555555592d0:    0x0000000000000000    0x0000000000000000
+0x5555555592e0:    0x0000000000000000    0x0000000000000000
+0x5555555592f0:    0x0000000000000000    0x0000000000000000
+0x555555559300:    0x0000000000000000    0x0000000000000000
+0x555555559310:    0x0000000000000000    0x0000000000000000
+0x555555559320:    0x0000000000000000    0x0000000000000000</code></pre>
+<p>presize 8字节<br>size 8字节<br>0x5555555592a0 开始是user-data<br>64位最小分配16B，32位最小分配8B，所以是<code>16+8+8+1=21</code><br>user-data+header-len+pre_(1)=21<br><code>size最低三位，LSB表示前一chunk是否分配。</code></p>
+<h3 id="top-chunk"><a href="#top-chunk" class="headerlink" title="top chunk"></a>top chunk</h3><p>结尾于arena的最高地址处<br>堆地址从低地址向高地址增长<br><a href="https://imgtu.com/i/6Vae81"><img src="https://s3.ax1x.com/2021/03/04/6Vae81.png" alt="6Vae81.png"></a></p>
+<p>在程序在向堆管理器申请内存时，没有合适的内存空间可以分配给他，此时就会从 top chunk 上”剪切”一部分作为 chunk 分配给他</p>
+<p>chunk()</p>
+<h3 id="allocated-chunk"><a href="#allocated-chunk" class="headerlink" title="allocated chunk"></a>allocated chunk</h3><p>prev_size: If the <code>previous chunk is free</code>, this field contains <code>the size of previous chunk</code>. Else if previous chunk is <code>allocated</code>, this field contains<code> previous chunk’s user data</code>.<br>size: This field contains the size of this allocated chunk. <code>Last 3 bits</code> of this field contains flag information.</p>
+<pre><code>PREV_INUSE (P) – This bit is set when previous chunk is allocated.
+IS_MMAPPED (M) – This bit is set when chunk is mmap’d.
+NON_MAIN_ARENA (N) – This bit is set when this chunk belongs to a thread arena.</code></pre>
+<p>Other fields of malloc_chunk (like fd, bk) <code>is NOT used for allocated chunk</code>. Hence in place of these fields user data is stored.<br>·由于存储malloc_chunk以及对齐目的需要一些额外的空间，因此用户请求的大小将转换为可用大小（内部表示大小）。<br>·转换的方式是不会设置可用大小的最后3位，因此将其用于存储标志信息。<br><a href="https://imgtu.com/i/6VaHR1"><img src="https://s3.ax1x.com/2021/03/04/6VaHR1.png" alt="6VaHR1.png"></a></p>
+<h3 id="free-chunk"><a href="#free-chunk" class="headerlink" title="free chunk"></a>free chunk</h3><p>prev_size: <code>No two free chunks can be adjacent together</code>. When both the chunks are free, its <code>gets combined into one single free chunk</code>. Hence always previous chunk to this freed chunk would be allocated and therefore prev_size contains previous chunk’s user data.<br><code>fd</code>: Forward pointer – Points to <code>next chunk</code> in the same bin (and NOT to the next chunk present in physical memory).<br>bk: Backward pointer – Points to previous chunk in the same bin (and NOT to the previous chunk present in physical memory).<br><a href="https://imgtu.com/i/6VaOsK"><img src="https://s3.ax1x.com/2021/03/04/6VaOsK.png" alt="6VaOsK.png"></a></p>
+<h2 id="bins-垃圾桶"><a href="#bins-垃圾桶" class="headerlink" title="bins 垃圾桶"></a>bins 垃圾桶</h2><p>已经申请到的内存空间大小进行释放，来决定放入哪类 bins 当作去。<br>Fast bin<br>Unsorted bin<br>Small bin<br>Large bin</p>
+<h3 id="fast-bin"><a href="#fast-bin" class="headerlink" title="fast bin"></a>fast bin</h3><p><code>Chunks of size 16 to 80 bytes is called a fast chunk.</code></p>
+<p>Number of bins – 10<br>Each fast bin contains a <code>single linked list</code> (a.k.a binlist) of free chunks.<br>Fast bins contain a binlist of chunks whose sizes are 8 bytes apart. ie) First fast bin (index 0) contains binlist of chunks of size 16 bytes, second fast bin (index 1) contains binlist of chunks of size  24 bytes and so on…</p>
+<p>During malloc initialization, maximum fast bin size is set to 64 (!80) bytes.</p>
+<h3 id="small"><a href="#small" class="headerlink" title="small"></a>small</h3><p>When small or large chunk gets freed instead of adding them in to their respective bins, <code>its gets added into unsorted bin.</code><br>This approach gives ‘glibc malloc’ a second chance to reuse the recently freed chunks.<br>Chunk size – There is no size restriction, chunks of any size belongs to this bin.</p>
+]]></content>
+      <categories>
+        <category>Heap</category>
+      </categories>
+      <tags>
+        <tag>heap</tag>
+      </tags>
+  </entry>
 </search>
