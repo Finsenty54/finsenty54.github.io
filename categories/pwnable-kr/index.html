@@ -24,25 +24,19 @@
     var NexT = window.NexT || {};
     var CONFIG = {"hostname":"finsenty54.github.io","root":"/","images":"/images","scheme":"Mist","version":"8.1.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"manual","top_n_per_article":2,"unescape":false,"preload":false}};
   </script>
-<meta name="description" content="less1反射型XSS也被称为非持久性CSS当用户访问一个带有XSS代码的URL请求时，服务器端接收数据后处理，然后把带有XSS代码的数据发送到浏览器，浏览器解析这段带有XSS代码的数据后，最终造成XSS漏洞。 alert() 方法用于显示带有一条指定消息和一个 OK 按钮的警告框。 查看源码window.alert &#x3D; function()  echo &quot;&lt;h2 align&#x3D;ce">
-<meta property="og:type" content="article">
-<meta property="og:title" content="XSS 20关挑战">
-<meta property="og:url" content="http://finsenty54.github.io/2019/03/01/xss/index.html">
+<meta name="description" content="blog">
+<meta property="og:type" content="website">
+<meta property="og:title" content="FINSENTY54">
+<meta property="og:url" content="http://finsenty54.github.io/categories/pwnable-kr/index.html">
 <meta property="og:site_name" content="FINSENTY54">
-<meta property="og:description" content="less1反射型XSS也被称为非持久性CSS当用户访问一个带有XSS代码的URL请求时，服务器端接收数据后处理，然后把带有XSS代码的数据发送到浏览器，浏览器解析这段带有XSS代码的数据后，最终造成XSS漏洞。 alert() 方法用于显示带有一条指定消息和一个 OK 按钮的警告框。 查看源码window.alert &#x3D; function()  echo &quot;&lt;h2 align&#x3D;ce">
+<meta property="og:description" content="blog">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://s2.ax1x.com/2019/03/03/kqT7Ed.png">
-<meta property="og:image" content="https://s2.ax1x.com/2019/03/27/AdFKeI.th.png">
-<meta property="og:image" content="https://s2.ax1x.com/2019/03/27/AdkZNV.th.png">
-<meta property="article:published_time" content="2019-03-01T14:22:42.000Z">
-<meta property="article:modified_time" content="2020-10-31T08:53:12.096Z">
 <meta property="article:author" content="finsenty54">
-<meta property="article:tag" content="xss">
+<meta property="article:tag" content="study">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://s2.ax1x.com/2019/03/03/kqT7Ed.png">
 
 
-<link rel="canonical" href="http://finsenty54.github.io/2019/03/01/xss/">
+<link rel="canonical" href="http://finsenty54.github.io/categories/pwnable-kr/">
 
 
 <script class="page-configurations">
@@ -50,11 +44,11 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : true,
+    isPost : false,
     lang   : 'zh-CN'
   };
 </script>
-<title>XSS 20关挑战 | FINSENTY54</title>
+<title>分类: pwnable.kr | FINSENTY54</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-135283153-1"></script>
     <script>
@@ -214,7 +208,7 @@
 
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+    <div class="sidebar-inner sidebar-overview-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -227,7 +221,6 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <section class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#less1"><span class="nav-number">1.</span> <span class="nav-text">less1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#less2"><span class="nav-number">2.</span> <span class="nav-text">less2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#less3"><span class="nav-number">3.</span> <span class="nav-text">less3</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#less4"><span class="nav-number">4.</span> <span class="nav-text">less4</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#less5"><span class="nav-number">5.</span> <span class="nav-text">less5</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#less6"><span class="nav-number">6.</span> <span class="nav-text">less6</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#less7"><span class="nav-number">7.</span> <span class="nav-text">less7</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#less8"><span class="nav-number">8.</span> <span class="nav-text">less8</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#less9"><span class="nav-number">9.</span> <span class="nav-text">less9</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#less10"><span class="nav-number">10.</span> <span class="nav-text">less10</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9B%B4%E6%96%B0%E4%BA%8E2019-03-27-18-15-42-%E6%98%9F%E6%9C%9F%E4%B8%89"><span class="nav-number">11.</span> <span class="nav-text">更新于2019-03-27 18:15:42 星期三</span></a></li></ol></div>
         </section>
         <!--/noindex-->
 
@@ -298,196 +291,51 @@
 </noscript>
 
 
-    <div class="main-inner post posts-expand">
+    <div class="main-inner category posts-collapse">
 
 
   
-
-
-<div class="post-block">
   
   
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://finsenty54.github.io/2019/03/01/xss/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="https://media.giphy.com/media/5xtDarHBDofiI04yE4U/giphy.gif">
-      <meta itemprop="name" content="finsenty54">
-      <meta itemprop="description" content="blog">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="FINSENTY54">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          XSS 20关挑战
-        </h1>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2019-03-01 22:22:42" itemprop="dateCreated datePublished" datetime="2019-03-01T22:22:42+08:00">2019-03-01</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2020-10-31 16:53:12" itemprop="dateModified" datetime="2020-10-31T16:53:12+08:00">2020-10-31</time>
-      </span>
-
-  
-    <span id="/2019/03/01/xss/" class="post-meta-item leancloud_visitors" data-flag-title="XSS 20关挑战" title="阅读次数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-eye"></i>
-      </span>
-      <span class="post-meta-item-text">阅读次数：</span>
-      <span class="leancloud-visitors-count"></span>
-    </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2019/03/01/xss/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/03/01/xss/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
+  <div class="post-block">
+    <div class="post-content">
+      <div class="collection-title">
+        <h2 class="collection-header">pwnable.kr
+          <small>分类</small>
+        </h2>
       </div>
-      <div class="post-meta">
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>2.2k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2 分钟</span>
-    </span>
-</div>
 
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-        <h2 id="less1"><a href="#less1" class="headerlink" title="less1"></a>less1</h2><p>反射型XSS也被称为非持久性CSS<br>当用户访问一个带有XSS代码的URL请求时，服务器端接收数据后处理，然后把带有XSS代码的数据发送到浏览器，浏览器解析这段带有XSS代码的数据后，最终造成XSS漏洞。</p>
-<p>alert() 方法用于显示带有一条指定消息和一个 OK 按钮的警告框。</p>
-<p>查看源码<code>window.alert = function()  </code><br><code>echo &quot;&lt;h2 align=center&gt;欢迎用户&quot;.$str.&quot;&lt;/h2&gt;&quot;;</code>没有过滤<br>直接调用函数就可以通关<code>&lt;script&gt;window.alert()&lt;/script&gt;</code></p>
-<p><em><code>&lt;script&gt;</code> 标签用于定义客户端脚本，比如 JavaScript。</em></p>
-<a id="more"></a>
-<hr>
-<h2 id="less2"><a href="#less2" class="headerlink" title="less2"></a>less2</h2><p>利用页面元素看到输入在<code>&lt;input name=keyword  value=&quot;&#39;.$str.&#39;&quot;&gt;</code><br>闭合input语句即可<br><code>1&quot;&gt;&lt;script&gt;alert()&lt;/script&gt;</code><br><code>1&quot;&gt;&lt;script&gt;alert()&lt;/script&gt;&lt;&quot;</code></p>
-<p><a target="_blank" rel="noopener" href="https://imgchr.com/i/kqT7Ed"><img src="https://s2.ax1x.com/2019/03/03/kqT7Ed.png" alt="kqT7Ed.png"></a></p>
-<hr>
-<h2 id="less3"><a href="#less3" class="headerlink" title="less3"></a>less3</h2><p>查看页面元素<code>&lt;input name=keyword  value=&#39;1&#39;&gt;</code>在input语句里<br>尝试闭合无用<br>查看源码<code>str</code>都加上了<code>htmlspecialchars</code>函数，但默认配置是不过滤单引号的<br><code>&#39;onmouseover=&#39;window.alert()</code>即可</p>
-<p>输入<code>&#39;</code> <code>&lt;input name=&quot;keyword&quot; value=&quot;&quot; &#39;=&quot;&quot;&gt;</code><br>输入<code>&#39;&#39;</code> <code>&lt;input name=&quot;keyword&quot; value=&quot;&quot; &#39;&#39;=&quot;&quot;&gt;</code><br>输入<code>&#39;onclick&#39;</code> <code>&lt;input name=&quot;keyword&quot; value=&quot;&quot; onclick&#39;&#39;=&quot;&quot;&gt;</code><br>输入<code>onclick=</code> <code>&lt;input name=&quot;keyword&quot; value=&quot;&quot; onclick=&quot;&quot;&gt;</code></p>
-<hr>
-<h2 id="less4"><a href="#less4" class="headerlink" title="less4"></a>less4</h2><p>输入<code>&quot;&gt;&lt;script&gt;alert()&lt;/script&gt;&lt;&quot;</code><br>查看可知<code>&lt;input name=&quot;keyword&quot; value=&quot;&quot; scriptalert()=&quot;&quot; script&quot;&quot;=&quot;&quot;&gt;</code>过滤了<code>&lt;</code> <code>&gt;</code><br>利用上节方法<br><code>&quot;onclick=&quot;alert()</code></p>
-<p>更新于2019-03-03 11:19:50 星期日</p>
-<hr>
-<h2 id="less5"><a href="#less5" class="headerlink" title="less5"></a>less5</h2><p>试过后发现<code>onclick</code>变为<code>o_nclick</code><br><code>script</code>变为<code>sc_ript</code><br>使用<code>&quot;&gt;&lt;a href=&quot;javascript:alert()&quot;&gt;</code></p>
-<hr>
-<h2 id="less6"><a href="#less6" class="headerlink" title="less6"></a>less6</h2><p><code>onclick script href</code>输入后都进行了变化<br><code>&quot;&gt;&lt;a HRef=&quot;javascript:alert()&quot;&gt;</code><br><code>keyword=&quot;ONclick=&quot;alert()</code><br><code>keyword=&quot;&gt;&lt;scriPt&gt;alert()&lt;/SCRIpt&gt;&lt;&quot;</code><br><code>keyword=&quot;&gt;&lt;a HreF=javascript:alert()&gt;213&lt;/a&gt;&quot;&lt;</code><br>进行大小写替换可以</p>
-<hr>
-<h2 id="less7"><a href="#less7" class="headerlink" title="less7"></a>less7</h2><p><code>script</code>被过滤，改变大小写也没有用<br><code>on</code>被过滤<br><code>href</code>同样如此<br><code>keyword=&quot;&gt;&lt;scriscriptpt&gt;alert()&lt;/scrscriptipt&gt;&lt;&quot;</code><br>利用双写绕过</p>
-<p>更新于2019-03-06 21:20:39 星期三</p>
-<hr>
-<h2 id="less8"><a href="#less8" class="headerlink" title="less8"></a>less8</h2><p>这题可以添加链接<br>直接使用<code>javascript:alert(1)</code><br>但并没有用，查看源码<code>$str2=str_replace(&quot;script&quot;,&quot;scr_ipt&quot;,$str);</code>被替换了<br>使用制表符绕过<code>%09</code><br><code>keyword=javasc%09ript%3Aalert%281%29&amp;submit=添加友情链接</code></p>
-<hr>
-<h2 id="less9"><a href="#less9" class="headerlink" title="less9"></a>less9</h2><p>上题结果没有用，查看源码<code>if(false===strpos($str7,&#39;http://&#39;))</code><br>知一定要有<code>http://</code><br>在javascript伪协议里面，属于js范畴，所以单行注释符是可以使用的<br><code>javasc%09ript%3Aalert%281%29//http://www.test.com</code></p>
-<hr>
-<h2 id="less10"><a href="#less10" class="headerlink" title="less10"></a>less10</h2><p>查看页面元素<br><a target="_blank" rel="noopener" href="https://imgchr.com/i/AdFKeI"><img src="https://s2.ax1x.com/2019/03/27/AdFKeI.th.png" alt="AdFKeI.th.png"></a><br>有几个隐藏的值，注入点就在这<br><code>keyword=test&amp;t_sort=&quot; type=&quot;text&quot; onclick=&quot;alert()</code><br><a target="_blank" rel="noopener" href="https://imgchr.com/i/AdkZNV"><img src="https://s2.ax1x.com/2019/03/27/AdkZNV.th.png" alt="AdkZNV.th.png"></a></p>
-<hr>
-<h2 id="更新于2019-03-27-18-15-42-星期三"><a href="#更新于2019-03-27-18-15-42-星期三" class="headerlink" title="更新于2019-03-27 18:15:42 星期三"></a>更新于2019-03-27 18:15:42 星期三</h2>
+      
+    <div class="collection-year">
+      <span class="collection-header">2021</span>
     </div>
 
-    
-    
-    
-
-    <footer class="post-footer">
-          
-
-<div class="post-copyright">
-<ul>
-  <li class="post-copyright-author">
-      <strong>本文作者： </strong>finsenty54
-  </li>
-  <li class="post-copyright-link">
-      <strong>本文链接：</strong>
-      <a href="http://finsenty54.github.io/2019/03/01/xss/" title="XSS 20关挑战">http://finsenty54.github.io/2019/03/01/xss/</a>
-  </li>
-  <li class="post-copyright-license">
-    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
-  </li>
-</ul>
-</div>
-
-          <div class="followme">
-  <span>欢迎关注我的其它发布渠道</span>
-
-  <div class="social-list">
-
-      <div class="social-item">
-        <a target="_blank" class="social-link" href="/atom.xml">
-          <span class="icon">
-            <i class="fa fa-rss"></i>
-          </span>
-
-          <span class="label">RSS</span>
-        </a>
+  <article itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <div class="post-meta-container">
+        <time itemprop="dateCreated"
+              datetime="2021-03-06T09:57:39+08:00"
+              content="2021-03-06">
+          03-06
+        </time>
       </div>
-  </div>
-</div>
 
-          <div class="post-tags">
-              <a href="/tags/xss/" rel="tag"># xss</a>
-          </div>
+      <div class="post-title">
+          <a class="post-title-link" href="/2021/03/06/pwnable.kr_1/" itemprop="url">
+            <span itemprop="name">pwnable.kr (1)</span>
+          </a>
+      </div>
 
-        
-
-          <div class="post-nav">
-            <div class="post-nav-item">
-                <a href="/2019/02/26/sqli-labs/" rel="prev" title="sqli-labs(less-1__less-22)">
-                  <i class="fa fa-chevron-left"></i> sqli-labs(less-1__less-22)
-                </a>
-            </div>
-            <div class="post-nav-item">
-                <a href="/2019/03/15/Docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="next" title="Docker学习笔记">
-                  Docker学习笔记 <i class="fa fa-chevron-right"></i>
-                </a>
-            </div>
-          </div>
-    </footer>
+      
+    </header>
   </article>
-</div>
 
+    </div>
+  </div>
+  
+  
+  
 
-
-
-
-
-    <div class="comments" id="valine-comments"></div>
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -591,7 +439,7 @@ NexT.utils.loadComments('#valine-comments', () => {
   NexT.utils.getScript('//cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', () => {
     new Valine(Object.assign({"enable":true,"appId":"3uGsbMNvxiG0LkbyciDSaxmY-MdYXbMMI","appKey":"1dU1y3SudPaV6pdTET96j5M2","placeholder":"欢迎交流讨论...","avatar":"mm","meta":["nick","mail","link"],"pageSize":10,"lang":"zh-cn","visitor":true,"comment_count":true,"recordIP":false,"serverURLs":null,"enableQQ":false,"requiredFields":[]}, {
       el: '#valine-comments',
-      path: "/2019/03/01/xss/",
+      path: "/categories/pwnable-kr/",
       serverURLs: "https://3ugsbmnv.api.lncldglobal.com"
     }));
   }, window.Valine);

