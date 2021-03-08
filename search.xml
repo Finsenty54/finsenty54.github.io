@@ -1876,7 +1876,7 @@ int.from_bytes(bytearray(new_xor), byteorder=&quot;big&quot;)将序列直接变�
     <url>/2021/03/04/heap%E5%85%A5%E9%97%A8/</url>
     <content><![CDATA[<h1 id="堆利用Heap-Exploitation"><a href="#堆利用Heap-Exploitation" class="headerlink" title="堆利用Heap Exploitation"></a>堆利用Heap Exploitation</h1><p><a href="https://sploitfun.wordpress.com/2015/02/10/understanding-glibc-malloc/">https://sploitfun.wordpress.com/2015/02/10/understanding-glibc-malloc/</a><br><a href="https://ctf-wiki.org/pwn/linux/glibc-heap/introduction/">https://ctf-wiki.org/pwn/linux/glibc-heap/introduction/</a></p>
 <p>基础知识学习ptmalloc</p>
-<h2 id="命令：："><a href="#命令：：" class="headerlink" title="命令：："></a>命令：：</h2><p><code>gef➤  x/32gx &amp;main_arena </code></p>
+<h2 id="命令：："><a href="#命令：：" class="headerlink" title="命令：："></a>命令：：</h2><p><code>gef➤  x/32gx &amp;main_arena </code><br><code>gef➤  heap bins </code></p>
 <a id="more"></a>
 <h2 id="申请与释放"><a href="#申请与释放" class="headerlink" title="申请与释放"></a>申请与释放</h2><p>malloc()<br>free()</p>
 <h3 id="malloc"><a href="#malloc" class="headerlink" title="malloc()"></a>malloc()</h3><p>malloc() 使用<code>brk() mmap()</code>申请内存</p>
@@ -1930,11 +1930,50 @@ IS_MMAPPED (M) – This bit is set when chunk is mmap’d.
 NON_MAIN_ARENA (N) – This bit is set when this chunk belongs to a thread arena.</code></pre>
 <p>Other fields of malloc_chunk (like fd, bk) <code>is NOT used for allocated chunk</code>. Hence in place of these fields user data is stored.<br>·由于存储malloc_chunk以及对齐目的需要一些额外的空间，因此用户请求的大小将转换为可用大小（内部表示大小）。<br>·转换的方式是不会设置可用大小的最后3位，因此将其用于存储标志信息。<br><a href="https://imgtu.com/i/6VaHR1"><img src="https://s3.ax1x.com/2021/03/04/6VaHR1.png" alt="6VaHR1.png"></a></p>
 <h3 id="free-chunk"><a href="#free-chunk" class="headerlink" title="free chunk"></a>free chunk</h3><p>prev_size: <code>No two free chunks can be adjacent together</code>. When both the chunks are free, its <code>gets combined into one single free chunk</code>. Hence always previous chunk to this freed chunk would be allocated and therefore prev_size contains previous chunk’s user data.<br><code>fd</code>: Forward pointer – Points to <code>next chunk</code> in the same bin (and NOT to the next chunk present in physical memory).<br>bk: Backward pointer – Points to previous chunk in the same bin (and NOT to the previous chunk present in physical memory).<br><a href="https://imgtu.com/i/6VaOsK"><img src="https://s3.ax1x.com/2021/03/04/6VaOsK.png" alt="6VaOsK.png"></a></p>
-<h2 id="bins-垃圾桶"><a href="#bins-垃圾桶" class="headerlink" title="bins 垃圾桶"></a>bins 垃圾桶</h2><p>已经申请到的内存空间大小进行释放，来决定放入哪类 bins 当作去。<br>Fast bin<br>Unsorted bin<br>Small bin<br>Large bin</p>
-<h3 id="fast-bin"><a href="#fast-bin" class="headerlink" title="fast bin"></a>fast bin</h3><p><code>Chunks of size 16 to 80 bytes is called a fast chunk.</code></p>
+<h2 id="bins-垃圾桶"><a href="#bins-垃圾桶" class="headerlink" title="bins 垃圾桶"></a>bins 垃圾桶</h2><p>已经申请到的内存空间大小进行释放，来决定放入哪类 bins 当中去。<br>Fast bin<br>Unsorted bin<br>Small bin<br>Large bin</p>
+<h3 id="fast-bin"><a href="#fast-bin" class="headerlink" title="fast bin"></a>fast bin</h3><p>64位下<br><code>Chunks of size 0x20 to 0x80 bytes is called a fast chunk.</code><br>其中的0x10字节是用来存prev_size和size</p>
 <p>Number of bins – 10<br>Each fast bin contains a <code>single linked list</code> (a.k.a binlist) of free chunks.<br>Fast bins contain a binlist of chunks whose sizes are 8 bytes apart. ie) First fast bin (index 0) contains binlist of chunks of size 16 bytes, second fast bin (index 1) contains binlist of chunks of size  24 bytes and so on…</p>
 <p>During malloc initialization, maximum fast bin size is set to 64 (!80) bytes.</p>
-<h3 id="small"><a href="#small" class="headerlink" title="small"></a>small</h3><p>When small or large chunk gets freed instead of adding them in to their respective bins, <code>its gets added into unsorted bin.</code><br>This approach gives ‘glibc malloc’ a second chance to reuse the recently freed chunks.<br>Chunk size – There is no size restriction, chunks of any size belongs to this bin.</p>
+<h3 id="small-and-large-bins"><a href="#small-and-large-bins" class="headerlink" title="small and large bins"></a>small and large bins</h3><p>When small or large chunk gets freed instead of adding them in to their respective bins, <code>its gets added into unsorted bin.</code> 重要<br>This approach gives ‘glibc malloc’ a second chance to reuse the recently freed chunks.<br>Chunk size – There is no size restriction, chunks of any size belongs to this bin.</p>
+<h3 id="fast-bins"><a href="#fast-bins" class="headerlink" title="fast bins"></a>fast bins</h3><pre><code>────────────────────── Fastbins for arena 0x7ffff7dd1b20 ──────────────────────
+Fastbins[idx=0, size=0x10]  ←  Chunk(addr=0x602010, size=0x20, flags=PREV_INUSE)  ←  Chunk(addr=0x602030, size=0x20, flags=PREV_INUSE)
+Fastbins[idx=1, size=0x20]  ←  Chunk(addr=0x602050, size=0x30, flags=PREV_INUSE)
+Fastbins[idx=2, size=0x30]  ←  Chunk(addr=0x602080, size=0x40, flags=PREV_INUSE)
+Fastbins[idx=3, size=0x40]  ←  Chunk(addr=0x6020c0, size=0x50, flags=PREV_INUSE)
+Fastbins[idx=4, size=0x50]  ←  Chunk(addr=0x602110, size=0x60, flags=PREV_INUSE)
+Fastbins[idx=5, size=0x60]  ←  Chunk(addr=0x602170, size=0x70, flags=PREV_INUSE)
+Fastbins[idx=6, size=0x70]  ←  Chunk(addr=0x6021e0, size=0x80, flags=PREV_INUSE)</code></pre>
+<p><code>a chunk of size 0x20-0x2f would fit into idx 0</code>, a chunk of size<code> 0x30-0x3f would fit into idx 1</code>, and so on and so forth.</p>
+<p>有七条链表，每个链表有一个头，后面接着free的块<br>链表后进先出，使用头插法</p>
+<h3 id="tcachebins"><a href="#tcachebins" class="headerlink" title="tcachebins"></a>tcachebins</h3><p>一个链条同一时间只能有7个块<br>可以有多个链条<br>size任意<br>多出的块到达fastbins，（在大小符合的情况下）</p>
+<h3 id="Unsorted-Large-and-Small-Bins"><a href="#Unsorted-Large-and-Small-Bins" class="headerlink" title="Unsorted, Large and Small Bins"></a>Unsorted, Large and Small Bins</h3><p>双向链表<br>头部都在同一数组中，有不同的索引值。<br>0x00:         Not Used<br>0x01:         Unsorted Bin<br>0x02 - 0x3f:  Small Bin<br>0x40 - 0x7e:  Large Bin</p>
+<p>Unsorted Bin只有一条链， 62 for the Small Bin, and 63 for the Large Bin</p>
+<p>The <code>small bins</code> on x64 consists of chunk <code>sizes under 0x400</code> (1024 bytes), and on x86 consists of chunk sizes<code>under 0x200</code>(512 bytes), and the<code> large bin consists of values above those</code>.</p>
+<p><strong>释放后，首先插入的是unsorted bin</strong><br>since the unsorted bin chunk could not serve the requested size of 0x1000, it was sorted to its corresponding list of in the small bin at idx 4<br>当再次分配但不满足要求时，将进行排序 到相应的bin上<br>若满足要求，就分配<br><a href="https://guyinatuxedo.github.io/25-heap/index.html">https://guyinatuxedo.github.io/25-heap/index.html</a></p>
+<p>lagestbin 中还有fwd_nextsize and bk_nextsize</p>
+<h3 id="Consolidation-合并"><a href="#Consolidation-合并" class="headerlink" title="Consolidation 合并"></a>Consolidation 合并</h3><p>相邻的空闲块都会合并</p>
+<h3 id="Top-chunk"><a href="#Top-chunk" class="headerlink" title="Top chunk"></a>Top chunk</h3><p>The Top Chunk is essentially a large heap chunk that holds currently unallocated data.<br>first time calling malloc reiterate the top chunk holds unallocated data that isn’t in the bin list.</p>
+<p>malloc will try to allocate chunks from the bin lists before allocating them from the top chunk</p>
+<p>We can see that two things have happened to the top chunk. Firstly that it moved down <code>to 0x602120 from 0x602020</code> to make room for the new allocation from itself. Secondly, we see that it’s <code>size was shrunk by 0x100</code>, because of the 0x100 byte allocation from it.<br>低地址向高地址增长</p>
+<p>depending on the version of malloc and if the chunk size is fast bin or tcache, this behavior doesn’t always show itself.<br>挨着top chunk，释放并不一定回到top chunk，旧的size值并不会清零，我的虚拟机上运行就变为<code>tcachebins </code></p>
+<pre><code>gef➤  heap bins 
+──────────────────────────────────────────────────────────────── Tcachebins for arena 0x7ffff7f9fb80 ────────────────────────────────────────────────────────────────
+Tcachebins[idx=14, size=0x100] count=1  ←  Chunk(addr=0x5555555592c0, size=0x100, flags=PREV_INUSE) </code></pre>
+<p> one thing you will see us do a lot of is allocated a small chunk in between our freed chunks and the top chunk, just to prevent that consolidation.<br>攻击时，要阻止释放的chunk回到top chunk，所以中间放一个小块分配内存。</p>
+<h2 id="main-arena"><a href="#main-arena" class="headerlink" title="main arena"></a>main arena</h2><p>contains the <code>head pointers </code>for the bin lists,<br>heap bins命令下可以显示</p>
+<h2 id="利用"><a href="#利用" class="headerlink" title="利用"></a>利用</h2><p>基于这些bug:<br>leverage the bugs and a bit of heap grooming to edit a freed chunk in one of the bin lists. Then from being able to edit a freed chunk in one of the bin lists we can launch a bin attack</p>
+<pre><code>+--------------------+----------------------------+-----------------------+
+|   Bug Used         |  Bin Attack                |   House               |
++--------------------+----------------------------+-----------------------+
+|                    |  Fast Bin Attack           |   House of Spirit     |
+|   Double Free      |  tcache attack             |   House of Lore       |
+|   Heap Overflow    |  Unsorted Bin Attck        |   House of Force      |
+|   Use After Free   |  Small / Large Bin Attck   |   House of Einherjar  |
+|                    |  Unsafe Unlink             |   House of Orange     |
++--------------------+----------------------------+-----------------------+</code></pre>
+<p>两大利器gef 和 源码 malloc.c<br>When you attempt to use LD_PRELOAD to have a binary use a specific libc file, you might find an issue if the linker’s are not compatible. </p>
+<h2 id="fastbin-链表头插法"><a href="#fastbin-链表头插法" class="headerlink" title="fastbin 链表头插法"></a>fastbin 链表头插法</h2><p><a href="https://heap-exploitation.dhavalkapil.com/attacks/double_free">https://heap-exploitation.dhavalkapil.com/attacks/double_free</a><br>分配 也是从头部开始分配</p>
+<p>double free 原理，两次释放，将同一块重复加入链表中，分配自然重复使用了</p>
 ]]></content>
       <categories>
         <category>Heap</category>
