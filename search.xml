@@ -1945,7 +1945,8 @@ Fastbins[idx=5, size=0x60]  ←  Chunk(addr=0x602170, size=0x70, flags=PREV_INUS
 Fastbins[idx=6, size=0x70]  ←  Chunk(addr=0x6021e0, size=0x80, flags=PREV_INUSE)</code></pre>
 <p><code>a chunk of size 0x20-0x2f would fit into idx 0</code>, a chunk of size<code> 0x30-0x3f would fit into idx 1</code>, and so on and so forth.</p>
 <p>有七条链表，每个链表有一个头，后面接着free的块<br>链表后进先出，使用头插法</p>
-<h3 id="tcachebins"><a href="#tcachebins" class="headerlink" title="tcachebins"></a>tcachebins</h3><p>一个链条同一时间只能有7个块<br>可以有多个链条<br>size任意<br>多出的块到达fastbins，（在大小符合的情况下）</p>
+<h3 id="tcachebins"><a href="#tcachebins" class="headerlink" title="tcachebins"></a>tcachebins</h3><p>在glibc2.26中引入<br>一个链条同一时间只能有7个块<br>可以有64条链条<br>size任意0x20-0x410<br>当size不大（这个程度后面讲）堆块free后，不会直接进入各种bin，而是进入tcache，如果下次需要该大小内存，直接讲tcache分配出去<br>多出的块到达fastbins，（在大小符合的情况下）<br><a href="https://www.freebuf.com/articles/system/234219.html">https://www.freebuf.com/articles/system/234219.html</a><br><a href="https://guyinatuxedo.github.io/25-heap/index.html">https://guyinatuxedo.github.io/25-heap/index.html</a></p>
+<p>tcachebins就相当于fastbins 而且较少检查</p>
 <h3 id="Unsorted-Large-and-Small-Bins"><a href="#Unsorted-Large-and-Small-Bins" class="headerlink" title="Unsorted, Large and Small Bins"></a>Unsorted, Large and Small Bins</h3><p>双向链表<br>头部都在同一数组中，有不同的索引值。<br>0x00:         Not Used<br>0x01:         Unsorted Bin<br>0x02 - 0x3f:  Small Bin<br>0x40 - 0x7e:  Large Bin</p>
 <p>Unsorted Bin只有一条链， 62 for the Small Bin, and 63 for the Large Bin</p>
 <p>The <code>small bins</code> on x64 consists of chunk <code>sizes under 0x400</code> (1024 bytes), and on x86 consists of chunk sizes<code>under 0x200</code>(512 bytes), and the<code> large bin consists of values above those</code>.</p>
@@ -4597,6 +4598,140 @@ gdb-peda$ x/4bx $ebp-0xc
       </categories>
       <tags>
         <tag>PWN</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>heap入门1</title>
+    <url>/2021/03/12/heap%E5%85%A5%E9%97%A81/</url>
+    <content><![CDATA[<h2 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h2><p><code> &quot;LD_PRELOAD&quot;:&quot;./libc-2.23.so&quot;</code> 更改glibc版本<br><code>pwd</code>显示当前目录<br><code>apropos</code>搜索man手册<br><code>gef-&gt;search-patten</code><br><code>objdump -M intel</code>汇编改为intel语法<br><code>set disassambly intel</code> gdb更改语法<br><code>b print </code>printf函数下断点</p>
+<a id="more"></a>
+<p>在gdb 里启动gef<br><code>(gdb) source ~/.gdbinit-gef.py</code></p>
+<p>或者传递命令<br><code>gdb.attach(p,&quot;source ~/.gdbinit-gef.py&quot;)</code></p>
+<hr>
+<p><code>gef➤  heap-view </code></p>
+<pre><code>gef➤  got
+
+GOT protection: Partial RelRO | GOT functions: 3
+
+[0x804c00c] printf@GLIBC_2.0  →  0x8049036
+[0x804c010] __libc_start_main@GLIBC_2.0  →  0xf7ddcd40
+[0x804c014] __isoc99_scanf@GLIBC_2.7  →  0x8049056</code></pre>
+<hr>
+<pre><code>gef➤  heap bins
+gef➤  heap chunks
+
+gef➤  heap chunks
+Chunk(addr=0x555555559010, size=0x290, flags=PREV_INUSE)
+    [0x0000555555559010     00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00    ................]
+Chunk(addr=0x5555555592a0, size=0x20, flags=PREV_INUSE)
+    [0x00005555555592a0     00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00    ................]
+Chunk(addr=0x5555555592c0, size=0x20d50, flags=PREV_INUSE)  ←  top chunk
+gef➤  x/6gx 0x5555555592c0
+0x5555555592c0:    0x0000000000000000    0x0000000000000000
+0x5555555592d0:    0x0000000000000000    0x0000000000000000
+0x5555555592e0:    0x0000000000000000    0x0000000000000000
+gef➤  x/6gx 0x5555555592c0-0x10
+0x5555555592b0:    0x0000000000000000    0x0000000000020d51
+0x5555555592c0:    0x0000000000000000    0x0000000000000000
+0x5555555592d0:    0x0000000000000000    0x0000000000000000</code></pre>
+<p>查看glibc版本</p>
+<pre><code>┌─[✗]─[zentreisender@parrotos]─[~]
+└──╼ $ldd --version
+ldd ./program 显示链接器，加载器版本</code></pre>
+<h2 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h2><p><code>call malloc, it returns a pointer to a chunk</code><br>返回一个地址</p>
+<p>64bit 一个chunk段16字节，32bit 8 字节</p>
+<p>查看二进制文件依赖的动态链接库命令 ldd</p>
+<h3 id="PIE"><a href="#PIE" class="headerlink" title="PIE"></a>PIE</h3><p>PIE全称是position-independent executable，中文解释为地址无关可执行文件，该技术是一个针对代码段（.text）、数据段（.data）、未初始化全局变量段（.bss）等固定地址的一个防护技术</p>
+<h3 id="RELRC"><a href="#RELRC" class="headerlink" title="RELRC"></a>RELRC</h3><p>Firstly, <code>PLT</code> needs to be located at <code>a fixed offset</code> from the .text section. Secondly, since GOT contains data used by different parts of the program directly, it needs to be allocated at a known static address in memory. Lastly, and more importantly, because the GOT is lazily bound it needs to be writable.</p>
+<p><code>PLT GOT 的偏移都是 写死在文件上</code><br>the linker resolves all dynamically linked functions<code> at the beginning of the execution,</code> and then <code>makes the GOT read-only</code>. 这就是RELRC</p>
+<p>In partial RELRO, the non-PLT part of the GOT section (.got from readelf output) is read only but <code>.got.plt is still writeable</code>. Whereas in complete RELRO, the entire GOT (.got and .got.plt both) is marked as read-only.</p>
+<p><code>.got</code> Section 存放外部全局变量的 GOT 表，非延迟绑定<br><code>.got.plt</code> Section 存放外部函数的 GOT 表，例如 printf，采用延迟绑定。</p>
+<p>.got is for relocations regarding global ‘variables’ while .got.plt is a auxiliary section to act together with .plt when resolving procedures absolute addresses</p>
+<h2 id="编译安装glibc各版本"><a href="#编译安装glibc各版本" class="headerlink" title="编译安装glibc各版本"></a>编译安装glibc各版本</h2><p>下载源码后<br><a href="https://www.gnu.org/software/libc/manual/html_node/Configuring-and-compiling.html">https://www.gnu.org/software/libc/manual/html_node/Configuring-and-compiling.html</a></p>
+<h3 id="gcc10编译安装glibc-2-23"><a href="#gcc10编译安装glibc-2-23" class="headerlink" title="gcc10编译安装glibc 2.23"></a>gcc10编译安装glibc 2.23</h3><pre><code>../glibc-2.20/configure --prefix=/usr --enable-add-ons --with-headers=/usr/include --with-binutils=/usr/bin --disable-werror</code></pre>
+<p><code>--disable-werror</code> 这项是忽略错误</p>
+<h3 id="gcc10编译安装glibc-2-27"><a href="#gcc10编译安装glibc-2-27" class="headerlink" title="gcc10编译安装glibc 2.27"></a>gcc10编译安装glibc 2.27</h3><pre><code>CFLAGS=&quot;-g -fcommon -Og&quot; CXXFLAGS=&quot;-g -fcommon -Og&quot; ../glibc-2.27/configure --prefix=/glibc/2.27 --with-headers=/usr/include --with-binutils=/usr/bin --disable-werror </code></pre>
+<p>我编译的时候报了重复定义的错误，加<code>-fcommon</code> 忽视</p>
+<h2 id="how2heap"><a href="#how2heap" class="headerlink" title="how2heap"></a>how2heap</h2><h3 id="first-fit"><a href="#first-fit" class="headerlink" title="first_fit"></a>first_fit</h3><p> first-fit behavior.<code>If a chunk is free and large enough, malloc will select this chunk.</code></p>
+<p>Whenever <code>any chunk</code> (not a fast chunk) is freed,<code> it ends up in the unsorted bin.</code> Insertion happens at the <code>HEAD of the list</code>.</p>
+<p>fast chunks end up in fastbins. As mentioned earlier, fastbins maintain a singly linked list and chunks are inserted and deleted from the HEAD end。<code>头插法</code></p>
+<h3 id="calc"><a href="#calc" class="headerlink" title="calc::"></a>calc::</h3><h4 id="索引计算公式：："><a href="#索引计算公式：：" class="headerlink" title="索引计算公式：："></a>索引计算公式：：</h4><p>The basic formula is as follows:</p>
+<pre><code>        IDX = (CHUNKSIZE - MINSIZE + MALLOC_ALIGNMENT - 1) / MALLOC_ALIGNMENT
+        On a 64 bit system the current values are:
+                MINSIZE: 0x20
+                MALLOC_ALIGNMENT: 0x10
+        So we get the following equation:
+        IDX = (CHUNKSIZE - 0x11) / 0x10</code></pre>
+<h4 id="chunksize计算公式：："><a href="#chunksize计算公式：：" class="headerlink" title="chunksize计算公式：："></a>chunksize计算公式：：</h4><pre><code>It is calculated as follows:
+        IF x + SIZE_SZ + MALLOC_ALIGN_MASK &lt; MINSIZE(0x20) CHUNKSIZE = MINSIZE (0x20)
+        ELSE: CHUNKSIZE = (x + SIZE_SZ + MALLOC_ALIGN_MASK) &amp; ~MALLOC_ALIGN_MASK) 
+        =&gt; CHUNKSIZE = (x + 0x8 + 0xf) &amp; ~0xf</code></pre>
+<p>64位下，将<code>最低四位置0</code>，因为size 总是16的倍数，要对齐</p>
+<p>当 req=24 时，request2size(24)=32。0x18+0x8+0xf &amp; ~0xf = 0x20而除去 chunk 头部的 16 个字节。实际上用户可用 chunk 的字节数为 16。而根据我们前面学到的知识可以知道 chunk 的 pre_size 仅当它的前一块处于释放状态时才起作用。所以用户这时候其实还可以使用下一个 chunk 的 prev_size 字段，正好 24 个字节</p>
+<h3 id="fastbin-dup-c"><a href="#fastbin-dup-c" class="headerlink" title="fastbin_dup.c"></a>fastbin_dup.c</h3><p>**double-free **<br><a href="https://guyinatuxedo.github.io/27-edit_free_chunk/double_free_explanation/index.html">https://guyinatuxedo.github.io/27-edit_free_chunk/double_free_explanation/index.html</a><br>同一地址释放两次，再分配时，可以得到同一地址的两个指针，释放一个指针，但可通过另外一个指针操作释放的这个相同块，放入一些数据</p>
+<p><a href="https://blog.csdn.net/chennbnbnb/article/details/109284780">https://blog.csdn.net/chennbnbnb/article/details/109284780</a><br>glibc2.31 版本下double free<br>tcache全称是Thead Cache</p>
+<p>首先要填充tcache bin，再分配释放后到 fastbin</p>
+<h3 id="fastbin-dup-into-stack-c-2-23"><a href="#fastbin-dup-into-stack-c-2-23" class="headerlink" title="fastbin_dup_into_stack.c 2.23"></a>fastbin_dup_into_stack.c 2.23</h3><p>在2.31下触发free(): double free detected in tcache 2</p>
+<p>fastbin 是单链，只有fd指针，指向下一个块<br>通过修改fd指针，指向一个伪造的fake chunk</p>
+<pre><code>gef➤  x/15gx 0x602010-0x10
+0x602000:   0x0000000000000000  0x0000000000000021 &lt;-- chunk a [be freed twice]
+0x602010:   0x0000000000602020  0x0000000000000000      &lt;-- fd pointer
+0x602020:   0x0000000000000000  0x0000000000000021 &lt;-- chunk b [be freed]
+0x602030:   0x0000000000602000  0x0000000000000000      &lt;-- fd pointer
+0x602040:   0x0000000000000000  0x0000000000000021 &lt;-- chunk c
+0x602050:   0x4343434343434343  0x0000000000000000
+0x602060:   0x0000000000000000  0x0000000000020fa1
+0x602070:   0x0000000000000000</code></pre>
+<hr>
+<pre><code>unsigned long long *d = malloc(8);
+stack_var = 0x20;
+*d = (unsigned long long) (((char*)&amp;stack_var) - sizeof(d));</code></pre>
+<p>fastbin 的fd指针指向下一个空闲块的<code> metadata开始的地址处</code><br>malloc 返回的地址指向的是<code>user data开始处</code>，d是double free后的重复块地址，所以上面的赋值是 将<code>fake_chunk的metadata起始地址 赋给 块中的fd指针</code>，因为这是 d 是double free，虽然分配了，但<code>也指向空闲块中</code>，将chUnk fd 指针指向一个 fake chunk 的metadata起始地址处，即prev_size ; size=20; userdata。</p>
+<pre><code>Fastbins[idx=0, size=0x20]  ←  Chunk(addr=0x55555555a010, size=0x20, flags=PREV_INUSE)  ←  Chunk(addr=0x7fffffffdd50, size=0x20, flags=)  ←  Chunk(addr=0x55555555a020, size=0x0, flags=) [incorrect fastbin_index] </code></pre>
+<p>可以看到成功</p>
+<p>typedef struct var newtype;<br>struct var 的别名为newtype、</p>
+<h3 id="heap-consolidation"><a href="#heap-consolidation" class="headerlink" title="heap_consolidation"></a>heap_consolidation</h3><p>Editing freed chunks will allow us to overwrite heap metadata, which is crucial to a lot of attacks.<br>edit a freed chunk using a heap overflow bug to cause consolidation</p>
+<p>overwrite the size to be 0x510, essentially clearing the previous in use bit. This way when we free this chunk, it will think that the previous chunk has been freed</p>
+<p>这样就再分配后，就有两个指针指向同一个块</p>
+<p>改写当前size中 is_prev位，使得释放当前块后，认为<code>前一个块是free的</code><br>heap_overflow </p>
+<pre><code>ptr2 = malloc(0x500);
+ptr2[-1] 指示size
+ptr[-2] 指示prev_size</code></pre>
+<p><code>fastbin_dup_consolidate.c 2.23</code><br><a href="https://firmianay.gitbooks.io/ctf-all-in-one/content/doc/3.1.6_heap_exploit_1.html#fastbin_dup_consolidate">https://firmianay.gitbooks.io/ctf-all-in-one/content/doc/3.1.6_heap_exploit_1.html#fastbin_dup_consolidate</a><br>利用在 large bin 的分配中 malloc_consolidate 机制绕过 fastbin 对 double free 的检查</p>
+<p>malloc(0x400) small bins（回收最大值）后，<code>fastbin 中的跑到 small bins中</code><br>[+] small_bins[4]: fw=0x55555555b000, bk=0x55555555b000<br> →   Chunk(addr=0x55555555b010, size=0x50, flags=PREV_INUSE)</p>
+<p>2.23 里malloc_consolidate，先回收 fastbins 里的到unsorted bin中，因为这个bin满足不了分配要来，按照大小 又到了small bins中，也有可能到达large bins中。</p>
+<p><code>此时可以再free() 一次，因为该块不在fastbin，释放后归到fastbins中。</code></p>
+<p>这样我们就相当于double free</p>
+<h3 id="UAF"><a href="#UAF" class="headerlink" title="UAF"></a>UAF</h3><p>一般称被释放后没有被设置为 NULL 的内存指针为<code> dangling pointer</code></p>
+<p>内存块被释放后，其对应的指针没有被设置为 NULL ，然后在它下一次被使用之前，没有代码对这块内存块进行修改，那么程序很有可能可以正常运转。<br>内存块被释放后，其对应的指针没有被设置为 NULL，但是在它下一次使用之前，有代码对这块内存进行了修改，那么当程序再次使用这块内存时，就很有可能会出现奇怪的问题。</p>
+<p>释放块后，指向其的指针不清除，所以可以再用这个指针写入数据</p>
+<h2 id="babyheap-2017"><a href="#babyheap-2017" class="headerlink" title="babyheap 2017"></a>babyheap 2017</h2><p>有点莽，说实话不是很懂<br><a href="https://ctf-wiki.org/pwn/linux/glibc-heap/fastbin_attack/#2017-0ctf-babyheap">https://ctf-wiki.org/pwn/linux/glibc-heap/fastbin_attack/#2017-0ctf-babyheap</a><br><a href="https://guyinatuxedo.github.io/28-fastbin_attack/0ctf_babyheap/index.html">https://guyinatuxedo.github.io/28-fastbin_attack/0ctf_babyheap/index.html</a><br><a href="https://uaf.io/exploitation/2017/03/19/0ctf-Quals-2017-BabyHeap2017.html">https://uaf.io/exploitation/2017/03/19/0ctf-Quals-2017-BabyHeap2017.html</a></p>
+<p>GNU/Linux 2.6.32 对应着glibc 2.23版本</p>
+<pre><code>┌─[zentreisender@parrotos]─[~/Documents/heap/题目]
+└──╼ $file /glibc/2.23/lib/libc-2.23.so 
+/glibc/2.23/lib/libc-2.23.so: ELF 64-bit LSB shared object, x86-64, version 1 (GNU/Linux), dynamically linked, interpreter /glibc/2.23/lib/ld-linux-x86-64.so.2, BuildID[sha1]=eb6c32093c3e8e3b1c03a382947ec4151d036d75, for GNU/Linux 2.6.32, with debug_info, not stripped</code></pre>
+<hr>
+<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>The first will involve <code>causing heap consolidation to get a libc infoleak</code>. The second will involve using <code>a Fastbin Attack to write a oneshot gadget to the hooc of malloc</code>. The libc infoleak will allow us to break ASLR in libc and know the address of everything, and writing over the malloc hook with a ROP gadget (that will call system) will <code>give us a shell</code> when we call malloc (we need the infoleak to figure out where the malloc hook and rop gadget are)<br>也可以使用chunck overlap泄露unsorted bin的地址</p>
+<hr>
+<p>题目不是原本的相同实现方法，但思想是不变的<br>开启了<code>relrc</code>,不能修改got；alloc pointers in a <code>random mmap area</code>. Therefore, we do not know the address to launch the <code>“unsafe unlink” attack</code></p>
+<hr>
+<h3 id="知识"><a href="#知识" class="headerlink" title="知识"></a>知识</h3><p><code>v6 = __readfsqword(0x28u);</code><br>Read memory from a location specified by an offset relative to the beginning of the GS segment.<br><a href="https://docs.microsoft.com/en-us/cpp/intrinsics/readgsbyte-readgsdword-readgsqword-readgsword?view=msvc-160">https://docs.microsoft.com/en-us/cpp/intrinsics/readgsbyte-readgsdword-readgsqword-readgsword?view=msvc-160</a></p>
+<pre><code>void* calloc (size_t num, size_t size);
+Allocate and zero-initialize array
+Size of each element.
+pData = (int*) calloc (i,sizeof(int));</code></pre>
+<p>fill 中size由自己定义，存在漏洞, the vulnerability is evident. We can fill the arbitrary length of input to the heap and overflow anything after that.</p>
+<p><code>$readelf -s /glibc/2.23/lib/libc-2.23.so | grep __malloc_hook</code></p>
+<p>我们想要做的是 泄露libc的基址，Heap overlap.<br>Overlapping two chunks to leak the address of the libc</p>
+<p>将 chunk 4 释放掉，其 fd 指针会被设置为指向 unsorted bin 链表的头部，这个地址在 libc 中，且相对位置固定，利用它就可以算出 libc 被加载的地址<br>这时新的chunk2也指向fd , bk</p>
+<p>调用 malloc() 时，首先判断 hook 函数指针是否为空，不为空则调用它。所以这里我们传入一个 one-gadget。<br><a href="https://github.com/david942j/one_gadget">https://github.com/david942j/one_gadget</a></p>
+<p><code>gef➤  x/10gx (long long)(&amp;main_arena)-0x30</code></p>
+]]></content>
+      <categories>
+        <category>heap</category>
+      </categories>
+      <tags>
+        <tag>heap</tag>
       </tags>
   </entry>
 </search>

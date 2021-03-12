@@ -35,7 +35,7 @@
 <meta property="og:image" content="https://s3.ax1x.com/2021/03/04/6VaHR1.png">
 <meta property="og:image" content="https://s3.ax1x.com/2021/03/04/6VaOsK.png">
 <meta property="article:published_time" content="2021-03-04T05:57:29.000Z">
-<meta property="article:modified_time" content="2021-03-08T08:01:23.075Z">
+<meta property="article:modified_time" content="2021-03-12T03:33:49.219Z">
 <meta property="article:author" content="finsenty54">
 <meta property="article:tag" content="heap">
 <meta name="twitter:card" content="summary">
@@ -158,12 +158,12 @@
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">8</span></a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">9</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">78</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">79</span></a>
 
   </li>
         <li class="menu-item menu-item-sitemap">
@@ -243,14 +243,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">78</span>
+          <span class="site-state-item-count">79</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-count">9</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -340,7 +340,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-03-08 16:01:23" itemprop="dateModified" datetime="2021-03-08T16:01:23+08:00">2021-03-08</time>
+        <time title="修改时间：2021-03-12 11:33:49" itemprop="dateModified" datetime="2021-03-12T11:33:49+08:00">2021-03-12</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -381,7 +381,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>8.4k</span>
+      <span>8.6k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -470,7 +470,8 @@ Fastbins[idx=5, size=0x60]  ←  Chunk(addr=0x602170, size=0x70, flags=PREV_INUS
 Fastbins[idx=6, size=0x70]  ←  Chunk(addr=0x6021e0, size=0x80, flags=PREV_INUSE)</code></pre>
 <p><code>a chunk of size 0x20-0x2f would fit into idx 0</code>, a chunk of size<code> 0x30-0x3f would fit into idx 1</code>, and so on and so forth.</p>
 <p>有七条链表，每个链表有一个头，后面接着free的块<br>链表后进先出，使用头插法</p>
-<h3 id="tcachebins"><a href="#tcachebins" class="headerlink" title="tcachebins"></a>tcachebins</h3><p>一个链条同一时间只能有7个块<br>可以有多个链条<br>size任意<br>多出的块到达fastbins，（在大小符合的情况下）</p>
+<h3 id="tcachebins"><a href="#tcachebins" class="headerlink" title="tcachebins"></a>tcachebins</h3><p>在glibc2.26中引入<br>一个链条同一时间只能有7个块<br>可以有64条链条<br>size任意0x20-0x410<br>当size不大（这个程度后面讲）堆块free后，不会直接进入各种bin，而是进入tcache，如果下次需要该大小内存，直接讲tcache分配出去<br>多出的块到达fastbins，（在大小符合的情况下）<br><a target="_blank" rel="noopener" href="https://www.freebuf.com/articles/system/234219.html">https://www.freebuf.com/articles/system/234219.html</a><br><a target="_blank" rel="noopener" href="https://guyinatuxedo.github.io/25-heap/index.html">https://guyinatuxedo.github.io/25-heap/index.html</a></p>
+<p>tcachebins就相当于fastbins 而且较少检查</p>
 <h3 id="Unsorted-Large-and-Small-Bins"><a href="#Unsorted-Large-and-Small-Bins" class="headerlink" title="Unsorted, Large and Small Bins"></a>Unsorted, Large and Small Bins</h3><p>双向链表<br>头部都在同一数组中，有不同的索引值。<br>0x00:         Not Used<br>0x01:         Unsorted Bin<br>0x02 - 0x3f:  Small Bin<br>0x40 - 0x7e:  Large Bin</p>
 <p>Unsorted Bin只有一条链， 62 for the Small Bin, and 63 for the Large Bin</p>
 <p>The <code>small bins</code> on x64 consists of chunk <code>sizes under 0x400</code> (1024 bytes), and on x86 consists of chunk sizes<code>under 0x200</code>(512 bytes), and the<code> large bin consists of values above those</code>.</p>
@@ -612,14 +613,14 @@ Tcachebins[idx=14, size=0x100] count=1  ←  Chunk(addr=0x5555555592c0, size=0x1
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">235k</span>
+    <span title="站点总字数">243k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">3:34</span>
+    <span title="站点阅读时长">3:41</span>
   </span>
 </div>
 <div class="busuanzi-count">
