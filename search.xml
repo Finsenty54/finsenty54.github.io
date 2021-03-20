@@ -4734,4 +4734,125 @@ pData = (int*) calloc (i,sizeof(int));</code></pre>
         <tag>heap</tag>
       </tags>
   </entry>
+  <entry>
+    <title>heap入门2</title>
+    <url>/2021/03/20/heap%E5%85%A5%E9%97%A82/</url>
+    <content><![CDATA[<h2 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h2><p><code>objdump -M intel -D ./heap0 | grep winner</code><br><code>gef➤  help search-pattern </code></p>
+<h2 id="nightmare"><a href="#nightmare" class="headerlink" title="nightmare"></a>nightmare</h2><h2 id="protostar-heap0"><a href="#protostar-heap0" class="headerlink" title="protostar:heap0"></a>protostar:heap0</h2><p><code>objdump -D heap0 | grep winner</code></p>
+<pre><code>┌─[zentreisender@parrotos]─[~/Documents/nightmare/modules/24-heap_overflow/protostar_heap0]
+└──╼ $objdump -M intel -D ./heap0 | grep winner
+080484b6 &lt;winner&gt;:
+080484e1 &lt;nowinner&gt;:</code></pre>
+<p>简单的堆溢出，复制时没有检查大小</p>
+<a id="more"></a>
+<h2 id="protostar-heap1"><a href="#protostar-heap1" class="headerlink" title="protostar:heap1"></a>protostar:heap1</h2><p>strcpy 没有检查大小<br>第一次strcpy进行溢出，覆盖地址为got表中put地址，第二次向puts地址写入winner()函数地址，接下来调用puts()的时候，实际上调用到winner()</p>
+<pre><code>gef➤  help search-pattern 
+SearchPatternCommand: search a pattern in memory. If given an hex value (starting with 0x)</code></pre>
+<p>可以用来搜索内存中值，打印位置</p>
+<h2 id="protostar-heap2"><a href="#protostar-heap2" class="headerlink" title="protostar:heap2"></a>protostar:heap2</h2><p>%p 打印地址</p>
+<pre><code>    00100ab3 48 8d 85        LEA        RAX=&gt;local_98,[RBP + -0x90]
+             70 ff ff ff
+    00100aba 48 83 c0 07     ADD        RAX,0x7</code></pre>
+<p>The strdup() function returns a pointer to a new string which is a duplicate of the string s.  Memory for the new string is obtained with malloc(3), and can be freed with free(3).</p>
+<p>复制时 没有大小检查，且是分配在堆上</p>
+<h2 id="Unlink-explannation"><a href="#Unlink-explannation" class="headerlink" title="Unlink() explannation"></a>Unlink() explannation</h2><p><a href="https://sourceware.org/git/?p=glibc.git;a=blob;f=malloc/malloc.c;h=ef04360b918bceca424482c6db03cc5ec90c3e00;hb=07c18a008c2ed8f5660adba2b778671db159a141#l1344">https://sourceware.org/git/?p=glibc.git;a=blob;f=malloc/malloc.c;h=ef04360b918bceca424482c6db03cc5ec90c3e00;hb=07c18a008c2ed8f5660adba2b778671db159a141#l1344</a><br>malloc 代码 里有unlink</p>
+<h3 id="什么是unlink攻击"><a href="#什么是unlink攻击" class="headerlink" title="什么是unlink攻击"></a>什么是unlink攻击</h3><p>The most common scenario is a vulnerable <code>buffer that can be overflow </code>and has <code>a global pointer</code>. 要是全局变量  </p>
+<ol>
+<li>要有溢出漏洞</li>
+<li>chunk地址存在一指针数组中，且是全局变量</li>
+</ol>
+<p><code>unlink()</code> 是将双向链表的 块拿出来， 就需要重新调整 fd 和 bk 指针<br>例如 free 时和目前物理相邻的 free chunk 进行合并<br>It handles the process of overwriting pointers from the next and previous chunks to the other, to fill in the gap from taking out the chunk in the middle.</p>
+<h3 id="第一个检查：："><a href="#第一个检查：：" class="headerlink" title="第一个检查：："></a>第一个检查：：</h3><p>The first check we need to worry about, is it checks if the Fd and Bk pointers of our fake heap chunk (they point to the next and previous chunks) point to chunks that have <code>pointers back</code> to our fake chunk.</p>
+<hr>
+<p>构建一个fake chunk，这个chunk 可以在已申请的chunk中构建，因为我们可以写入值。<br><code>temp = (uint64_t *)ptr0[2]; </code> 将fd的值指针化后赋给 temp<br><code>printf(&quot;Fd-&gt;bk:    \t\t%p\n&quot;, (void *)temp[3]); </code><br>%p 按十六进制输出数据 </p>
+<h3 id="void-为”无类型指针”"><a href="#void-为”无类型指针”" class="headerlink" title="void * 为”无类型指针”"></a>void * 为”无类型指针”</h3><p>内存分配函数 malloc 函数返回的指针就是 void * 型，用户在使用这个指针的时候，要进行强制类型转换，也就是显式说明该指针指向的内存中是存放的什么类型的数据 (int <em>)malloc(1024) 表示强制规定 malloc 返回的 void</em> 指针指向的内存中存放的是一个个的 int 型数据。</p>
+<hr>
+<h3 id="fake-chunk-fd-bk"><a href="#fake-chunk-fd-bk" class="headerlink" title="fake_chunk fd bk"></a>fake_chunk fd bk</h3><p>fd 在<code>0x10</code> 偏移处，bk 在<code>0x18</code>偏移处<br>fake= ptr0<br>target=ptr0<br><code>fake-&gt;fd = target-0x18 =FD </code>减0x18是因为下面是<code>取 bk </code><br>因为 FD-&gt; bk = fake FD的其他结构值都不重要，只要bk值，这里就是&amp;target，这个地址保存着fake chunk metadata的开始地址，即ptr0<br><code>target-0x18+0x18 = fake chunk = ptr0</code></p>
+<p>同理</p>
+<pre><code>fake-&gt;bk=target-0x10 =BK
+BK-&gt;fd = fake = ptr0
+target-0x10 + 0x10 =ptr0</code></pre>
+<p>we will edit the <code>heap metadata of the second chunk</code>, so that it will say that the previous chunk has been freed and it points to our fake chunk.<br>只要设置<code>prev_size</code>，到metadata开始处，就认为是其前一个块</p>
+<p>Then when we free the second chunk, it will cause our fake chunk to <code>be unlinked</code> and execute the <code>pointer write</code>.<br>will check that the size of our chunk is equal to the previous size of the chunk being freed<br><strong>利用堆溢出 来修改</strong></p>
+<hr>
+<p>The final check we have to worry about is for fd_nextsize. Essentially it just checks to see if it is equal to 0x0, and if it is it skips a bunch of checks.<br>现在不为0才跳过一些检查</p>
+<h3 id="chunk结构"><a href="#chunk结构" class="headerlink" title="chunk结构"></a>chunk结构</h3><pre><code>struct malloc_chunk &#123;
+  INTERNAL_SIZE_T      mchunk_prev_size;  /* Size of previous chunk (if free).  */
+  INTERNAL_SIZE_T      mchunk_size;       /* Size in bytes, including overhead. */
+  struct malloc_chunk* fd;         /* double links -- used only if free. */
+  struct malloc_chunk* bk;
+  /* Only used for large blocks: pointer to next larger size.  */
+  struct malloc_chunk* fd_nextsize; /* double links -- used only if free. */
+  struct malloc_chunk* bk_nextsize;
+&#125;;</code></pre>
+<p>双向链表结构的bin中，fd_nextsize 指向下一个与当前 chunk 大小不同的第一个空闲块，不包含 bin 的头指针。<br>bk_nextsize 指向前一个与当前 chunk 大小不同的第一个空闲块，不包含 bin 的头指针。<br>就是 bk 接下来的8字节，</p>
+<h3 id="unlink-写操作"><a href="#unlink-写操作" class="headerlink" title="unlink 写操作"></a>unlink 写操作</h3><p>unlink操作如下：：</p>
+<pre><code>FD = fake-&gt;fd;
+BK = fake-&gt;bk;
+FD-&gt;bk = BK
+BK-&gt;fd = FD</code></pre>
+<p>那么最后，<code>BK-&gt;fd = FD</code><br>Fd pointer: 0x55d9452cf038<br>Bk  pointer: 0x55d9452cf040<br>Bk-&gt;Fd:            0x55d946d5d420  即target地址存储的值<br>*target=fd=0x55d9452cf038</p>
+<p><a href="https://firmianay.gitbooks.io/ctf-all-in-one/content/doc/3.1.6_heap_exploit_1.html#unsafe_unlink">https://firmianay.gitbooks.io/ctf-all-in-one/content/doc/3.1.6_heap_exploit_1.html#unsafe_unlink</a><br>这时 chunk0_ptr 和 chunk0_ptr[3] 实际上就是同一东西。这里可能会有疑惑为什么这两个东西是一样的，因为 chunk0_ptr 指针在是放在数据段上的，<strong>地址在 0x601070</strong>，<strong>指向 0x601058</strong>，而 chunk0_ptr[3] 的意思是从 chunk0_ptr <strong>指向的地方</strong>开始数 3 个单位，所以 *<em>0x601058+0x08</em>3=0x601070**</p>
+<p>所以给chunk0[3] 赋值 就相当于给chunk赋值，最后chunk[0] 为改写地址处的内容<br>chunk0是指针（重要）<br>&amp;chunk0[3]==&amp;chunk0</p>
+<h2 id="nightmare-HITCON’14-stkof"><a href="#nightmare-HITCON’14-stkof" class="headerlink" title="nightmare HITCON’14: stkof"></a>nightmare HITCON’14: stkof</h2><p><code>00602100</code><br>Our exploitation process will contain two parts. The first will be<code> doing an Unlink Attack</code>, and the second will be a <code>GOT overwrite / infoleak</code>.</p>
+<h3 id="unlink"><a href="#unlink" class="headerlink" title="unlink"></a>unlink</h3><p>Unlinking for the heap is the process of removing a chunk from a bin list (in this case for heap consolidation for performance improvement reasons).</p>
+<p>What this attack will do is <code>give us a write</code>.<br>However there are a lot of restrictions on what we can write and where we can write.<br>Essentially when an unlink happens, it will write pointers to a chunk to fill in the gap of the chunk that was taken out.<br>这就是写的来源<br>因为最后<code>BK-&gt;fd=FD</code></p>
+<p>本题中指针ptr，所在是一个指针数组，数组中的内容是指针，指向其他地方<br>首先我们要有一个指向 一个chunk块的指针ptr，来使得bk-&gt;fd 和 fd-&gt;bk指向fake chunk<br>题目中malloc后地址</p>
+<pre><code>                /* 将块地址保存在这里 */
+*(void **)(&amp;DAT_00602140 + (long)(int)DAT_00602100 * 8) = pvVar1;
+
+
+    004009a8 48 98           CDQE
+    004009aa 48 8b 55 88     MOV        RDX,qword ptr [RBP + local_80]
+                         将块地址保存在这里
+    004009ae 48 89 14        MOV        qword ptr [DAT_00602140 + RAX*0x8],RDX
+             c5 40 21 
+             60 00</code></pre>
+<p>动态运行下就知道地址</p>
+<pre><code> →   0x4009ae                  mov    QWORD PTR [rax*8+0x602140], rdx
+此时$rax   : 0x1               
+所以保存在地址0x602148</code></pre>
+<p>接着来设置 fake chunk 的fd , bk指针</p>
+<p>所以先分配两个块，这两个块不一定要相邻在一起，相邻可以简单地使用堆溢出，也好融合，然后在第一个块中创建fake chunk， 在free第二个块后，触发Unlink </p>
+<pre><code>那么fake chunk fd=ptr-0x18   , fd-&gt;bk=ptr
+fake chunk bk=ptr-0x10 , bk -&gt;fd=ptr</code></pre>
+<p>然后是设置size, pre_size和size要相符，然后是fd_nextsize == null （在glibc2.23下）</p>
+<p>unlink 后<br><code>*ptr=ptr-0x8*3</code><br>可以用来got覆写</p>
+<h3 id="GOT-Overwrite-Infoleak"><a href="#GOT-Overwrite-Infoleak" class="headerlink" title="GOT Overwrite / Infoleak"></a>GOT Overwrite / Infoleak</h3><p>现在有了一个指向指针数组的指针<br>就可以 向数组中写入指针</p>
+<hr>
+<p><a href="https://github.com/Finsenty54/attack-code/blob/master/heap/Hitcon_2014_stkof/myexploit.py">https://github.com/Finsenty54/attack-code/blob/master/heap/Hitcon_2014_stkof/myexploit.py</a><br>代码以及注解</p>
+<h2 id="zctf-2016-note2"><a href="#zctf-2016-note2" class="headerlink" title="zctf 2016 note2"></a>zctf 2016 note2</h2><p>把名字放在这里006020e0<br>最多四个块</p>
+<hr>
+<p><code>DAT_00602120</code>分配的块的地址放在这里，8字节，顺序排列<br>相应块的输入值大小放在DAT_00602140</p>
+<p>这些位置在<code>bss</code>中，全局未初始化变量</p>
+<pre><code>Chunk(addr=0x108c2a0, size=0x90, flags=PREV_INUSE)
+    [0x000000000108c2a0     00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00    ................]
+Chunk(addr=0x108c330, size=0x90, flags=PREV_INUSE)
+    [0x000000000108c330     00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00    ................]
+Chunk(addr=0x108c3c0, size=0x90, flags=PREV_INUSE)
+    [0x000000000108c3c0     00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00    ................]
+Chunk(addr=0x108c450, size=0x90, flags=PREV_INUSE)
+    [0x000000000108c450     00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00    ................]
+Chunk(addr=0x108c4e0, size=0x20b30, flags=PREV_INUSE)  ←  top chunk
+gef➤  x/32gx 0x00602120
+0x602120:    0x000000000108c2a0    0x000000000108c330
+0x602130:    0x000000000108c3c0    0x000000000108c450</code></pre>
+<p>自带的libc-2.19.so 太老了，使用2.23</p>
+<p>overwrite_append() 函数里有数组长度检查，没有堆溢出<br>教程这里，将输入的长度设为0x00，造成整数溢出？？因为确实0x00-1=0xffffffff，同时设置成0x00，还是会分配0x20的空间</p>
+<p>The first will hold our fake chunk for the unlink. The second chunk we will use to <code>overflow the metadata of the third chunk</code>. The third chunk will be the one which we overwrite the <code>heap metadata to point to the fake chunk,</code> and we free it.<br>只用修改prev_size</p>
+<hr>
+<pre><code>0x23ce320:    0x0000000000000000    0x0000000000000021
+0x23ce330:    0x3535353535353535    0x3535353535353535
+0x23ce340:    0x00000000000000a0    0x0000000000000090
+0x23ce350:    0x3131313131313100    0x3131313131313131</code></pre>
+<p>溢出</p>
+<p><a href="https://github.com/Finsenty54/attack-code/blob/master/heap/zctf_2016_note2/exploit.py">https://github.com/Finsenty54/attack-code/blob/master/heap/zctf_2016_note2/exploit.py</a><br>攻击代码<br><strong>泄露got表中内容，即实际地址值</strong></p>
+]]></content>
+      <categories>
+        <category>heap</category>
+      </categories>
+      <tags>
+        <tag>heap</tag>
+      </tags>
+  </entry>
 </search>
