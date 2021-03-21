@@ -22,7 +22,7 @@
 
 <script class="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"finsenty54.github.io","root":"/","images":"/images","scheme":"Mist","version":"8.1.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
+    var CONFIG = {"hostname":"finsenty54.github.io","root":"/","images":"/images","scheme":"Mist","version":"8.1.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"algolia":{"appID":"T0QIVHGFB7","apiKey":"12fa600f34612e11373aa0f7e199dde3","indexName":"my_blog","hits":{"per_page":10}}};
   </script>
 <meta name="description" content="老师布置的一项任务，deploy丰富博客  渗透测试报告目录执行总结    3结论总结    3攻击记叙    3远程系统调查    3管理员网络服务器界面攻击    5命令解析器到管理服务器    7提权    9JAVA客户机攻击    9升级为本地管理员    11深包检测规避    12">
 <meta property="og:type" content="article">
@@ -181,19 +181,15 @@
   <span class="search-icon">
     <i class="fa fa-search"></i>
   </span>
-  <div class="search-input-container">
-    <input autocomplete="off" autocapitalize="off" maxlength="80"
-           placeholder="搜索..." spellcheck="false"
-           type="search" class="search-input">
-  </div>
+  <div class="search-input-container"></div>
   <span class="popup-btn-close">
     <i class="fa fa-times-circle"></i>
   </span>
 </div>
-<div class="search-result-container no-result">
-  <div class="search-result-icon">
-    <i class="fa fa-spinner fa-pulse fa-5x"></i>
-  </div>
+<div class="search-result-container">
+  <div class="algolia-stats"><hr></div>
+  <div class="algolia-hits"></div>
+  <div class="algolia-pagination"></div>
 </div>
 
     </div>
@@ -494,7 +490,7 @@
 <h3 id="补丁管理"><a href="#补丁管理" class="headerlink" title="补丁管理"></a>补丁管理</h3><p>级别：高<br>描述：MegaCorp One内外部环境中有许多未打补丁的系统和程序。<br>影响：弱授权机制和未打补丁的主机，都包含可以用爆破的漏洞，这会使得攻击者以未授权的方式得到大量的公司资产。特别地，例如SQLiite Manager包含远程执行代码的漏洞，底层主机也有一个本地提权的漏洞，这些可以使对外开放的主机轻易地被攻陷。表明了补丁管理策略以及强制执行的不足。<br>修复：所有的公司资产都要及时打上供应商提供的补丁。要完成这些可以使用供应商官方工具或者第三方程序，这些都能检查出未应用的补丁。在许多例子中，第三方工具也可以用来在一个混乱的环境中进行补丁部署。</p>
 <h3 id="DNS区域传送"><a href="#DNS区域传送" class="headerlink" title="DNS区域传送"></a>DNS区域传送</h3><p>级别：低<br>描述：一个错误配置的DNS服务器允许无限制的区域传送。<br>影响：一个配置成可与任何DNS服务器传输数据的DNS服务器，会泄露关于公司资产和网络布局等敏感信息。<br>修复：DNS区域传送需仅对已证明的服务器开放。</p>
 <h3 id="默认APACHE文件目录"><a href="#默认APACHE文件目录" class="headerlink" title="默认APACHE文件目录"></a>默认APACHE文件目录</h3><p>级别：低<br>描述：在admin.megacorpone.com主机上发现了默认的Apache文件目录。<br>影响：攻击者通过检查默认文件夹可能猜出Apache服务器的版本。敏感信息也可能泄露。<br>修复：移除公开网站的所有默认文件。</p>
-<h2 id="附录B-关于Offensive-Security"><a href="#附录B-关于Offensive-Security" class="headerlink" title="附录B:关于Offensive Security"></a>附录B:关于Offensive Security</h2><p>Offensive Security提倡黑盒渗透测试而反对白盒渗透测试。白盒渗透测试近几年来很火，因为在仅要实现常规需求的地方，简化了评估方法。其作为漏洞扫描方法，会有选择的确认发现的问题。这让服务供应商有能力扩大工作量，因为使用了自动化的工具，并且通过证书维持产品间的联动。<br>黑盒是在受控环境下的攻击模拟形式，非常接近现实环境，组织会时不时的面临攻击。黑盒测试是基于目标的评估方法，不仅仅是发现一个简单的漏洞，而是提供一个漏洞真正的商业影响。黑盒测试会找到那些修复后能带来最高商业回报的区域。<br>黑盒测试通常需要很高的专业知识。正如报告中显示的那样，Offensive Security坚信当进行黑盒测试时输出正确有效的结果是检验合格的唯一方式，因为我们专业的安全团队运用了很高专业知识。Offensive Security会集中力量进行渗透测试或着其他参与的项目。这意味着无论什么都参与到提供服务中，例如标准工具Kali Linux，畅销书的作者，O-day漏洞的发现者，或是如Exploit-DB的维护者。<br>Offensive Security提供的产品与市场需求不配对。然而，我们不会适合任一工作。Offensive Security特别提供咨询服务，底容量和高质量的比例使得员工能更接近的模拟现实世界的攻击。这也允许在保持成本合理的同时，客户可以更多地获得行业认可的专业知识。例如，大批量/快速周转服务通常不适合我们。Offensive Security专注与领导高质量，高影响的评估活动，积极地寻求其他供应商无法提供服务的客户。<br>请通过<a href="mailto:&#x69;&#x6e;&#102;&#111;&#64;&#x6f;&#x66;&#x66;&#115;&#101;&#x63;&#x2e;&#99;&#x6f;&#109;">&#x69;&#x6e;&#102;&#111;&#64;&#x6f;&#x66;&#x66;&#115;&#101;&#x63;&#x2e;&#99;&#x6f;&#109;</a>联系我们。</p>
+<h2 id="附录B-关于Offensive-Security"><a href="#附录B-关于Offensive-Security" class="headerlink" title="附录B:关于Offensive Security"></a>附录B:关于Offensive Security</h2><p>Offensive Security提倡黑盒渗透测试而反对白盒渗透测试。白盒渗透测试近几年来很火，因为在仅要实现常规需求的地方，简化了评估方法。其作为漏洞扫描方法，会有选择的确认发现的问题。这让服务供应商有能力扩大工作量，因为使用了自动化的工具，并且通过证书维持产品间的联动。<br>黑盒是在受控环境下的攻击模拟形式，非常接近现实环境，组织会时不时的面临攻击。黑盒测试是基于目标的评估方法，不仅仅是发现一个简单的漏洞，而是提供一个漏洞真正的商业影响。黑盒测试会找到那些修复后能带来最高商业回报的区域。<br>黑盒测试通常需要很高的专业知识。正如报告中显示的那样，Offensive Security坚信当进行黑盒测试时输出正确有效的结果是检验合格的唯一方式，因为我们专业的安全团队运用了很高专业知识。Offensive Security会集中力量进行渗透测试或着其他参与的项目。这意味着无论什么都参与到提供服务中，例如标准工具Kali Linux，畅销书的作者，O-day漏洞的发现者，或是如Exploit-DB的维护者。<br>Offensive Security提供的产品与市场需求不配对。然而，我们不会适合任一工作。Offensive Security特别提供咨询服务，底容量和高质量的比例使得员工能更接近的模拟现实世界的攻击。这也允许在保持成本合理的同时，客户可以更多地获得行业认可的专业知识。例如，大批量/快速周转服务通常不适合我们。Offensive Security专注与领导高质量，高影响的评估活动，积极地寻求其他供应商无法提供服务的客户。<br>请通过<a href="mailto:&#105;&#110;&#x66;&#111;&#64;&#x6f;&#x66;&#x66;&#115;&#101;&#99;&#x2e;&#x63;&#111;&#109;">&#105;&#110;&#x66;&#111;&#64;&#x6f;&#x66;&#x66;&#115;&#101;&#99;&#x2e;&#x63;&#111;&#109;</a>联系我们。</p>
 
     </div>
 
@@ -673,7 +669,8 @@ document.write(unescape("%3Cspan id='cnzz_stat_icon_1279770196'%3E%3C/span%3E%3C
 
   
 
-<script src="/js/local-search.js"></script>
+<script src="//cdn.jsdelivr.net/npm/algoliasearch@4.8.2/dist/algoliasearch-lite.umd.js"></script>
+<script src="//cdn.jsdelivr.net/npm/instantsearch.js@4.8.7/dist/instantsearch.production.min.js"></script><script src="/js/algolia-search.js"></script>
 
 
 
@@ -695,5 +692,5 @@ NexT.utils.loadComments('#valine-comments', () => {
 });
 </script>
 
-<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7}});</script></body>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"live2d-widget-model-shizuku"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7}});</script></body>
 </html>

