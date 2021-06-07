@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#222">
+  <link rel="manifest" href="/images/site.webmanifest">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.1/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"finsenty54.github.io","root":"/","images":"/images","scheme":"Mist","version":"8.1.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"algolia":{"appID":"T0QIVHGFB7","apiKey":"12fa600f34612e11373aa0f7e199dde3","indexName":"my_blog","hits":{"per_page":10}}};
+  </script>
+<meta name="description" content="模糊测试模糊测试 （fuzz testing, fuzzing）是一种软件测试技术。其核心思想是将自动或半自动生成的随机数据输入到一个程序中，并监视程序异常，如崩溃，断言（assertion）失败，以发现可能的程序错误，比如内存泄漏。模糊测试常常用于检测软件或计算机系统的安全漏洞。 模糊测试最早由威斯康星大学的Barton Miller于1988年提出。他们的工作不仅使用随机无结构的测试数据，还系">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AFL++使用">
+<meta property="og:url" content="http://finsenty54.github.io/2021/06/07/afl++/index.html">
+<meta property="og:site_name" content="FINSENTY54">
+<meta property="og:description" content="模糊测试模糊测试 （fuzz testing, fuzzing）是一种软件测试技术。其核心思想是将自动或半自动生成的随机数据输入到一个程序中，并监视程序异常，如崩溃，断言（assertion）失败，以发现可能的程序错误，比如内存泄漏。模糊测试常常用于检测软件或计算机系统的安全漏洞。 模糊测试最早由威斯康星大学的Barton Miller于1988年提出。他们的工作不仅使用随机无结构的测试数据，还系">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://finsenty54.github.io/images/Screenshot%20at%202021-06-04%2014-43-56.png">
+<meta property="article:published_time" content="2021-06-07T10:31:03.000Z">
+<meta property="article:modified_time" content="2021-06-07T10:36:26.477Z">
+<meta property="article:author" content="finsenty54">
+<meta property="article:tag" content="AFL">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://finsenty54.github.io/images/Screenshot%20at%202021-06-04%2014-43-56.png">
+
+
+<link rel="canonical" href="http://finsenty54.github.io/2021/06/07/afl++/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+<title>AFL++使用 | FINSENTY54</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-135283153-1"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-135283153-1');
+      }
+    </script>
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="FINSENTY54" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">FINSENTY54</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">几处早莺争暖树，谁家新燕啄春泥。</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">18</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">10</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">81</span></a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container"></div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container">
+  <div class="algolia-stats"><hr></div>
+  <div class="algolia-hits"></div>
+  <div class="algolia-pagination"></div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <section class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A8%A1%E7%B3%8A%E6%B5%8B%E8%AF%95"><span class="nav-number">1.</span> <span class="nav-text">模糊测试</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AFL"><span class="nav-number">2.</span> <span class="nav-text">AFL</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AFLplusplus"><span class="nav-number">3.</span> <span class="nav-text">AFLplusplus</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AudioFile"><span class="nav-number">4.</span> <span class="nav-text">AudioFile</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#FUZZING"><span class="nav-number">5.</span> <span class="nav-text">FUZZING</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85"><span class="nav-number">5.1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%86%E5%A4%87%E8%A2%AB%E6%B5%8B%E8%AF%95%E6%BA%90%E7%A0%81"><span class="nav-number">5.2.</span> <span class="nav-text">准备被测试源码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8F%92%E6%A1%A9%E7%BC%96%E8%AF%91"><span class="nav-number">5.3.</span> <span class="nav-text">插桩编译</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%84%E7%90%86%E7%A7%8D%E5%AD%90%E8%AF%AD%E6%96%99%E5%BA%93"><span class="nav-number">5.4.</span> <span class="nav-text">处理种子语料库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%80%E5%A7%8B%E6%B5%8B%E8%AF%95"><span class="nav-number">5.5.</span> <span class="nav-text">开始测试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%84%E7%90%86crashes"><span class="nav-number">5.6.</span> <span class="nav-text">处理crashes</span></a></li></ol></li></ol></div>
+        </section>
+        <!--/noindex-->
+
+        <section class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="finsenty54"
+      src="https://media.giphy.com/media/5xtDarHBDofiI04yE4U/giphy.gif">
+  <p class="site-author-name" itemprop="name">finsenty54</p>
+  <div class="site-description" itemprop="description">blog</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">81</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Finsenty54" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Finsenty54" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:fin12138@gmail.com" title="E-Mail → mailto:fin12138@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+        </section>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/Finsenty54" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://finsenty54.github.io/2021/06/07/afl++/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://media.giphy.com/media/5xtDarHBDofiI04yE4U/giphy.gif">
+      <meta itemprop="name" content="finsenty54">
+      <meta itemprop="description" content="blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="FINSENTY54">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          AFL++使用
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2021-06-07 18:31:03 / 修改时间：18:36:26" itemprop="dateCreated datePublished" datetime="2021-06-07T18:31:03+08:00">2021-06-07</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/AFL/" itemprop="url" rel="index"><span itemprop="name">AFL</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/2021/06/07/afl++/" class="post-meta-item leancloud_visitors" data-flag-title="AFL++使用" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/06/07/afl++/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/06/07/afl++/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>20k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>18 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="模糊测试"><a href="#模糊测试" class="headerlink" title="模糊测试"></a>模糊测试</h2><p>模糊测试 （fuzz testing, fuzzing）是一种软件测试技术。其核心思想是将自动或半自动生成的随机数据输入到一个程序中，并监视程序异常，如崩溃，断言（assertion）失败，以发现可能的程序错误，比如内存泄漏。模糊测试常常用于检测软件或计算机系统的安全漏洞。</p>
+<p>模糊测试最早由威斯康星大学的Barton Miller于1988年提出。他们的工作不仅使用随机无结构的测试数据，还系统的利用了一系列的工具去分析不同平台上的各种软件，并对测试发现的错误进行了系统的分析。此外，他们还公开了源代码，测试流程以及原始结果数据。</p>
+<p>模糊测试工具主要分为两类，变异测试（mutation-based）以及生成测试（generation-based）。模糊测试可以被用作白盒，灰盒或黑盒测试。文件格式与网络协议是最常见的测试目标，但任何程序输入都可以作为测试对象。常见的输入有环境变量，鼠标和键盘事件以及API调用序列。甚至一些通常不被考虑成输入的对象也可以被测试，比如数据库中的数据或共享内存。</p>
+<p>对于安全相关的测试，那些跨越可信边界的数据是最令人感兴趣的。比如，模糊测试那些处理任意用户上传的文件的代码比测试解析服务器配置文件的代码更重要。因为服务器配置文件往往只能被有一定权限的用户修改。</p>
+<a id="more"></a>
+<h2 id="AFL"><a href="#AFL" class="headerlink" title="AFL"></a>AFL</h2><p>AFL是fuzzing使用率较高的工具，全称是American Fuzzy Lop，由Google安全工程师Michał Zalewski开发的一款开源fuzzing测试工具，可以高效地对二进制程序进行fuzzing，挖掘可能存在的内存安全漏洞，如栈溢出、堆溢出、UAF、double free等。由于需要在相关代码处插桩，因此AFL主要用于对开源软件进行测试。配合QEMU等工具，也可对闭源二进制代码进行fuzzing，但执行效率会受到影响。AFL基于覆盖引导（Coverage-guided），它通过记录输入样本的代码覆盖率，从而调整输入样本以提高覆盖率，增加发现漏洞的概率。</p>
+<p>AFL对开源代码进行fuzzing的过程可以用以下五步描述：</p>
+<ol>
+<li>从源码编译程序时进行插桩，以记录代码覆盖率（Code Coverage）</li>
+<li>选择一些输入文件，作为初始测试集加入输入队列（queue）</li>
+<li>将队列中的文件按一定的策略进行 “突变”</li>
+<li>如果经过变异文件更新了覆盖范围，则将其保留添加到队列中</li>
+<li>上述过程会一直循环进行，期间触发了crash的文件会被记录下来</li>
+</ol>
+<h2 id="AFLplusplus"><a href="#AFLplusplus" class="headerlink" title="AFLplusplus"></a>AFLplusplus</h2><p>AFL++ 是 AFL 的高级分支——更快的速度、更多更好的突变、更多更好的工具、自定义模块支持等。</p>
+<h2 id="AudioFile"><a href="#AudioFile" class="headerlink" title="AudioFile"></a>AudioFile</h2><p>一个简单的头文件 C++ 库，用于读写音频文件。这是我fuzzing的目标。</p>
+<h2 id="FUZZING"><a href="#FUZZING" class="headerlink" title="FUZZING"></a>FUZZING</h2><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>最简单的方式就是使用docker</p>
+<p><code>docker pull aflplusplus/aflplusplus</code><br><code>docker run -ti -v /location/of/your/target:/src aflplusplus/aflplusplus</code></p>
+<h3 id="准备被测试源码"><a href="#准备被测试源码" class="headerlink" title="准备被测试源码"></a>准备被测试源码</h3><p>根据官方提供的示例代码略做修改做为测试代码。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> _USE_MATH_DEFINES</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cmath&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;AudioFile.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> examples</span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">writeSineWaveToAudioFile</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">loadAudioFileAndPrintSummary</span><span class="params">(<span class="keyword">char</span> *)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">loadAudioFileAndProcessSamples</span><span class="params">(<span class="keyword">char</span> *)</span></span>;</span><br><span class="line">&#125; <span class="comment">// namespace examples</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> **argv)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">//进行AFL Persistent mode</span></span><br><span class="line">    <span class="keyword">while</span> (__AFL_LOOP(<span class="number">10000</span>))</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">/** Loads an audio file and prints key details to the console*/</span></span><br><span class="line">        examples::loadAudioFileAndPrintSummary(argv[<span class="number">1</span>]);</span><br><span class="line"></span><br><span class="line">        <span class="comment">/** Loads an audio file and processess the samples */</span></span><br><span class="line">        examples::loadAudioFileAndProcessSamples(argv[<span class="number">1</span>]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> examples</span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">writeSineWaveToAudioFile</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;**********************&quot;</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">        <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;Running Example: Write Sine Wave To Audio File&quot;</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">        <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;**********************&quot;</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span></span><br><span class="line">                  &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 1. Let&#x27;s setup our AudioFile instance</span></span><br><span class="line">        AudioFile&lt;<span class="keyword">float</span>&gt; a;</span><br><span class="line">        a.setNumChannels(<span class="number">2</span>);</span><br><span class="line">        a.setNumSamplesPerChannel(<span class="number">44100</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 2. Create some variables to help us generate a sine wave</span></span><br><span class="line">        <span class="keyword">const</span> <span class="keyword">float</span> sampleRate = <span class="number">44100.f</span>;</span><br><span class="line">        <span class="keyword">const</span> <span class="keyword">float</span> frequencyInHz = <span class="number">440.f</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 3. Write the samples to the AudioFile sample buffer</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; a.getNumSamplesPerChannel(); i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> channel = <span class="number">0</span>; channel &lt; a.getNumChannels(); channel++)</span><br><span class="line">            &#123;</span><br><span class="line">                a.samples[channel][i] = <span class="built_in">sin</span>((<span class="keyword">static_cast</span>&lt;<span class="keyword">float</span>&gt;(i) / sampleRate) * frequencyInHz * <span class="number">2.f</span> * M_PI);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 4. Save the AudioFile</span></span><br><span class="line">        <span class="built_in">std</span>::<span class="built_in">string</span> filePath = <span class="string">&quot;sine-wave.wav&quot;</span>; <span class="comment">// change this to somewhere useful for you</span></span><br><span class="line">        a.save(<span class="string">&quot;sine-wave.wav&quot;</span>, AudioFileFormat::Wave);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">loadAudioFileAndPrintSummary</span><span class="params">(<span class="keyword">char</span> *file)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;**********************&quot;</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">        <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;Running Example: Load Audio File and Print Summary&quot;</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">        <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;**********************&quot;</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span></span><br><span class="line">                  &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 1. Set a file path to an audio file on your machine</span></span><br><span class="line">        <span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">string</span> filePath = <span class="built_in">std</span>::<span class="built_in">string</span>(file);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 2. Create an AudioFile object and load the audio file</span></span><br><span class="line">        AudioFile&lt;<span class="keyword">float</span>&gt; a;</span><br><span class="line">        <span class="keyword">bool</span> loadedOK = a.load(filePath);</span><br><span class="line"></span><br><span class="line">        <span class="comment">/** If you hit this assert then the file path above</span></span><br><span class="line"><span class="comment">         probably doesn&#x27;t refer to a valid audio file */</span></span><br><span class="line">        assert(loadedOK);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 3. Let&#x27;s print out some key details</span></span><br><span class="line">        <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;Bit Depth: &quot;</span> &lt;&lt; a.getBitDepth() &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">        <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;Sample Rate: &quot;</span> &lt;&lt; a.getSampleRate() &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">        <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;Num Channels: &quot;</span> &lt;&lt; a.getNumChannels() &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">        <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;Length in Seconds: &quot;</span> &lt;&lt; a.getLengthInSeconds() &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">        <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">loadAudioFileAndProcessSamples</span><span class="params">(<span class="keyword">char</span> *file)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;**********************&quot;</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">        <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;Running Example: Load Audio File and Process Samples&quot;</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">        <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;**********************&quot;</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span></span><br><span class="line">                  &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 1. Set a file path to an audio file on your machine</span></span><br><span class="line">        <span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">string</span> inputFilePath = <span class="built_in">std</span>::<span class="built_in">string</span>(file);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 2. Create an AudioFile object and load the audio file</span></span><br><span class="line">        AudioFile&lt;<span class="keyword">float</span>&gt; a;</span><br><span class="line">        <span class="keyword">bool</span> loadedOK = a.load(inputFilePath);</span><br><span class="line"></span><br><span class="line">        <span class="comment">/** If you hit this assert then the file path above</span></span><br><span class="line"><span class="comment">         probably doesn&#x27;t refer to a valid audio file */</span></span><br><span class="line">        assert(loadedOK);</span><br><span class="line">        <span class="comment">// 3. Let&#x27;s apply a gain to every audio sample</span></span><br><span class="line">        <span class="keyword">float</span> gain = <span class="number">0.5f</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; a.getNumSamplesPerChannel(); i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> channel = <span class="number">0</span>; channel &lt; a.getNumChannels(); channel++)</span><br><span class="line">            &#123;</span><br><span class="line">                a.samples[channel][i] = a.samples[channel][i] * gain;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125; <span class="comment">// namespace examples</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>我开启了AFL的Persistent Mode，开启方法是在调用函数前加上下面的代码。</p>
+<p><code>while (__AFL_LOOP(10000)) &#123;&#125;</code></p>
+<p>Persistent Mode消除重复 fork() 调用和相关操作系统开销的需要，因为有些函数只要简单重置状态值就可以处理不同的输入文件，这样一个进程就可以一直执行。在迭代了10000次后，AFL会重新启动进程，这最大限度地降低了内存泄漏和类似错误的影响。</p>
+<h3 id="插桩编译"><a href="#插桩编译" class="headerlink" title="插桩编译"></a>插桩编译</h3><ol>
+<li><p>首先运行docker镜像</p>
+<p><code>docker run -ti -v /location/of/your/target:/src aflplusplus/aflplusplus</code></p>
+<p>路径是源代码所在目录，这里需要填入绝对路径。</p>
+</li>
+<li><p>准备命令</p>
+<p><code>export AFL_USE_ASAN=1</code>表示编译器开启 -fsanitize=address 进行编译</p>
+<p><code>sudo afl-system-config</code>这会重新配置系统以获得最佳Fuzzing速度 </p>
+</li>
+<li><p>编译</p>
+<p>AudioFile原本是用cmake生成Makefile进行编译，但我运行的时候编译不成功。所以改为直接编写Makefile编译，将头文件和源文件放在同一目录下。</p>
+<p><code>make CXX=afl-clang-fast++</code></p>
+</li>
+</ol>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">objects :=examples.o</span><br><span class="line"></span><br><span class="line">CXX=g++</span><br><span class="line">CFLAGS+=-g</span><br><span class="line">EXE=first_try</span><br><span class="line"></span><br><span class="line"><span class="section">first_try: <span class="variable">$(objects)</span> </span></span><br><span class="line">	<span class="variable">$(CXX)</span> -o <span class="variable">$(EXE)</span> <span class="variable">$(objects)</span> </span><br><span class="line"><span class="section">examples.o: examples.cpp AudioFile.h</span></span><br><span class="line">	<span class="variable">$(CXX)</span> <span class="variable">$(CFLAGS)</span> -c examples.cpp</span><br><span class="line"></span><br><span class="line">.PHONY : clean</span><br><span class="line">clean :</span><br><span class="line">	rm <span class="variable">$(objects)</span> first_try</span><br></pre></td></tr></table></figure>
+
+<h3 id="处理种子语料库"><a href="#处理种子语料库" class="headerlink" title="处理种子语料库"></a>处理种子语料库</h3><p>输入文件选择AudioFile中原有的示例音频文件。</p>
+<p><code>afl-cmin -i in/ -o in_cmin -m none -- ./first_try @@</code></p>
+<p>使用 afl++ 工具 afl-cmin 从语料库中删除不会在目标中生成新路径的输入。</p>
+<p><code>@@</code>表示是文件输入，如果是标准输入去除<code>@@</code>即可。</p>
+<h3 id="开始测试"><a href="#开始测试" class="headerlink" title="开始测试"></a>开始测试</h3><p><code>afl-fuzz -i in_cmin/ -o out -m none -- ./first_try @@</code></p>
+<h3 id="处理crashes"><a href="#处理crashes" class="headerlink" title="处理crashes"></a>处理crashes</h3><p>会产生crash的文件放在out/default/crashes中，编译测试crashes的程序，去除掉源代码中的AFL_LOOP</p>
+<p><code>g++ -g -fsanitize=address -o asantry examples.cpp AudioFile.h</code> </p>
+<img src="/images/Screenshot at 2021-06-04 14-43-56.png" alt="Screenshot at 2021-06-04 14-43-56" style="zoom: 67%;" />
+
+<p>之后逐个输入crash，查看结果。</p>
+<ol>
+<li><p>第一个heap buff overflowin位于AudioFile.h:502，decodeWaveFile()函数</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./asantry ./out/default/crashes/id\:000005\,sig\:06\,src\:000006\,time\:84641\,op\:havoc\,rep\:2</span><br></pre></td></tr></table></figure>
+
+<p>asan结果：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line">**********************</span><br><span class="line">Running Example: Load Audio File and Print Summary</span><br><span class="line">**********************</span><br><span class="line"></span><br><span class="line">=================================================================</span><br><span class="line">==23==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x602000000738 at pc 0x55da0cb245e9 bp 0x7ffc6e244e90 sp 0x7ffc6e244e80</span><br><span class="line">READ of size 1 at 0x602000000738 thread T0</span><br><span class="line">    #0 0x55da0cb245e8 in void std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;::_S_copy_chars&lt;__gnu_cxx::__normal_iterator&lt;unsigned char*, std::vector&lt;unsigned char, std::allocator&lt;unsigned char&gt; &gt; &gt; &gt;(char*, __gnu_cxx::__normal_iterator&lt;unsigned char*, std::vector&lt;unsigned char, std::allocator&lt;unsigned char&gt; &gt; &gt;, __gnu_cxx::__normal_iterator&lt;unsigned char*, std::vector&lt;unsigned char, std::allocator&lt;unsigned char&gt; &gt; &gt;) /usr/include/c++/10/bits/basic_string.h:379</span><br><span class="line">    #1 0x55da0cb226a7 in void std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;::_M_construct&lt;__gnu_cxx::__normal_iterator&lt;unsigned char*, std::vector&lt;unsigned char, std::allocator&lt;unsigned char&gt; &gt; &gt; &gt;(__gnu_cxx::__normal_iterator&lt;unsigned char*, std::vector&lt;unsigned char, std::allocator&lt;unsigned char&gt; &gt; &gt;, __gnu_cxx::__normal_iterator&lt;unsigned char*, std::vector&lt;unsigned char, std::allocator&lt;unsigned char&gt; &gt; &gt;, std::forward_iterator_tag) /usr/include/c++/10/bits/basic_string.tcc:225</span><br><span class="line">    #2 0x55da0cb1fba7 in void std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;::_M_construct_aux&lt;__gnu_cxx::__normal_iterator&lt;unsigned char*, std::vector&lt;unsigned char, std::allocator&lt;unsigned char&gt; &gt; &gt; &gt;(__gnu_cxx::__normal_iterator&lt;unsigned char*, std::vector&lt;unsigned char, std::allocator&lt;unsigned char&gt; &gt; &gt;, __gnu_cxx::__normal_iterator&lt;unsigned char*, std::vector&lt;unsigned char, std::allocator&lt;unsigned char&gt; &gt; &gt;, std::__false_type) /usr/include/c++/10/bits/basic_string.h:247</span><br><span class="line">    #3 0x55da0cb1cfd5 in void std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;::_M_construct&lt;__gnu_cxx::__normal_iterator&lt;unsigned char*, std::vector&lt;unsigned char, std::allocator&lt;unsigned char&gt; &gt; &gt; &gt;(__gnu_cxx::__normal_iterator&lt;unsigned char*, std::vector&lt;unsigned char, std::allocator&lt;unsigned char&gt; &gt; &gt;, __gnu_cxx::__normal_iterator&lt;unsigned char*, std::vector&lt;unsigned char, std::allocator&lt;unsigned char&gt; &gt; &gt;) /usr/include/c++/10/bits/basic_string.h:266</span><br><span class="line">    #4 0x55da0cb19e45 in std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;::basic_string&lt;__gnu_cxx::__normal_iterator&lt;unsigned char*, std::vector&lt;unsigned char, std::allocator&lt;unsigned char&gt; &gt; &gt;, void&gt;(__gnu_cxx::__normal_iterator&lt;unsigned char*, std::vector&lt;unsigned char, std::allocator&lt;unsigned char&gt; &gt; &gt;, __gnu_cxx::__normal_iterator&lt;unsigned char*, std::vector&lt;unsigned char, std::allocator&lt;unsigned char&gt; &gt; &gt;, std::allocator&lt;char&gt; const&amp;) /usr/include/c++/10/bits/basic_string.h:628</span><br><span class="line">    #5 0x55da0cb11fcd in AudioFile&lt;float&gt;::decodeWaveFile(std::vector&lt;unsigned char, std::allocator&lt;unsigned char&gt; &gt;&amp;) /src/AudioFile.h:502</span><br><span class="line">    #6 0x55da0cb0d359 in AudioFile&lt;float&gt;::load(std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;) /src/AudioFile.h:481</span><br><span class="line">    #7 0x55da0cb0554d in examples::loadAudioFileAndPrintSummary(char*) /src/examples.cpp:95</span><br><span class="line">    #8 0x55da0cb04d0e in main /src/examples.cpp:26</span><br><span class="line">    #9 0x7fede8fdb0b2 in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x270b2)</span><br><span class="line">    #10 0x55da0cb04c0d in _start (/src/asantry+0x4c0d)</span><br><span class="line"></span><br><span class="line">0x602000000738 is located 2 bytes to the right of 6-byte region [0x602000000730,0x602000000736)</span><br><span class="line">allocated by thread T0 here:</span><br><span class="line">    #0 0x7fede95a2f17 in operator new(unsigned long) (/lib/x86_64-linux-gnu/libasan.so.6+0xb1f17)</span><br><span class="line">    #1 0x55da0cb1da08 in __gnu_cxx::new_allocator&lt;unsigned char&gt;::allocate(unsigned long, void const*) /usr/include/c++/10/ext/new_allocator.h:115</span><br><span class="line">    #2 0x55da0cb1ac79 in std::allocator_traits&lt;std::allocator&lt;unsigned char&gt; &gt;::allocate(std::allocator&lt;unsigned char&gt;&amp;, unsigned long) /usr/include/c++/10/bits/alloc_traits.h:460</span><br><span class="line">    #3 0x55da0cb16819 in std::_Vector_base&lt;unsigned char, std::allocator&lt;unsigned char&gt; &gt;::_M_allocate(unsigned long) /usr/include/c++/10/bits/stl_vector.h:346</span><br><span class="line">    #4 0x55da0cb195b6 in std::vector&lt;unsigned char, std::allocator&lt;unsigned char&gt; &gt;::_M_default_append(unsigned long) /usr/include/c++/10/bits/vector.tcc:635</span><br><span class="line">    #5 0x55da0cb11896 in std::vector&lt;unsigned char, std::allocator&lt;unsigned char&gt; &gt;::resize(unsigned long) /usr/include/c++/10/bits/stl_vector.h:940</span><br><span class="line">    #6 0x55da0cb0d192 in AudioFile&lt;float&gt;::load(std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;) /src/AudioFile.h:465</span><br><span class="line">    #7 0x55da0cb0554d in examples::loadAudioFileAndPrintSummary(char*) /src/examples.cpp:95</span><br><span class="line">    #8 0x55da0cb04d0e in main /src/examples.cpp:26</span><br><span class="line">    #9 0x7fede8fdb0b2 in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x270b2)</span><br><span class="line"></span><br><span class="line">SUMMARY: AddressSanitizer: heap-buffer-overflow /usr/include/c++/10/bits/basic_string.h:379 in void std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;::_S_copy_chars&lt;__gnu_cxx::__normal_iterator&lt;unsigned char*, std::vector&lt;unsigned char, std::allocator&lt;unsigned char&gt; &gt; &gt; &gt;(char*, __gnu_cxx::__normal_iterator&lt;unsigned char*, std::vector&lt;unsigned char, std::allocator&lt;unsigned char&gt; &gt; &gt;, __gnu_cxx::__normal_iterator&lt;unsigned char*, std::vector&lt;unsigned char, std::allocator&lt;unsigned char&gt; &gt; &gt;)</span><br><span class="line">Shadow bytes around the buggy address:</span><br><span class="line">  0x0c047fff8090: fa fa fd fd fa fa fd fd fa fa 00 02 fa fa 00 02</span><br><span class="line">  0x0c047fff80a0: fa fa 00 02 fa fa 00 02 fa fa 00 02 fa fa 00 02</span><br><span class="line">  0x0c047fff80b0: fa fa 00 02 fa fa 00 02 fa fa 00 02 fa fa 00 02</span><br><span class="line">  0x0c047fff80c0: fa fa 00 02 fa fa 00 02 fa fa 00 02 fa fa 00 02</span><br><span class="line">  0x0c047fff80d0: fa fa 00 02 fa fa 00 02 fa fa 00 02 fa fa 00 02</span><br><span class="line">=&gt;0x0c047fff80e0: fa fa 00 02 fa fa 06[fa]fa fa fa fa fa fa fa fa</span><br><span class="line">  0x0c047fff80f0: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa</span><br><span class="line">  0x0c047fff8100: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa</span><br><span class="line">  0x0c047fff8110: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa</span><br><span class="line">  0x0c047fff8120: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa</span><br><span class="line">  0x0c047fff8130: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa</span><br><span class="line">Shadow byte legend (one shadow byte represents 8 application bytes):</span><br><span class="line">  Addressable:           00</span><br><span class="line">  Partially addressable: 01 02 03 04 05 06 07 </span><br><span class="line">  Heap left redzone:       fa</span><br><span class="line">  Freed heap region:       fd</span><br><span class="line">  Stack left redzone:      f1</span><br><span class="line">  Stack mid redzone:       f2</span><br><span class="line">  Stack right redzone:     f3</span><br><span class="line">  Stack after return:      f5</span><br><span class="line">  Stack use after scope:   f8</span><br><span class="line">  Global redzone:          f9</span><br><span class="line">  Global init order:       f6</span><br><span class="line">  Poisoned by user:        f7</span><br><span class="line">  Container overflow:      fc</span><br><span class="line">  Array cookie:            ac</span><br><span class="line">  Intra object redzone:    bb</span><br><span class="line">  ASan internal:           fe</span><br><span class="line">  Left alloca redzone:     ca</span><br><span class="line">  Right alloca redzone:    cb</span><br><span class="line">  Shadow gap:              cc</span><br><span class="line">==23==ABORTING</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>第二个heap buff overflowin位于AudioFile.h:1148，determineAudioFileFormat()函数</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./asantry ./out/default/crashes/id\:000000\,sig\:06\,src\:000006\,time\:291\,op\:havoc\,rep\:16</span><br></pre></td></tr></table></figure>
+
+<p>asan结果：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line">**********************</span><br><span class="line">Running Example: Load Audio File and Print Summary</span><br><span class="line">**********************</span><br><span class="line"></span><br><span class="line">=================================================================</span><br><span class="line">==13==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x602000000731 at pc 0x561c434c55e9 bp 0x7ffeb0ea5a50 sp 0x7ffeb0ea5a40</span><br><span class="line">READ of size 1 at 0x602000000731 thread T0</span><br><span class="line">    #0 0x561c434c55e8 in void std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;::_S_copy_chars&lt;__gnu_cxx::__normal_iterator&lt;unsigned char*, std::vector&lt;unsigned char, std::allocator&lt;unsigned char&gt; &gt; &gt; &gt;(char*, __gnu_cxx::__normal_iterator&lt;unsigned char*, std::vector&lt;unsigned char, std::allocator&lt;unsigned char&gt; &gt; &gt;, __gnu_cxx::__normal_iterator&lt;unsigned char*, std::vector&lt;unsigned char, std::allocator&lt;unsigned char&gt; &gt; &gt;) /usr/include/c++/10/bits/basic_string.h:379</span><br><span class="line">    #1 0x561c434c36a7 in void std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;::_M_construct&lt;__gnu_cxx::__normal_iterator&lt;unsigned char*, std::vector&lt;unsigned char, std::allocator&lt;unsigned char&gt; &gt; &gt; &gt;(__gnu_cxx::__normal_iterator&lt;unsigned char*, std::vector&lt;unsigned char, std::allocator&lt;unsigned char&gt; &gt; &gt;, __gnu_cxx::__normal_iterator&lt;unsigned char*, std::vector&lt;unsigned char, std::allocator&lt;unsigned char&gt; &gt; &gt;, std::forward_iterator_tag) /usr/include/c++/10/bits/basic_string.tcc:225</span><br><span class="line">    #2 0x561c434c0ba7 in void std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;::_M_construct_aux&lt;__gnu_cxx::__normal_iterator&lt;unsigned char*, std::vector&lt;unsigned char, std::allocator&lt;unsigned char&gt; &gt; &gt; &gt;(__gnu_cxx::__normal_iterator&lt;unsigned char*, std::vector&lt;unsigned char, std::allocator&lt;unsigned char&gt; &gt; &gt;, __gnu_cxx::__normal_iterator&lt;unsigned char*, std::vector&lt;unsigned char, std::allocator&lt;unsigned char&gt; &gt; &gt;, std::__false_type) /usr/include/c++/10/bits/basic_string.h:247</span><br><span class="line">    #3 0x561c434bdfd5 in void std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;::_M_construct&lt;__gnu_cxx::__normal_iterator&lt;unsigned char*, std::vector&lt;unsigned char, std::allocator&lt;unsigned char&gt; &gt; &gt; &gt;(__gnu_cxx::__normal_iterator&lt;unsigned char*, std::vector&lt;unsigned char, std::allocator&lt;unsigned char&gt; &gt; &gt;, __gnu_cxx::__normal_iterator&lt;unsigned char*, std::vector&lt;unsigned char, std::allocator&lt;unsigned char&gt; &gt; &gt;) /usr/include/c++/10/bits/basic_string.h:266</span><br><span class="line">    #4 0x561c434bae45 in std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;::basic_string&lt;__gnu_cxx::__normal_iterator&lt;unsigned char*, std::vector&lt;unsigned char, std::allocator&lt;unsigned char&gt; &gt; &gt;, void&gt;(__gnu_cxx::__normal_iterator&lt;unsigned char*, std::vector&lt;unsigned char, std::allocator&lt;unsigned char&gt; &gt; &gt;, __gnu_cxx::__normal_iterator&lt;unsigned char*, std::vector&lt;unsigned char, std::allocator&lt;unsigned char&gt; &gt; &gt;, std::allocator&lt;char&gt; const&amp;) /usr/include/c++/10/bits/basic_string.h:628</span><br><span class="line">    #5 0x561c434b2a75 in AudioFile&lt;float&gt;::determineAudioFileFormat(std::vector&lt;unsigned char, std::allocator&lt;unsigned char&gt; &gt;&amp;) /src/AudioFile.h:1148</span><br><span class="line">    #6 0x561c434ae2ee in AudioFile&lt;float&gt;::load(std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;) /src/AudioFile.h:477</span><br><span class="line">    #7 0x561c434a654d in examples::loadAudioFileAndPrintSummary(char*) /src/examples.cpp:95</span><br><span class="line">    #8 0x561c434a5d0e in main /src/examples.cpp:26</span><br><span class="line">    #9 0x7f99260b30b2 in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x270b2)</span><br><span class="line">    #10 0x561c434a5c0d in _start (/src/asantry+0x4c0d)</span><br><span class="line"></span><br><span class="line">0x602000000731 is located 0 bytes to the right of 1-byte region [0x602000000730,0x602000000731)</span><br><span class="line">allocated by thread T0 here:</span><br><span class="line">    #0 0x7f992667af17 in operator new(unsigned long) (/lib/x86_64-linux-gnu/libasan.so.6+0xb1f17)</span><br><span class="line">    #1 0x561c434bea08 in __gnu_cxx::new_allocator&lt;unsigned char&gt;::allocate(unsigned long, void const*) /usr/include/c++/10/ext/new_allocator.h:115</span><br><span class="line">    #2 0x561c434bbc79 in std::allocator_traits&lt;std::allocator&lt;unsigned char&gt; &gt;::allocate(std::allocator&lt;unsigned char&gt;&amp;, unsigned long) /usr/include/c++/10/bits/alloc_traits.h:460</span><br><span class="line">    #3 0x561c434b7819 in std::_Vector_base&lt;unsigned char, std::allocator&lt;unsigned char&gt; &gt;::_M_allocate(unsigned long) /usr/include/c++/10/bits/stl_vector.h:346</span><br><span class="line">    #4 0x561c434ba5b6 in std::vector&lt;unsigned char, std::allocator&lt;unsigned char&gt; &gt;::_M_default_append(unsigned long) /usr/include/c++/10/bits/vector.tcc:635</span><br><span class="line">    #5 0x561c434b2896 in std::vector&lt;unsigned char, std::allocator&lt;unsigned char&gt; &gt;::resize(unsigned long) /usr/include/c++/10/bits/stl_vector.h:940</span><br><span class="line">    #6 0x561c434ae192 in AudioFile&lt;float&gt;::load(std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;) /src/AudioFile.h:465</span><br><span class="line">    #7 0x561c434a654d in examples::loadAudioFileAndPrintSummary(char*) /src/examples.cpp:95</span><br><span class="line">    #8 0x561c434a5d0e in main /src/examples.cpp:26</span><br><span class="line">    #9 0x7f99260b30b2 in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x270b2)</span><br><span class="line"></span><br><span class="line">SUMMARY: AddressSanitizer: heap-buffer-overflow /usr/include/c++/10/bits/basic_string.h:379 in void std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;::_S_copy_chars&lt;__gnu_cxx::__normal_iterator&lt;unsigned char*, std::vector&lt;unsigned char, std::allocator&lt;unsigned char&gt; &gt; &gt; &gt;(char*, __gnu_cxx::__normal_iterator&lt;unsigned char*, std::vector&lt;unsigned char, std::allocator&lt;unsigned char&gt; &gt; &gt;, __gnu_cxx::__normal_iterator&lt;unsigned char*, std::vector&lt;unsigned char, std::allocator&lt;unsigned char&gt; &gt; &gt;)</span><br><span class="line">Shadow bytes around the buggy address:</span><br><span class="line">  0x0c047fff8090: fa fa fd fd fa fa fd fd fa fa 00 02 fa fa 00 02</span><br><span class="line">  0x0c047fff80a0: fa fa 00 02 fa fa 00 02 fa fa 00 02 fa fa 00 02</span><br><span class="line">  0x0c047fff80b0: fa fa 00 02 fa fa 00 02 fa fa 00 02 fa fa 00 02</span><br><span class="line">  0x0c047fff80c0: fa fa 00 02 fa fa 00 02 fa fa 00 02 fa fa 00 02</span><br><span class="line">  0x0c047fff80d0: fa fa 00 02 fa fa 00 02 fa fa 00 02 fa fa 00 02</span><br><span class="line">=&gt;0x0c047fff80e0: fa fa 00 02 fa fa[01]fa fa fa fa fa fa fa fa fa</span><br><span class="line">  0x0c047fff80f0: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa</span><br><span class="line">  0x0c047fff8100: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa</span><br><span class="line">  0x0c047fff8110: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa</span><br><span class="line">  0x0c047fff8120: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa</span><br><span class="line">  0x0c047fff8130: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa</span><br><span class="line">Shadow byte legend (one shadow byte represents 8 application bytes):</span><br><span class="line">  Addressable:           00</span><br><span class="line">  Partially addressable: 01 02 03 04 05 06 07 </span><br><span class="line">  Heap left redzone:       fa</span><br><span class="line">  Freed heap region:       fd</span><br><span class="line">  Stack left redzone:      f1</span><br><span class="line">  Stack mid redzone:       f2</span><br><span class="line">  Stack right redzone:     f3</span><br><span class="line">  Stack after return:      f5</span><br><span class="line">  Stack use after scope:   f8</span><br><span class="line">  Global redzone:          f9</span><br><span class="line">  Global init order:       f6</span><br><span class="line">  Poisoned by user:        f7</span><br><span class="line">  Container overflow:      fc</span><br><span class="line">  Array cookie:            ac</span><br><span class="line">  Intra object redzone:    bb</span><br><span class="line">  ASan internal:           fe</span><br><span class="line">  Left alloca redzone:     ca</span><br><span class="line">  Right alloca redzone:    cb</span><br><span class="line">  Shadow gap:              cc</span><br><span class="line">==13==ABORTING</span><br></pre></td></tr></table></figure>
+
+
+
+
+</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>Buy me a coffee</div>
+  <button onclick="document.querySelector('.post-reward').classList.toggle('active');">
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/alipay.JPG" alt="finsenty54 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>finsenty54
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://finsenty54.github.io/2021/06/07/afl++/" title="AFL++使用">http://finsenty54.github.io/2021/06/07/afl++/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="followme">
+  <span>欢迎关注我的其它发布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="/atom.xml">
+          <span class="icon">
+            <i class="fa fa-rss"></i>
+          </span>
+
+          <span class="label">RSS</span>
+        </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/AFL/" rel="tag"># AFL</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/03/20/heap%E5%85%A5%E9%97%A82/" rel="prev" title="heap入门2">
+                  <i class="fa fa-chevron-left"></i> heap入门2
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">finsenty54</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">269k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">4:05</span>
+  </span>
+</div>
+<div id="days"></div>
+<script>
+function show_date_time(){
+    window.setTimeout("show_date_time()", 1000);
+    BirthDay=new Date("02/26/2019 17:01:08");//修改为自己的blog建站时间
+    today=new Date();
+    timeold=(today.getTime()-BirthDay.getTime());
+    sectimeold=timeold/1000
+    secondsold=Math.floor(sectimeold);
+    msPerDay=24*60*60*1000
+    e_daysold=timeold/msPerDay
+    daysold=Math.floor(e_daysold);
+    e_hrsold=(e_daysold-daysold)*24;
+    hrsold=setzero(Math.floor(e_hrsold));
+    e_minsold=(e_hrsold-hrsold)*60;
+    minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+    seconds=setzero(Math.floor((e_minsold-minsold)*60));
+    document.getElementById('days').innerHTML="已在此等候你"+daysold+"天"+hrsold+"小时"+minsold+"分"+seconds+"秒";
+}
+function setzero(i){
+    if (i<10)
+    {i="0" + i};
+    return i;
+}
+show_date_time();
+</script>
+
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+  <span class="site-uv" title="总访客量">
+    总访客量：<span id="busuanzi_value_site_uv"></span>
+  </span>
+    <span class="post-meta-divider">|</span>
+  <span class="site-pv" title="总访问量">
+    总访问量：<span id="busuanzi_value_site_pv"></span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+<div>
+<script type="text/javascript">
+document.write(unescape("%3Cspan id='cnzz_stat_icon_1279770196'%3E%3C/span%3E%3Cscript src='https://s4.cnzz.com/z_stat.php%3Fid%3D1279770196%26online%3D1%26show%3Dline' type='text/javascript'%3E%3C/script%3E"));
+</script>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+<script src="//cdn.jsdelivr.net/npm/algoliasearch@4.8.2/dist/algoliasearch-lite.umd.js"></script>
+<script src="//cdn.jsdelivr.net/npm/instantsearch.js@4.8.7/dist/instantsearch.production.min.js"></script><script src="/js/algolia-search.js"></script>
+
+
+
+
+
+
+  
+
+
+<script>
+NexT.utils.loadComments('#valine-comments', () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', () => {
+    new Valine(Object.assign({"enable":true,"appId":"3uGsbMNvxiG0LkbyciDSaxmY-MdYXbMMI","appKey":"1dU1y3SudPaV6pdTET96j5M2","placeholder":"欢迎交流讨论...","avatar":"mm","meta":["nick","mail","link"],"pageSize":10,"lang":"zh-cn","visitor":true,"comment_count":true,"recordIP":false,"serverURLs":null,"enableQQ":false,"requiredFields":[]}, {
+      el: '#valine-comments',
+      path: "/2021/06/07/afl++/",
+      serverURLs: "https://3ugsbmnv.api.lncldglobal.com"
+    }));
+  }, window.Valine);
+});
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7}});</script></body>
+</html>
